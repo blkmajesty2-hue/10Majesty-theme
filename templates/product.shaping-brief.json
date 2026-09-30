@@ -562,7 +562,47 @@
     },
     "reviews": {
       "type": "testimonials",
-      "settings": {}
+      "blocks": {
+        "review_gB3JhP": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2026-09-30_at_12.49.21_PM.png",
+            "name": "Customer",
+            "rating": 5,
+            "text": "",
+            "verified": false
+          }
+        },
+        "review_DxnEmn": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2026-09-30_at_12.49.34_PM.png",
+            "name": "Customer",
+            "rating": 5,
+            "text": "",
+            "verified": false
+          }
+        },
+        "review_mzbx6k": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2026-09-30_at_12.49.47_PM.png",
+            "name": "Customer",
+            "rating": 5,
+            "text": "",
+            "verified": false
+          }
+        }
+      },
+      "block_order": [
+        "review_gB3JhP",
+        "review_DxnEmn",
+        "review_mzbx6k"
+      ],
+      "settings": {
+        "eyebrow": "Reviews",
+        "heading": "Customer experiences."
+      }
     },
     "faq": {
       "type": "faq",
