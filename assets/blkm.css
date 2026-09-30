@@ -832,3 +832,12 @@ dialog.cart-drawer[open]{display:flex;animation:drawer-in .28s ease-out}
 .circles__img img{width:100%;height:100%;object-fit:cover}
 .circles figcaption{font-size:clamp(18px,1.8vw,24px);font-weight:700;line-height:1.2;max-width:280px}
 @media(max-width:760px){.circles{padding:48px 20px}.circles h2{margin-bottom:30px}.circles__grid{gap:28px 18px}.circles__item{width:calc(50% - 9px)}.circles__img{border-width:3px}.circles figcaption{font-size:15px}}
+
+/* ---------- Review photos ---------- */
+.review-photos{display:flex;gap:14px;overflow-x:auto;padding-bottom:12px;margin-bottom:22px;scrollbar-width:thin}
+.review-photo{flex:0 0 200px;margin:0;border-radius:14px;overflow:hidden;background:#fff;border:1px solid #ddd}
+.review-photo img{width:100%;aspect-ratio:1;object-fit:cover}
+.review-photo figcaption{padding:8px 12px;font-size:13px;font-weight:600}
+.review__pics{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.review__pics img{width:100%;aspect-ratio:1;object-fit:cover}
+@media(max-width:760px){.review-photo{flex-basis:150px}}
