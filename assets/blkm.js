@@ -90,6 +90,10 @@
   const isProtection = item => protectionId && item.variant_id === protectionId;
   function renderBag(cart) {
     renderCount(cart);
+    // Included mode: protection is free, so a paid protection line (left over from optional
+    // mode or added elsewhere) is removed and never charged.
+    const paidProtection = cart.items.find(isProtection);
+    if (paidProtection && config.protectionMode === 'included') { changeLine(paidProtection.key, 0); return; }
     if (!bag) return;
     const products = cart.items.filter(i => !isProtection(i));
     const protectionLine = cart.items.find(isProtection);
@@ -247,7 +251,7 @@
     total.textContent = formatMoney(cart.total_price) + (config.currency ? ' ' + config.currency : '');
     actions.hidden = false;
   }
-  if (bag && protectionId) {
+  if (bag && protectionId && config.protectionMode === 'optional') {
     const toggle = $('[data-protection-toggle]', bag);
     if (toggle) toggle.addEventListener('change', async () => {
       toggle.disabled = true;
@@ -603,4 +607,6 @@
 
   // Keep the header count in sync when the page is restored from the back/forward cache.
   window.addEventListener('pageshow', e => { if (e.persisted) refreshCart(); });
+  // Clear any paid protection line on load so it is never charged while protection is included.
+  if (config.protectionMode === 'included' && protectionId) refreshCart();
 })();

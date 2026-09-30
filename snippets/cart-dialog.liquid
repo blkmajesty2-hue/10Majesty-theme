@@ -5,7 +5,8 @@
     moneyFormat: {{ shop.money_format | json }},
     currency: {{ cart.currency.iso_code | json }},
     freeShipping: {{ free_ship_cents | default: 0 }},
-    protectionVariant: {% if settings.protection_mode == 'optional' and settings.protection_product != blank %}{{ settings.protection_product.selected_or_first_available_variant.id }}{% else %}null{% endif %},
+    protectionMode: {{ settings.protection_mode | json }},
+    protectionVariant: {% if settings.protection_mode != 'off' and settings.protection_product != blank %}{{ settings.protection_product.selected_or_first_available_variant.id }}{% else %}null{% endif %},
     strings: {
       addToCart: {{ 'products.add_to_cart' | t | json }},
       soldOut: {{ 'products.sold_out' | t | json }},
