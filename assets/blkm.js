@@ -80,21 +80,32 @@
     return res.json();
   }
   function renderCount(cart) {
-    $$('[data-cart-count]').forEach(el => { el.textContent = cart.item_count; });
+    const pid = Number(config.protectionVariant) || null;
+    const count = cart.items.reduce((a, i) => a + (pid && i.variant_id === pid ? 0 : i.quantity), 0);
+    $$('[data-cart-count]').forEach(el => { el.textContent = count; });
   }
+  const protectionId = Number(config.protectionVariant) || null;
+  const isProtection = item => protectionId && item.variant_id === protectionId;
   function renderBag(cart) {
     renderCount(cart);
     if (!bag) return;
+    const products = cart.items.filter(i => !isProtection(i));
+    const protectionLine = cart.items.find(isProtection);
+    // Opt-in only: if the shopper removed every product, drop the protection too.
+    if (protectionLine && !products.length) { changeLine(protectionLine.key, 0); return; }
+    const toggle = $('[data-protection-toggle]', bag);
+    if (toggle) { toggle.checked = !!protectionLine; toggle.disabled = false; }
+    const productCount = products.reduce((a, i) => a + i.quantity, 0);
     const list = $('#bag-items', bag);
     const total = $('#bag-total', bag);
     const actions = $('.cart-actions', bag);
     const cols = $('[data-cart-cols]', bag);
     const countLabel = $('[data-cart-count-label]', bag);
     const ship = $('[data-free-ship]', bag);
-    if (countLabel) countLabel.textContent = cart.item_count ? `(${cart.item_count} ${cart.item_count === 1 ? (t.item || 'item') : (t.items || 'items')})` : '';
+    if (countLabel) countLabel.textContent = productCount ? `(${productCount} ${productCount === 1 ? (t.item || 'item') : (t.items || 'items')})` : '';
     if (ship) {
       const goal = Number(config.freeShipping) || 0;
-      ship.hidden = !goal || !cart.item_count;
+      ship.hidden = !goal || !productCount;
       const left = goal - cart.total_price;
       const text = $('p', ship);
       if (left > 0) {
@@ -108,7 +119,7 @@
       $('.cart-drawer__bar span', ship).style.width = Math.min(100, goal ? cart.total_price / goal * 100 : 0) + '%';
     }
     list.replaceChildren();
-    if (!cart.item_count) {
+    if (!productCount) {
       const p = document.createElement('p');
       p.className = 'empty-bag';
       p.textContent = t.empty || 'Your cart is empty.';
@@ -118,7 +129,7 @@
       return;
     }
     if (cols) cols.hidden = false;
-    cart.items.forEach(item => {
+    products.forEach(item => {
       const line = document.createElement('div');
       line.className = 'drawer-line';
       const media = document.createElement('a');
@@ -188,6 +199,24 @@
     });
     total.textContent = formatMoney(cart.total_price) + (config.currency ? ' ' + config.currency : '');
     actions.hidden = false;
+  }
+  if (bag && protectionId) {
+    const toggle = $('[data-protection-toggle]', bag);
+    if (toggle) toggle.addEventListener('change', async () => {
+      toggle.disabled = true;
+      try {
+        const cart = await fetchCart();
+        const line = cart.items.find(isProtection);
+        if (toggle.checked && !line) {
+          await fetch(root + 'cart/add.js', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ items: [{ id: protectionId, quantity: 1 }] }) });
+          await refreshCart();
+        } else if (!toggle.checked && line) {
+          await changeLine(line.key, 0);
+        } else {
+          renderBag(cart);
+        }
+      } catch (e) { toggle.disabled = false; }
+    });
   }
   async function refreshCart() {
     try { renderBag(await fetchCart()); } catch (e) { /* offline or blocked: leave server-rendered state */ }

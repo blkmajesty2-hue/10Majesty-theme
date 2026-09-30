@@ -76,5 +76,28 @@
         "label": "Facebook link"
       }
     ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "product",
+        "id": "protection_product",
+        "label": "Shipping protection product",
+        "info": "Shows an opt-in toggle in the cart that adds this product. Leave empty to hide."
+      },
+      {
+        "type": "text",
+        "id": "protection_title",
+        "label": "Toggle title",
+        "default": "Shipping Protection"
+      },
+      {
+        "type": "text",
+        "id": "protection_text",
+        "label": "Toggle text",
+        "default": "Get a full refund if the order is lost or damaged in transit."
+      }
+    ]
   }
 ]
