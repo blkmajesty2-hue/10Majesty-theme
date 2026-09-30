@@ -18,3 +18,6 @@ $$('.variant-rows').forEach(container=>{for(let i=0;i<Number(container.dataset.c
 $$('input[name=bundle]').forEach(r=>r.onchange=()=>{$$('.bundle').forEach(x=>x.classList.toggle('selected',x.contains(r)));$('#add-bundle').textContent='Add bundle to bag — '+euro(Number(r.dataset.price))});
 if($('#add-bundle'))$('#add-bundle').onclick=()=>{const r=$('input[name=bundle]:checked');const variants=[...r.closest('.bundle').querySelectorAll('.variant-row')].map(d=>({size:d.querySelector('[data-field=size]').value,color:d.querySelector('[data-field=color]').value}));cart.push({title:`${r.value}-brief bundle`,qty:Number(r.value),price:Number(r.dataset.price),variants});save();renderCart();$('#bag').showModal();$('#product-status').textContent='Your selected bundle was added to the demo bag.'};
 if($('.sticky-buy')&&$('#buy')){const observer=new IntersectionObserver(entries=>{$('.sticky-buy').classList.toggle('visible',!entries[0].isIntersecting&&window.scrollY>700)},{threshold:0});observer.observe($('#buy'))}
+// Show a clean empty box (not a broken-image icon) until an image file is added to assets/.
+const hideBroken=img=>{img.style.visibility='hidden'};
+$$('img').forEach(img=>{if(img.complete&&!img.naturalWidth&&img.src)hideBroken(img);img.addEventListener('error',()=>hideBroken(img));img.addEventListener('load',()=>{img.style.visibility=''})});
