@@ -88,60 +88,105 @@
     const list = $('#bag-items', bag);
     const total = $('#bag-total', bag);
     const actions = $('.cart-actions', bag);
+    const cols = $('[data-cart-cols]', bag);
+    const countLabel = $('[data-cart-count-label]', bag);
+    const ship = $('[data-free-ship]', bag);
+    if (countLabel) countLabel.textContent = cart.item_count ? `(${cart.item_count} ${cart.item_count === 1 ? (t.item || 'item') : (t.items || 'items')})` : '';
+    if (ship) {
+      const goal = Number(config.freeShipping) || 0;
+      ship.hidden = !goal || !cart.item_count;
+      const left = goal - cart.total_price;
+      const text = $('p', ship);
+      if (left > 0) {
+        const parts = (t.freeShipRemaining || 'Only [amount] away from free shipping.').split('[amount]');
+        const b = document.createElement('b');
+        b.textContent = formatMoney(left);
+        text.replaceChildren(parts[0], b, parts[1] || '');
+      } else {
+        text.textContent = t.freeShipReached || "You've unlocked free shipping!";
+      }
+      $('.cart-drawer__bar span', ship).style.width = Math.min(100, goal ? cart.total_price / goal * 100 : 0) + '%';
+    }
     list.replaceChildren();
     if (!cart.item_count) {
       const p = document.createElement('p');
       p.className = 'empty-bag';
-      p.textContent = t.empty || 'Your bag is empty.';
+      p.textContent = t.empty || 'Your cart is empty.';
       list.append(p);
-      total.textContent = '';
+      if (cols) cols.hidden = true;
       actions.hidden = true;
       return;
     }
+    if (cols) cols.hidden = false;
     cart.items.forEach(item => {
       const line = document.createElement('div');
-      line.className = 'cart-line';
-      const img = document.createElement('img');
-      img.alt = item.product_title;
-      img.width = 70; img.height = 70;
-      if (item.image) img.src = item.image.replace(/(\.[a-z]+)(\?|$)/i, '_140x140_crop_center$1$2');
+      line.className = 'drawer-line';
+      const media = document.createElement('a');
+      media.href = item.url;
+      media.className = 'drawer-line__media';
+      if (item.image) {
+        const img = document.createElement('img');
+        img.src = item.image + (item.image.includes('?') ? '&' : '?') + 'width=260';
+        img.alt = item.product_title;
+        img.width = 100; img.height = 125;
+        media.append(img);
+      }
       const info = document.createElement('div');
+      info.className = 'drawer-line__info';
       const title = document.createElement('a');
       title.href = item.url;
-      title.innerHTML = '<b></b>';
-      title.firstChild.textContent = item.product_title;
+      title.className = 'drawer-line__title';
+      title.textContent = item.product_title;
       info.append(title);
-      if (!item.product_has_only_default_variant && item.variant_title) {
-        const meta = document.createElement('p');
-        meta.className = 'meta';
-        meta.textContent = item.variant_title;
-        info.append(meta);
+      if (!item.product_has_only_default_variant) {
+        (item.options_with_values || []).forEach(o => {
+          const meta = document.createElement('p');
+          meta.className = 'drawer-line__meta';
+          meta.textContent = `${o.name}: ${o.value}`;
+          info.append(meta);
+        });
       }
-      const qty = document.createElement('input');
-      qty.type = 'number'; qty.min = '0'; qty.value = item.quantity;
-      qty.setAttribute('aria-label', (t.quantity || 'Quantity') + ' — ' + item.product_title);
-      qty.addEventListener('change', () => changeLine(item.key, Math.max(0, parseInt(qty.value, 10) || 0)));
-      const remove = document.createElement('button');
-      remove.type = 'button'; remove.className = 'remove';
-      remove.textContent = t.remove || 'Remove';
-      remove.addEventListener('click', () => changeLine(item.key, 0));
+      (item.line_level_discount_allocations || []).forEach(d => {
+        const meta = document.createElement('p');
+        meta.className = 'drawer-line__discount';
+        meta.textContent = `${d.discount_application.title} (−${formatMoney(d.amount)})`;
+        info.append(meta);
+      });
       const controls = document.createElement('div');
-      controls.append(qty, document.createElement('br'), remove);
+      controls.className = 'drawer-line__controls';
+      const stepper = document.createElement('div');
+      stepper.className = 'qty-stepper';
+      const minus = document.createElement('button');
+      minus.type = 'button'; minus.textContent = '−';
+      minus.setAttribute('aria-label', 'Decrease quantity');
+      minus.addEventListener('click', () => changeLine(item.key, Math.max(0, item.quantity - 1)));
+      const qty = document.createElement('span');
+      qty.textContent = item.quantity;
+      qty.setAttribute('aria-label', (t.quantity || 'Quantity') + ' ' + item.quantity);
+      const plus = document.createElement('button');
+      plus.type = 'button'; plus.textContent = '+';
+      plus.setAttribute('aria-label', 'Increase quantity');
+      plus.addEventListener('click', () => changeLine(item.key, item.quantity + 1));
+      stepper.append(minus, qty, plus);
+      const remove = document.createElement('button');
+      remove.type = 'button'; remove.className = 'drawer-line__remove';
+      remove.setAttribute('aria-label', (t.remove || 'Remove') + ' ' + item.product_title);
+      remove.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg>';
+      remove.addEventListener('click', () => changeLine(item.key, 0));
+      controls.append(stepper, remove);
       info.append(controls);
       const price = document.createElement('div');
-      price.className = 'line-price';
+      price.className = 'drawer-line__price';
       if (item.original_line_price > item.final_line_price) {
         const s = document.createElement('s');
         s.textContent = formatMoney(item.original_line_price);
         price.append(s);
       }
       price.append(formatMoney(item.final_line_price));
-      line.append(img, info, price);
+      line.append(media, info, price);
       list.append(line);
     });
-    let text = (t.subtotal || 'Subtotal') + ' ' + formatMoney(cart.total_price);
-    if (cart.total_discount > 0) text = (t.discounts || 'Discounts') + ' −' + formatMoney(cart.total_discount) + ' · ' + text;
-    total.textContent = text;
+    total.textContent = formatMoney(cart.total_price) + (config.currency ? ' ' + config.currency : '');
     actions.hidden = false;
   }
   async function refreshCart() {

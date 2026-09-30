@@ -47,6 +47,13 @@
         "id": "cart_note",
         "label": "Cart note",
         "default": "Taxes and shipping are calculated at checkout."
+      },
+      {
+        "type": "number",
+        "id": "free_shipping_threshold",
+        "label": "Free shipping from (store currency)",
+        "info": "Shows a progress bar in the cart. Use your real free-shipping minimum from Settings → Shipping. Set 0 to hide.",
+        "default": 135
       }
     ]
   },

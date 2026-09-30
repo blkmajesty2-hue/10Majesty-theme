@@ -4,7 +4,10 @@
     "search": "Search",
     "continue_shopping": "Continue shopping",
     "view_all": "View all",
-    "pagination": { "previous": "Previous", "next": "Next" },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next"
+    },
     "password": {
       "enter": "Enter using password",
       "password": "Password",
@@ -31,14 +34,22 @@
     "combination_unavailable": "One or more selected combinations are unavailable."
   },
   "cart": {
-    "title": "Your bag",
-    "empty": "Your bag is empty.",
+    "title": "Your cart",
+    "empty": "Your cart is empty.",
     "remove": "Remove",
     "subtotal": "Subtotal",
-    "checkout": "Checkout",
+    "checkout": "Check out",
     "note": "Order note",
     "quantity": "Quantity",
-    "discounts": "Discounts"
+    "discounts": "Discounts",
+    "item": "item",
+    "items": "items",
+    "product": "Product",
+    "total": "Total",
+    "estimated_total": "Estimated total",
+    "taxes_note": "Taxes and shipping calculated at checkout",
+    "free_shipping_remaining": "Only [amount] away from free shipping.",
+    "free_shipping_reached": "You've unlocked free shipping!"
   },
   "search": {
     "title": "Search",

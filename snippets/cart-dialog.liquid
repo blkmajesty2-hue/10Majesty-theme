@@ -1,7 +1,10 @@
 {%- comment -%} Cart drawer, filled from the live cart. Also passes money format and strings to blkm.js. {%- endcomment -%}
+{%- assign free_ship_cents = settings.free_shipping_threshold | times: 100 | round -%}
 <script>
   window.blkm = {
     moneyFormat: {{ shop.money_format | json }},
+    currency: {{ cart.currency.iso_code | json }},
+    freeShipping: {{ free_ship_cents | default: 0 }},
     strings: {
       addToCart: {{ 'products.add_to_cart' | t | json }},
       soldOut: {{ 'products.sold_out' | t | json }},
@@ -14,26 +17,34 @@
       remove: {{ 'cart.remove' | t | json }},
       subtotal: {{ 'cart.subtotal' | t | json }},
       discounts: {{ 'cart.discounts' | t | json }},
-      quantity: {{ 'cart.quantity' | t | json }}
+      quantity: {{ 'cart.quantity' | t | json }},
+      item: {{ 'cart.item' | t | json }},
+      items: {{ 'cart.items' | t | json }},
+      freeShipRemaining: {{ 'cart.free_shipping_remaining' | t | json }},
+      freeShipReached: {{ 'cart.free_shipping_reached' | t | json }}
     }
   };
 </script>
-<dialog id="bag" aria-labelledby="bag-title">
-  <button class="close" aria-label="{{ 'general.close' | t }}">×</button>
-  <h2 id="bag-title">{{ 'cart.title' | t }}</h2>
-  <div id="bag-items">
-    {%- if cart.item_count == 0 -%}
-      <p class="empty-bag">{{ 'cart.empty' | t }}</p>
-    {%- endif -%}
+<dialog id="bag" class="cart-drawer" aria-labelledby="bag-title">
+  <div class="cart-drawer__head">
+    <h2 id="bag-title">{{ 'cart.title' | t }} <span class="cart-drawer__count" data-cart-count-label></span></h2>
+    <button class="close" aria-label="{{ 'general.close' | t }}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4l16 16M20 4L4 20"/></svg></button>
   </div>
-  <p class="total" id="bag-total">
-    {%- if cart.item_count > 0 %}{{ 'cart.subtotal' | t }} {{ cart.total_price | money }}{% endif -%}
-  </p>
-  <div class="cart-actions"{% if cart.item_count == 0 %} hidden{% endif %}>
-    {%- if settings.cart_note != blank -%}<p class="muted center-note">{{ settings.cart_note }}</p>{%- endif -%}
+  {%- if free_ship_cents > 0 -%}
+    <div class="cart-drawer__ship" data-free-ship hidden>
+      <p></p>
+      <div class="cart-drawer__bar"><span></span></div>
+    </div>
+  {%- endif -%}
+  <div class="cart-drawer__cols" data-cart-cols hidden><span>{{ 'cart.product' | t }}</span><span>{{ 'cart.total' | t }}</span></div>
+  <div id="bag-items" class="cart-drawer__items">
+    {%- if cart.item_count == 0 -%}<p class="empty-bag">{{ 'cart.empty' | t }}</p>{%- endif -%}
+  </div>
+  <div class="cart-drawer__foot cart-actions"{% if cart.item_count == 0 %} hidden{% endif %}>
+    <div class="cart-drawer__total"><span>{{ 'cart.estimated_total' | t }}</span><span id="bag-total">{{ cart.total_price | money_with_currency }}</span></div>
+    <p class="cart-drawer__note">{{ 'cart.taxes_note' | t }}</p>
     <form action="{{ routes.cart_url }}" method="post">
-      <button class="primary" type="submit" name="checkout">{{ 'cart.checkout' | t }}</button>
+      <button class="cart-drawer__checkout" type="submit" name="checkout">{{ 'cart.checkout' | t }}</button>
     </form>
-    <a class="outline" href="{{ routes.cart_url }}">{{ 'cart.title' | t }}</a>
   </div>
 </dialog>
