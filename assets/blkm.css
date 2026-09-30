@@ -822,3 +822,13 @@ dialog.cart-drawer[open]{display:flex;animation:drawer-in .28s ease-out}
 @media(max-width:760px){.c3d{padding:50px 0 48px}.c3d__stage{height:250px;perspective:900px}.c3d__ring{width:160px;height:160px;margin:-80px 0 0 -80px}.c3d__card{border-radius:14px}}
 .drawer-line__bundle{margin:0 0 8px;font-size:13px;font-weight:700;color:#000;letter-spacing:.02em}
 .film-item{flex-shrink:0;display:block}.film-item img{width:185px;height:185px;object-fit:cover;border-radius:10px}@media(max-width:760px){.film-item img{width:138px;height:138px}}
+
+/* ---------- Circle features ---------- */
+.circles{padding:70px 5%;background:#fff;text-align:center}
+.circles h2{font-size:clamp(26px,3vw,40px);line-height:1.2;margin:0 auto 44px;max-width:820px}
+.circles__grid{display:flex;justify-content:center;flex-wrap:wrap;gap:40px 90px}
+.circles__item{margin:0;width:min(300px,40vw);display:grid;justify-items:center;gap:18px}
+.circles__img{width:100%;aspect-ratio:1;border-radius:50%;overflow:hidden;border:4px solid var(--circle-border,#000);background:#f3f3f3}
+.circles__img img{width:100%;height:100%;object-fit:cover}
+.circles figcaption{font-size:clamp(18px,1.8vw,24px);font-weight:700;line-height:1.2;max-width:280px}
+@media(max-width:760px){.circles{padding:48px 20px}.circles h2{margin-bottom:30px}.circles__grid{gap:28px 18px}.circles__item{width:calc(50% - 9px)}.circles__img{border-width:3px}.circles figcaption{font-size:15px}}
