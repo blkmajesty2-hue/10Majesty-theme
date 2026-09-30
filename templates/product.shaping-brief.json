@@ -28,7 +28,7 @@
           "type": "benefit",
           "settings": {
             "title": "Sizes S–6XL",
-            "text": "mix sizes and colors in any bundle."
+            "text": "a fit for every body."
           }
         },
         "bundle2": {
@@ -37,8 +37,8 @@
             "quantity": 2,
             "title": "Buy 1, get 1 free",
             "subtitle": "2 briefs",
-            "price_label": "$34.90",
-            "per_label": "$17.45 / brief",
+            "price_label": "$39.99",
+            "per_label": "$20.00 / brief",
             "badge": "",
             "selected": false
           }
@@ -49,8 +49,8 @@
             "quantity": 4,
             "title": "Buy 2, get 2 free",
             "subtitle": "4 briefs",
-            "price_label": "$39.90",
-            "per_label": "$9.98 / brief",
+            "price_label": "$79.98",
+            "per_label": "$20.00 / brief",
             "badge": "BEST OFFER",
             "selected": true
           }
@@ -61,8 +61,8 @@
             "quantity": 6,
             "title": "Buy 3, get 3 free",
             "subtitle": "6 briefs",
-            "price_label": "$54.90",
-            "per_label": "$9.15 / brief",
+            "price_label": "$119.97",
+            "per_label": "$20.00 / brief",
             "badge": "BEST VALUE",
             "selected": false
           }
@@ -94,7 +94,7 @@
         "c2"
       ],
       "settings": {
-        "offer_price": "$39.90",
+        "offer_price": "$79.98",
         "lead": "A smooth foundation, with a high waist and X-shaped bands designed to wrap around the midsection.",
         "title_override": "High-Waist\nShaping Briefs"
       }

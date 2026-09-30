@@ -283,15 +283,20 @@
     }));
     addButton.addEventListener('click', async () => {
       const chosen = $('input[type=radio]:checked', section);
-      const rows = $$('.variant-row', chosen.closest('.bundle'));
-      if (!rows.every(validate)) {
+      const bundle = chosen.closest('.bundle');
+      const rows = $$('.variant-row', bundle);
+      if (!rows.length) {
+        const only = product.variants.find(v => v.available) || product.variants[0];
+        rows.fake = [{ id: only.id, quantity: Number(bundle.dataset.quantity || chosen.value) }];
+      }
+      if (rows.length && !rows.every(validate)) {
         status.textContent = t.comboUnavailable || 'One or more selected combinations are unavailable.';
         status.classList.add('error');
         return;
       }
       const counts = new Map();
       rows.forEach(row => { const id = rowVariant(row).id; counts.set(id, (counts.get(id) || 0) + 1); });
-      const items = [...counts].map(([id, quantity]) => ({ id, quantity, properties: { _bundle: chosen.value + '-pack' } }));
+      const items = (rows.fake || [...counts].map(([id, quantity]) => ({ id, quantity }))).map(i => ({ ...i, properties: { _bundle: chosen.value + '-pack' } }));
       const label = addButton.textContent;
       addButton.disabled = true;
       addButton.textContent = t.adding || 'Adding…';

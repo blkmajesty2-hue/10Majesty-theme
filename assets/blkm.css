@@ -642,3 +642,8 @@ nav.main-navigation a:hover{text-decoration:underline}
 .buy-panel h1{font-size:clamp(26px,2.4vw,34px);line-height:1.12;letter-spacing:-.03em;margin:0 0 12px}
 @media(max-width:900px){.buy-panel h1{font-size:28px}}
 @media(max-width:760px){.buy-panel h1{font-size:24px;letter-spacing:-.02em}}
+/* Two-line product title like the reference */
+.buy-panel h1{font-size:clamp(28px,2.8vw,40px);line-height:1.08}
+@media(max-width:900px){.buy-panel h1{font-size:32px}}
+@media(max-width:760px){.buy-panel h1{font-size:30px;letter-spacing:-.03em}}
+.rating{margin-bottom:18px}
