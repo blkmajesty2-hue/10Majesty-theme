@@ -10,7 +10,7 @@
       </div>
     </div>
     <div>
-      <h3>{{ section.settings.menu.title | default: 'Useful links' }}</h3>
+      <h3>{{ section.settings.links_heading | escape }}</h3>
       <ul>
         {%- if section.settings.show_contact -%}<li><a href="{{ section.settings.contact_link | default: '/pages/contact' }}">Contact us</a></li>{%- endif -%}
         {%- for link in section.settings.menu.links -%}
@@ -57,6 +57,7 @@
   "class": "section-footer",
   "settings": [
     { "type": "text", "id": "tagline", "label": "Tagline", "default": "Shapewear. Support. Everyday confidence." },
+    { "type": "text", "id": "links_heading", "label": "Links heading", "default": "Useful links" },
     { "type": "link_list", "id": "menu", "label": "Menu", "default": "footer" },
     { "type": "checkbox", "id": "show_contact", "label": "Show \"Contact us\" link", "default": true },
     { "type": "url", "id": "contact_link", "label": "Contact page", "info": "Defaults to /pages/contact." },

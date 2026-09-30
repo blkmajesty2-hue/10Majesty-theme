@@ -662,3 +662,9 @@ nav.main-navigation a,nav.main-navigation summary{font-weight:700}
   nav.main-navigation a,nav.main-navigation summary{font-size:12.2px}
 }
 .cart-button{display:inline-flex;align-items:center}
+
+/* Percentage gaps become row gaps when these grids stack on phones and overflow into the next section. */
+.faq{gap:0;column-gap:7%;row-gap:20px}
+.split{gap:0;column-gap:6%;row-gap:30px}
+.home-hero{row-gap:20px}
+.contact-grid{row-gap:25px}
