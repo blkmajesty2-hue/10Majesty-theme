@@ -106,7 +106,8 @@
         "offer_price": "$39.90",
         "lead": "A smooth foundation, with a high waist and X-shaped bands designed to wrap around the midsection.",
         "title_override": "High-Waist\nShaping Briefs",
-        "size_chart": "shopify://shop_images/blkm-size-guide.webp"
+        "size_chart": "shopify://shop_images/blkm-size-guide.webp",
+        "offer_text": ""
       }
     },
     "strip": {

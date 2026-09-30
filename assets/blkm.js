@@ -347,6 +347,29 @@
     });
   });
 
+  // ---------- Countdown to a real offer end date ----------
+  $$('[data-countdown]').forEach(box => {
+    const raw = box.dataset.countdown.trim();
+    const end = new Date(/T/.test(raw) ? raw : raw.replace(' ', 'T'));
+    if (isNaN(end)) return;
+    const pad = n => String(n).padStart(2, '0');
+    const days = $('[data-days]', box);
+    const tick = () => {
+      const left = end - Date.now();
+      if (left <= 0) { box.hidden = true; clearInterval(timer); return; }
+      const s = Math.floor(left / 1000);
+      const d = Math.floor(s / 86400);
+      days.hidden = d === 0;
+      $('b', days).textContent = pad(d);
+      $('[data-h]', box).textContent = pad(Math.floor(s % 86400 / 3600));
+      $('[data-m]', box).textContent = pad(Math.floor(s % 3600 / 60));
+      $('[data-s]', box).textContent = pad(s % 60);
+      box.hidden = false;
+    };
+    const timer = setInterval(tick, 1000);
+    tick();
+  });
+
   // ---------- Sticky buy bar ----------
   const sticky = $('.sticky-buy');
   const buy = document.getElementById('buy');
