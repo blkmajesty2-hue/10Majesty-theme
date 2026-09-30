@@ -12,7 +12,7 @@
     "cart_note": "Taxes and shipping are calculated at checkout.",
     "type_body_font": "poppins_n4",
     "font_style": "helvetica",
-    "free_shipping_threshold": 135,
+    "free_shipping_threshold": 75,
     "protection_product": "shipping-protection",
     "protection_mode": "included"
   },

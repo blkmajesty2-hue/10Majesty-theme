@@ -53,7 +53,7 @@
         "id": "free_shipping_threshold",
         "label": "Free shipping from (store currency)",
         "info": "Shows a progress bar in the cart. Use your real free-shipping minimum from Settings → Shipping. Set 0 to hide.",
-        "default": 135
+        "default": 75
       }
     ]
   },
