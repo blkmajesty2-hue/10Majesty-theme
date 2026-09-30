@@ -284,12 +284,53 @@
       "settings": {
         "image": "shopify://shop_images/blkm-size-guide.webp"
       }
+    },
+    "mechanism": {
+      "type": "mechanism-banner",
+      "settings": {}
+    },
+    "features": {
+      "type": "feature-cards",
+      "blocks": {
+        "c1": {
+          "type": "card",
+          "settings": {
+            "icon": "x",
+            "title": "The X flattens",
+            "text": "Two bands cross over the lower belly and hold it in place from two directions, like two hands resting gently."
+          }
+        },
+        "c2": {
+          "type": "card",
+          "settings": {
+            "icon": "nodes",
+            "title": "Three zones, evenly spread",
+            "text": "The tension is spread over three zones instead of a single elastic: firm on the belly, gentle on the skin."
+          }
+        },
+        "c3": {
+          "type": "card",
+          "settings": {
+            "icon": "wind",
+            "title": "And you breathe",
+            "text": "No concentrated pressure: no folds, no marks, no shortness of breath. All day long."
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "settings": {}
     }
   },
   "order": [
     "main",
     "strip",
     "size",
+    "mechanism",
+    "features",
     "details",
     "closer",
     "black",

@@ -672,3 +672,32 @@ nav.main-navigation a,nav.main-navigation summary{font-weight:700}
 /* Chosen-color thumbnail on each bundle row */
 .variant-thumb{display:block;width:34px;height:34px;border-radius:7px;overflow:hidden;border:1px solid #d6d6d6;background:#f3f3f3}
 .variant-thumb img{width:100%;height:100%;object-fit:cover}
+
+/* ---------- Mechanism banner ---------- */
+.mech-banner{background:linear-gradient(180deg,var(--mb-bg1,#fcefe9),var(--mb-bg2,#f3dac9));padding:44px 5% 48px;text-align:center}
+.mech-banner__inner{max-width:860px;margin:auto}
+.mech-banner__eyebrow{color:var(--mb-accent,#bb5189);font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin:0 0 14px}
+.mech-banner h2{font-size:clamp(28px,3.4vw,44px);line-height:1.15;letter-spacing:0;margin:0 0 18px;color:#1a1a1a}
+.serif-heading{font-family:Georgia,'Times New Roman',serif!important;font-weight:700;letter-spacing:.005em!important}
+.mech-banner__text{max-width:620px;margin:0 auto 26px;color:#555;font-size:17px;line-height:1.6;letter-spacing:.02em}
+.pill-button{display:inline-flex;align-items:center;justify-content:center;padding:17px 44px;border-radius:999px;background:var(--mb-accent,#bb5189);color:#fff;font-size:17px;font-weight:700;letter-spacing:.04em;box-shadow:0 10px 24px -8px rgba(187,81,137,.55);transition:transform .15s,filter .15s}
+.pill-button:hover{filter:brightness(1.06);transform:translateY(-1px)}
+.mech-banner__rating{margin:22px 0 0;font-size:15px;color:#333;letter-spacing:.03em}
+.gold-stars{color:#f2a51c;letter-spacing:4px;margin-right:4px}
+
+/* ---------- Feature cards ---------- */
+.feature-cards{padding:70px 5%;background:#fff}
+.feature-cards__inner{max-width:1000px;margin:auto;text-align:center}
+.feature-cards h2{font-size:clamp(26px,3vw,38px);line-height:1.2;margin:0 auto 26px;max-width:780px;color:#1a1a1a}
+.feature-cards__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.feature-card{background:var(--fc-card,#fbf0ec);border-radius:16px;padding:30px 26px 34px}
+.feature-card__icon svg{width:44px;height:44px;fill:none;stroke:var(--fc-accent,#bb5189);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.feature-card h3{font-size:19px;font-weight:700;margin:16px 0 12px;letter-spacing:.02em;line-height:1.5}
+.feature-card p{margin:0;color:#555;font-size:15px;line-height:1.7;letter-spacing:.02em}
+@media(max-width:760px){
+  .mech-banner{padding:36px 20px 40px}
+  .mech-banner__text{font-size:15px}
+  .pill-button{padding:15px 28px;font-size:15px}
+  .feature-cards{padding:48px 20px}
+  .feature-cards__grid{grid-template-columns:1fr}
+}

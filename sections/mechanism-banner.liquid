@@ -1,0 +1,50 @@
+{%- liquid
+  assign rating_value = blank
+  if product
+    assign rating_value = product.metafields.reviews.rating.value.rating
+    assign rating_count = product.metafields.reviews.rating_count.value
+  endif
+  assign rating_text = ''
+  if rating_value != blank
+    assign rating_value = rating_value | round: 1
+    assign rating_text = rating_value | append: '/5 · ' | append: rating_count | append: ' ' | append: section.settings.reviews_word
+  elsif section.settings.rating_text != blank
+    assign rating_text = section.settings.rating_text
+  endif
+-%}
+<section class="mech-banner" style="--mb-bg1: {{ section.settings.bg_top }}; --mb-bg2: {{ section.settings.bg_bottom }}; --mb-accent: {{ section.settings.accent }};">
+  <div class="mech-banner__inner">
+    {%- if section.settings.eyebrow != blank -%}<p class="mech-banner__eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+    {%- if section.settings.heading != blank -%}<h2 class="{% if section.settings.serif %}serif-heading{% endif %}">{{ section.settings.heading | escape }}</h2>{%- endif -%}
+    {%- if section.settings.text != blank -%}<p class="mech-banner__text">{{ section.settings.text | escape }}</p>{%- endif -%}
+    {%- if section.settings.button_label != blank -%}
+      <a class="pill-button" href="{{ section.settings.button_link | default: '#buy' }}">{{ section.settings.button_label | escape }}</a>
+    {%- endif -%}
+    {%- if rating_text != blank -%}
+      <p class="mech-banner__rating"><span class="gold-stars" aria-hidden="true">★★★★★</span> <b>{{ rating_text | escape }}</b></p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Mechanism banner",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "THE EXCLUSIVE MECHANISM" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Smooth belly. Redefined waist. In 5 seconds." },
+    { "type": "checkbox", "id": "serif", "label": "Serif heading", "default": true },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "It crosses over your belly and holds it at three points: it smooths without squeezing. And you can breathe." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Try it risk-free for 30 days" },
+    { "type": "url", "id": "button_link", "label": "Button link", "info": "Leave empty to jump to the bundle picker." },
+    { "type": "header", "content": "Rating line" },
+    { "type": "paragraph", "content": "Shows your real rating automatically when a reviews app (Judge.me, Shopify Product Reviews) adds ratings to the product. Otherwise it shows the text below; leave it empty to hide the line." },
+    { "type": "text", "id": "rating_text", "label": "Rating text", "info": "For example: 4.9/5 · 120 verified reviews. Only use your real numbers." },
+    { "type": "text", "id": "reviews_word", "label": "Word after review count", "default": "verified reviews" },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_top", "label": "Background top", "default": "#fcefe9" },
+    { "type": "color", "id": "bg_bottom", "label": "Background bottom", "default": "#f3dac9" },
+    { "type": "color", "id": "accent", "label": "Accent (eyebrow and button)", "default": "#bb5189" }
+  ],
+  "presets": [{ "name": "Mechanism banner" }]
+}
+{% endschema %}

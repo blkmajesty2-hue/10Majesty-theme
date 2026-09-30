@@ -1,0 +1,56 @@
+<section class="feature-cards" style="--fc-card: {{ section.settings.card_bg }}; --fc-accent: {{ section.settings.accent }};">
+  <div class="feature-cards__inner">
+    {%- if section.settings.heading != blank -%}<h2 class="{% if section.settings.serif %}serif-heading{% endif %}">{{ section.settings.heading | escape }}</h2>{%- endif -%}
+    <div class="feature-cards__grid">
+      {%- for block in section.blocks -%}
+        <article class="feature-card" {{ block.shopify_attributes }}>
+          <span class="feature-card__icon">{% render 'icon', name: block.settings.icon %}</span>
+          <h3>{{ block.settings.title | escape }}</h3>
+          <p>{{ block.settings.text | escape }}</p>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Feature cards",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Two crossed bands. Three zones. Zero compression." },
+    { "type": "checkbox", "id": "serif", "label": "Serif heading", "default": true },
+    { "type": "color", "id": "card_bg", "label": "Card background", "default": "#fbf0ec" },
+    { "type": "color", "id": "accent", "label": "Icon color", "default": "#bb5189" }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "limit": 6,
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "default": "x", "options": [
+          { "value": "x", "label": "Cross (X)" },
+          { "value": "nodes", "label": "Three points" },
+          { "value": "wind", "label": "Breath" },
+          { "value": "heart", "label": "Heart" },
+          { "value": "shield", "label": "Shield" },
+          { "value": "leaf", "label": "Leaf" },
+          { "value": "check", "label": "Check" }
+        ] },
+        { "type": "text", "id": "title", "label": "Title", "default": "Feature" },
+        { "type": "textarea", "id": "text", "label": "Text" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Feature cards",
+      "blocks": [
+        { "type": "card", "settings": { "icon": "x", "title": "The X flattens", "text": "Two bands cross over the lower belly and hold it in place from two directions, like two hands resting gently." } },
+        { "type": "card", "settings": { "icon": "nodes", "title": "Three zones, evenly spread", "text": "The tension is spread over three zones instead of a single elastic: firm on the belly, gentle on the skin." } },
+        { "type": "card", "settings": { "icon": "wind", "title": "And you breathe", "text": "No concentrated pressure: no folds, no marks, no shortness of breath. All day long." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
