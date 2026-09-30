@@ -66,7 +66,7 @@
           {%- if is_selected -%}{%- assign selected_label = price_label -%}{%- endif -%}
           <div class="bundle{% if is_selected %} selected{% endif %}" data-quantity="{{ qty }}" {{ block.shopify_attributes }}>
             <label class="bundle-label">
-              <input type="radio" name="bundle-{{ section.id }}" value="{{ qty }}" data-price-label="{{ price_label | strip_html | escape }}"{% if is_selected %} checked{% endif %}>
+              <input type="radio" autocomplete="off" name="bundle-{{ section.id }}" value="{{ qty }}" data-price-label="{{ price_label | strip_html | escape }}"{% if is_selected %} checked{% endif %}>
               <span><b>{{ block.settings.title | escape }}</b><small>{{ block.settings.subtitle | escape }}</small></span>
               <span class="bundle-price">{{ price_label }}{% if block.settings.per_label != blank %}<small>{{ block.settings.per_label | escape }}</small>{% endif %}</span>
               {%- if block.settings.badge != blank -%}<em>{{ block.settings.badge | escape }}</em>{%- endif -%}

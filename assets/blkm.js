@@ -305,10 +305,15 @@
       $$('select', row).forEach(s => s.classList.toggle('unavailable', !v || !v.available));
       return v && v.available;
     }
-    $$('input[type=radio]', section).forEach(r => r.addEventListener('change', () => {
+    const selectBundle = r => {
       $$('.bundle', section).forEach(x => x.classList.toggle('selected', x.contains(r)));
-      addButton.textContent = addButton.dataset.label + ' — ' + r.dataset.priceLabel;
-    }));
+      if (!addButton.disabled) addButton.textContent = addButton.dataset.label + ' — ' + r.dataset.priceLabel;
+    };
+    $$('input[type=radio]', section).forEach(r => r.addEventListener('change', () => selectBundle(r)));
+    // Always open on the bundle marked "Selected by default", even if the browser restored an older choice.
+    const defaultBundle = $$('input[type=radio]', section).find(r => r.defaultChecked);
+    if (defaultBundle) { defaultBundle.checked = true; selectBundle(defaultBundle); }
+    window.addEventListener('pageshow', e => { if (e.persisted && defaultBundle) { defaultBundle.checked = true; selectBundle(defaultBundle); } });
     addButton.addEventListener('click', async () => {
       const chosen = $('input[type=radio]:checked', section);
       const bundle = chosen.closest('.bundle');
