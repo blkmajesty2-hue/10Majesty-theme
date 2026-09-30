@@ -5,17 +5,34 @@
     "announcement": {
       "type": "announcement-bar",
       "blocks": {
-        "a1": { "type": "announcement", "settings": { "text": "FREE SHIPPING" } },
-        "a2": { "type": "announcement", "settings": { "text": "30-DAY MONEY-BACK GUARANTEE" } },
-        "a3": { "type": "announcement", "settings": { "text": "A GIFT WITH EVERY ORDER" } }
+        "a1": {
+          "type": "announcement",
+          "settings": {
+            "text": "FREE SHIPPING"
+          }
+        },
+        "a2": {
+          "type": "announcement",
+          "settings": {
+            "text": "30-DAY MONEY-BACK GUARANTEE"
+          }
+        }
       },
-      "block_order": ["a1", "a2", "a3"],
+      "block_order": [
+        "a1",
+        "a2"
+      ],
       "settings": {}
     },
     "header": {
       "type": "header",
-      "settings": { "menu": "main-menu" }
+      "settings": {
+        "menu": "main-menu"
+      }
     }
   },
-  "order": ["announcement", "header"]
+  "order": [
+    "announcement",
+    "header"
+  ]
 }
