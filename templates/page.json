@@ -10,9 +10,11 @@
 {
   "sections": {
     "main": {
-      "type": "bengkung-guide",
+      "type": "main-page",
       "settings": {}
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }

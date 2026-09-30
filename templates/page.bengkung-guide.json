@@ -11,8 +11,259 @@
   "sections": {
     "main": {
       "type": "bengkung-guide",
-      "settings": {}
+      "blocks": {
+        "quote_1": {
+          "type": "quote",
+          "settings": {
+            "quote": "My youngest is 17, and my stomach still looks the way it did when I left the delivery room. Do I just have to accept it?",
+            "cite": "A question we hear from women every week"
+          }
+        },
+        "text_2": {
+          "type": "text",
+          "settings": {
+            "text": "<p>No. But it helps to understand what is actually going on. Tight shapewear, years of crunches and strict diets tend to focus on the front — while your core wraps all the way around.</p>"
+          }
+        },
+        "heading_3": {
+          "type": "heading",
+          "settings": {
+            "heading": "Ordinary shapewear squeezes the front. Your body goes all the way around."
+          }
+        },
+        "image_4": {
+          "type": "image",
+          "settings": {
+            "fallback_image": "blkm-details-black.webp",
+            "caption": "Support that wraps the front, sides and back"
+          }
+        },
+        "quote_5": {
+          "type": "quote",
+          "settings": {
+            "quote": "I lost every pregnancy pound, but the shape of my stomach was permanently different."
+          }
+        },
+        "quote_6": {
+          "type": "quote",
+          "settings": {
+            "quote": "At 49, I no longer recognized myself in the mirror."
+          }
+        },
+        "text_7": {
+          "type": "text",
+          "settings": {
+            "text": "<p>If either of those sounds familiar, you are far from alone — and it is not about willpower.</p>"
+          }
+        },
+        "heading_8": {
+          "type": "heading",
+          "settings": {
+            "heading": "What nobody told you"
+          }
+        },
+        "text_9": {
+          "type": "text",
+          "settings": {
+            "text": "<p>During pregnancy, the abdominal muscles move apart to make room for the baby. For many women that gap narrows on its own; for others it stays for years. Walking, swimming and yoga are great for your health, but they don't always change how your midsection looks in clothes.</p>"
+          }
+        },
+        "button_10": {
+          "type": "button",
+          "settings": {
+            "label": "DISCOVER BLK_MAJESTY →",
+            "link": "shopify://products/culotte-post-patrum",
+            "note": ""
+          }
+        },
+        "heading_11": {
+          "type": "heading",
+          "settings": {
+            "heading": "Signs many women recognize"
+          }
+        },
+        "text_12": {
+          "type": "text",
+          "settings": {
+            "text": "<p>A stomach that pushes out before breakfast. A ridge that appears when you sit up. Clothes that fall differently even though your weight hasn't changed. A silhouette that looks rounder in the evening than in the morning.</p>"
+          }
+        },
+        "pull_13": {
+          "type": "pull",
+          "settings": {
+            "text": "It isn't your fault.\nNobody explained it."
+          }
+        },
+        "heading_14": {
+          "type": "heading",
+          "settings": {
+            "heading": "The structure behind the silhouette"
+          }
+        },
+        "image_15": {
+          "type": "image",
+          "settings": {
+            "fallback_image": "blkm-closer-look.webp",
+            "caption": "The cross-over front, up close"
+          }
+        },
+        "text_16": {
+          "type": "text",
+          "settings": {
+            "text": "<p>That is why we designed a brief that supports the abdomen gently and evenly — from the front, the sides and the back — instead of flattening one spot and pushing everything else around.</p>"
+          }
+        },
+        "callout_17": {
+          "type": "callout",
+          "settings": {
+            "title": "A simple at-home check",
+            "text": "<p>Lie on your back with your knees bent. Place two fingers just above your navel and gently lift your head. If you feel a gap or see a ridge, it's worth speaking with a doctor or a women's-health physiotherapist — they can tell you what's right for your body.</p>"
+          }
+        },
+        "heading_18": {
+          "type": "heading",
+          "settings": {
+            "heading": "Inspired by the Bengkung wrap"
+          }
+        },
+        "image_19": {
+          "type": "image",
+          "settings": {
+            "fallback_image": "blkm-details-beige.webp",
+            "caption": "High-waist cross-band briefs"
+          }
+        },
+        "text_20": {
+          "type": "text",
+          "settings": {
+            "text": "<p>For generations, women have wrapped the belly after birth with a long cloth band called a <em>bengkung</em>. Our cross-band design borrows that idea — overlapping bands that spread support around the waist — in an everyday high-waist brief: easy to put on, smooth under clothes and comfortable as you move.</p>"
+          }
+        },
+        "heading_21": {
+          "type": "heading",
+          "settings": {
+            "heading": "What you'll notice when you wear it"
+          }
+        },
+        "text_22": {
+          "type": "text",
+          "settings": {
+            "text": "<ul><li><strong>A held-in feeling</strong> across the lower stomach, without a rigid corset.</li><li><strong>A smoother line</strong> under jeans, dresses and fitted tops.</li><li><strong>No rolling down</strong> — the high waist stays in place when you sit and stand.</li><li><strong>Breathable comfort</strong> you can wear from morning to evening.</li></ul><p>It shapes your silhouette while you wear it. It won't change your body permanently — and we won't pretend otherwise.</p>"
+          }
+        },
+        "heading_23": {
+          "type": "heading",
+          "settings": {
+            "heading": "The brief that helps you feel like yourself again"
+          }
+        },
+        "image_24": {
+          "type": "image",
+          "settings": {
+            "fallback_image": "blkm-duo.webp",
+            "caption": "BLK_MAJESTY High-Waist Shaping Briefs"
+          }
+        },
+        "badges_25": {
+          "type": "badges",
+          "settings": {
+            "big_1": "✕",
+            "small_1": "Cross-over X design",
+            "big_2": "All day",
+            "small_2": "Smooth under clothes",
+            "big_3": "S→3XL",
+            "small_3": "7 colors"
+          }
+        },
+        "text_26": {
+          "type": "text",
+          "settings": {
+            "text": "<p>High-waisted support with breathable mesh inserts and a soft gusset. Available in sizes S–3XL and seven colors: black, beige, navy blue, royal blue, plum, fuchsia pink and lilac.</p>"
+          }
+        },
+        "button_27": {
+          "type": "button",
+          "settings": {
+            "label": "TRY BLK_MAJESTY NOW →",
+            "link": "shopify://products/culotte-post-patrum",
+            "note": "Buy 2, get 2 free · 30-day money-back guarantee · Free shipping over $75"
+          }
+        },
+        "image_28": {
+          "type": "image",
+          "settings": {
+            "fallback_image": "blkm-blue.webp",
+            "caption": ""
+          }
+        },
+        "heading_29": {
+          "type": "heading",
+          "settings": {
+            "heading": "If you're still reading, your story isn't finished"
+          }
+        },
+        "pull_30": {
+          "type": "pull",
+          "settings": {
+            "text": "It is not your fault.\nYou are not too late.\nYou deserve the right support."
+          }
+        },
+        "text_31": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Try them at home. If they aren't right for you, our 30-day money-back guarantee has you covered.</p>"
+          }
+        },
+        "button_32": {
+          "type": "button",
+          "settings": {
+            "label": "I WANT TO FEEL LIKE MYSELF AGAIN →",
+            "link": "shopify://products/culotte-post-patrum",
+            "note": "Buy 2, get 2 free · 30-day money-back guarantee"
+          }
+        }
+      },
+      "block_order": [
+        "quote_1",
+        "text_2",
+        "heading_3",
+        "image_4",
+        "quote_5",
+        "quote_6",
+        "text_7",
+        "heading_8",
+        "text_9",
+        "button_10",
+        "heading_11",
+        "text_12",
+        "pull_13",
+        "heading_14",
+        "image_15",
+        "text_16",
+        "callout_17",
+        "heading_18",
+        "image_19",
+        "text_20",
+        "heading_21",
+        "text_22",
+        "heading_23",
+        "image_24",
+        "badges_25",
+        "text_26",
+        "button_27",
+        "image_28",
+        "heading_29",
+        "pull_30",
+        "text_31",
+        "button_32"
+      ],
+      "settings": {
+        "button_link": "shopify://products/culotte-post-patrum",
+        "hero_image": "shopify://shop_images/blkm-hero-banner-people.png"
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
