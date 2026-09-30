@@ -23,6 +23,7 @@
       assign font_600 = body_font | font_modify: 'weight', '600'
       assign font_700 = body_font | font_modify: 'weight', '700'
       assign font_800 = body_font | font_modify: 'weight', '800'
+      assign font_900 = body_font | font_modify: 'weight', '900'
       assign font_italic = body_font | font_modify: 'style', 'italic'
     -%}
     {% style %}
@@ -30,6 +31,7 @@
       {%- if font_600 %}{{ font_600 | font_face: font_display: 'swap' }}{% endif -%}
       {%- if font_700 %}{{ font_700 | font_face: font_display: 'swap' }}{% endif -%}
       {%- if font_800 %}{{ font_800 | font_face: font_display: 'swap' }}{% endif -%}
+      {%- if font_900 %}{{ font_900 | font_face: font_display: 'swap' }}{% endif -%}
       {%- if font_italic %}{{ font_italic | font_face: font_display: 'swap' }}{% endif %}
       :root { --font-body: {{ body_font.family }}, {{ body_font.fallback_families }}; }
     {% endstyle %}

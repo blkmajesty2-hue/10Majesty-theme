@@ -1,5 +1,5 @@
 {%- if section.blocks.size > 0 -%}
-  <div class="announcement" {{ section.shopify_attributes }}>
+  <div class="announcement announcement-bar" {{ section.shopify_attributes }}>
     {%- for block in section.blocks -%}
       <span {{ block.shopify_attributes }}>
         {%- if block.settings.link != blank -%}

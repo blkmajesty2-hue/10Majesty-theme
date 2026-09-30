@@ -1,35 +1,35 @@
-<header>
-  <a class="wordmark" href="{{ routes.root_url }}">
+<header class="site-header">
+  <a class="wordmark" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }} home">
     {%- if section.settings.logo != blank -%}
-      {{ section.settings.logo | image_url: width: 400 | image_tag: width: section.settings.logo_width, alt: shop.name }}
+      {{ section.settings.logo | image_url: width: 600 | image_tag: width: section.settings.logo_width, alt: shop.name }}
     {%- else -%}
       {{ shop.name | upcase }}
     {%- endif -%}
   </a>
   {%- if section.settings.show_menu -%}
-  <nav aria-label="{{ 'accessibility.main_navigation' | t }}">
-    {%- for link in section.settings.menu.links -%}
-      {%- if link.links.size > 0 -%}
-        <details>
-          <summary>{{ link.title | escape }}</summary>
-          <ul>
-            {%- for child in link.links -%}
-              <li><a href="{{ child.url }}">{{ child.title | escape }}</a></li>
-            {%- endfor -%}
-          </ul>
-        </details>
-      {%- else -%}
-        <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a>
-      {%- endif -%}
-    {%- endfor -%}
-  </nav>
+    <nav class="main-navigation" aria-label="{{ 'accessibility.main_navigation' | t }}">
+      {%- for link in section.settings.menu.links -%}
+        {%- if link.links.size > 0 -%}
+          <details>
+            <summary>{{ link.title | escape }}</summary>
+            <ul>
+              {%- for child in link.links -%}
+                <li><a href="{{ child.url }}">{{ child.title | escape }}</a></li>
+              {%- endfor -%}
+            </ul>
+          </details>
+        {%- else -%}
+          <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a>
+        {%- endif -%}
+      {%- endfor -%}
+    </nav>
   {%- endif -%}
   <div class="header-actions">
     {%- if section.settings.show_search -%}<a href="{{ routes.search_url }}">{{ 'general.search' | t }}</a>{%- endif -%}
     {%- if section.settings.show_account and shop.customer_accounts_enabled -%}
       <a href="{{ routes.account_url }}">{% if customer %}{{ customer.first_name | default: 'Account' }}{% else %}Log in{% endif %}</a>
     {%- endif -%}
-    <a class="cart-toggle" href="{{ routes.cart_url }}" data-dialog="bag" aria-label="Open shopping bag">Bag <span data-cart-count>{{ cart.item_count }}</span></a>
+    <a class="cart-button" href="{{ routes.cart_url }}" data-dialog="bag">Bag <span data-cart-count>{{ cart.item_count }}</span></a>
   </div>
 </header>
 
