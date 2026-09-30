@@ -81,21 +81,53 @@
     "name": "Cart",
     "settings": [
       {
+        "type": "select",
+        "id": "protection_mode",
+        "label": "Shipping protection",
+        "default": "included",
+        "options": [
+          {
+            "value": "included",
+            "label": "Included free on every order"
+          },
+          {
+            "value": "optional",
+            "label": "Optional paid add-on (customer turns it on)"
+          },
+          {
+            "value": "off",
+            "label": "Don't show"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "protection_included_title",
+        "label": "Included: title",
+        "default": "Free shipping protection included"
+      },
+      {
+        "type": "text",
+        "id": "protection_included_text",
+        "label": "Included: text",
+        "default": "Lost, stolen or damaged in transit? We'll refund or replace it."
+      },
+      {
         "type": "product",
         "id": "protection_product",
-        "label": "Shipping protection product",
-        "info": "Shows an opt-in toggle in the cart that adds this product. Leave empty to hide."
+        "label": "Optional add-on: protection product",
+        "info": "Only used when shipping protection is an optional paid add-on."
       },
       {
         "type": "text",
         "id": "protection_title",
-        "label": "Toggle title",
+        "label": "Optional add-on: title",
         "default": "Shipping Protection"
       },
       {
         "type": "text",
         "id": "protection_text",
-        "label": "Toggle text",
+        "label": "Optional add-on: text",
         "default": "Get a full refund if the order is lost or damaged in transit."
       }
     ]

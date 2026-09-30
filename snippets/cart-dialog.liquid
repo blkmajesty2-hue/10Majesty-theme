@@ -5,7 +5,7 @@
     moneyFormat: {{ shop.money_format | json }},
     currency: {{ cart.currency.iso_code | json }},
     freeShipping: {{ free_ship_cents | default: 0 }},
-    protectionVariant: {% if settings.protection_product != blank %}{{ settings.protection_product.selected_or_first_available_variant.id }}{% else %}null{% endif %},
+    protectionVariant: {% if settings.protection_mode == 'optional' and settings.protection_product != blank %}{{ settings.protection_product.selected_or_first_available_variant.id }}{% else %}null{% endif %},
     strings: {
       addToCart: {{ 'products.add_to_cart' | t | json }},
       soldOut: {{ 'products.sold_out' | t | json }},
@@ -42,7 +42,13 @@
     {%- if cart.item_count == 0 -%}<p class="empty-bag">{{ 'cart.empty' | t }}</p>{%- endif -%}
   </div>
   <div class="cart-drawer__foot cart-actions"{% if cart.item_count == 0 %} hidden{% endif %}>
-    {%- if settings.protection_product != blank -%}
+    {%- if settings.protection_mode == 'included' -%}
+      <div class="protection protection--included">
+        <svg class="protection__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>
+        <span class="protection__text"><b>{{ settings.protection_included_title | escape }}</b><small>{{ settings.protection_included_text | escape }}</small></span>
+        <span class="protection__check" aria-hidden="true">✓</span>
+      </div>
+    {%- elsif settings.protection_mode == 'optional' and settings.protection_product != blank -%}
       {%- assign pv = settings.protection_product.selected_or_first_available_variant -%}
       <label class="protection">
         <svg class="protection__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>

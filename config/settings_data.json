@@ -13,7 +13,8 @@
     "type_body_font": "poppins_n4",
     "font_style": "helvetica",
     "free_shipping_threshold": 135,
-    "protection_product": "shipping-protection"
+    "protection_product": "shipping-protection",
+    "protection_mode": "included"
   },
   "presets": {
     "Default": {
