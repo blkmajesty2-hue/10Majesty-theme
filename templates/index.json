@@ -63,7 +63,7 @@
     "banner": {
       "type": "hero-banner",
       "settings": {
-        "image": "shopify://shop_images/blkm-hero-banner-1.png",
+        "image": "shopify://shop_images/blkm-hero-banner-people.png",
         "text_side": "left",
         "overlay": 55,
         "text_color": "#0a0a0a",
