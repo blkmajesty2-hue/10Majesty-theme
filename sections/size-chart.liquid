@@ -1,0 +1,28 @@
+{%- if section.settings.image != blank -%}
+  <section class="wrap source-chart">
+    {%- if section.settings.heading != blank -%}<h2 class="center">{{ section.settings.heading | escape }}</h2>{%- endif -%}
+    <button type="button" class="chart-preview" data-dialog="chart-{{ section.id }}" aria-label="Open size guide">
+      {{ section.settings.image | image_url: width: 1500 | image_tag: loading: 'lazy', sizes: '(max-width: 800px) 100vw, 750px', widths: '600, 900, 1200, 1500' }}
+    </button>
+  </section>
+  <dialog id="chart-{{ section.id }}" class="large-dialog">
+    <button class="close" aria-label="{{ 'general.close' | t }}">×</button>
+    <h2>{{ 'products.size_guide' | t }}</h2>
+    {%- if section.settings.note != blank -%}<p>{{ section.settings.note | escape }}</p>{%- endif -%}
+    {{ section.settings.image | image_url: width: 1800 | image_tag: loading: 'lazy' }}
+  </dialog>
+{%- elsif request.design_mode -%}
+  <div class="wrap"><p class="empty-section-note">Size guide: pick your size chart image in this section's settings. Hidden until an image is added.</p></div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Size guide image",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Size chart image" },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "text", "id": "note", "label": "Note in pop-up", "default": "If you're between sizes, choose the larger size." }
+  ],
+  "presets": [{ "name": "Size guide image" }]
+}
+{% endschema %}

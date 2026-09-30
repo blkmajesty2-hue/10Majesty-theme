@@ -156,7 +156,7 @@
       "type": "feature-image",
       "settings": {
         "eyebrow": "",
-        "heading": "The details make the difference.",
+        "heading": "Shape through thoughtful construction.",
         "fallback_image": "blkm-details-black.webp"
       }
     },
@@ -222,6 +222,41 @@
             "question": "Which payment methods do you accept?",
             "answer": "<p>All payment methods we accept are shown at checkout and in the icons on this page.</p>"
           }
+        },
+        "q9": {
+          "type": "question",
+          "settings": {
+            "question": "Does shapewear permanently change my shape?",
+            "answer": "<p>No. Shapewear smooths and supports while you wear it; it doesn't change your body permanently.</p>"
+          }
+        },
+        "q10": {
+          "type": "question",
+          "settings": {
+            "question": "How long can I wear it?",
+            "answer": "<p>Wear it for as long as it feels comfortable. If it pinches or restricts your breathing, try the next size up.</p>"
+          }
+        },
+        "q11": {
+          "type": "question",
+          "settings": {
+            "question": "How does the cross-over design work?",
+            "answer": "<p>Two overlapping bands form an X across the front, giving wraparound support to the midsection.</p>"
+          }
+        },
+        "q12": {
+          "type": "question",
+          "settings": {
+            "question": "Will the waistband roll down?",
+            "answer": "<p>The structured high waist is designed to stay in place. The right size matters most, so check the size guide.</p>"
+          }
+        },
+        "q13": {
+          "type": "question",
+          "settings": {
+            "question": "How do I choose my size?",
+            "answer": "<p>Measure your waist and compare it with the size guide. If you're between sizes, choose the larger one.</p>"
+          }
         }
       },
       "block_order": [
@@ -232,16 +267,26 @@
         "q5",
         "q6",
         "q7",
-        "q8"
+        "q8",
+        "q9",
+        "q10",
+        "q11",
+        "q12",
+        "q13"
       ],
       "settings": {
         "text": "Product and shopping information, in plain English."
       }
+    },
+    "size": {
+      "type": "size-chart",
+      "settings": {}
     }
   },
   "order": [
     "main",
     "strip",
+    "size",
     "details",
     "closer",
     "black",

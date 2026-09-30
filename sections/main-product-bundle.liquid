@@ -97,6 +97,13 @@
           <div class="rte">{{ product.description }}</div>
         </details>
       {%- endif -%}
+      {%- if section.settings.promo_image != blank -%}
+        <div class="source-offer-image">
+          {%- if section.settings.promo_link != blank -%}<a href="{{ section.settings.promo_link }}">{%- endif -%}
+          {{ section.settings.promo_image | image_url: width: 800 | image_tag: loading: 'lazy', sizes: '380px', widths: '380, 760' }}
+          {%- if section.settings.promo_link != blank -%}</a>{%- endif -%}
+        </div>
+      {%- endif -%}
     </div>
   </section>
 </div>
@@ -133,6 +140,8 @@
     { "type": "text", "id": "button_label", "label": "Button label", "default": "Add bundle to bag" },
     { "type": "text", "id": "note", "label": "Note under button", "default": "Mix sizes and colors in any bundle." },
     { "type": "image_picker", "id": "size_chart", "label": "Size chart image" },
+    { "type": "image_picker", "id": "promo_image", "label": "Promo image under the buy box" },
+    { "type": "url", "id": "promo_link", "label": "Promo image link" },
     { "type": "checkbox", "id": "sticky_bar", "label": "Show sticky buy bar", "default": true },
     { "type": "paragraph", "content": "Bundle prices shown here are labels only. Create matching automatic discounts in Shopify admin (Discounts) so checkout charges the same amount." }
   ],
