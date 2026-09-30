@@ -647,3 +647,18 @@ nav.main-navigation a:hover{text-decoration:underline}
 @media(max-width:900px){.buy-panel h1{font-size:32px}}
 @media(max-width:760px){.buy-panel h1{font-size:30px;letter-spacing:-.03em}}
 .rating{margin-bottom:18px}
+
+/* ---------- Header sizes matched to the reference site ---------- */
+.wordmark{font-weight:700;letter-spacing:-.075em}
+nav.main-navigation a,nav.main-navigation summary{font-weight:700}
+@media(max-width:800px){
+  .announcement.announcement-bar{min-height:28px;padding:6px 12px;font-size:11px;font-weight:700;letter-spacing:.12em}
+  header.site-header{padding:0 5%;gap:0;row-gap:0}
+  .site-header .wordmark{font-size:30px;padding:16px 0}
+  .site-header .header-actions{padding:14px 0}
+  .cart-button{font-size:14px}
+  .cart-button span{width:22px;height:22px;font-size:11px}
+  nav.main-navigation{gap:23px;padding:12px 0;border-top:1px solid #e5e5e5}
+  nav.main-navigation a,nav.main-navigation summary{font-size:12.2px}
+}
+.cart-button{display:inline-flex;align-items:center}

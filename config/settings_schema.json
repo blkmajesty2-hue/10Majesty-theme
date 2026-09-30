@@ -11,9 +11,25 @@
     "name": "Typography",
     "settings": [
       {
+        "type": "select",
+        "id": "font_style",
+        "label": "Font",
+        "default": "helvetica",
+        "options": [
+          {
+            "value": "helvetica",
+            "label": "Helvetica / Arial (matches the reference site)"
+          },
+          {
+            "value": "library",
+            "label": "Font picked below"
+          }
+        ]
+      },
+      {
         "type": "font_picker",
         "id": "type_body_font",
-        "label": "Font",
+        "label": "Font from Shopify's library",
         "default": "poppins_n4"
       }
     ]

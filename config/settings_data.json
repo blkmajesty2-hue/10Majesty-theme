@@ -1,12 +1,14 @@
 {
   "current": {
     "cart_note": "Taxes and shipping are calculated at checkout.",
-    "type_body_font": "poppins_n4"
+    "type_body_font": "poppins_n4",
+    "font_style": "helvetica"
   },
   "presets": {
     "Default": {
       "cart_note": "Taxes and shipping are calculated at checkout.",
-      "type_body_font": "poppins_n4"
+      "type_body_font": "poppins_n4",
+      "font_style": "helvetica"
     }
   }
 }

@@ -33,7 +33,11 @@
       {%- if font_800 %}{{ font_800 | font_face: font_display: 'swap' }}{% endif -%}
       {%- if font_900 %}{{ font_900 | font_face: font_display: 'swap' }}{% endif -%}
       {%- if font_italic %}{{ font_italic | font_face: font_display: 'swap' }}{% endif %}
-      :root { --font-body: {{ body_font.family }}, {{ body_font.fallback_families }}; }
+      {%- if settings.font_style == 'helvetica' -%}
+        :root { --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+      {%- else -%}
+        :root { --font-body: {{ body_font.family }}, {{ body_font.fallback_families }}; }
+      {%- endif %}
     {% endstyle %}
     {{ 'blkm.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'blkm.js' | asset_url }}" defer></script>
