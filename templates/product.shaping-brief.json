@@ -121,7 +121,181 @@
     },
     "strip": {
       "type": "product-image-strip",
-      "settings": {}
+      "blocks": {
+        "img01": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/IMG-3432.jpg"
+          }
+        },
+        "img02": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/IMG-3433.jpg"
+          }
+        },
+        "img03": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_21_47-1.png"
+          }
+        },
+        "img04": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_25_20-12.png"
+          }
+        },
+        "img05": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_21_47-1_f1fc395b-c1e0-4649-8455-60557a012053.png"
+          }
+        },
+        "img06": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_23_34-1.png"
+          }
+        },
+        "img07": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_23_49-2.png"
+          }
+        },
+        "img08": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_23_54-3.png"
+          }
+        },
+        "img09": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_24_05-4.png"
+          }
+        },
+        "img10": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_24_14-5.png"
+          }
+        },
+        "img11": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_24_23-6.png"
+          }
+        },
+        "img12": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_24_27-7.png"
+          }
+        },
+        "img13": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_24_32-8.png"
+          }
+        },
+        "img14": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_24_38-9.png"
+          }
+        },
+        "img15": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_25_06-10.png"
+          }
+        },
+        "img16": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_25_14-11.png"
+          }
+        },
+        "img17": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_25_26-13.png"
+          }
+        },
+        "img18": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/blkm-color-black.webp"
+          }
+        },
+        "img19": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/blkm-color-beige.webp"
+          }
+        },
+        "img20": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/blkm-color-royal-blue.webp"
+          }
+        },
+        "img21": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/blkm-color-plum.webp"
+          }
+        },
+        "img22": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/blkm-color-fuchsia.webp"
+          }
+        },
+        "img23": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/blkm-color-navy.webp"
+          }
+        },
+        "img24": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/blkm-color-lilac.webp"
+          }
+        }
+      },
+      "block_order": [
+        "img01",
+        "img02",
+        "img03",
+        "img04",
+        "img05",
+        "img06",
+        "img07",
+        "img08",
+        "img09",
+        "img10",
+        "img11",
+        "img12",
+        "img13",
+        "img14",
+        "img15",
+        "img16",
+        "img17",
+        "img18",
+        "img19",
+        "img20",
+        "img21",
+        "img22",
+        "img23",
+        "img24"
+      ],
+      "settings": {
+        "use_product_media": true
+      }
     },
     "size": {
       "type": "size-chart",
