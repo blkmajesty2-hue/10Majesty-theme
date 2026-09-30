@@ -107,6 +107,7 @@
       "settings": {
         "rating_text": "",
         "rating_label": "Customer rating",
+        "eyebrow": "BLK_MAJESTY · SHAPEWEAR",
         "title_override": "High-Waist\nShaping Briefs",
         "subtitle": "Seamless tummy control",
         "lead": "A smooth foundation, with a high waist and X-shaped bands designed to wrap around the midsection.",
@@ -115,6 +116,14 @@
         "button_label": "Add bundle to bag",
         "note": "Mix sizes and colors in any bundle.",
         "size_chart": "shopify://shop_images/blkm-size-guide.webp",
+        "size_button_label": "📏 Size guide ›",
+        "show_stock": true,
+        "stock_threshold": 10,
+        "stock_text": "Selling fast — only a few left!",
+        "urgency_text": "Order today — your bundle ships fast",
+        "deal_text": "🎁 Buy 2, get 2 free — $79.98 ($20.00 per brief)",
+        "countdown_end": "",
+        "countdown_text": "Hurry! The offer ends in",
         "promo_link": "",
         "sticky_bar": true
       }
@@ -124,102 +133,119 @@
       "blocks": {
         "img01": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/IMG-3432.jpg"
           }
         },
         "img02": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/IMG-3433.jpg"
           }
         },
         "img03": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_21_47-1.png"
           }
         },
         "img04": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_25_20-12.png"
           }
         },
         "img05": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_21_47-1_f1fc395b-c1e0-4649-8455-60557a012053.png"
           }
         },
         "img06": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_23_34-1.png"
           }
         },
         "img07": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_23_49-2.png"
           }
         },
         "img08": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_23_54-3.png"
           }
         },
         "img09": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_24_05-4.png"
           }
         },
         "img10": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_24_14-5.png"
           }
         },
         "img11": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_24_23-6.png"
           }
         },
         "img12": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_24_27-7.png"
           }
         },
         "img13": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_24_32-8.png"
           }
         },
         "img14": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_24_38-9.png"
           }
         },
         "img15": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_25_06-10.png"
           }
         },
         "img16": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_25_14-11.png"
           }
         },
         "img17": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_25_26-13.png"
           }
@@ -316,8 +342,8 @@
         "button_link": "shopify://products/culotte-post-patrum",
         "rating_text": "",
         "reviews_word": "verified reviews",
-        "bg_top": "#F3F3F3",
-        "bg_bottom": "#E9E9E9",
+        "bg_top": "#f3f3f3",
+        "bg_bottom": "#e9e9e9",
         "accent": "#000000"
       }
     },
@@ -357,8 +383,88 @@
       "settings": {
         "heading": "Two crossed bands. Three zones. Zero compression.",
         "serif": true,
-        "card_bg": "#E9E9E9",
+        "card_bg": "#e9e9e9",
         "accent": "#000000"
+      }
+    },
+    "colors3d": {
+      "type": "color-carousel-3d",
+      "blocks": {
+        "col1": {
+          "type": "color",
+          "settings": {
+            "color": "Black",
+            "swatch": "#111111",
+            "fallback": "blkm-color-black.webp"
+          }
+        },
+        "col2": {
+          "type": "color",
+          "settings": {
+            "color": "Beige",
+            "swatch": "#e3cfa9",
+            "fallback": "blkm-color-beige.webp"
+          }
+        },
+        "col3": {
+          "type": "color",
+          "settings": {
+            "color": "Navy Blue",
+            "swatch": "#1c2a55",
+            "fallback": "blkm-color-navy.webp"
+          }
+        },
+        "col4": {
+          "type": "color",
+          "settings": {
+            "color": "Lilac",
+            "swatch": "#cbb2ef",
+            "fallback": "blkm-color-lilac.webp"
+          }
+        },
+        "col5": {
+          "type": "color",
+          "settings": {
+            "color": "Royal Blue",
+            "swatch": "#1f4fd6",
+            "fallback": "blkm-color-royal-blue.webp"
+          }
+        },
+        "col6": {
+          "type": "color",
+          "settings": {
+            "color": "Fuchsia Pink",
+            "swatch": "#e5187c",
+            "fallback": "blkm-color-fuchsia.webp"
+          }
+        },
+        "col7": {
+          "type": "color",
+          "settings": {
+            "color": "Plum",
+            "swatch": "#5a1840",
+            "fallback": "blkm-color-plum.webp"
+          }
+        }
+      },
+      "block_order": [
+        "col1",
+        "col2",
+        "col3",
+        "col4",
+        "col5",
+        "col6",
+        "col7"
+      ],
+      "settings": {
+        "eyebrow": "Available in every mood",
+        "heading": "Spin to see every color.",
+        "text": "Drag, swipe or tap a color. Mix any colors in your bundle.",
+        "auto_rotate": true,
+        "speed": 4,
+        "card_width": 280,
+        "button_label": "Shop this color",
+        "product": ""
       }
     },
     "details": {
@@ -422,10 +528,7 @@
     },
     "reviews": {
       "type": "testimonials",
-      "settings": {
-        "eyebrow": "Reviews",
-        "heading": "Customer experiences."
-      }
+      "settings": {}
     },
     "faq": {
       "type": "faq",
@@ -542,107 +645,6 @@
         "heading": "Before you choose.",
         "text": "Product and shopping information, in plain English."
       }
-    },
-    "colors3d": {
-      "type": "color-carousel-3d",
-      "blocks": {
-        "col1": {
-          "type": "color",
-          "settings": {
-            "color": "Black",
-            "swatch": "#111111",
-            "fallback": "blkm-color-black.webp"
-          }
-        },
-        "col2": {
-          "type": "color",
-          "settings": {
-            "color": "Beige",
-            "swatch": "#e3cfa9",
-            "fallback": "blkm-color-beige.webp"
-          }
-        },
-        "col3": {
-          "type": "color",
-          "settings": {
-            "color": "Navy Blue",
-            "swatch": "#1c2a55",
-            "fallback": "blkm-color-navy.webp"
-          }
-        },
-        "col4": {
-          "type": "color",
-          "settings": {
-            "color": "Lilac",
-            "swatch": "#cbb2ef",
-            "fallback": "blkm-color-lilac.webp"
-          }
-        },
-        "col5": {
-          "type": "color",
-          "settings": {
-            "color": "Royal Blue",
-            "swatch": "#1f4fd6",
-            "fallback": "blkm-color-royal-blue.webp"
-          }
-        },
-        "col6": {
-          "type": "color",
-          "settings": {
-            "color": "Fuchsia Pink",
-            "swatch": "#e5187c",
-            "fallback": "blkm-color-fuchsia.webp"
-          }
-        },
-        "col7": {
-          "type": "color",
-          "settings": {
-            "color": "Plum",
-            "swatch": "#5a1840",
-            "fallback": "blkm-color-plum.webp"
-          }
-        }
-      },
-      "block_order": [
-        "col1",
-        "col2",
-        "col3",
-        "col4",
-        "col5",
-        "col6",
-        "col7"
-      ],
-      "settings": {}
-    },
-    "circles": {
-      "type": "circle-features",
-      "blocks": {
-        "c1": {
-          "type": "circle",
-          "settings": {
-            "fallback": "blkm-color-royal-blue.webp",
-            "zoom": 220,
-            "focus_x": 55,
-            "focus_y": 38,
-            "caption": "Crossover high-waist design"
-          }
-        },
-        "c2": {
-          "type": "circle",
-          "settings": {
-            "fallback": "blkm-color-navy.webp",
-            "zoom": 190,
-            "focus_x": 50,
-            "focus_y": 72,
-            "caption": "Sculpting cut, shaping effect"
-          }
-        }
-      },
-      "block_order": [
-        "c1",
-        "c2"
-      ],
-      "settings": {}
     }
   },
   "order": [
@@ -651,7 +653,6 @@
     "size",
     "mechanism",
     "features",
-    "circles",
     "colors3d",
     "details",
     "closer",

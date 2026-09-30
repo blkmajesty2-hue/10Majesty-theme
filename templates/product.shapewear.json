@@ -404,36 +404,6 @@
         "col7"
       ],
       "settings": {}
-    },
-    "circles": {
-      "type": "circle-features",
-      "blocks": {
-        "c1": {
-          "type": "circle",
-          "settings": {
-            "fallback": "blkm-color-royal-blue.webp",
-            "zoom": 220,
-            "focus_x": 55,
-            "focus_y": 38,
-            "caption": "Crossover high-waist design"
-          }
-        },
-        "c2": {
-          "type": "circle",
-          "settings": {
-            "fallback": "blkm-color-navy.webp",
-            "zoom": 190,
-            "focus_x": 50,
-            "focus_y": 72,
-            "caption": "Sculpting cut, shaping effect"
-          }
-        }
-      },
-      "block_order": [
-        "c1",
-        "c2"
-      ],
-      "settings": {}
     }
   },
   "order": [
@@ -442,7 +412,6 @@
     "size",
     "mechanism",
     "features",
-    "circles",
     "colors3d",
     "details",
     "closer",
