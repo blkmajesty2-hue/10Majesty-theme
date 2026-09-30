@@ -139,12 +139,12 @@
         "serif": true,
         "text": "It crosses over your belly and holds it at three points: it smooths without squeezing. And you can breathe.",
         "button_label": "Try it risk-free for 30 days",
-        "button_link": "",
+        "button_link": "shopify://products/culotte-post-patrum",
         "rating_text": "",
         "reviews_word": "verified reviews",
-        "bg_top": "#fcefe9",
-        "bg_bottom": "#f3dac9",
-        "accent": "#bb5189"
+        "bg_top": "#F3F3F3",
+        "bg_bottom": "#E9E9E9",
+        "accent": "#000000"
       }
     },
     "features": {
@@ -183,8 +183,8 @@
       "settings": {
         "heading": "Two crossed bands. Three zones. Zero compression.",
         "serif": true,
-        "card_bg": "#fbf0ec",
-        "accent": "#bb5189"
+        "card_bg": "#E9E9E9",
+        "accent": "#000000"
       }
     },
     "details": {
