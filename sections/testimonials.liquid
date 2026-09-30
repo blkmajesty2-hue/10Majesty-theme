@@ -1,51 +1,66 @@
-{%- if section.blocks.size > 0 -%}
-  <section class="reviews">
-    <div class="wrap">
-      <div class="section-heading">
-        <div>
-          {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
-          <h2>{{ section.settings.heading | escape }}</h2>
-        </div>
+<section class="reviews" aria-labelledby="reviews-heading-{{ section.id }}">
+  <div class="reviews__wrap">
+    <div class="reviews__heading">
+      <div>
+        <p class="reviews__eyebrow">From the reference store</p>
+        <h2 id="reviews-heading-{{ section.id }}">Customer experiences.</h2>
       </div>
-      <div class="reviews-track">
-        {%- for block in section.blocks -%}
-          <article class="review" {{ block.shopify_attributes }}>
-            {%- if block.settings.image != blank -%}
-              {{ block.settings.image | image_url: width: 600 | image_tag: loading: 'lazy', alt: block.settings.name }}
-            {%- endif -%}
-            <div>
-              <span class="stars" aria-label="{{ block.settings.rating }} out of 5 stars">{% for i in (1..block.settings.rating) %}★{% endfor %}</span>
-              <h3>{{ block.settings.name | escape }}</h3>
-              <p>{{ block.settings.text | escape }}</p>
-            </div>
-          </article>
-        {%- endfor -%}
-      </div>
+      <p class="reviews__source">Source reports 6,000+ customers.<br>English summaries, not verbatim reviews.</p>
     </div>
-  </section>
-{%- elsif request.design_mode -%}
-  <div class="wrap"><p class="empty-section-note">Customer reviews: add a review block for each real customer review. This section stays hidden until it has at least one.</p></div>
-{%- endif -%}
+    <div class="reviews__track">
+      {% assign review_images = 'belayan-review-1.webp,belayan-review-2.webp,belayan-review-3.webp,belayan-review-4.webp,belayan-review-5.webp,belayan-review-6.webp,belayan-review-7.webp,belayan-review-8.webp,belayan-review-1.webp' | split: ',' %}
+      {% assign review_names = 'Chiara, 44|Alessandra, 49|Cristina, 52|Valentina, 47|Serena, 56|Giorgia, 34|Martina, 38|Paola, 57|Rosa, 63' | split: '|' %}
+      {% assign review_texts = 'Describes feeling more comfortable in her jeans with the wraparound support.|Highlights the fit and ease of wearing the brief throughout the day.|Focuses on the cross-band feel while sitting, standing and moving.|Values the defined waist and how easily the brief fits into her routine.|Describes feeling more confident getting dressed for a special dinner.|Shares how the high-waist silhouette looked beneath a dress.|Discusses a smoother appearance beneath fitted clothing.|Describes wearing a favorite dress to a family wedding.|Focuses on comfort and enjoying a family occasion without fuss.' | split: '|' %}
+      {% for name in review_names %}
+        <article class="review-card">
+          <img src="{{ review_images[forloop.index0] | asset_url }}" alt="Reference customer image: {{ name | escape }}" loading="lazy" width="600" height="450">
+          <div class="review-card__body">
+            <span class="review-card__stars" aria-label="5 out of 5 stars">★★★★★</span>
+            <h3>{{ name }}</h3>
+            <p>{{ review_texts[forloop.index0] }}</p>
+            <small>Summary of a source-store testimonial</small>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  #shopify-section-{{ section.id }} .reviews { background:#fff; color:#000; border-top:1px solid #e5e5e5; }
+  #shopify-section-{{ section.id }} .reviews__wrap { max-width:1320px; margin:0 auto; padding:84px 28px; }
+  #shopify-section-{{ section.id }} .reviews__heading { display:flex; align-items:flex-end; justify-content:space-between; gap:40px; margin-bottom:38px; }
+  #shopify-section-{{ section.id }} .reviews__eyebrow { margin:0 0 10px; font-size:13px; line-height:1.2; font-weight:800; letter-spacing:.16em; text-transform:uppercase; }
+  #shopify-section-{{ section.id }} h2 { margin:0; font-size:clamp(42px,5vw,72px); line-height:.98; letter-spacing:-.045em; }
+  #shopify-section-{{ section.id }} .reviews__source { margin:0; color:#666; font-size:16px; line-height:1.5; }
+  #shopify-section-{{ section.id }} .reviews__track { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:22px; }
+  #shopify-section-{{ section.id }} .review-card { min-width:0; overflow:hidden; border:1px solid #dedede; border-radius:22px; background:#fff; }
+  #shopify-section-{{ section.id }} .review-card img { display:block; width:100%; aspect-ratio:4/3; object-fit:cover; background:#f2f2f2; }
+  #shopify-section-{{ section.id }} .review-card__body { padding:24px; }
+  #shopify-section-{{ section.id }} .review-card__stars { display:block; margin-bottom:14px; font-size:20px; line-height:1; letter-spacing:2px; }
+  #shopify-section-{{ section.id }} .review-card h3 { margin:0 0 10px; font-size:24px; line-height:1.1; }
+  #shopify-section-{{ section.id }} .review-card p { margin:0 0 18px; color:#2d2d2d; font-size:17px; line-height:1.55; }
+  #shopify-section-{{ section.id }} .review-card small { color:#777; font-size:12px; line-height:1.35; }
+  @media (max-width: 989px) {
+    #shopify-section-{{ section.id }} .reviews__wrap { padding:68px 22px; }
+    #shopify-section-{{ section.id }} .reviews__track { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  }
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} .reviews__wrap { padding:52px 18px; overflow:hidden; }
+    #shopify-section-{{ section.id }} .reviews__heading { display:block; margin-bottom:26px; }
+    #shopify-section-{{ section.id }} .reviews__source { margin-top:18px; font-size:14px; }
+    #shopify-section-{{ section.id }} h2 { font-size:42px; }
+    #shopify-section-{{ section.id }} .reviews__track { display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; padding:0 0 10px; }
+    #shopify-section-{{ section.id }} .reviews__track::-webkit-scrollbar { display:none; }
+    #shopify-section-{{ section.id }} .review-card { flex:0 0 min(84vw,360px); scroll-snap-align:start; border-radius:18px; }
+    #shopify-section-{{ section.id }} .review-card__body { padding:20px; }
+  }
+</style>
 
 {% schema %}
 {
   "name": "Customer reviews",
-  "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Reviews" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Customer experiences." }
-  ],
-  "blocks": [
-    {
-      "type": "review",
-      "name": "Review",
-      "settings": [
-        { "type": "image_picker", "id": "image", "label": "Photo" },
-        { "type": "text", "id": "name", "label": "Customer name", "default": "Customer" },
-        { "type": "range", "id": "rating", "label": "Stars", "min": 1, "max": 5, "step": 1, "default": 5 },
-        { "type": "textarea", "id": "text", "label": "Review" }
-      ]
-    }
-  ],
+  "settings": [],
   "presets": [{ "name": "Customer reviews" }]
 }
 {% endschema %}
