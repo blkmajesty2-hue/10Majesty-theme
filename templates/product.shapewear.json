@@ -27,7 +27,7 @@
         "b4": {
           "type": "benefit",
           "settings": {
-            "title": "Sizes S–6XL",
+            "title": "Sizes S–3XL",
             "text": "mix sizes and colors in any bundle."
           }
         },
@@ -185,7 +185,7 @@
           "type": "question",
           "settings": {
             "question": "What sizes are available?",
-            "answer": "<p>Sizes S to 6XL. Use the size guide and choose the larger size if you're between two.</p>"
+            "answer": "<p>Sizes S to 3XL. Use the size guide and choose the larger size if you're between two.</p>"
           }
         },
         "q4": {
