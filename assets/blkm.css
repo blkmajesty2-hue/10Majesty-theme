@@ -637,3 +637,8 @@ nav.main-navigation a:hover{text-decoration:underline}
   header.site-header{flex-wrap:wrap;padding:18px 20px}
   nav.main-navigation{order:3;width:100%;overflow-x:auto;scrollbar-width:none}
 }
+
+/* ---------- Product title size ---------- */
+.buy-panel h1{font-size:clamp(26px,2.4vw,34px);line-height:1.12;letter-spacing:-.03em;margin:0 0 12px}
+@media(max-width:900px){.buy-panel h1{font-size:28px}}
+@media(max-width:760px){.buy-panel h1{font-size:24px;letter-spacing:-.02em}}
