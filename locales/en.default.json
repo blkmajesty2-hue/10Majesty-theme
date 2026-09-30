@@ -1,0 +1,81 @@
+{
+  "general": {
+    "close": "Close",
+    "search": "Search",
+    "continue_shopping": "Continue shopping",
+    "view_all": "View all",
+    "pagination": { "previous": "Previous", "next": "Next" },
+    "password": {
+      "enter": "Enter using password",
+      "password": "Password",
+      "opening_soon": "Opening soon",
+      "admin": "Are you the store owner? Log in here"
+    }
+  },
+  "accessibility": {
+    "skip_to_content": "Skip to content",
+    "main_navigation": "Main navigation"
+  },
+  "products": {
+    "add_to_cart": "Add to bag",
+    "view": "View product",
+    "sold_out": "Sold out",
+    "unavailable": "Unavailable",
+    "sale": "Sale",
+    "from": "From {{ price }}",
+    "adding": "Adding…",
+    "added": "Added to your bag.",
+    "error": "Something went wrong. Please try again.",
+    "choose_bundle": "Choose your bundle",
+    "size_guide": "Size guide",
+    "combination_unavailable": "One or more selected combinations are unavailable."
+  },
+  "cart": {
+    "title": "Your bag",
+    "empty": "Your bag is empty.",
+    "remove": "Remove",
+    "subtotal": "Subtotal",
+    "checkout": "Checkout",
+    "note": "Order note",
+    "quantity": "Quantity",
+    "discounts": "Discounts"
+  },
+  "search": {
+    "title": "Search",
+    "placeholder": "Search products",
+    "results": {
+      "one": "{{ count }} result for “{{ terms }}”",
+      "other": "{{ count }} results for “{{ terms }}”"
+    },
+    "none": "No results for “{{ terms }}”."
+  },
+  "newsletter": {
+    "label": "Email address",
+    "placeholder": "Your email address",
+    "button": "Join",
+    "success": "Thanks for subscribing."
+  },
+  "contact": {
+    "name": "Name",
+    "email": "Email",
+    "order": "Order number (optional)",
+    "message": "Message",
+    "send": "Send message",
+    "success": "Thanks for your message. We'll get back to you soon."
+  },
+  "blogs": {
+    "read_more": "Read more",
+    "back": "Back to {{ title }}"
+  },
+  "gift_cards": {
+    "title": "Your gift card",
+    "code": "Gift card code",
+    "print": "Print",
+    "expired": "Expired",
+    "disabled": "Disabled"
+  },
+  "not_found": {
+    "title": "Page not found",
+    "text": "The page you were looking for doesn't exist."
+  }
+}

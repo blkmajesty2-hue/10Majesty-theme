@@ -1,0 +1,21 @@
+<div class="wrap collection-header"><h1>Collections</h1></div>
+<section class="wrap collection">
+  <div class="product-grid">
+    {%- for collection in collections -%}
+      <article class="product-card">
+        <a class="card-image" href="{{ collection.url }}">
+          {%- if collection.featured_image -%}
+            {{ collection.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', alt: collection.title }}
+          {%- else -%}
+            {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          {%- endif -%}
+        </a>
+        <h3><a href="{{ collection.url }}">{{ collection.title | escape }}</a></h3>
+      </article>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Collections list" }
+{% endschema %}

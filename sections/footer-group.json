@@ -1,0 +1,14 @@
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "settings": {
+        "menu": "footer",
+        "tagline": "Shapewear. Support. Everyday confidence."
+      }
+    }
+  },
+  "order": ["footer"]
+}

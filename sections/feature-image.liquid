@@ -1,0 +1,22 @@
+<section class="feature-image wrap">
+  {%- if section.settings.eyebrow != blank -%}<p class="eyebrow center">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+  {%- if section.settings.heading != blank -%}<h2 class="center">{{ section.settings.heading | escape }}</h2>{%- endif -%}
+  {%- if section.settings.image != blank -%}
+    {{ section.settings.image | image_url: width: 1700 | image_tag: loading: 'lazy', sizes: '(max-width: 900px) 100vw, 850px', widths: '600, 850, 1200, 1700' }}
+  {%- else -%}
+    <img src="{{ section.settings.fallback_image | default: 'blkm-closer-look.webp' | asset_url }}" alt="{{ section.settings.heading | escape }}" width="1254" height="1254" loading="lazy">
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Feature image",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "A closer look." },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "fallback_image", "label": "Built-in image file", "default": "blkm-closer-look.webp", "info": "Used when no image is picked. One of: blkm-duo.webp, blkm-details-black.webp, blkm-details-beige.webp, blkm-closer-look.webp, blkm-blue.webp" }
+  ],
+  "presets": [{ "name": "Feature image" }]
+}
+{% endschema %}

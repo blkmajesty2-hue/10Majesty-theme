@@ -1,0 +1,13 @@
+{%- comment -%} Renders a product's price. Accepts: product {%- endcomment -%}
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+  assign compare = variant.compare_at_price
+-%}
+<div class="price">
+  {%- if product.price_varies -%}
+    {{ 'products.from' | t: price: product.price_min | money }}
+  {%- else -%}
+    {{ variant.price | money }}
+  {%- endif -%}
+  {%- if compare > variant.price -%}<s>{{ compare | money }}</s>{%- endif -%}
+</div>

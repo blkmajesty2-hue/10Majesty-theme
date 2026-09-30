@@ -1,0 +1,25 @@
+<div class="wrap collection-header">
+  <h1>{{ collection.title | escape }}</h1>
+  {%- if collection.description != blank -%}<div class="rte">{{ collection.description }}</div>{%- endif -%}
+</div>
+{%- paginate collection.products by section.settings.per_page -%}
+  <section class="wrap collection">
+    <div class="product-grid four">
+      {%- for product in collection.products -%}
+        {%- render 'product-card', product: product -%}
+      {%- else -%}
+        <p class="muted">No products found in this collection.</p>
+      {%- endfor -%}
+    </div>
+    {%- render 'pagination', paginate: paginate -%}
+  </section>
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "Collection",
+  "settings": [
+    { "type": "range", "id": "per_page", "label": "Products per page", "min": 8, "max": 48, "step": 4, "default": 24 }
+  ]
+}
+{% endschema %}

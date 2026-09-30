@@ -1,0 +1,68 @@
+<footer>
+  <div class="footer-grid">
+    <div>
+      <a class="wordmark" href="{{ routes.root_url }}">{{ shop.name | upcase }}</a>
+      {%- if section.settings.tagline != blank -%}<p>{{ section.settings.tagline | escape }}</p>{%- endif -%}
+      <div class="footer-social">
+        {%- if settings.social_instagram_link != blank -%}<a href="{{ settings.social_instagram_link }}">Instagram</a>{%- endif -%}
+        {%- if settings.social_tiktok_link != blank -%}<a href="{{ settings.social_tiktok_link }}">TikTok</a>{%- endif -%}
+        {%- if settings.social_facebook_link != blank -%}<a href="{{ settings.social_facebook_link }}">Facebook</a>{%- endif -%}
+      </div>
+    </div>
+    <div>
+      <h3>{{ section.settings.menu.title | default: 'Useful links' }}</h3>
+      <ul>
+        {%- for link in section.settings.menu.links -%}
+          <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+        {%- endfor -%}
+        {%- if section.settings.show_policies -%}
+          {%- for policy in shop.policies -%}
+            <li><a href="{{ policy.url }}">{{ policy.title | escape }}</a></li>
+          {%- endfor -%}
+        {%- endif -%}
+      </ul>
+    </div>
+    <div>
+      <h3>{{ section.settings.care_heading | escape }}</h3>
+      {%- if section.settings.care_text != blank -%}<div class="rte">{{ section.settings.care_text }}</div>{%- endif -%}
+      <p><a href="mailto:{{ shop.email }}">{{ shop.email }}</a></p>
+    </div>
+    <div>
+      <h3>{{ section.settings.newsletter_heading | escape }}</h3>
+      {%- if section.settings.newsletter_text != blank -%}<p>{{ section.settings.newsletter_text | escape }}</p>{%- endif -%}
+      {%- form 'customer', id: 'FooterNewsletter', class: 'demo-form' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <label for="FooterNewsletterEmail">{{ 'newsletter.label' | t }}</label>
+        <div class="email-row">
+          <input id="FooterNewsletterEmail" type="email" name="contact[email]" autocomplete="email" placeholder="{{ 'newsletter.placeholder' | t }}" required>
+          <button type="submit">{{ 'newsletter.button' | t }}</button>
+        </div>
+        <p class="form-status" role="status">
+          {%- if form.posted_successfully? -%}{{ 'newsletter.success' | t }}{%- endif -%}
+          {%- if form.errors -%}{{ form.errors | default_errors }}{%- endif -%}
+        </p>
+      {%- endform -%}
+    </div>
+  </div>
+  <div class="footer-end">
+    <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name | link_to: routes.root_url }} · {{ powered_by_link }}</span>
+    <span class="footer-payments">{% render 'payment-icons' %}</span>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "class": "section-footer",
+  "settings": [
+    { "type": "text", "id": "tagline", "label": "Tagline", "default": "Shapewear. Support. Everyday confidence." },
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "footer" },
+    { "type": "checkbox", "id": "show_policies", "label": "Show store policies", "info": "Lists the policies set in Settings → Policies.", "default": true },
+    { "type": "text", "id": "care_heading", "label": "Customer care heading", "default": "Customer care" },
+    { "type": "richtext", "id": "care_text", "label": "Customer care text", "default": "<p>We reply to every message within one business day.</p>" },
+    { "type": "text", "id": "newsletter_heading", "label": "Newsletter heading", "default": "BLK_MAJESTY VIP access" },
+    { "type": "text", "id": "newsletter_text", "label": "Newsletter text", "default": "A place for new arrivals and offers." }
+  ],
+  "enabled_on": { "groups": ["footer"] }
+}
+{% endschema %}

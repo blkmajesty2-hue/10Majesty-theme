@@ -1,0 +1,27 @@
+{%- comment -%} Product card. Accepts: product, badge (optional), button_label (optional) {%- endcomment -%}
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+  assign label = button_label
+  if label == blank
+    assign label = 'products.view' | t
+  endif
+-%}
+<article class="product-card">
+  <a class="card-image" href="{{ product.url }}">
+    {%- if badge != blank -%}
+      <span class="badge">{{ badge }}</span>
+    {%- elsif product.available == false -%}
+      <span class="badge">{{ 'products.sold_out' | t }}</span>
+    {%- elsif variant.compare_at_price > variant.price -%}
+      <span class="badge">{{ 'products.sale' | t }}</span>
+    {%- endif -%}
+    {%- if product.featured_media -%}
+      {{ product.featured_media | image_url: width: 900 | image_tag: loading: 'lazy', sizes: '(max-width: 760px) 90vw, 33vw', widths: '360, 540, 720, 900', alt: product.featured_media.alt | default: product.title }}
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+  </a>
+  <h3>{{ product.title }}</h3>
+  {%- render 'price', product: product -%}
+  <a class="outline" href="{{ product.url }}">{{ label }}</a>
+</article>

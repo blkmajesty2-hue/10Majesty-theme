@@ -1,0 +1,44 @@
+<div class="page-width-narrow cart-page">
+  <h1>{{ 'cart.title' | t }}</h1>
+  {%- if cart.item_count > 0 -%}
+    <form action="{{ routes.cart_url }}" method="post" id="CartForm">
+      {%- for item in cart.items -%}
+        <div class="cart-line">
+          <a href="{{ item.url }}">
+            {%- if item.image -%}{{ item.image | image_url: width: 180, height: 180, crop: 'center' | image_tag: alt: item.product.title }}{%- endif -%}
+          </a>
+          <div>
+            <a href="{{ item.url }}"><b>{{ item.product.title | escape }}</b></a>
+            {%- unless item.product.has_only_default_variant -%}<p class="meta">{{ item.variant.title | escape }}</p>{%- endunless -%}
+            {%- for discount in item.line_level_discount_allocations -%}<p class="meta">{{ discount.discount_application.title | escape }} (−{{ discount.amount | money }})</p>{%- endfor -%}
+            <label class="meta">{{ 'cart.quantity' | t }} <input type="number" name="updates[]" value="{{ item.quantity }}" min="0"></label>
+            <a class="remove" href="{{ item.url_to_remove }}">{{ 'cart.remove' | t }}</a>
+          </div>
+          <div class="line-price">
+            {%- if item.original_line_price > item.final_line_price -%}<s>{{ item.original_line_price | money }}</s>{%- endif -%}
+            {{ item.final_line_price | money }}
+          </div>
+        </div>
+      {%- endfor -%}
+      <div class="cart-summary">
+        {%- if cart.cart_level_discount_applications.size > 0 -%}
+          <ul class="cart-discounts">
+            {%- for discount in cart.cart_level_discount_applications -%}<li>{{ discount.title | escape }} (−{{ discount.total_allocated_amount | money }})</li>{%- endfor -%}
+          </ul>
+        {%- endif -%}
+        <p class="total">{{ 'cart.subtotal' | t }} {{ cart.total_price | money }}</p>
+        {%- if settings.cart_note != blank -%}<p class="muted">{{ settings.cart_note }}</p>{%- endif -%}
+        <label>{{ 'cart.note' | t }}<textarea name="note" rows="2">{{ cart.note }}</textarea></label>
+        <button class="outline" type="submit" name="update">Update bag</button>
+        <button class="primary" type="submit" name="checkout">{{ 'cart.checkout' | t }}</button>
+      </div>
+    </form>
+  {%- else -%}
+    <p class="empty-bag">{{ 'cart.empty' | t }}</p>
+    <a class="primary" href="{{ routes.all_products_collection_url }}">{{ 'general.continue_shopping' | t }}</a>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{ "name": "Cart" }
+{% endschema %}

@@ -1,0 +1,57 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "BLK_MAJESTY",
+    "theme_version": "1.0.0",
+    "theme_author": "BLK_MAJESTY",
+    "theme_documentation_url": "https://github.com/blkmajesty2-hue/10Majesty-theme",
+    "theme_support_url": "https://github.com/blkmajesty2-hue/10Majesty-theme"
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "type_body_font",
+        "label": "Font",
+        "default": "poppins_n4"
+      }
+    ]
+  },
+  {
+    "name": "General",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      },
+      {
+        "type": "text",
+        "id": "cart_note",
+        "label": "Cart note",
+        "default": "Taxes and shipping are calculated at checkout."
+      }
+    ]
+  },
+  {
+    "name": "Social media",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram link"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok_link",
+        "label": "TikTok link"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": "Facebook link"
+      }
+    ]
+  }
+]

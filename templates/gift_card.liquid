@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{{ 'gift_cards.title' | t }} — {{ shop.name }}</title>
+    <meta name="description" content="{{ 'gift_cards.title' | t }}">
+    {{ 'blkm.css' | asset_url | stylesheet_tag }}
+    {{ content_for_header }}
+  </head>
+  <body>
+    <main class="gift-card">
+      <p class="wordmark">{{ shop.name | upcase }}</p>
+      <h1>{{ gift_card.balance | money }}</h1>
+      {%- if gift_card.expired -%}<p>{{ 'gift_cards.expired' | t }}</p>{%- endif -%}
+      {%- unless gift_card.enabled -%}<p>{{ 'gift_cards.disabled' | t }}</p>{%- endunless -%}
+      <p>{{ 'gift_cards.code' | t }}</p>
+      <div class="code">{{ gift_card.code | format_code }}</div>
+      <a class="primary" href="{{ shop.url }}">{{ 'general.continue_shopping' | t }}</a>
+    </main>
+  </body>
+</html>

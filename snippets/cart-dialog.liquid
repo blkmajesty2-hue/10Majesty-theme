@@ -1,0 +1,39 @@
+{%- comment -%} Cart drawer, filled from the live cart. Also passes money format and strings to blkm.js. {%- endcomment -%}
+<script>
+  window.blkm = {
+    moneyFormat: {{ shop.money_format | json }},
+    strings: {
+      addToCart: {{ 'products.add_to_cart' | t | json }},
+      soldOut: {{ 'products.sold_out' | t | json }},
+      unavailable: {{ 'products.unavailable' | t | json }},
+      adding: {{ 'products.adding' | t | json }},
+      added: {{ 'products.added' | t | json }},
+      error: {{ 'products.error' | t | json }},
+      comboUnavailable: {{ 'products.combination_unavailable' | t | json }},
+      empty: {{ 'cart.empty' | t | json }},
+      remove: {{ 'cart.remove' | t | json }},
+      subtotal: {{ 'cart.subtotal' | t | json }},
+      discounts: {{ 'cart.discounts' | t | json }},
+      quantity: {{ 'cart.quantity' | t | json }}
+    }
+  };
+</script>
+<dialog id="bag" aria-labelledby="bag-title">
+  <button class="close" aria-label="{{ 'general.close' | t }}">×</button>
+  <h2 id="bag-title">{{ 'cart.title' | t }}</h2>
+  <div id="bag-items">
+    {%- if cart.item_count == 0 -%}
+      <p class="empty-bag">{{ 'cart.empty' | t }}</p>
+    {%- endif -%}
+  </div>
+  <p class="total" id="bag-total">
+    {%- if cart.item_count > 0 %}{{ 'cart.subtotal' | t }} {{ cart.total_price | money }}{% endif -%}
+  </p>
+  <div class="cart-actions"{% if cart.item_count == 0 %} hidden{% endif %}>
+    {%- if settings.cart_note != blank -%}<p class="muted center-note">{{ settings.cart_note }}</p>{%- endif -%}
+    <form action="{{ routes.cart_url }}" method="post">
+      <button class="primary" type="submit" name="checkout">{{ 'cart.checkout' | t }}</button>
+    </form>
+    <a class="outline" href="{{ routes.cart_url }}">{{ 'cart.title' | t }}</a>
+  </div>
+</dialog>

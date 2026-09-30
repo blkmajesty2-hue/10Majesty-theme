@@ -1,0 +1,152 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign zoom_id = 'zoom-' | append: section.id
+  assign size_id = 'size-' | append: section.id
+  assign bundles = section.blocks | where: 'type', 'bundle'
+  assign default_found = false
+  for b in bundles
+    if b.settings.selected
+      assign default_found = true
+    endif
+  endfor
+-%}
+<div class="wrap" data-bundle-form>
+  <script type="application/json" data-product-json>{{ product | json }}</script>
+  <section class="product-layout" id="buy">
+    {%- render 'product-gallery', product: product, zoom_id: zoom_id -%}
+    <div class="buy-panel">
+      <h1>{{ product.title | escape }}</h1>
+      {%- if section.settings.subtitle != blank -%}<p class="subtitle">{{ section.settings.subtitle | escape }}</p>{%- endif -%}
+      {%- if section.settings.lead != blank -%}<p class="lead">{{ section.settings.lead | escape }}</p>{%- endif -%}
+      {%- assign benefits = section.blocks | where: 'type', 'benefit' -%}
+      {%- if benefits.size > 0 -%}
+        <ul class="benefits">
+          {%- for block in benefits -%}
+            <li {{ block.shopify_attributes }}><b>{{ block.settings.title | escape }}</b>{% if block.settings.text != blank %} — {{ block.settings.text | escape }}{% endif %}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+      {%- if section.settings.offer_text != blank -%}
+        <div class="offer-banner">{{ section.settings.offer_text | escape }} <strong>{{ section.settings.offer_price | escape }}</strong></div>
+      {%- endif -%}
+      <div class="bundle-heading">
+        <b>{{ 'products.choose_bundle' | t }}</b>
+        {%- if section.settings.size_chart != blank -%}
+          <button type="button" class="text-link" data-dialog="{{ size_id }}">{{ 'products.size_guide' | t }}</button>
+        {%- endif -%}
+      </div>
+      <div class="bundles">
+        {%- for block in bundles -%}
+          {%- liquid
+            assign qty = block.settings.quantity
+            assign is_selected = block.settings.selected
+            if default_found == false and forloop.first
+              assign is_selected = true
+            endif
+            assign price_label = block.settings.price_label
+            if price_label == blank
+              assign price_label = current_variant.price | times: qty | money
+            endif
+          -%}
+          {%- if is_selected -%}{%- assign selected_label = price_label -%}{%- endif -%}
+          <div class="bundle{% if is_selected %} selected{% endif %}" {{ block.shopify_attributes }}>
+            <label class="bundle-label">
+              <input type="radio" name="bundle-{{ section.id }}" value="{{ qty }}" data-price-label="{{ price_label | strip_html | escape }}"{% if is_selected %} checked{% endif %}>
+              <span><b>{{ block.settings.title | escape }}</b><small>{{ block.settings.subtitle | escape }}</small></span>
+              <span class="bundle-price">{{ price_label }}{% if block.settings.per_label != blank %}<small>{{ block.settings.per_label | escape }}</small>{% endif %}</span>
+              {%- if block.settings.badge != blank -%}<em>{{ block.settings.badge | escape }}</em>{%- endif -%}
+            </label>
+            <div class="variant-rows" data-count="{{ qty }}"></div>
+          </div>
+        {%- endfor -%}
+      </div>
+      <button type="button" class="primary add" data-bundle-add data-label="{{ section.settings.button_label | escape }}"{% unless product.available %} disabled{% endunless %}>
+        {%- if product.available -%}{{ section.settings.button_label | escape }} — {{ selected_label | strip_html }}{%- else -%}{{ 'products.sold_out' | t }}{%- endif -%}
+      </button>
+      <p class="center-note" role="status" data-form-status>{{ section.settings.note | escape }}</p>
+      <div class="payments">{% render 'payment-icons' %}</div>
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'collapsible' -%}
+          <details {{ block.shopify_attributes }}>
+            <summary>{{ block.settings.heading | escape }}</summary>
+            <div class="rte">
+              {{ block.settings.content }}
+              {%- if block.settings.page != blank -%}{{ block.settings.page.content }}{%- endif -%}
+            </div>
+          </details>
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if product.description != blank -%}
+        <details>
+          <summary>Description</summary>
+          <div class="rte">{{ product.description }}</div>
+        </details>
+      {%- endif -%}
+    </div>
+  </section>
+</div>
+
+{%- if section.settings.size_chart != blank -%}
+  <dialog id="{{ size_id }}" class="large-dialog">
+    <button class="close" aria-label="{{ 'general.close' | t }}">×</button>
+    <h2>{{ 'products.size_guide' | t }}</h2>
+    {{ section.settings.size_chart | image_url: width: 1600 | image_tag: loading: 'lazy' }}
+  </dialog>
+{%- endif -%}
+
+{%- if section.settings.sticky_bar -%}
+  <div class="sticky-buy">
+    <span><b>{{ product.title | escape }}</b><small>{{ section.settings.offer_text | escape }} {{ section.settings.offer_price | escape }}</small></span>
+    <a class="primary" href="#buy">{{ 'products.choose_bundle' | t }}</a>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Product bundle picker",
+  "settings": [
+    { "type": "text", "id": "subtitle", "label": "Subtitle badge", "default": "Seamless tummy control" },
+    { "type": "textarea", "id": "lead", "label": "Intro text", "default": "A smooth everyday foundation, with a high-rise waist and X-shaped cross-over bands that wrap the midsection." },
+    { "type": "text", "id": "offer_text", "label": "Offer banner text", "default": "BUY 2, GET 2 FREE" },
+    { "type": "text", "id": "offer_price", "label": "Offer banner price" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Add bundle to bag" },
+    { "type": "text", "id": "note", "label": "Note under button", "default": "Mix sizes and colors in any bundle." },
+    { "type": "image_picker", "id": "size_chart", "label": "Size chart image" },
+    { "type": "checkbox", "id": "sticky_bar", "label": "Show sticky buy bar", "default": true },
+    { "type": "paragraph", "content": "Bundle prices shown here are labels only. Create matching automatic discounts in Shopify admin (Discounts) so checkout charges the same amount." }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Benefit" },
+        { "type": "text", "id": "text", "label": "Text" }
+      ]
+    },
+    {
+      "type": "bundle",
+      "name": "Bundle",
+      "limit": 4,
+      "settings": [
+        { "type": "range", "id": "quantity", "label": "Items in bundle", "min": 1, "max": 10, "step": 1, "default": 2 },
+        { "type": "text", "id": "title", "label": "Title", "default": "Buy 1, get 1 free" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "2 briefs" },
+        { "type": "text", "id": "price_label", "label": "Price label", "info": "Leave empty to show the regular price × quantity." },
+        { "type": "text", "id": "per_label", "label": "Per-item label" },
+        { "type": "text", "id": "badge", "label": "Badge" },
+        { "type": "checkbox", "id": "selected", "label": "Selected by default", "default": false }
+      ]
+    },
+    {
+      "type": "collapsible",
+      "name": "Collapsible row",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Delivery & returns" },
+        { "type": "richtext", "id": "content", "label": "Content" },
+        { "type": "page", "id": "page", "label": "Content from page" }
+      ]
+    }
+  ]
+}
+{% endschema %}

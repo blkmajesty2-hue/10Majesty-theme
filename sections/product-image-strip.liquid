@@ -1,0 +1,26 @@
+{%- liquid
+  assign fallback = 'blkm-duo.webp,blkm-details-black.webp,blkm-details-beige.webp,blkm-closer-look.webp,blkm-blue.webp' | split: ','
+-%}
+<section class="product-film">
+  <div class="wrap">
+    <div class="film-track">
+      {%- if product and product.media.size > 0 -%}
+        {%- for media in product.media -%}
+          {{ media.preview_image | image_url: width: 400 | image_tag: loading: 'lazy', alt: media.alt | default: product.title }}
+        {%- endfor -%}
+      {%- else -%}
+        {%- for file in fallback -%}
+          <img src="{{ file | asset_url }}" alt="" width="185" height="185" loading="lazy">
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product image strip",
+  "enabled_on": { "templates": ["product"] },
+  "presets": [{ "name": "Product image strip" }]
+}
+{% endschema %}

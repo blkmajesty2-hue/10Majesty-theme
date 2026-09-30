@@ -1,0 +1,75 @@
+{
+  "sections": {
+    "hero": {
+      "type": "blkm-hero",
+      "settings": {}
+    },
+    "collection": {
+      "type": "featured-collection",
+      "settings": {
+        "limit": 6,
+        "columns": "3"
+      }
+    },
+    "details": {
+      "type": "image-with-text",
+      "blocks": {
+        "p1": {
+          "type": "point",
+          "settings": {
+            "title": "Cross-over front",
+            "text": "Two overlapping bands form the signature X-shaped front."
+          }
+        },
+        "p2": {
+          "type": "point",
+          "settings": {
+            "title": "High-rise waist",
+            "text": "A high-waisted cut with full coverage at the front, sides and back."
+          }
+        },
+        "p3": {
+          "type": "point",
+          "settings": {
+            "title": "Mesh inserts",
+            "text": "Breathable mesh panels sit between the bands."
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3"
+      ],
+      "settings": {
+        "eyebrow": "The cross-over design",
+        "heading": "Support, from every angle.",
+        "fallback_image": "blkm-details-beige.webp",
+        "image_eyebrow": "The signature construction",
+        "image_heading": "Designed around\nthe details.",
+        "text": "<p>Overlapping bands sit across the front, while the high-rise cut extends coverage around the waist. Bound edges keep the finish clean under clothes.</p>",
+        "button_label": "Shop the shaping briefs",
+        "button_link": "shopify://collections/all"
+      }
+    },
+    "closer": {
+      "type": "feature-image",
+      "settings": {
+        "eyebrow": "A closer look",
+        "heading": "The details make the difference.",
+        "fallback_image": "blkm-details-black.webp"
+      }
+    },
+    "contact": {
+      "type": "contact-form",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "collection",
+    "details",
+    "closer",
+    "contact"
+  ]
+}

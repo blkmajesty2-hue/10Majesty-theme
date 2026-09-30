@@ -1,0 +1,53 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign zoom_id = 'zoom-' | append: section.id
+-%}
+<div class="wrap" data-product-form>
+  <script type="application/json" data-product-json>{{ product | json }}</script>
+  <section class="product-layout" id="buy">
+    {%- render 'product-gallery', product: product, zoom_id: zoom_id -%}
+    <div class="buy-panel">
+      <h1>{{ product.title | escape }}</h1>
+      {%- if section.settings.subtitle != blank -%}<p class="subtitle">{{ section.settings.subtitle | escape }}</p>{%- endif -%}
+      <p class="product-price" data-price>
+        {{ current_variant.price | money }}
+        {%- if current_variant.compare_at_price > current_variant.price -%}<s>{{ current_variant.compare_at_price | money }}</s>{%- endif -%}
+      </p>
+      {%- form 'product', product, id: 'ProductForm' -%}
+        <input type="hidden" name="id" value="{{ current_variant.id }}">
+        {%- unless product.has_only_default_variant -%}
+          {%- for option in product.options_with_values -%}
+            <div class="option-group">
+              <label for="Option-{{ section.id }}-{{ forloop.index0 }}">{{ option.name | escape }}</label>
+              <select id="Option-{{ section.id }}-{{ forloop.index0 }}" data-option-index="{{ forloop.index0 }}">
+                {%- for value in option.values -%}
+                  <option value="{{ value | escape }}"{% if option.selected_value == value %} selected{% endif %}>{{ value | escape }}</option>
+                {%- endfor -%}
+              </select>
+            </div>
+          {%- endfor -%}
+        {%- endunless -%}
+        <div class="quantity-row">
+          <label>{{ 'cart.quantity' | t }}<input type="number" name="quantity" value="1" min="1"></label>
+          <button class="primary add" type="submit"{% unless current_variant.available %} disabled{% endunless %}>
+            {%- if current_variant.available -%}{{ 'products.add_to_cart' | t }}{%- else -%}{{ 'products.sold_out' | t }}{%- endif -%}
+          </button>
+        </div>
+      {%- endform -%}
+      <p class="center-note" role="status" data-form-status></p>
+      <div class="payments">{% render 'payment-icons' %}</div>
+      {%- if product.description != blank -%}
+        <div class="product-description rte">{{ product.description }}</div>
+      {%- endif -%}
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Product information",
+  "settings": [
+    { "type": "text", "id": "subtitle", "label": "Subtitle badge" }
+  ]
+}
+{% endschema %}

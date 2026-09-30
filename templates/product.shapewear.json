@@ -1,0 +1,249 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product-bundle",
+      "blocks": {
+        "b1": {
+          "type": "benefit",
+          "settings": {
+            "title": "Cross-over front",
+            "text": "X-shaped bands that wrap the midsection."
+          }
+        },
+        "b2": {
+          "type": "benefit",
+          "settings": {
+            "title": "High-rise waist",
+            "text": "a structured, full-coverage cut."
+          }
+        },
+        "b3": {
+          "type": "benefit",
+          "settings": {
+            "title": "Mesh inserts",
+            "text": "breathable panels between the bands."
+          }
+        },
+        "b4": {
+          "type": "benefit",
+          "settings": {
+            "title": "Sizes S–6XL",
+            "text": "mix sizes and colors in any bundle."
+          }
+        },
+        "bundle2": {
+          "type": "bundle",
+          "settings": {
+            "quantity": 2,
+            "title": "Buy 1, get 1 free",
+            "subtitle": "2 briefs",
+            "price_label": "$34.90",
+            "per_label": "$17.45 / brief",
+            "badge": "",
+            "selected": false
+          }
+        },
+        "bundle4": {
+          "type": "bundle",
+          "settings": {
+            "quantity": 4,
+            "title": "Buy 2, get 2 free",
+            "subtitle": "4 briefs",
+            "price_label": "$39.90",
+            "per_label": "$9.98 / brief",
+            "badge": "BEST OFFER",
+            "selected": true
+          }
+        },
+        "bundle6": {
+          "type": "bundle",
+          "settings": {
+            "quantity": 6,
+            "title": "Buy 3, get 3 free",
+            "subtitle": "6 briefs",
+            "price_label": "$54.90",
+            "per_label": "$9.15 / brief",
+            "badge": "BEST VALUE",
+            "selected": false
+          }
+        },
+        "c1": {
+          "type": "collapsible",
+          "settings": {
+            "heading": "Delivery & returns",
+            "content": "<p>Delivery options and costs are shown at checkout. See our <a href=\"/policies/shipping-policy\">shipping policy</a> and <a href=\"/policies/refund-policy\">refund policy</a> for details.</p>"
+          }
+        },
+        "c2": {
+          "type": "collapsible",
+          "settings": {
+            "heading": "Care",
+            "content": "<p>Hand wash or machine wash cold on a gentle cycle with mild detergent. Air dry. Do not use bleach or fabric softener.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4",
+        "bundle2",
+        "bundle4",
+        "bundle6",
+        "c1",
+        "c2"
+      ],
+      "settings": {
+        "offer_price": "$39.90"
+      }
+    },
+    "strip": {
+      "type": "product-image-strip",
+      "settings": {}
+    },
+    "details": {
+      "type": "image-with-text",
+      "blocks": {
+        "p1": {
+          "type": "point",
+          "settings": {
+            "title": "Cross-over front",
+            "text": "Two overlapping bands form the signature X-shaped front."
+          }
+        },
+        "p2": {
+          "type": "point",
+          "settings": {
+            "title": "Full coverage",
+            "text": "The high-waisted cut covers the front, sides and back."
+          }
+        },
+        "p3": {
+          "type": "point",
+          "settings": {
+            "title": "Bound edges",
+            "text": "Clean, bound leg openings for a smooth line under clothes."
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3"
+      ],
+      "settings": {
+        "eyebrow": "The cross-over design",
+        "heading": "Support, from every angle.",
+        "fallback_image": "blkm-details-beige.webp",
+        "image_eyebrow": "The signature construction",
+        "image_heading": "A defined silhouette.\nA simple first layer.",
+        "text": "<p>The X-shaped construction is the focal point. Overlapping bands sit across the front, while the high-rise cut extends coverage around the waist.</p>",
+        "button_label": "Choose your bundle",
+        "button_link": ""
+      }
+    },
+    "closer": {
+      "type": "feature-image",
+      "settings": {
+        "eyebrow": "A closer look",
+        "heading": "A different approach to shapewear.",
+        "fallback_image": "blkm-closer-look.webp"
+      }
+    },
+    "black": {
+      "type": "feature-image",
+      "settings": {
+        "eyebrow": "",
+        "heading": "The details make the difference.",
+        "fallback_image": "blkm-details-black.webp"
+      }
+    },
+    "reviews": {
+      "type": "testimonials",
+      "settings": {}
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "Will it show under clothes?",
+            "answer": "<p>The bound edges and smooth bands are designed to sit discreetly under clothing. How visible it is depends on fit, color and what you wear over it.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "Is it suitable after childbirth or surgery?",
+            "answer": "<p>These are everyday shaping briefs, not a medical garment. If you're recovering from childbirth or surgery, ask your doctor before wearing shapewear.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "What sizes are available?",
+            "answer": "<p>Sizes S to 6XL. Use the size guide and choose the larger size if you're between two.</p>"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "question": "Can I choose different sizes and colors in one bundle?",
+            "answer": "<p>Yes. Pick a size and color for each brief in your bundle.</p>"
+          }
+        },
+        "q5": {
+          "type": "question",
+          "settings": {
+            "question": "How should I wash it?",
+            "answer": "<p>Hand wash or machine wash cold on a gentle cycle with mild detergent, then air dry. Avoid bleach and fabric softener.</p>"
+          }
+        },
+        "q6": {
+          "type": "question",
+          "settings": {
+            "question": "How long is delivery?",
+            "answer": "<p>Delivery options and times are shown at checkout. See our <a href=\"/policies/shipping-policy\">shipping policy</a>.</p>"
+          }
+        },
+        "q7": {
+          "type": "question",
+          "settings": {
+            "question": "What if I want to return my order?",
+            "answer": "<p>See our <a href=\"/policies/refund-policy\">refund policy</a> for how returns work.</p>"
+          }
+        },
+        "q8": {
+          "type": "question",
+          "settings": {
+            "question": "Which payment methods do you accept?",
+            "answer": "<p>All payment methods we accept are shown at checkout and in the icons on this page.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8"
+      ],
+      "settings": {
+        "text": "Product and shopping information, in plain English."
+      }
+    }
+  },
+  "order": [
+    "main",
+    "strip",
+    "details",
+    "closer",
+    "black",
+    "reviews",
+    "faq"
+  ]
+}

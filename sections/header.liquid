@@ -1,0 +1,45 @@
+<header>
+  <a class="wordmark" href="{{ routes.root_url }}">
+    {%- if section.settings.logo != blank -%}
+      {{ section.settings.logo | image_url: width: 400 | image_tag: width: section.settings.logo_width, alt: shop.name }}
+    {%- else -%}
+      {{ shop.name | upcase }}
+    {%- endif -%}
+  </a>
+  <nav aria-label="{{ 'accessibility.main_navigation' | t }}">
+    {%- for link in section.settings.menu.links -%}
+      {%- if link.links.size > 0 -%}
+        <details>
+          <summary>{{ link.title | escape }}</summary>
+          <ul>
+            {%- for child in link.links -%}
+              <li><a href="{{ child.url }}">{{ child.title | escape }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </details>
+      {%- else -%}
+        <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a>
+      {%- endif -%}
+    {%- endfor -%}
+  </nav>
+  <div class="header-actions">
+    <a href="{{ routes.search_url }}">{{ 'general.search' | t }}</a>
+    {%- if shop.customer_accounts_enabled -%}
+      <a href="{{ routes.account_url }}">{% if customer %}{{ customer.first_name | default: 'Account' }}{% else %}Log in{% endif %}</a>
+    {%- endif -%}
+    <a class="cart-toggle" href="{{ routes.cart_url }}" data-dialog="bag">Bag <span data-cart-count>{{ cart.item_count }}</span></a>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "section-header",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo image", "info": "Leave empty to show the store name as a wordmark." },
+    { "type": "range", "id": "logo_width", "label": "Logo width", "min": 60, "max": 300, "step": 10, "unit": "px", "default": 180 },
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" }
+  ],
+  "enabled_on": { "groups": ["header"] }
+}
+{% endschema %}
