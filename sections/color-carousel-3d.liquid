@@ -1,0 +1,82 @@
+{%- liquid
+  assign link_product = section.settings.product | default: product
+-%}
+<section class="c3d" data-c3d data-auto="{{ section.settings.auto_rotate }}" data-speed="{{ section.settings.speed }}" style="--c3d-card: {{ section.settings.card_width }}px;">
+  <div class="c3d__head">
+    {%- if section.settings.eyebrow != blank -%}<p class="c3d__eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+    {%- if section.settings.heading != blank -%}<h2>{{ section.settings.heading | escape }}</h2>{%- endif -%}
+    {%- if section.settings.text != blank -%}<p class="c3d__text">{{ section.settings.text | escape }}</p>{%- endif -%}
+  </div>
+  <div class="c3d__stage" data-c3d-stage aria-roledescription="carousel" aria-label="{{ section.settings.heading | escape }}">
+    <div class="c3d__ring" data-c3d-ring>
+      {%- for block in section.blocks -%}
+        <figure class="c3d__card" data-c3d-card data-color="{{ block.settings.color | escape }}" {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            {{ block.settings.image | image_url: width: 700 | image_tag: loading: 'lazy', draggable: 'false', alt: block.settings.color, sizes: '320px', widths: '350, 700' }}
+          {%- else -%}
+            <img src="{{ block.settings.fallback | default: 'blkm-color-black.webp' | asset_url }}" alt="{{ block.settings.color | escape }}" width="700" height="700" loading="lazy" draggable="false">
+          {%- endif -%}
+        </figure>
+      {%- endfor -%}
+    </div>
+    <div class="c3d__floor" aria-hidden="true"></div>
+  </div>
+  <div class="c3d__controls">
+    <button type="button" class="c3d__arrow" data-c3d-prev aria-label="Previous color">‹</button>
+    <p class="c3d__name" data-c3d-name aria-live="polite"></p>
+    <button type="button" class="c3d__arrow" data-c3d-next aria-label="Next color">›</button>
+  </div>
+  <div class="c3d__chips" role="tablist" aria-label="Colors">
+    {%- for block in section.blocks -%}
+      <button type="button" class="c3d__chip" data-c3d-chip="{{ forloop.index0 }}" role="tab" aria-label="{{ block.settings.color | escape }}" style="--chip: {{ block.settings.swatch }};"></button>
+    {%- endfor -%}
+  </div>
+  {%- if section.settings.button_label != blank -%}
+    <div class="c3d__cta">
+      <a class="c3d__button" data-c3d-shop href="{% if link_product %}{{ link_product.url }}{% else %}{{ routes.all_products_collection_url }}{% endif %}"{% if request.page_type == 'product' %} data-on-product{% endif %}>{{ section.settings.button_label | escape }}</a>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "3D color showcase",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Available in every mood" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Spin to see every color." },
+    { "type": "text", "id": "text", "label": "Text", "default": "Drag, swipe or tap a color. Mix any colors in your bundle." },
+    { "type": "checkbox", "id": "auto_rotate", "label": "Rotate automatically", "default": true },
+    { "type": "range", "id": "speed", "label": "Rotation speed", "min": 1, "max": 10, "step": 1, "default": 4 },
+    { "type": "range", "id": "card_width", "label": "Image size", "min": 180, "max": 360, "step": 10, "unit": "px", "default": 280 },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop this color" },
+    { "type": "product", "id": "product", "label": "Product the button opens", "info": "On a product page the button selects the color in the bundle picker instead." }
+  ],
+  "blocks": [
+    {
+      "type": "color",
+      "name": "Color",
+      "limit": 10,
+      "settings": [
+        { "type": "text", "id": "color", "label": "Color name", "default": "Black", "info": "Match the product's Color option exactly (e.g. Navy Blue)." },
+        { "type": "color", "id": "swatch", "label": "Swatch color", "default": "#000000" },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "fallback", "label": "Built-in image file", "default": "blkm-color-black.webp", "info": "Used when no image is picked." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "3D color showcase",
+      "blocks": [
+        { "type": "color", "settings": { "color": "Black", "swatch": "#111111", "fallback": "blkm-color-black.webp" } },
+        { "type": "color", "settings": { "color": "Beige", "swatch": "#e3cfa9", "fallback": "blkm-color-beige.webp" } },
+        { "type": "color", "settings": { "color": "Navy Blue", "swatch": "#1c2a55", "fallback": "blkm-color-navy.webp" } },
+        { "type": "color", "settings": { "color": "Lilac", "swatch": "#cbb2ef", "fallback": "blkm-color-lilac.webp" } },
+        { "type": "color", "settings": { "color": "Royal Blue", "swatch": "#1f4fd6", "fallback": "blkm-color-royal-blue.webp" } },
+        { "type": "color", "settings": { "color": "Fuchsia Pink", "swatch": "#e5187c", "fallback": "blkm-color-fuchsia.webp" } },
+        { "type": "color", "settings": { "color": "Plum", "swatch": "#5a1840", "fallback": "blkm-color-plum.webp" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

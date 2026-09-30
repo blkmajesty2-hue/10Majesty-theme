@@ -446,6 +446,93 @@
     tick();
   });
 
+  // ---------- 3D color showcase ----------
+  $$('[data-c3d]').forEach(section => {
+    const stage = $('[data-c3d-stage]', section);
+    const ring = $('[data-c3d-ring]', section);
+    const cards = $$('[data-c3d-card]', section);
+    const chips = $$('[data-c3d-chip]', section);
+    const nameEl = $('[data-c3d-name]', section);
+    const shop = $('[data-c3d-shop]', section);
+    const n = cards.length;
+    if (!n) return;
+    const step = 360 / n;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const auto = section.dataset.auto === 'true' && !reduce;
+    const speed = Number(section.dataset.speed || 4) * 0.035;
+    let angle = 0, target = null, dragging = false, lastX = 0, velocity = 0, hover = false, idleUntil = 0, front = -1;
+    const layout = () => {
+      const w = cards[0].offsetWidth;
+      const radius = Math.round((w / 2) / Math.tan(Math.PI / Math.max(n, 3)) + w * 0.12);
+      cards.forEach((c, i) => { c.style.transform = `rotateY(${i * step}deg) translateZ(${radius}px)`; });
+      ring.style.setProperty('--r', radius);
+      ring.dataset.radius = radius;
+    };
+    const frontIndex = () => ((Math.round(-angle / step) % n) + n) % n;
+    const paint = () => {
+      const r = Number(ring.dataset.radius || 300);
+      ring.style.transform = `translateZ(${-r}px) rotateY(${angle}deg)`;
+      cards.forEach((c, i) => {
+        const a = (((i * step + angle) % 360) + 540) % 360 - 180;
+        const t = Math.abs(a) / 180;
+        c.style.filter = `brightness(${1 - t * 0.45})`;
+        c.style.opacity = String(1 - t * 0.35);
+      });
+      const f = frontIndex();
+      if (f !== front) {
+        front = f;
+        cards.forEach((c, i) => c.classList.toggle('is-front', i === f));
+        chips.forEach((c, i) => c.setAttribute('aria-selected', String(i === f)));
+        if (nameEl) nameEl.textContent = cards[f].dataset.color;
+      }
+    };
+    const goTo = i => { let d = -i * step - angle; d = ((d % 360) + 540) % 360 - 180; target = angle + d; idleUntil = performance.now() + 4000; };
+    const loop = now => {
+      if (target !== null) {
+        angle += (target - angle) * 0.12;
+        if (Math.abs(target - angle) < 0.05) { angle = target; target = null; }
+      } else if (!dragging) {
+        if (Math.abs(velocity) > 0.02) { angle += velocity; velocity *= 0.93; }
+        else if (velocity !== 0) { velocity = 0; goTo(frontIndex()); }
+        else if (auto && !hover && now > idleUntil) angle -= speed;
+      }
+      paint();
+      requestAnimationFrame(loop);
+    };
+    stage.addEventListener('pointerdown', e => { dragging = true; lastX = e.clientX; velocity = 0; target = null; stage.classList.add('dragging'); stage.setPointerCapture(e.pointerId); });
+    stage.addEventListener('pointermove', e => { if (!dragging) return; const dx = e.clientX - lastX; lastX = e.clientX; angle += dx * 0.35; velocity = dx * 0.35; });
+    const end = () => { if (!dragging) return; dragging = false; stage.classList.remove('dragging'); idleUntil = performance.now() + 4000; if (Math.abs(velocity) < 0.5) { velocity = 0; goTo(frontIndex()); } };
+    stage.addEventListener('pointerup', end);
+    stage.addEventListener('pointercancel', end);
+    stage.addEventListener('mouseenter', () => { hover = true; });
+    stage.addEventListener('mouseleave', () => { hover = false; });
+    chips.forEach((c, i) => c.addEventListener('click', () => goTo(i)));
+    const prev = $('[data-c3d-prev]', section), next = $('[data-c3d-next]', section);
+    if (prev) prev.addEventListener('click', () => goTo((frontIndex() - 1 + n) % n));
+    if (next) next.addEventListener('click', () => goTo((frontIndex() + 1) % n));
+    section.addEventListener('keydown', e => { if (e.key === 'ArrowLeft') goTo((frontIndex() - 1 + n) % n); if (e.key === 'ArrowRight') goTo((frontIndex() + 1) % n); });
+    // "Shop this color": on a product page, set every bundle row to this color and jump to the buy box.
+    if (shop) shop.addEventListener('click', e => {
+      const color = cards[frontIndex()].dataset.color;
+      if (shop.hasAttribute('data-on-product')) {
+        const selects = $$('.variant-row select').filter(s => [...s.options].some(o => o.value === color));
+        if (selects.length) {
+          e.preventDefault();
+          selects.forEach(s => { s.value = color; s.dispatchEvent(new Event('change')); });
+          const buy = document.getElementById('buy');
+          if (buy) buy.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          return;
+        }
+      }
+      const url = new URL(shop.href, location.href);
+      url.searchParams.set('color', color);
+      shop.href = url.toString();
+    });
+    layout();
+    window.addEventListener('resize', layout);
+    requestAnimationFrame(loop);
+  });
+
   // ---------- Sticky buy bar ----------
   const sticky = $('.sticky-buy');
   const buy = document.getElementById('buy');
