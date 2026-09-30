@@ -12,6 +12,7 @@
     <div>
       <h3>{{ section.settings.menu.title | default: 'Useful links' }}</h3>
       <ul>
+        {%- if section.settings.show_contact -%}<li><a href="{{ section.settings.contact_link | default: '/pages/contact' }}">Contact us</a></li>{%- endif -%}
         {%- for link in section.settings.menu.links -%}
           <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
         {%- endfor -%}
@@ -24,8 +25,8 @@
     </div>
     <div>
       <h3>{{ section.settings.care_heading | escape }}</h3>
-      {%- if section.settings.care_text != blank -%}<div class="rte">{{ section.settings.care_text }}</div>{%- endif -%}
       <p><a href="mailto:{{ shop.email }}">{{ shop.email }}</a></p>
+      {%- if section.settings.care_text != blank -%}<div class="rte care-text">{{ section.settings.care_text }}</div>{%- endif -%}
     </div>
     <div>
       <h3>{{ section.settings.newsletter_heading | escape }}</h3>
@@ -57,9 +58,11 @@
   "settings": [
     { "type": "text", "id": "tagline", "label": "Tagline", "default": "Shapewear. Support. Everyday confidence." },
     { "type": "link_list", "id": "menu", "label": "Menu", "default": "footer" },
+    { "type": "checkbox", "id": "show_contact", "label": "Show \"Contact us\" link", "default": true },
+    { "type": "url", "id": "contact_link", "label": "Contact page", "info": "Defaults to /pages/contact." },
     { "type": "checkbox", "id": "show_policies", "label": "Show store policies", "info": "Lists the policies set in Settings → Policies.", "default": true },
     { "type": "text", "id": "care_heading", "label": "Customer care heading", "default": "Customer care" },
-    { "type": "richtext", "id": "care_text", "label": "Customer care text", "default": "<p>We reply to every message within one business day.</p>" },
+    { "type": "richtext", "id": "care_text", "label": "Customer care text", "default": "<p>Monday–Friday<br>8am–1pm & 2pm–8pm<br>Saturday–Sunday · 10am–4pm</p>" },
     { "type": "text", "id": "newsletter_heading", "label": "Newsletter heading", "default": "BLK_MAJESTY VIP access" },
     { "type": "text", "id": "newsletter_text", "label": "Newsletter text", "default": "A place for new arrivals and offers." }
   ],

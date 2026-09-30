@@ -6,22 +6,22 @@
         "b1": {
           "type": "benefit",
           "settings": {
-            "title": "Cross-over front",
-            "text": "X-shaped bands that wrap the midsection."
+            "title": "360° support",
+            "text": "a wraparound cross-band design."
           }
         },
         "b2": {
           "type": "benefit",
           "settings": {
-            "title": "High-rise waist",
-            "text": "a structured, full-coverage cut."
+            "title": "High-waist fit",
+            "text": "a structured, stay-in-place silhouette."
           }
         },
         "b3": {
           "type": "benefit",
           "settings": {
-            "title": "Mesh inserts",
-            "text": "breathable panels between the bands."
+            "title": "Seamless finish",
+            "text": "a discreet layer beneath your clothes."
           }
         },
         "b4": {
@@ -94,7 +94,8 @@
         "c2"
       ],
       "settings": {
-        "offer_price": "$39.90"
+        "offer_price": "$39.90",
+        "lead": "A smooth foundation, with a high waist and X-shaped bands designed to wrap around the midsection."
       }
     },
     "strip": {

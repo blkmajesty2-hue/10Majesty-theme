@@ -595,3 +595,20 @@ nav details li{margin:6px 0}
 @media(max-width:900px){.product-grid.four{grid-template-columns:repeat(2,1fr)}.blog-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:760px){.product-grid.four{grid-template-columns:1fr 1fr;gap:24px 14px}.product-grid.four .product-card h3{font-size:15px}.blog-grid{grid-template-columns:1fr}.cart-line{grid-template-columns:70px 1fr auto}.cart-line img{width:70px}.header-actions{gap:12px}}
 .quantity-row .add{margin-top:0;flex:1}.quantity-row label{font-size:13px;font-weight:600}
+
+/* Match the BLK_MAJESTY product-page reference */
+.wordmark{font-weight:800;letter-spacing:-.07em}
+.announcement{letter-spacing:.14em;font-weight:700}
+header nav a,header nav summary{font-weight:600}
+.footer-grid h3{font-weight:700;color:#fff}
+.footer-grid .care-text p{font-size:13px;color:#bbb;margin-top:12px}
+.footer-grid ul a{font-size:13px}
+@media(max-width:760px){
+  header{padding-top:16px;padding-bottom:0}
+  header nav{padding:14px 0;margin-top:2px}
+  .header-actions{margin-left:auto}
+  .cart-toggle span{width:26px;height:26px;font-size:12px}
+  .rating{grid-template-columns:auto auto 1fr}
+  .offer-banner{border-radius:8px}
+}
+.feature-image>img{max-width:min(850px,100%);width:100%}
