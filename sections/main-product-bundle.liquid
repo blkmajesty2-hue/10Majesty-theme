@@ -30,7 +30,8 @@
       {%- if rating_value != blank -%}
         <div class="rating"><span aria-hidden="true">★★★★★</span> <b>{{ rating_value }}/5</b><small>{{ rating_label | escape }}</small></div>
       {%- endif -%}
-      <h1>{% if section.settings.title_override != blank %}{{ section.settings.title_override | escape | newline_to_br }}{% else %}{{ product.title | escape }}{% endif %}</h1>
+      {%- if section.settings.eyebrow != blank -%}<p class="product-eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+      <h1 class="product-title">{% if section.settings.title_override != blank %}{{ section.settings.title_override | escape | newline_to_br }}{% else %}{{ product.title | escape }}{% endif %}</h1>
       {%- if section.settings.subtitle != blank -%}<p class="subtitle">{{ section.settings.subtitle | escape }}</p>{%- endif -%}
       {%- if section.settings.lead != blank -%}<p class="lead">{{ section.settings.lead | escape }}</p>{%- endif -%}
       {%- assign benefits = section.blocks | where: 'type', 'benefit' -%}
@@ -132,6 +133,7 @@
     { "type": "text", "id": "rating_text", "label": "Rating", "info": "For example 4.8. Only use your real rating." },
     { "type": "text", "id": "rating_label", "label": "Rating label", "default": "Customer rating" },
     { "type": "header", "content": "Product info" },
+    { "type": "text", "id": "eyebrow", "label": "Small label above title", "default": "BLK_MAJESTY · SHAPEWEAR" },
     { "type": "textarea", "id": "title_override", "label": "Title shown on page", "info": "Leave empty to use the product title. Press Enter for a line break." },
     { "type": "text", "id": "subtitle", "label": "Subtitle badge", "default": "Seamless tummy control" },
     { "type": "textarea", "id": "lead", "label": "Intro text", "default": "A smooth everyday foundation, with a high-rise waist and X-shaped cross-over bands that wrap the midsection." },

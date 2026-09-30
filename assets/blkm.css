@@ -701,3 +701,13 @@ nav.main-navigation a,nav.main-navigation summary{font-weight:700}
   .feature-cards{padding:48px 20px}
   .feature-cards__grid{grid-template-columns:1fr}
 }
+
+/* ---------- Product title block (bundle page) ---------- */
+.product-eyebrow{margin:0 0 8px;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#555}
+.buy-panel h1.product-title{font-size:clamp(28px,2.6vw,38px);font-weight:700;line-height:1.08;letter-spacing:-.025em;margin:0 0 14px}
+.buy-panel .subtitle{display:inline-block;margin:0 0 16px;padding:6px 14px;border-radius:999px;background:#000;color:#fff;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+@media(max-width:760px){
+  .product-eyebrow{font-size:10px;margin-bottom:6px}
+  .buy-panel h1.product-title{font-size:26px;line-height:1.1;letter-spacing:-.02em;margin-bottom:12px}
+  .buy-panel .subtitle{font-size:10px;padding:5px 12px;margin-bottom:14px}
+}
