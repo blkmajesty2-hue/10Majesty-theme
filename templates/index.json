@@ -1,8 +1,38 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
+    "banner": {
+      "type": "hero-banner",
+      "settings": {
+        "image": "shopify://shop_images/blkm-hero-banner-people.png",
+        "fallback_image": "blkm-hero-banner.webp",
+        "text_side": "left",
+        "overlay": 55,
+        "text_color": "#0a0a0a",
+        "eyebrow": "",
+        "heading": "POSTPARTUM SUPPORT,\nREIMAGINED.",
+        "serif": true,
+        "text": "Sculpting comfort designed to support you through every movement.",
+        "button_label": "SHOP NOW",
+        "button_link": "shopify://products/culotte-post-patrum",
+        "small_text": "BLK_MAJESTY"
+      }
+    },
     "collection": {
       "type": "featured-collection",
+      "disabled": true,
       "settings": {
+        "eyebrow": "The collection",
+        "heading": "Shop BLK_MAJESTY.",
+        "collection": "",
         "limit": 6,
         "columns": "3"
       }
@@ -48,6 +78,87 @@
         "button_link": "shopify://collections/all"
       }
     },
+    "color_carousel_3d_dNULzq": {
+      "type": "color-carousel-3d",
+      "blocks": {
+        "color_7bTjp3": {
+          "type": "color",
+          "settings": {
+            "color": "Black",
+            "swatch": "#111111",
+            "fallback": "blkm-color-black.webp"
+          }
+        },
+        "color_KVhHPg": {
+          "type": "color",
+          "settings": {
+            "color": "Beige",
+            "swatch": "#e3cfa9",
+            "fallback": "blkm-color-beige.webp"
+          }
+        },
+        "color_HWpBDe": {
+          "type": "color",
+          "settings": {
+            "color": "Navy Blue",
+            "swatch": "#1c2a55",
+            "fallback": "blkm-color-navy.webp"
+          }
+        },
+        "color_HbREaY": {
+          "type": "color",
+          "settings": {
+            "color": "Lilac",
+            "swatch": "#cbb2ef",
+            "fallback": "blkm-color-lilac.webp"
+          }
+        },
+        "color_XXAczY": {
+          "type": "color",
+          "settings": {
+            "color": "Royal Blue",
+            "swatch": "#1f4fd6",
+            "fallback": "blkm-color-royal-blue.webp"
+          }
+        },
+        "color_HjxV4y": {
+          "type": "color",
+          "settings": {
+            "color": "Fuchsia Pink",
+            "swatch": "#e5187c",
+            "fallback": "blkm-color-fuchsia.webp"
+          }
+        },
+        "color_qLhMkC": {
+          "type": "color",
+          "settings": {
+            "color": "Plum",
+            "swatch": "#5a1840",
+            "fallback": "blkm-color-plum.webp"
+          }
+        }
+      },
+      "block_order": [
+        "color_7bTjp3",
+        "color_KVhHPg",
+        "color_HWpBDe",
+        "color_HbREaY",
+        "color_XXAczY",
+        "color_HjxV4y",
+        "color_qLhMkC"
+      ],
+      "name": "3D color showcase",
+      "settings": {
+        "eyebrow": "Available in every mood",
+        "heading": "Spin to see every color.",
+        "text": "Drag, swipe or tap a color. Mix any colors in your bundle.",
+        "auto_rotate": true,
+        "speed": 4,
+        "card_width": 280,
+        "button_label": "Shop this color",
+        "product": ""
+      }
+    },
     "closer": {
       "type": "feature-image",
       "settings": {
@@ -56,23 +167,29 @@
         "fallback_image": "blkm-details-black.webp"
       }
     },
+    "mechanism_banner_Y6dWtH": {
+      "type": "mechanism-banner",
+      "name": "Mechanism banner",
+      "settings": {
+        "eyebrow": "THE EXCLUSIVE MECHANISM",
+        "heading": "Smooth belly. Redefined waist. In 5 seconds.",
+        "serif": false,
+        "text": "It crosses over your belly and holds it at three points: it smooths without squeezing. And you can breathe.",
+        "button_label": "Try it risk-free for 30 days",
+        "button_link": "",
+        "rating_text": "",
+        "reviews_word": "verified reviews",
+        "bg_top": "#f5f5f5",
+        "bg_bottom": "#e9e9e9",
+        "accent": "#000000"
+      }
+    },
     "contact": {
       "type": "contact-form",
-      "settings": {}
-    },
-    "banner": {
-      "type": "hero-banner",
       "settings": {
-        "image": "shopify://shop_images/blkm-hero-banner-people.png",
-        "text_side": "left",
-        "overlay": 55,
-        "text_color": "#0a0a0a",
-        "heading": "POSTPARTUM SUPPORT,\nREIMAGINED.",
-        "serif": true,
-        "text": "Sculpting comfort designed to support you through every movement.",
-        "button_label": "SHOP NOW",
-        "button_link": "shopify://products/culotte-post-patrum",
-        "small_text": "BLK_MAJESTY"
+        "eyebrow": "Customer care",
+        "heading": "Contact us.",
+        "text": "<p>Questions about sizing, bundles or delivery? Send a message and the BLK_MAJESTY team will get back to you.</p>"
       }
     }
   },
@@ -80,7 +197,9 @@
     "banner",
     "collection",
     "details",
+    "color_carousel_3d_dNULzq",
     "closer",
+    "mechanism_banner_Y6dWtH",
     "contact"
   ]
 }
