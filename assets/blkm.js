@@ -131,9 +131,8 @@
       return;
     }
     if (cols) cols.hidden = false;
-    products.forEach(item => {
-      const line = document.createElement('div');
-      line.className = 'drawer-line';
+    const trashSvg = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg>';
+    const mediaFor = item => {
       const media = document.createElement('a');
       media.href = item.url;
       media.className = 'drawer-line__media';
@@ -144,59 +143,105 @@
         img.width = 100; img.height = 125;
         media.append(img);
       }
-      const info = document.createElement('div');
-      info.className = 'drawer-line__info';
-      const title = document.createElement('a');
-      title.href = item.url;
-      title.className = 'drawer-line__title';
-      title.textContent = item.product_title;
-      info.append(title);
-      if (!item.product_has_only_default_variant) {
-        (item.options_with_values || []).forEach(o => {
-          const meta = document.createElement('p');
-          meta.className = 'drawer-line__meta';
-          meta.textContent = `${o.name}: ${o.value}`;
-          info.append(meta);
-        });
-      }
-      (item.line_level_discount_allocations || []).forEach(d => {
-        const meta = document.createElement('p');
-        meta.className = 'drawer-line__discount';
-        meta.textContent = `${d.discount_application.title} (−${formatMoney(d.amount)})`;
-        info.append(meta);
-      });
-      const controls = document.createElement('div');
-      controls.className = 'drawer-line__controls';
-      const stepper = document.createElement('div');
-      stepper.className = 'qty-stepper';
-      const minus = document.createElement('button');
-      minus.type = 'button'; minus.textContent = '−';
-      minus.setAttribute('aria-label', 'Decrease quantity');
-      minus.addEventListener('click', () => changeLine(item.key, Math.max(0, item.quantity - 1)));
-      const qty = document.createElement('span');
-      qty.textContent = item.quantity;
-      qty.setAttribute('aria-label', (t.quantity || 'Quantity') + ' ' + item.quantity);
-      const plus = document.createElement('button');
-      plus.type = 'button'; plus.textContent = '+';
-      plus.setAttribute('aria-label', 'Increase quantity');
-      plus.addEventListener('click', () => changeLine(item.key, item.quantity + 1));
-      stepper.append(minus, qty, plus);
-      const remove = document.createElement('button');
-      remove.type = 'button'; remove.className = 'drawer-line__remove';
-      remove.setAttribute('aria-label', (t.remove || 'Remove') + ' ' + item.product_title);
-      remove.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg>';
-      remove.addEventListener('click', () => changeLine(item.key, 0));
-      controls.append(stepper, remove);
-      info.append(controls);
+      return media;
+    };
+    const priceFor = (final, original) => {
       const price = document.createElement('div');
       price.className = 'drawer-line__price';
-      if (item.original_line_price > item.final_line_price) {
+      if (original > final) {
         const s = document.createElement('s');
-        s.textContent = formatMoney(item.original_line_price);
+        s.textContent = formatMoney(original);
         price.append(s);
       }
-      price.append(formatMoney(item.final_line_price));
-      line.append(media, info, price);
+      price.append(formatMoney(final));
+      return price;
+    };
+    const metaLine = (text, cls = 'drawer-line__meta') => {
+      const p = document.createElement('p');
+      p.className = cls;
+      p.textContent = text;
+      return p;
+    };
+    // Group lines that belong to one bundle. Shopify splits a bundle into paid and free lines
+    // when the Buy X get Y discount applies; the shared _bundle_id puts them back together.
+    const units = [];
+    const groups = new Map();
+    products.forEach(item => {
+      const id = item.properties && item.properties._bundle_id;
+      if (id) {
+        if (!groups.has(id)) { const g = { bundle: true, id, items: [] }; groups.set(id, g); units.push(g); }
+        groups.get(id).items.push(item);
+      } else {
+        units.push({ bundle: false, item });
+      }
+    });
+    units.forEach(unit => {
+      const line = document.createElement('div');
+      line.className = 'drawer-line';
+      const info = document.createElement('div');
+      info.className = 'drawer-line__info';
+      const controls = document.createElement('div');
+      controls.className = 'drawer-line__controls';
+      const remove = document.createElement('button');
+      remove.type = 'button'; remove.className = 'drawer-line__remove';
+      remove.innerHTML = trashSvg;
+      if (unit.bundle) {
+        const first = unit.items[0];
+        const props = first.properties || {};
+        const count = unit.items.reduce((a, i) => a + i.quantity, 0);
+        const title = document.createElement('a');
+        title.href = first.url;
+        title.className = 'drawer-line__title';
+        title.textContent = first.product_title;
+        info.append(title);
+        info.append(metaLine(`${props._bundle_title || 'Bundle'} · ${count} ${count === 1 ? 'item' : 'items'}`, 'drawer-line__bundle'));
+        // One line per size/color with its total quantity across the paid and free lines.
+        const perVariant = new Map();
+        unit.items.forEach(i => {
+          const label = i.product_has_only_default_variant ? i.product_title : (i.options_with_values || []).map(o => o.value).join(' / ');
+          perVariant.set(label, (perVariant.get(label) || 0) + i.quantity);
+        });
+        perVariant.forEach((q, label) => info.append(metaLine(`${q} × ${label}`)));
+        remove.setAttribute('aria-label', (t.remove || 'Remove') + ' ' + (props._bundle_title || 'bundle'));
+        remove.addEventListener('click', () => removeLines(unit.items.map(i => i.key)));
+        controls.append(remove);
+        info.append(controls);
+        const final = unit.items.reduce((a, i) => a + i.final_line_price, 0);
+        const original = unit.items.reduce((a, i) => a + i.original_line_price, 0);
+        line.append(mediaFor(first), info, priceFor(final, original));
+      } else {
+        const item = unit.item;
+        const title = document.createElement('a');
+        title.href = item.url;
+        title.className = 'drawer-line__title';
+        title.textContent = item.product_title;
+        info.append(title);
+        if (!item.product_has_only_default_variant) {
+          (item.options_with_values || []).forEach(o => info.append(metaLine(`${o.name}: ${o.value}`)));
+        }
+        (item.line_level_discount_allocations || []).filter(d => d.amount > 0).forEach(d => {
+          info.append(metaLine(`${d.discount_application.title} (−${formatMoney(d.amount)})`, 'drawer-line__discount'));
+        });
+        const stepper = document.createElement('div');
+        stepper.className = 'qty-stepper';
+        const minus = document.createElement('button');
+        minus.type = 'button'; minus.textContent = '−';
+        minus.setAttribute('aria-label', 'Decrease quantity');
+        minus.addEventListener('click', () => changeLine(item.key, Math.max(0, item.quantity - 1)));
+        const qty = document.createElement('span');
+        qty.textContent = item.quantity;
+        qty.setAttribute('aria-label', (t.quantity || 'Quantity') + ' ' + item.quantity);
+        const plus = document.createElement('button');
+        plus.type = 'button'; plus.textContent = '+';
+        plus.setAttribute('aria-label', 'Increase quantity');
+        plus.addEventListener('click', () => changeLine(item.key, item.quantity + 1));
+        stepper.append(minus, qty, plus);
+        remove.setAttribute('aria-label', (t.remove || 'Remove') + ' ' + item.product_title);
+        remove.addEventListener('click', () => changeLine(item.key, 0));
+        controls.append(stepper, remove);
+        info.append(controls);
+        line.append(mediaFor(item), info, priceFor(item.final_line_price, item.original_line_price));
+      }
       list.append(line);
     });
     total.textContent = formatMoney(cart.total_price) + (config.currency ? ' ' + config.currency : '');
@@ -232,6 +277,18 @@
     if (res.ok) {
       const cart = await res.json();
       renderBag(cart);
+      if (document.body.classList.contains('template-cart')) location.reload();
+    }
+  }
+  async function removeLines(keys) {
+    const updates = Object.fromEntries(keys.map(k => [k, 0]));
+    const res = await fetch(root + 'cart/update.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({ updates })
+    });
+    if (res.ok) {
+      renderBag(await res.json());
       if (document.body.classList.contains('template-cart')) location.reload();
     }
   }
@@ -405,7 +462,9 @@
       }
       const counts = new Map();
       rows.forEach(row => { const id = rowVariant(row).id; counts.set(id, (counts.get(id) || 0) + 1); });
-      const items = (rows.fake || [...counts].map(([id, quantity]) => ({ id, quantity }))).map(i => ({ ...i, properties: { _bundle: chosen.value + '-pack' } }));
+      const bundleId = Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+      const bundleProps = { _bundle: chosen.value + '-pack', _bundle_id: bundleId, _bundle_title: chosen.dataset.title || '' };
+      const items = (rows.fake || [...counts].map(([id, quantity]) => ({ id, quantity }))).map(i => ({ ...i, properties: bundleProps }));
       const label = addButton.textContent;
       addButton.disabled = true;
       addButton.textContent = t.adding || 'Adding…';
