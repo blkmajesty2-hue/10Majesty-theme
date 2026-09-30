@@ -5,7 +5,9 @@
   const $$ = (s, root = document) => [...root.querySelectorAll(s)];
   const config = window.blkm || {};
   const root = (window.Shopify && Shopify.routes && Shopify.routes.root) || '/';
-  const t = config.strings || {};
+  // Shopify HTML-escapes translated strings (e.g. ' becomes &#39;); decode them once for use as plain text.
+  const decodeEntities = str => { const el = document.createElement('textarea'); el.innerHTML = str; return el.value; };
+  const t = Object.fromEntries(Object.entries(config.strings || {}).map(([k, v]) => [k, typeof v === 'string' ? decodeEntities(v) : v]));
 
   // ---------- Money ----------
   function formatMoney(cents) {
