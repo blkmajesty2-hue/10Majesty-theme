@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -71,14 +80,16 @@
           "type": "collapsible",
           "settings": {
             "heading": "Delivery & returns",
-            "content": "<p>Delivery options and costs are shown at checkout. See our <a href=\"/policies/shipping-policy\">shipping policy</a> and <a href=\"/policies/refund-policy\">refund policy</a> for details.</p>"
+            "content": "<p>Delivery options and costs are shown at checkout. See our <a href=\"/policies/shipping-policy\">shipping policy</a> and <a href=\"/policies/refund-policy\">refund policy</a> for details.</p>",
+            "page": ""
           }
         },
         "c2": {
           "type": "collapsible",
           "settings": {
             "heading": "Care",
-            "content": "<p>Hand wash or machine wash cold on a gentle cycle with mild detergent. Air dry. Do not use bleach or fabric softener.</p>"
+            "content": "<p>Hand wash or machine wash cold on a gentle cycle with mild detergent. Air dry. Do not use bleach or fabric softener.</p>",
+            "page": ""
           }
         }
       },
@@ -94,15 +105,87 @@
         "c2"
       ],
       "settings": {
-        "offer_price": "$79.98",
-        "lead": "A smooth foundation, with a high waist and X-shaped bands designed to wrap around the midsection.",
+        "rating_text": "",
+        "rating_label": "Customer rating",
         "title_override": "High-Waist\nShaping Briefs",
-        "size_chart": "shopify://shop_images/blkm-size-guide.webp"
+        "subtitle": "Seamless tummy control",
+        "lead": "A smooth foundation, with a high waist and X-shaped bands designed to wrap around the midsection.",
+        "offer_text": "BUY 2, GET 2 FREE",
+        "offer_price": "$79.98",
+        "button_label": "Add bundle to bag",
+        "note": "Mix sizes and colors in any bundle.",
+        "size_chart": "shopify://shop_images/blkm-size-guide.webp",
+        "promo_link": "",
+        "sticky_bar": true
       }
     },
     "strip": {
       "type": "product-image-strip",
       "settings": {}
+    },
+    "size": {
+      "type": "size-chart",
+      "settings": {
+        "image": "shopify://shop_images/blkm-size-guide.webp",
+        "heading": "",
+        "note": "If you're between sizes, choose the larger size."
+      }
+    },
+    "mechanism": {
+      "type": "mechanism-banner",
+      "settings": {
+        "eyebrow": "THE EXCLUSIVE MECHANISM",
+        "heading": "Smooth belly. Redefined waist. In 5 seconds.",
+        "serif": true,
+        "text": "It crosses over your belly and holds it at three points: it smooths without squeezing. And you can breathe.",
+        "button_label": "Try it risk-free for 30 days",
+        "button_link": "shopify://products/culotte-post-patrum",
+        "rating_text": "",
+        "reviews_word": "verified reviews",
+        "bg_top": "#F3F3F3",
+        "bg_bottom": "#E9E9E9",
+        "accent": "#000000"
+      }
+    },
+    "features": {
+      "type": "feature-cards",
+      "blocks": {
+        "c1": {
+          "type": "card",
+          "settings": {
+            "icon": "x",
+            "title": "The X flattens",
+            "text": "Two bands cross over the lower belly and hold it in place from two directions, like two hands resting gently."
+          }
+        },
+        "c2": {
+          "type": "card",
+          "settings": {
+            "icon": "nodes",
+            "title": "Three zones, evenly spread",
+            "text": "The tension is spread over three zones instead of a single elastic: firm on the belly, gentle on the skin."
+          }
+        },
+        "c3": {
+          "type": "card",
+          "settings": {
+            "icon": "wind",
+            "title": "And you breathe",
+            "text": "No concentrated pressure: no folds, no marks, no shortness of breath. All day long."
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "settings": {
+        "heading": "Two crossed bands. Three zones. Zero compression.",
+        "serif": true,
+        "card_bg": "#E9E9E9",
+        "accent": "#000000"
+      }
     },
     "details": {
       "type": "image-with-text",
@@ -137,6 +220,7 @@
       "settings": {
         "eyebrow": "The cross-over design",
         "heading": "Support, from every angle.",
+        "image": "shopify://shop_images/Screenshot_2026-09-30_at_2.42.46_AM.png",
         "fallback_image": "blkm-details-beige.webp",
         "image_eyebrow": "The signature construction",
         "image_heading": "A defined silhouette.\nA simple first layer.",
@@ -150,6 +234,7 @@
       "settings": {
         "eyebrow": "A closer look",
         "heading": "A different approach to shapewear.",
+        "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_02_48_19.png",
         "fallback_image": "blkm-closer-look.webp"
       }
     },
@@ -163,7 +248,10 @@
     },
     "reviews": {
       "type": "testimonials",
-      "settings": {}
+      "settings": {
+        "eyebrow": "Reviews",
+        "heading": "Customer experiences."
+      }
     },
     "faq": {
       "type": "faq",
@@ -276,53 +364,10 @@
         "q13"
       ],
       "settings": {
+        "eyebrow": "Frequently asked questions",
+        "heading": "Before you choose.",
         "text": "Product and shopping information, in plain English."
       }
-    },
-    "size": {
-      "type": "size-chart",
-      "settings": {
-        "image": "shopify://shop_images/blkm-size-guide.webp"
-      }
-    },
-    "mechanism": {
-      "type": "mechanism-banner",
-      "settings": {}
-    },
-    "features": {
-      "type": "feature-cards",
-      "blocks": {
-        "c1": {
-          "type": "card",
-          "settings": {
-            "icon": "x",
-            "title": "The X flattens",
-            "text": "Two bands cross over the lower belly and hold it in place from two directions, like two hands resting gently."
-          }
-        },
-        "c2": {
-          "type": "card",
-          "settings": {
-            "icon": "nodes",
-            "title": "Three zones, evenly spread",
-            "text": "The tension is spread over three zones instead of a single elastic: firm on the belly, gentle on the skin."
-          }
-        },
-        "c3": {
-          "type": "card",
-          "settings": {
-            "icon": "wind",
-            "title": "And you breathe",
-            "text": "No concentrated pressure: no folds, no marks, no shortness of breath. All day long."
-          }
-        }
-      },
-      "block_order": [
-        "c1",
-        "c2",
-        "c3"
-      ],
-      "settings": {}
     }
   },
   "order": [
