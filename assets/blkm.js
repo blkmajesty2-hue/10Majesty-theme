@@ -238,16 +238,42 @@
     const opts = product.options;
     const valuesFor = i => [...new Set(product.variants.map(v => v.options[i]))];
     const findVariant = values => product.variants.find(v => v.options.every((o, i) => o === values[i]));
+    // Small photo of the chosen color on each bundle row; a color dot when the variant has no photo.
+    const swatchColors = { black: '#111', beige: '#e3cfa9', 'navy blue': '#1c2a55', navy: '#1c2a55', 'royal blue': '#1f4fd6', blue: '#1f4fd6', plum: '#5a1840', purple: '#6b2b8f', 'dark purple': '#4a1d5e', 'fuchsia pink': '#e5187c', pink: '#e5187c', fuchsia: '#e5187c', lilac: '#cbb2ef', white: '#fff', nude: '#d9b99b' };
+    const colorIndex = opts.findIndex(o => /colou?r/i.test(o));
+    function updateThumb(row) {
+      const thumb = $('.variant-thumb', row);
+      if (!thumb) return;
+      const v = rowVariant(row);
+      const img = v && (v.featured_image || (v.featured_media && v.featured_media.preview_image));
+      const src = img && (img.src || img.url);
+      const colorName = colorIndex >= 0 ? $$('select', row)[colorIndex].value : '';
+      thumb.replaceChildren();
+      thumb.title = colorName;
+      if (src) {
+        const el = document.createElement('img');
+        el.src = src + (src.includes('?') ? '&' : '?') + 'width=90';
+        el.alt = '';
+        el.width = 34; el.height = 34;
+        thumb.append(el);
+        thumb.style.background = '';
+      } else {
+        thumb.style.background = swatchColors[colorName.toLowerCase()] || '#ddd';
+      }
+    }
 
     $$('.variant-rows', section).forEach(container => {
       const count = Number(container.dataset.count);
       for (let n = 0; n < count; n++) {
         const row = document.createElement('div');
         row.className = 'variant-row';
-        row.style.gridTemplateColumns = `24px repeat(${Math.max(opts.length, 1)}, 1fr)`;
+        row.style.gridTemplateColumns = `24px 34px repeat(${Math.max(opts.length, 1)}, minmax(0, 1fr))`;
         const label = document.createElement('span');
         label.textContent = '#' + (n + 1);
-        row.append(label);
+        const thumb = document.createElement('span');
+        thumb.className = 'variant-thumb';
+        thumb.setAttribute('aria-hidden', 'true');
+        row.append(label, thumb);
         opts.forEach((name, i) => {
           const s = document.createElement('select');
           s.dataset.index = i;
@@ -260,6 +286,7 @@
           const first = product.variants.find(v => v.available) || product.variants[0];
           s.value = first.options[i];
           s.addEventListener('change', () => {
+            updateThumb(row);
             validate(row);
             const v = rowVariant(row);
             if (v && v.featured_media) showMedia(gallery, v.featured_media.id);
@@ -267,6 +294,7 @@
           row.append(s);
         });
         container.append(row);
+        updateThumb(row);
       }
     });
     function rowVariant(row) {
