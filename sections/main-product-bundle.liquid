@@ -57,6 +57,9 @@
       {%- if section.settings.show_stock and stock_tracked and stock_total > 0 and stock_total <= section.settings.stock_threshold -%}
         <p class="stock-alert"><span class="stock-alert__dot" aria-hidden="true"></span>{{ section.settings.stock_text | replace: '[count]', stock_total | escape }}</p>
       {%- endif -%}
+      {%- if section.settings.urgency_text != blank -%}
+        <p class="urgency-line"><span aria-hidden="true">🔥</span> {{ section.settings.urgency_text | escape }}</p>
+      {%- endif -%}
       {%- if section.settings.deal_text != blank -%}
         <p class="deal-box">{{ section.settings.deal_text | escape }}</p>
       {%- endif -%}
@@ -180,7 +183,9 @@
     { "type": "header", "content": "Low-stock alert" },
     { "type": "checkbox", "id": "show_stock", "label": "Show low-stock alert", "default": true, "info": "Uses the product's real Shopify inventory. Shows only when stock is tracked and the total left is at or below the number below." },
     { "type": "range", "id": "stock_threshold", "label": "Show when stock is at or below", "min": 1, "max": 50, "step": 1, "default": 10 },
-    { "type": "text", "id": "stock_text", "label": "Alert text", "default": "Only [count] left in stock!", "info": "[count] is replaced by the real number in stock." },
+    { "type": "text", "id": "stock_text", "label": "Alert text", "default": "Selling fast — only a few left!", "info": "Optional: [count] is replaced by the real number in stock." },
+    { "type": "header", "content": "Urgency line" },
+    { "type": "text", "id": "urgency_text", "label": "Urgency text", "default": "Order today — your bundle ships fast", "info": "Always shown. Keep it true: use your real shipping time. Leave empty to hide." },
     { "type": "header", "content": "Deal box" },
     { "type": "text", "id": "deal_text", "label": "Deal text", "default": "🎁 Buy 2, get 2 free — $79.98 ($20.00 per brief)" },
     { "type": "header", "content": "Countdown" },

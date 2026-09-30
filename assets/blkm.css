@@ -729,3 +729,4 @@ nav.main-navigation a,nav.main-navigation summary{font-weight:700}
 .countdown__sep{font-size:26px;font-weight:700;line-height:52px;color:#000}
 @media(max-width:760px){.deal-box{font-size:14px;padding:12px 14px}.countdown__unit b{min-width:46px;height:46px;font-size:22px}.countdown__sep{line-height:46px;font-size:22px}}
 .countdown [hidden],.countdown[hidden]{display:none!important}
+.urgency-line{margin:0 0 14px;font-size:15px;font-weight:700;letter-spacing:.02em;color:#000}
