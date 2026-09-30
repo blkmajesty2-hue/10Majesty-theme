@@ -347,6 +347,40 @@
         "accent": "#000000"
       }
     },
+    "circles": {
+      "type": "circle-features",
+      "blocks": {
+        "c1": {
+          "type": "circle",
+          "settings": {
+            "fallback": "blkm-color-royal-blue.webp",
+            "zoom": 220,
+            "focus_x": 55,
+            "focus_y": 40,
+            "caption": "Crossover high-waist design"
+          }
+        },
+        "c2": {
+          "type": "circle",
+          "settings": {
+            "fallback": "blkm-color-navy.webp",
+            "zoom": 190,
+            "focus_x": 50,
+            "focus_y": 70,
+            "caption": "Sculpting cut, shaping effect"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2"
+      ],
+      "settings": {
+        "heading": "Why it's NOT ordinary shapewear",
+        "serif": true,
+        "border_color": "#000000"
+      }
+    },
     "features": {
       "type": "feature-cards",
       "blocks": {
@@ -645,36 +679,6 @@
         "heading": "Before you choose.",
         "text": "Product and shopping information, in plain English."
       }
-    },
-    "circles": {
-      "type": "circle-features",
-      "blocks": {
-        "c1": {
-          "type": "circle",
-          "settings": {
-            "fallback": "blkm-color-royal-blue.webp",
-            "zoom": 220,
-            "focus_x": 55,
-            "focus_y": 40,
-            "caption": "Crossover high-waist design"
-          }
-        },
-        "c2": {
-          "type": "circle",
-          "settings": {
-            "fallback": "blkm-color-navy.webp",
-            "zoom": 190,
-            "focus_x": 50,
-            "focus_y": 70,
-            "caption": "Sculpting cut, shaping effect"
-          }
-        }
-      },
-      "block_order": [
-        "c1",
-        "c2"
-      ],
-      "settings": {}
     }
   },
   "order": [
@@ -682,8 +686,8 @@
     "strip",
     "size",
     "mechanism",
-    "features",
     "circles",
+    "features",
     "colors3d",
     "details",
     "closer",
