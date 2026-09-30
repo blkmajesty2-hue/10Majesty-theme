@@ -1,9 +1,5 @@
 {
   "sections": {
-    "hero": {
-      "type": "blkm-hero",
-      "settings": {}
-    },
     "collection": {
       "type": "featured-collection",
       "settings": {
@@ -63,10 +59,25 @@
     "contact": {
       "type": "contact-form",
       "settings": {}
+    },
+    "banner": {
+      "type": "hero-banner",
+      "settings": {
+        "image": "shopify://shop_images/blkm-hero-banner-1.png",
+        "text_side": "left",
+        "overlay": 55,
+        "text_color": "#0a0a0a",
+        "heading": "POSTPARTUM SUPPORT,\nREIMAGINED.",
+        "serif": true,
+        "text": "Sculpting comfort designed to support you through every movement.",
+        "button_label": "SHOP NOW",
+        "button_link": "shopify://products/culotte-post-patrum",
+        "small_text": "BLK_MAJESTY"
+      }
     }
   },
   "order": [
-    "hero",
+    "banner",
     "collection",
     "details",
     "closer",

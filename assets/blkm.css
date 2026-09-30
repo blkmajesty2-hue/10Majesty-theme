@@ -841,3 +841,29 @@ dialog.cart-drawer[open]{display:flex;animation:drawer-in .28s ease-out}
 .review__pics{display:grid;grid-template-columns:1fr 1fr;gap:2px}
 .review__pics img{width:100%;aspect-ratio:1;object-fit:cover}
 @media(max-width:760px){.review-photo{flex-basis:150px}}
+
+/* ---------- Full-width hero banner ---------- */
+.hero-banner{position:relative;display:grid;min-height:clamp(420px,56.25vw,860px);overflow:hidden;background:#f6f2ea;color:var(--hb-text,#0a0a0a)}
+.hero-banner__media,.hero-banner__media picture{position:absolute;inset:0}
+.hero-banner__media img{width:100%;height:100%;object-fit:cover;object-position:65% center}
+.hero-banner::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(246,242,234,calc(var(--hb-overlay,55) / 100)) 0%,rgba(246,242,234,calc(var(--hb-overlay,55) / 140)) 35%,rgba(246,242,234,0) 60%)}
+.hero-banner--right::after{background:linear-gradient(270deg,rgba(246,242,234,calc(var(--hb-overlay,55) / 100)) 0%,rgba(246,242,234,0) 60%)}
+.hero-banner--center::after{background:rgba(246,242,234,calc(var(--hb-overlay,55) / 160))}
+.hero-banner__content{position:relative;z-index:1;align-self:center;max-width:620px;padding:60px 6vw}
+.hero-banner--right .hero-banner__content{justify-self:end;text-align:right}
+.hero-banner--center .hero-banner__content{justify-self:center;text-align:center}
+.hero-banner__eyebrow{margin:0 0 14px;font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase}
+.hero-banner__title{margin:0 0 18px;font-size:clamp(34px,4.4vw,68px);line-height:1.05;letter-spacing:-.01em;font-weight:700}
+.hero-banner__text{margin:0 0 30px;max-width:460px;font-size:clamp(16px,1.35vw,20px);line-height:1.55;color:#333}
+.hero-banner--center .hero-banner__text{margin-left:auto;margin-right:auto}
+.hero-banner__button{display:inline-flex;align-items:center;justify-content:center;padding:18px 46px;background:#0a0a0a;color:#f6f2ea;font-size:15px;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+.hero-banner__button:hover{background:#333}
+.hero-banner__small{margin:18px 0 0;font-size:12px;font-weight:700;letter-spacing:.3em;color:#555}
+@media(max-width:760px){
+  .hero-banner{min-height:auto;grid-template-rows:auto auto}
+  .hero-banner__media{position:relative;inset:auto;aspect-ratio:4/3}
+  .hero-banner__media picture{position:absolute}
+  .hero-banner__media img{object-position:70% center}
+  .hero-banner::after{display:none}
+  .hero-banner__content,.hero-banner--right .hero-banner__content{justify-self:stretch;text-align:left;padding:28px 20px 36px;background:#f6f2ea}
+}
