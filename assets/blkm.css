@@ -900,3 +900,32 @@ dialog.cart-drawer[open]{display:flex;animation:drawer-in .28s ease-out}
 .bg-sticky a{display:block;max-width:430px;margin:auto;background:#000;color:#fff;padding:13px;font:700 13px Arial,sans-serif}
 .bg-sticky small{display:block;font:10px/1.6 Arial,sans-serif;color:#555}
 @media(max-width:520px){.bg-guide{font-size:17px}.bg-guide .bg-h2{font-size:22px}.bg-kicker{font-size:9px}.bg-badges{gap:5px}.bg-badges b{font-size:17px}.bg-pull{font-size:20px}}
+
+/* ---------- Spin-to-win pop-up ---------- */
+.spin{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:16px;opacity:0;transition:opacity .25s}
+.spin.is-open{opacity:1}
+.spin[hidden]{display:none!important}
+html.spin-open{overflow:hidden}
+.spin__backdrop{position:absolute;inset:0;background:rgba(0,0,0,.6)}
+.spin__panel{position:relative;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:34px;width:min(820px,100%);max-height:calc(100vh - 32px);overflow:auto;background:#fff;padding:40px;border-radius:6px;transform:translateY(14px) scale(.98);transition:transform .3s}
+.spin.is-open .spin__panel{transform:none}
+.spin__close{position:absolute;top:10px;right:14px;font-size:30px;line-height:1;padding:4px 8px;color:#111}
+.spin__wheel-wrap{position:relative;width:100%;max-width:340px;justify-self:center;padding-top:14px}
+.spin__pointer{position:absolute;top:0;left:50%;z-index:1;width:0;height:0;margin-left:-13px;border-left:13px solid transparent;border-right:13px solid transparent;border-top:26px solid #0a0a0a;filter:drop-shadow(0 2px 2px rgba(0,0,0,.3))}
+.spin__wheel{display:block;width:100%;height:auto;filter:drop-shadow(0 14px 22px rgba(0,0,0,.25))}
+.spin__label{font:800 11px "Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:.06em;text-anchor:middle;dominant-baseline:middle}
+.spin__label.is-light{fill:#fff}.spin__label.is-dark{fill:#0a0a0a}
+.spin__hub{fill:#fff;font:800 8px "Helvetica Neue",Helvetica,Arial,sans-serif;text-anchor:middle;letter-spacing:.08em}
+.spin__eyebrow{margin:0 0 10px;font:700 11px/1.4 "Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#555}
+.spin .spin__title{margin:0 0 12px;font:800 clamp(24px,3vw,32px)/1.1 "Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:-.01em;text-transform:none}
+.spin__text{margin:0 0 18px;color:#444;font-size:15px;line-height:1.5}
+.spin__form{display:grid;gap:10px}
+.spin__form input{padding:14px;border:1px solid #bbb;font-size:15px}
+.spin__button{width:100%;padding:16px;background:#0a0a0a;color:#fff;font:700 13px/1 "Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase}
+.spin__button:hover{background:#333}.spin__button:disabled{opacity:.6}
+.spin__fine{margin:10px 0 0;font-size:11px;line-height:1.5;color:#777}
+.spin__skip{display:block;margin:12px auto 0;font-size:12px;color:#666;text-decoration:underline}
+.spin__code{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 14px;padding:12px 14px;border:2px dashed #0a0a0a;font:800 20px/1 "Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:.12em}
+.spin__code button{font:700 11px Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;text-decoration:underline}
+.visually-hidden{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media(max-width:760px){.spin__panel{grid-template-columns:1fr;gap:18px;padding:30px 20px 24px;text-align:center}.spin__wheel-wrap{max-width:230px}.spin__code{font-size:18px}}

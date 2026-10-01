@@ -605,6 +605,111 @@
     }).observe(buy);
   }
 
+  // ---------- Spin-to-win pop-up ----------
+  // Every spin wins the offer printed on the wheel. Shown once per visitor; a better offer can appear
+  // once on desktop when the visitor moves to leave without having claimed a code.
+  $$('[data-spin]').forEach(pop => {
+    const KEY = 'blkm_spin';
+    const store = {
+      get() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } },
+      set(v) { try { localStorage.setItem(KEY, JSON.stringify(Object.assign(store.get(), v))); } catch (e) { /* private mode */ } }
+    };
+    const design = pop.dataset.design === 'true';
+    const isPhone = window.matchMedia('(max-width: 760px)').matches;
+    if (!design && isPhone && pop.dataset.mobile !== 'true') return;
+    const wheel = $('[data-spin-wheel]', pop);
+    const form = $('.spin__form', pop);
+    const heading = $('[data-spin-heading]', pop), text = $('[data-spin-text]', pop);
+    const base = { offer: pop.dataset.offer, code: pop.dataset.code, heading: heading.textContent, text: text.textContent };
+    let mode = base, open = false, spinning = false, lastFocus = null;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const setMode = m => {
+      mode = m;
+      heading.textContent = m.heading;
+      text.textContent = m.text;
+      $$('[data-spin-label]', pop).forEach(l => { l.textContent = m.offer; });
+    };
+    const show = m => {
+      if (open) return;
+      setMode(m);
+      $('[data-spin-step="form"]', pop).hidden = false;
+      $('[data-spin-step="won"]', pop).hidden = true;
+      pop.hidden = false;
+      open = true;
+      lastFocus = document.activeElement;
+      document.documentElement.classList.add('spin-open');
+      requestAnimationFrame(() => pop.classList.add('is-open'));
+      const email = $('input[type=email]', pop);
+      if (email && !isPhone) email.focus({ preventScroll: true });
+    };
+    const close = () => {
+      if (!open || spinning) return;
+      pop.classList.remove('is-open');
+      document.documentElement.classList.remove('spin-open');
+      open = false;
+      setTimeout(() => { pop.hidden = true; }, 250);
+      if (!design) store.set({ seen: true });
+      if (lastFocus) lastFocus.focus({ preventScroll: true });
+    };
+    $$('[data-spin-close]', pop).forEach(b => b.addEventListener('click', close));
+    pop.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      if (spinning || !form.reportValidity()) return;
+      spinning = true;
+      $('[data-spin-submit]', pop).disabled = true;
+      // Save the email as a Shopify customer who agreed to marketing; the code is shown either way.
+      fetch(form.action, { method: 'POST', body: new FormData(form), credentials: 'same-origin' }).catch(() => {});
+      // Every slice carries the same offer; land on a random slice centre under the pointer.
+      const slice = Math.floor(Math.random() * 8);
+      const deg = 6 * 360 - (slice * 45 + 22.5);
+      wheel.style.transition = 'transform 4.2s cubic-bezier(.12,.75,.18,1)';
+      wheel.style.transform = `rotate(${deg}deg)`;
+      setTimeout(() => {
+        spinning = false;
+        store.set({ claimed: mode.code });
+        $('[data-spin-won-offer]', pop).textContent = mode.offer;
+        $('[data-spin-won-code]', pop).textContent = mode.code;
+        $('[data-spin-step="form"]', pop).hidden = true;
+        $('[data-spin-step="won"]', pop).hidden = false;
+      }, reduceMotion ? 50 : 4400);
+    });
+    $('[data-spin-copy]', pop).addEventListener('click', e => {
+      if (navigator.clipboard) navigator.clipboard.writeText(mode.code).then(() => { e.target.textContent = 'Copied'; }).catch(() => {});
+    });
+    $('[data-spin-apply]', pop).addEventListener('click', async () => {
+      // Visiting /discount/CODE stores the code so it is applied automatically at checkout.
+      try { await fetch(root + 'discount/' + encodeURIComponent(mode.code), { credentials: 'same-origin' }); } catch (e) { /* offline */ }
+      $('[data-spin-applied]', pop).hidden = false;
+      setTimeout(close, 900);
+    });
+
+    if (design) {
+      // Theme editor: open while the section is selected so it can be edited.
+      document.addEventListener('shopify:section:select', e => { if (pop.closest('#shopify-section-' + e.detail.sectionId)) show(base); });
+      document.addEventListener('shopify:section:deselect', e => { if (pop.closest('#shopify-section-' + e.detail.sectionId)) { open && close(); } });
+      return;
+    }
+    const state = store.get();
+    if (state.claimed) return;
+    if (!state.seen) setTimeout(() => { if (!store.get().claimed && !store.get().seen) show(base); }, Number(pop.dataset.delay || 8) * 1000);
+    if (pop.dataset.leave === 'true' && pop.dataset.leaveCode && window.matchMedia('(pointer: fine)').matches && !state.leaveSeen) {
+      const leave = { offer: pop.dataset.leaveOffer, code: pop.dataset.leaveCode, heading: pop.dataset.leaveHeading, text: pop.dataset.leaveText };
+      const onLeave = e => {
+        if (e.clientY > 0 || e.relatedTarget || open) return;
+        const st = store.get();
+        if (st.claimed || st.leaveSeen) return;
+        document.removeEventListener('mouseout', onLeave);
+        store.set({ leaveSeen: true });
+        show(leave);
+      };
+      // Give the visitor a few seconds on the page before watching for exit.
+      setTimeout(() => document.addEventListener('mouseout', onLeave), 5000);
+    }
+  });
+
   // Keep the header count in sync when the page is restored from the back/forward cache.
   window.addEventListener('pageshow', e => { if (e.persisted) refreshCart(); });
   // Clear any paid protection line on load so it is never charged while protection is included.

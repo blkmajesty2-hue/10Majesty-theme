@@ -8,7 +8,14 @@
         "menu": "footer",
         "tagline": "Shapewear. Support. Everyday confidence."
       }
+    },
+    "spin_popup": {
+      "type": "spin-popup",
+      "settings": {}
     }
   },
-  "order": ["footer"]
+  "order": [
+    "footer",
+    "spin_popup"
+  ]
 }
