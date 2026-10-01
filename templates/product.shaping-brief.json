@@ -125,7 +125,8 @@
         "countdown_end": "",
         "countdown_text": "Hurry! The offer ends in",
         "promo_link": "",
-        "sticky_bar": true
+        "sticky_bar": true,
+        "gift_text": "FREE GIFT with every order: Shipping Protection ([value] value)"
       }
     },
     "strip": {

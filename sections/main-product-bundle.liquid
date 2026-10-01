@@ -63,6 +63,15 @@
       {%- if section.settings.deal_text != blank -%}
         <p class="deal-box">{{ section.settings.deal_text | escape }}</p>
       {%- endif -%}
+      {%- if section.settings.gift_text != blank and settings.protection_mode != 'off' -%}
+        {%- liquid
+          assign gift_value = ''
+          if settings.protection_product != blank
+            assign gift_value = settings.protection_product.selected_or_first_available_variant.price | money_without_trailing_zeros | strip_html
+          endif
+        -%}
+        <p class="gift-line"><span aria-hidden="true">🎁</span> {{ section.settings.gift_text | escape | replace: '[value]', gift_value }}</p>
+      {%- endif -%}
       {%- if section.settings.size_chart != blank and section.settings.size_button_label != blank -%}
         <div class="size-guide-button-wrap"><button type="button" class="size-guide-button" data-dialog="{{ size_id }}">{{ section.settings.size_button_label | escape }}</button></div>
       {%- endif -%}
@@ -188,6 +197,7 @@
     { "type": "text", "id": "urgency_text", "label": "Urgency text", "default": "Order today — your bundle ships fast", "info": "Always shown. Keep it true: use your real shipping time. Leave empty to hide." },
     { "type": "header", "content": "Deal box" },
     { "type": "text", "id": "deal_text", "label": "Deal text", "default": "🎁 Buy 2, get 2 free — $79.98 ($20.00 per brief)" },
+    { "type": "text", "id": "gift_text", "label": "Free gift line", "default": "FREE GIFT with every order: Shipping Protection ([value] value)", "info": "[value] shows the protection product's price. Hidden when shipping protection is off." },
     { "type": "header", "content": "Countdown" },
     { "type": "paragraph", "content": "Counts down to a real end date, such as when your sale ends. Hidden when empty or after the date passes." },
     { "type": "text", "id": "countdown_end", "label": "Offer ends", "info": "Format: 2026-10-31 23:59 (your store's time zone offset can be added, e.g. 2026-10-31T23:59:00-04:00)." },

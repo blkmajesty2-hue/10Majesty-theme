@@ -947,3 +947,4 @@ html.spin-open{overflow:hidden}
 .quiz__code-label{margin:0 0 6px}
 .quiz__shop{display:block;text-align:center}
 @media(max-width:760px){.quiz__panel{grid-template-columns:1fr}.quiz__art{display:none}.quiz__body{padding:34px 20px 22px}.quiz__units{justify-content:center}.quiz__size{font-size:54px}}
+.gift-line{display:flex;align-items:center;justify-content:center;gap:8px;margin:-4px 0 16px;border-radius:12px;padding:10px 14px;background:#f5f5f5;border:1px solid #e2e2e2;font-size:14px;font-weight:700;letter-spacing:.01em}

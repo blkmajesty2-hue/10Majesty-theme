@@ -88,12 +88,31 @@
   }
   const protectionId = Number(config.protectionVariant) || null;
   const isProtection = item => protectionId && item.variant_id === protectionId;
+  let giftBusy = false, giftBroken = false;
   function renderBag(cart) {
     renderCount(cart);
     // Included mode: protection is free, so a paid protection line (left over from optional
     // mode or added elsewhere) is removed and never charged.
     const paidProtection = cart.items.find(isProtection);
     if (paidProtection && config.protectionMode === 'included') { changeLine(paidProtection.key, 0); return; }
+    // Gift mode: keep exactly one protection line in any cart with products; the FREE GIFT automatic
+    // discount makes it $0. If that discount is ever missing, remove it rather than charge for it.
+    if (config.protectionMode === 'gift' && protectionId && !giftBusy) {
+      const hasProducts = cart.items.some(i => !isProtection(i));
+      const line = paidProtection;
+      if (line && (!hasProducts || line.final_line_price > 0)) {
+        if (hasProducts) giftBroken = true;
+        giftBusy = true; changeLine(line.key, 0).finally(() => { giftBusy = false; }); return;
+      }
+      if (line && line.quantity > 1) { giftBusy = true; changeLine(line.key, 1).finally(() => { giftBusy = false; }); return; }
+      if (!line && hasProducts && !giftBroken) {
+        giftBusy = true;
+        fetch(root + 'cart/add.js', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ items: [{ id: protectionId, quantity: 1 }] }) })
+          .then(() => { if (document.body.classList.contains('template-cart')) location.reload(); })
+          .catch(() => {}).finally(() => { giftBusy = false; refreshCart(); });
+        return;
+      }
+    }
     if (!bag) return;
     const products = cart.items.filter(i => !isProtection(i));
     const protectionLine = cart.items.find(isProtection);
@@ -788,5 +807,5 @@
   // Keep the header count in sync when the page is restored from the back/forward cache.
   window.addEventListener('pageshow', e => { if (e.persisted) refreshCart(); });
   // Clear any paid protection line on load so it is never charged while protection is included.
-  if (config.protectionMode === 'included' && protectionId) refreshCart();
+  if ((config.protectionMode === 'included' || config.protectionMode === 'gift') && protectionId) refreshCart();
 })();

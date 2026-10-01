@@ -14,7 +14,8 @@
     "font_style": "helvetica",
     "free_shipping_threshold": 75,
     "protection_product": "shipping-protection",
-    "protection_mode": "included"
+    "protection_mode": "gift",
+    "protection_included_title": "FREE GIFT: Shipping Protection"
   },
   "presets": {
     "Default": {

@@ -87,6 +87,10 @@
         "default": "included",
         "options": [
           {
+            "value": "gift",
+            "label": "Free gift: added to the cart at $0 (needs the FREE GIFT automatic discount)"
+          },
+          {
             "value": "included",
             "label": "Included free on every order"
           },
@@ -115,8 +119,8 @@
       {
         "type": "product",
         "id": "protection_product",
-        "label": "Optional add-on: protection product",
-        "info": "Only used when shipping protection is an optional paid add-on."
+        "label": "Protection product",
+        "info": "Used by the free gift and optional add-on modes, and for the crossed-out value."
       },
       {
         "type": "text",
