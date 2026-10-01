@@ -86,7 +86,7 @@
           "settings": {
             "color": "Black",
             "swatch": "#111111",
-            "fallback": "blkm-color-black.webp"
+            "fallback": "blkm-cut-black.webp"
           }
         },
         "color_KVhHPg": {
@@ -94,7 +94,7 @@
           "settings": {
             "color": "Beige",
             "swatch": "#e3cfa9",
-            "fallback": "blkm-color-beige.webp"
+            "fallback": "blkm-cut-beige.webp"
           }
         },
         "color_HWpBDe": {
@@ -102,7 +102,7 @@
           "settings": {
             "color": "Navy Blue",
             "swatch": "#1c2a55",
-            "fallback": "blkm-color-navy.webp"
+            "fallback": "blkm-cut-navy.webp"
           }
         },
         "color_HbREaY": {
@@ -110,7 +110,7 @@
           "settings": {
             "color": "Lilac",
             "swatch": "#cbb2ef",
-            "fallback": "blkm-color-lilac.webp"
+            "fallback": "blkm-cut-lilac.webp"
           }
         },
         "color_XXAczY": {
@@ -118,7 +118,7 @@
           "settings": {
             "color": "Royal Blue",
             "swatch": "#1f4fd6",
-            "fallback": "blkm-color-royal-blue.webp"
+            "fallback": "blkm-cut-royal-blue.webp"
           }
         },
         "color_HjxV4y": {
@@ -126,7 +126,7 @@
           "settings": {
             "color": "Fuchsia Pink",
             "swatch": "#e5187c",
-            "fallback": "blkm-color-fuchsia.webp"
+            "fallback": "blkm-cut-fuchsia.webp"
           }
         },
         "color_qLhMkC": {
@@ -134,7 +134,7 @@
           "settings": {
             "color": "Plum",
             "swatch": "#5a1840",
-            "fallback": "blkm-color-plum.webp"
+            "fallback": "blkm-cut-plum.webp"
           }
         }
       },
@@ -149,14 +149,20 @@
       ],
       "name": "3D color showcase",
       "settings": {
-        "eyebrow": "Available in every mood",
-        "heading": "Spin to see every color.",
-        "text": "Drag, swipe or tap a color. Mix any colors in your bundle.",
+        "eyebrow": "",
+        "heading": "ENGINEERED TO SHAPE.\nDESIGNED TO MOVE.",
+        "text": "Targeted X-shaped support meets breathable, all-day comfort.",
+        "feature_1": "360° SUPPORT",
+        "feature_2": "HIGH-WAIST SCULPTING",
+        "feature_3": "BREATHABLE MESH",
+        "feature_4": "S–3XL",
+        "shade_heading": "FIND YOUR SHADE",
+        "start": 1,
         "auto_rotate": true,
-        "speed": 4,
-        "card_width": 280,
-        "button_label": "Shop this color",
-        "product": ""
+        "interval": 4,
+        "button_label": "SHOP THE COLLECTION",
+        "product": "",
+        "film_image": "shopify://shop_images/blkm-3d-showcase.png"
       }
     },
     "closer": {
