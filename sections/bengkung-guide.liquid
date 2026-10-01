@@ -15,6 +15,8 @@
     {%- if section.settings.byline != blank -%}<p class="bg-byline">{{ section.settings.byline | escape }}</p>{%- endif -%}
     {%- if section.settings.hero_image != blank -%}
       {{ section.settings.hero_image | image_url: width: 1400 | image_tag: loading: 'eager', class: 'bg-img', sizes: '(max-width: 720px) 100vw, 680px', widths: '500, 700, 1000, 1400', alt: section.settings.title }}
+    {%- elsif section.settings.hero_image_url != blank -%}
+      <img class="bg-img" src="{{ section.settings.hero_image_url | escape }}" alt="{{ section.settings.title | escape }}" width="900" height="1100" fetchpriority="high">
     {%- elsif section.settings.hero_fallback != blank -%}
       <img class="bg-img" src="{{ section.settings.hero_fallback | asset_url }}" alt="{{ section.settings.title | escape }}" width="1254" height="1254">
     {%- endif -%}
@@ -29,10 +31,12 @@
           <figure class="bg-figure{% if block.settings.narrow %} bg-figure--narrow{% endif %}" {{ block.shopify_attributes }}>
             {%- if block.settings.image != blank -%}
               {{ block.settings.image | image_url: width: 1400 | image_tag: loading: 'lazy', class: 'bg-img', sizes: '(max-width: 720px) 100vw, 680px', widths: '500, 700, 1000, 1400', alt: block.settings.caption }}
+            {%- elsif block.settings.image_url != blank -%}
+              <img class="bg-img" src="{{ block.settings.image_url | escape }}" alt="{{ block.settings.caption | escape }}" width="900" height="1100" loading="lazy">
             {%- else -%}
               <img class="bg-img" src="{{ block.settings.fallback_image | default: 'blkm-duo.webp' | asset_url }}" alt="{{ block.settings.caption | escape }}" width="1254" height="1254" loading="lazy">
             {%- endif -%}
-            {%- if block.settings.caption != blank -%}<figcaption>{{ block.settings.caption | escape }}</figcaption>{%- endif -%}
+            {%- if block.settings.caption != blank and block.settings.hide_caption != true -%}<figcaption>{{ block.settings.caption | escape }}</figcaption>{%- endif -%}
           </figure>
         {%- when 'quote' -%}
           <blockquote class="bg-quote" {{ block.shopify_attributes }}>
@@ -97,6 +101,7 @@
     { "type": "textarea", "id": "title", "label": "Headline", "default": "Years after pregnancy, your stomach still hasn't “bounced back”? Here's what nobody explained." },
     { "type": "text", "id": "byline", "label": "Byline", "default": "By the BLK_MAJESTY team" },
     { "type": "image_picker", "id": "hero_image", "label": "Main image" },
+    { "type": "text", "id": "hero_image_url", "label": "Main image URL", "info": "Used when no main image is picked, e.g. a link from Content → Files." },
     { "type": "text", "id": "hero_fallback", "label": "Built-in main image file", "default": "blkm-duo.webp", "info": "Used when no main image is picked. Leave empty for none." },
     { "type": "url", "id": "button_link", "label": "Default button link", "info": "Used by the sticky bar and by any button block without its own link." },
     { "type": "header", "content": "Bottom of page" },
@@ -115,8 +120,10 @@
     ] },
     { "type": "image", "name": "Image", "settings": [
       { "type": "image_picker", "id": "image", "label": "Image" },
+      { "type": "text", "id": "image_url", "label": "Image URL", "info": "Used when no image is picked, e.g. a link from Content → Files." },
       { "type": "text", "id": "fallback_image", "label": "Built-in image file", "default": "blkm-duo.webp", "info": "Used when no image is picked. e.g. blkm-duo.webp, blkm-details-black.webp, blkm-details-beige.webp, blkm-closer-look.webp, blkm-blue.webp, blkm-color-navy.webp" },
       { "type": "text", "id": "caption", "label": "Caption / alt text" },
+      { "type": "checkbox", "id": "hide_caption", "label": "Use caption as alt text only (hide it)", "default": false },
       { "type": "checkbox", "id": "narrow", "label": "Narrow (for phone screenshots)", "default": false }
     ] },
     { "type": "quote", "name": "Quote", "settings": [

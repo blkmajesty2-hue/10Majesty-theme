@@ -1,0 +1,412 @@
+{
+  "sections": {
+    "main": {
+      "type": "bengkung-guide",
+      "blocks": {
+        "quote_1": {
+          "type": "quote",
+          "settings": {
+            "quote": "My youngest is 17, and my stomach still looks exactly as it did when I left the delivery room. Do I have to accept it?",
+            "cite": ""
+          }
+        },
+        "text_2": {
+          "type": "text",
+          "settings": {
+            "text": "<p>No. But you must stop doing what makes the problem worse. Tight shapewear, years of crunches and diets often address the front while the body wraps all the way around.</p>"
+          }
+        },
+        "heading_3": {
+          "type": "heading",
+          "settings": {
+            "heading": "Ordinary shapewear compresses the front. Your body goes all the way around."
+          }
+        },
+        "image_4": {
+          "type": "image",
+          "settings": {
+            "image_url": "https://cdn.shopify.com/s/files/1/0794/0797/2593/files/ADV_2.png?v=1779041950&width=900",
+            "caption": "Postpartum profile",
+            "hide_caption": true,
+            "narrow": false,
+            "fallback_image": ""
+          }
+        },
+        "quote_5": {
+          "type": "quote",
+          "settings": {
+            "quote": "I lost every pregnancy pound, but the shape of my stomach was permanently different. Exercise changed nothing.",
+            "cite": ""
+          }
+        },
+        "quote_6": {
+          "type": "quote",
+          "settings": {
+            "quote": "At 49, I no longer recognized myself in the mirror.",
+            "cite": ""
+          }
+        },
+        "heading_7": {
+          "type": "heading",
+          "settings": {
+            "heading": "What nobody told you"
+          }
+        },
+        "image_8": {
+          "type": "image",
+          "settings": {
+            "image_url": "https://cdn.shopify.com/s/files/1/0794/0797/2593/files/ADV_3_1.jpg?v=1779041974&width=900",
+            "caption": "Postpartum exercise",
+            "hide_caption": true,
+            "narrow": false,
+            "fallback_image": ""
+          }
+        },
+        "text_9": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Walking, swimming, yoga and rigid shapewear may leave the same structural problem untouched. Classic crunches and sit-ups can increase outward pressure instead of bringing the abdominal wall inward.</p>"
+          }
+        },
+        "button_10": {
+          "type": "button",
+          "settings": {
+            "label": "Discover BLK_MAJESTY →",
+            "link": "shopify://products/culotte-post-patrum",
+            "note": ""
+          }
+        },
+        "heading_11": {
+          "type": "heading",
+          "settings": {
+            "heading": "The signs I recognized because I lived them"
+          }
+        },
+        "text_12": {
+          "type": "text",
+          "settings": {
+            "text": "<p>A stomach that protrudes before breakfast. A ridge that appears when standing up. Clothes that fall differently even when your weight is unchanged. A silhouette that looks more rounded in the evening than in the morning.</p>"
+          }
+        },
+        "heading_13": {
+          "type": "heading",
+          "settings": {
+            "heading": "The appointment that changed everything"
+          }
+        },
+        "image_14": {
+          "type": "image",
+          "settings": {
+            "image_url": "https://cdn.shopify.com/s/files/1/0794/0797/2593/files/1f37cf93-9e4d-46e0-a7b5-64c5c7b19c71.png?v=1778794749&width=900",
+            "caption": "Medical consultation",
+            "hide_caption": true,
+            "narrow": false,
+            "fallback_image": ""
+          }
+        },
+        "text_15": {
+          "type": "text",
+          "settings": {
+            "text": "<p>A colleague placed two fingers above my navel and explained abdominal separation. The relief was immediate: it was not a personal failure, and weight alone was not the issue.</p>"
+          }
+        },
+        "pull_16": {
+          "type": "pull",
+          "settings": {
+            "text": "It wasn’t my fault.\nNobody had explained it."
+          }
+        },
+        "heading_17": {
+          "type": "heading",
+          "settings": {
+            "heading": "The structure behind the silhouette"
+          }
+        },
+        "image_18": {
+          "type": "image",
+          "settings": {
+            "image_url": "https://cdn.shopify.com/s/files/1/0794/0797/2593/files/3aa7e50f-f2a4-4147-917b-0e76a8162320.png?v=1778794954&width=900",
+            "caption": "Abdominal anatomy",
+            "hide_caption": true,
+            "narrow": false,
+            "fallback_image": ""
+          }
+        },
+        "text_19": {
+          "type": "text",
+          "settings": {
+            "text": "<p>During pregnancy, the abdominal muscles move apart to make room. For many women the gap persists for years. A gentle, circular support can visually hold the abdomen from the front, sides and back.</p>"
+          }
+        },
+        "callout_20": {
+          "type": "callout",
+          "settings": {
+            "title": "A simple at-home check",
+            "text": "<p>Lie on your back with your knees bent. Place two fingers above your navel and gently lift your head. A visible ridge or a gap can be a reason to speak with a qualified healthcare professional.</p>"
+          }
+        },
+        "heading_21": {
+          "type": "heading",
+          "settings": {
+            "heading": "Inspired by the Bengkung wrap"
+          }
+        },
+        "image_22": {
+          "type": "image",
+          "settings": {
+            "image_url": "https://cdn.shopify.com/s/files/1/0794/0797/2593/files/Design_sans_titre_20.png?v=1778795518&width=900",
+            "caption": "Woman wearing high-waist briefs",
+            "hide_caption": true,
+            "narrow": false,
+            "fallback_image": ""
+          }
+        },
+        "text_23": {
+          "type": "text",
+          "settings": {
+            "text": "<p>The cross-band design distributes support around three zones. It is built as an everyday high-waist brief: easy to put on, smooth under clothes and comfortable through ordinary movement.</p>"
+          }
+        },
+        "heading_24": {
+          "type": "heading",
+          "settings": {
+            "heading": "Day 8—something changed"
+          }
+        },
+        "image_25": {
+          "type": "image",
+          "settings": {
+            "image_url": "https://cdn.shopify.com/s/files/1/0794/0797/2593/files/ADV_7.jpg?v=1778795554&width=900",
+            "caption": "Woman fastening jeans",
+            "hide_caption": true,
+            "narrow": false,
+            "fallback_image": ""
+          }
+        },
+        "text_26": {
+          "type": "text",
+          "settings": {
+            "text": "<p>The jeans I had not closed since my second pregnancy finally buttoned without holding my breath. My waist looked present again.</p>"
+          }
+        },
+        "heading_27": {
+          "type": "heading",
+          "settings": {
+            "heading": "Six weeks later"
+          }
+        },
+        "image_28": {
+          "type": "image",
+          "settings": {
+            "image_url": "https://cdn.shopify.com/s/files/1/0794/0797/2593/files/ADV_8.jpg?v=1778795589&width=900",
+            "caption": "Six week silhouette comparison",
+            "hide_caption": true,
+            "narrow": false,
+            "fallback_image": ""
+          }
+        },
+        "image_29": {
+          "type": "image",
+          "settings": {
+            "image_url": "https://cdn.shopify.com/s/files/1/0794/0797/2593/files/Capture_d_ecran_2026-05-17_181601.png?v=1779042292&width=786",
+            "caption": "Customer message",
+            "hide_caption": true,
+            "narrow": true,
+            "fallback_image": ""
+          }
+        },
+        "text_30": {
+          "type": "text",
+          "settings": {
+            "text": "<p>For the first time in 13 years, I recognized myself in the mirror. Individual experiences vary, but the feeling of dressing with confidence mattered as much as the visual change.</p>"
+          }
+        },
+        "heading_31": {
+          "type": "heading",
+          "settings": {
+            "heading": "Experiences from women who tried it"
+          }
+        },
+        "image_32": {
+          "type": "image",
+          "settings": {
+            "image_url": "https://cdn.shopify.com/s/files/1/0794/0797/2593/files/prima_1.png?v=1779042269&width=900",
+            "caption": "Before and after comparison",
+            "hide_caption": true,
+            "narrow": false,
+            "fallback_image": ""
+          }
+        },
+        "review_33": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "name": "Alessandra, 49",
+            "text": "I wear it from morning to evening and forget it is there. My stomach feels supported, not punished.",
+            "verified": false
+          }
+        },
+        "review_34": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "name": "Cristina, 52",
+            "text": "I sat, stood and ate through a family lunch without thinking about it once.",
+            "verified": false
+          }
+        },
+        "review_35": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "name": "Valentina, 47",
+            "text": "My waist looked defined, and most importantly, I could breathe.",
+            "verified": false
+          }
+        },
+        "heading_36": {
+          "type": "heading",
+          "settings": {
+            "heading": "The brief that gave me back my mirror"
+          }
+        },
+        "image_37": {
+          "type": "image",
+          "settings": {
+            "image_url": "https://cdn.shopify.com/s/files/1/0794/0797/2593/files/adv_9.png?v=1779042323&width=900",
+            "caption": "BLK Majesty cross-band briefs",
+            "hide_caption": true,
+            "narrow": false,
+            "fallback_image": ""
+          }
+        },
+        "badges_38": {
+          "type": "badges",
+          "settings": {
+            "big_1": "✕",
+            "small_1": "Cross-band X design",
+            "big_2": "8h+",
+            "small_2": "All-day comfort",
+            "big_3": "S→6XL",
+            "small_3": "Inclusive sizing"
+          }
+        },
+        "text_39": {
+          "type": "text",
+          "settings": {
+            "text": "<p>High-waisted support with breathable fabric and a cotton gusset. Available in sizes S–6XL and seven colors.</p>"
+          }
+        },
+        "button_40": {
+          "type": "button",
+          "settings": {
+            "label": "TRY BLK_MAJESTY NOW →",
+            "link": "shopify://products/culotte-post-patrum",
+            "note": "Buy 1, get 1 free · 30-day money-back guarantee · Free shipping"
+          }
+        },
+        "image_41": {
+          "type": "image",
+          "settings": {
+            "image_url": "https://cdn.shopify.com/s/files/1/0794/0797/2593/files/adv_10.png?v=1779042352&width=900",
+            "caption": "Woman with restored silhouette",
+            "hide_caption": true,
+            "narrow": false,
+            "fallback_image": ""
+          }
+        },
+        "heading_42": {
+          "type": "heading",
+          "settings": {
+            "heading": "If you are still reading, your silhouette is not finished"
+          }
+        },
+        "pull_43": {
+          "type": "pull",
+          "settings": {
+            "text": "It is not your fault.\nYou are not too late.\nYou deserve the right support."
+          }
+        },
+        "text_44": {
+          "type": "text",
+          "settings": {
+            "text": "<p>At 47, I fit into clothes I thought I had lost forever. If the brief is not right for you, the order is covered by the store’s 30-day return promise.</p>"
+          }
+        },
+        "button_45": {
+          "type": "button",
+          "settings": {
+            "label": "I WANT TO FEEL LIKE MYSELF AGAIN →",
+            "link": "shopify://products/culotte-post-patrum",
+            "note": ""
+          }
+        }
+      },
+      "block_order": [
+        "quote_1",
+        "text_2",
+        "heading_3",
+        "image_4",
+        "quote_5",
+        "quote_6",
+        "heading_7",
+        "image_8",
+        "text_9",
+        "button_10",
+        "heading_11",
+        "text_12",
+        "heading_13",
+        "image_14",
+        "text_15",
+        "pull_16",
+        "heading_17",
+        "image_18",
+        "text_19",
+        "callout_20",
+        "heading_21",
+        "image_22",
+        "text_23",
+        "heading_24",
+        "image_25",
+        "text_26",
+        "heading_27",
+        "image_28",
+        "image_29",
+        "text_30",
+        "heading_31",
+        "image_32",
+        "review_33",
+        "review_34",
+        "review_35",
+        "heading_36",
+        "image_37",
+        "badges_38",
+        "text_39",
+        "button_40",
+        "image_41",
+        "heading_42",
+        "pull_43",
+        "text_44",
+        "button_45"
+      ],
+      "settings": {
+        "kicker_left": "#1 SILHOUETTE RECOVERY · AFTER 40",
+        "kicker_right": "ADVERTORIAL",
+        "tag": "Testimonial",
+        "title": "“I’m 47, I’ve been a midwife for 22 years—and for 13 years my stomach never returned. Then I understood why.”",
+        "byline": "By Giulia Ferretti, midwife in Milan for 22 years · May 17, 2026",
+        "hero_image_url": "https://cdn.shopify.com/s/files/1/0794/0797/2593/files/1_7a54d9f0-7ee9-4d86-854f-11280108c526.png?v=1779041929&width=896",
+        "hero_fallback": "",
+        "button_link": "shopify://products/culotte-post-patrum",
+        "footer_brand": "BLK_MAJESTY",
+        "footer_line": "4.8/5 from 2,000 reviews · Sizes S–6XL · Free shipping · 30-day guarantee",
+        "disclaimer": "This advertorial summarizes customer experiences. Results vary. BLK_MAJESTY shapewear provides aesthetic silhouette support and is not a medical treatment for diastasis. Consult a healthcare professional for medical concerns.",
+        "sticky_label": "I WANT TO FEEL LIKE MYSELF AGAIN →",
+        "sticky_note": "Buy 1, get 1 free · 30-day guarantee"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
