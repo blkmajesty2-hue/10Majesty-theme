@@ -764,6 +764,14 @@
       document.addEventListener('shopify:section:deselect', e => { if (pop.closest('#shopify-section-' + e.detail.sectionId)) close(); });
       return;
     }
+    // Testing aid: ?popup=1 opens the welcome pop-up right away, ?popup=leave the leaving offer,
+    // even if this browser has already seen or claimed it.
+    const force = new URLSearchParams(location.search).get('popup');
+    if (force) {
+      const leaveMode = { offer: pop.dataset.leaveOffer, code: pop.dataset.leaveCode, heading: pop.dataset.leaveHeading, text: pop.dataset.leaveText };
+      setTimeout(() => show(force === 'leave' && pop.dataset.leaveCode ? leaveMode : base), 300);
+      return;
+    }
     const state = store.get();
     if (state.claimed) return;
     if (!state.seen) setTimeout(() => { const st = store.get(); if (!st.claimed && !st.seen) show(base); }, Number(pop.dataset.delay || 8) * 1000);
