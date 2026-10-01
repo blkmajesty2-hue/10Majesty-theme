@@ -745,17 +745,40 @@
     const state = store.get();
     if (state.claimed) return;
     if (!state.seen) setTimeout(() => { const st = store.get(); if (!st.claimed && !st.seen) show(base); }, Number(pop.dataset.delay || 8) * 1000);
-    if (pop.dataset.leave === 'true' && pop.dataset.leaveCode && window.matchMedia('(pointer: fine)').matches && !state.leaveSeen) {
+    if (pop.dataset.leave === 'true' && pop.dataset.leaveCode && !state.leaveSeen) {
       const leave = { offer: pop.dataset.leaveOffer, code: pop.dataset.leaveCode, heading: pop.dataset.leaveHeading, text: pop.dataset.leaveText };
-      const onLeave = e => {
-        if (e.clientY > 0 || e.relatedTarget || open) return;
+      const offerLeave = () => {
         const st = store.get();
-        if (st.claimed || st.leaveSeen) return;
-        document.removeEventListener('mouseout', onLeave);
+        if (open || st.claimed || st.leaveSeen) return false;
         store.set({ leaveSeen: true });
         show(leave);
+        return true;
       };
-      setTimeout(() => document.addEventListener('mouseout', onLeave), 5000);
+      if (window.matchMedia('(pointer: fine)').matches) {
+        // Desktop: the mouse leaves through the top of the window (towards the tabs or address bar).
+        const onLeave = e => {
+          if (e.clientY > 0 || e.relatedTarget) return;
+          if (offerLeave()) document.removeEventListener('mouseout', onLeave);
+        };
+        setTimeout(() => document.addEventListener('mouseout', onLeave), 5000);
+      } else {
+        // Phones have no exit signal, so after 20s on the page use the closest ones: a fast scroll back
+        // up (often right before Back or the address bar), or returning from another tab or app.
+        let armed = false, lastY = window.scrollY, lastT = performance.now(), hiddenAt = 0;
+        setTimeout(() => { armed = true; lastY = window.scrollY; lastT = performance.now(); }, 20000);
+        const stop = () => { window.removeEventListener('scroll', onScroll); document.removeEventListener('visibilitychange', onVisibility); };
+        const onScroll = () => {
+          const y = window.scrollY, t = performance.now();
+          if (armed && lastY - y > 250 && t - lastT < 400 && y > 150 && offerLeave()) return stop();
+          if (t - lastT >= 400 || y > lastY) { lastY = y; lastT = t; }
+        };
+        const onVisibility = () => {
+          if (document.hidden) { hiddenAt = performance.now(); return; }
+          if (armed && hiddenAt && performance.now() - hiddenAt > 3000) setTimeout(() => { if (offerLeave()) stop(); }, 600);
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        document.addEventListener('visibilitychange', onVisibility);
+      }
     }
   });
 
