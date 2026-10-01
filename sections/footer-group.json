@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "type": "footer",
   "name": "Footer group",
@@ -5,76 +14,21 @@
     "footer": {
       "type": "footer",
       "settings": {
-        "menu": "footer",
-        "tagline": "Shapewear. Support. Everyday confidence."
+        "tagline": "Shapewear. Support. Everyday confidence.",
+        "menu": "footer"
       }
     },
     "size_quiz": {
       "type": "size-quiz",
       "blocks": {
-        "size1": {
-          "type": "size",
-          "settings": {
-            "name": "S",
-            "waist_max": 74,
-            "hips_max": 91,
-            "us": "0"
-          }
-        },
-        "size2": {
-          "type": "size",
-          "settings": {
-            "name": "M",
-            "waist_max": 81,
-            "hips_max": 97,
-            "us": "2–4"
-          }
-        },
-        "size3": {
-          "type": "size",
-          "settings": {
-            "name": "L",
-            "waist_max": 94,
-            "hips_max": 104,
-            "us": "6–8"
-          }
-        },
-        "size4": {
-          "type": "size",
-          "settings": {
-            "name": "XL",
-            "waist_max": 104,
-            "hips_max": 112,
-            "us": "10–12"
-          }
-        },
-        "size5": {
-          "type": "size",
-          "settings": {
-            "name": "2XL",
-            "waist_max": 112,
-            "hips_max": 119,
-            "us": "14–16"
-          }
-        },
-        "size6": {
-          "type": "size",
-          "settings": {
-            "name": "3XL",
-            "waist_max": 118,
-            "hips_max": 124,
-            "us": "18–20"
-          }
-        }
+        "size1": {"type": "size", "settings": {"name": "S", "waist_max": 74, "hips_max": 91, "us": "0"}},
+        "size2": {"type": "size", "settings": {"name": "M", "waist_max": 81, "hips_max": 97, "us": "2–4"}},
+        "size3": {"type": "size", "settings": {"name": "L", "waist_max": 94, "hips_max": 104, "us": "6–8"}},
+        "size4": {"type": "size", "settings": {"name": "XL", "waist_max": 104, "hips_max": 112, "us": "10–12"}},
+        "size5": {"type": "size", "settings": {"name": "2XL", "waist_max": 112, "hips_max": 119, "us": "14–16"}},
+        "size6": {"type": "size", "settings": {"name": "3XL", "waist_max": 118, "hips_max": 124, "us": "18–20"}}
       },
-      "block_order": [
-        "size1",
-        "size2",
-        "size3",
-        "size4",
-        "size5",
-        "size6"
-      ],
+      "block_order": ["size1", "size2", "size3", "size4", "size5", "size6"],
       "settings": {
         "product": "culotte-post-patrum",
         "image": "shopify://shop_images/blkm-quiz-welcome.png",
@@ -82,8 +36,5 @@
       }
     }
   },
-  "order": [
-    "footer",
-    "size_quiz"
-  ]
+  "order": ["footer", "size_quiz"]
 }
