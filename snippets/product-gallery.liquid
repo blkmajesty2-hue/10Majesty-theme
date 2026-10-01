@@ -3,7 +3,11 @@
   Falls back to the theme's built-in photos when the product has no media yet.
 {%- endcomment -%}
 {%- liquid
-  assign featured = product.selected_or_first_available_variant.featured_media | default: product.featured_media
+  # Open on the product's first image; only a variant chosen in the URL (?variant=) shows its own photo first.
+  assign featured = product.featured_media
+  if product.selected_variant and product.selected_variant.featured_media
+    assign featured = product.selected_variant.featured_media
+  endif
   assign fallback = 'blkm-duo.webp,blkm-details-black.webp,blkm-details-beige.webp,blkm-closer-look.webp,blkm-blue.webp' | split: ','
 -%}
 <div class="gallery" data-gallery data-zoom="{{ zoom_id }}">
