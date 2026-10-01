@@ -378,6 +378,12 @@
     // Small photo of the chosen color on each bundle row; a color dot when the variant has no photo.
     const swatchColors = { black: '#111', beige: '#e3cfa9', 'navy blue': '#1c2a55', navy: '#1c2a55', 'royal blue': '#1f4fd6', blue: '#1f4fd6', plum: '#5a1840', purple: '#6b2b8f', 'dark purple': '#4a1d5e', 'fuchsia pink': '#e5187c', pink: '#e5187c', fuchsia: '#e5187c', lilac: '#cbb2ef', white: '#fff', nude: '#d9b99b' };
     const colorIndex = opts.findIndex(o => /colou?r/i.test(o));
+    // Preselect the size from the size quiz (or ?size=) and the color from ?color=.
+    const sizeIndex = opts.findIndex(o => /size|taglia/i.test(o));
+    const params = new URLSearchParams(location.search);
+    let preferredSize = params.get('size');
+    try { preferredSize = preferredSize || localStorage.getItem('blkm_size'); } catch (e) { /* private mode */ }
+    const preferredColor = params.get('color');
     function updateThumb(row) {
       const thumb = $('.variant-thumb', row);
       if (!thumb) return;
@@ -422,6 +428,8 @@
           });
           const first = product.variants.find(v => v.available) || product.variants[0];
           s.value = first.options[i];
+          const wanted = i === sizeIndex ? preferredSize : i === colorIndex ? preferredColor : null;
+          if (wanted && [...s.options].some(o => o.value === wanted)) s.value = wanted;
           s.addEventListener('change', () => {
             updateThumb(row);
             validate(row);
@@ -605,11 +613,11 @@
     }).observe(buy);
   }
 
-  // ---------- Spin-to-win pop-up ----------
-  // Every spin wins the offer printed on the wheel. Shown once per visitor; a better offer can appear
-  // once on desktop when the visitor moves to leave without having claimed a code.
-  $$('[data-spin]').forEach(pop => {
-    const KEY = 'blkm_spin';
+  // ---------- Size quiz pop-up ----------
+  // Waist/hips (or jeans size) → recommended size; subscribers get a welcome code. Shown once per
+  // visitor; a better leaving offer can appear once on desktop for visitors without a code.
+  $$('[data-quiz]').forEach(pop => {
+    const KEY = 'blkm_quiz';
     const store = {
       get() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } },
       set(v) { try { localStorage.setItem(KEY, JSON.stringify(Object.assign(store.get(), v))); } catch (e) { /* private mode */ } }
@@ -617,34 +625,36 @@
     const design = pop.dataset.design === 'true';
     const isPhone = window.matchMedia('(max-width: 760px)').matches;
     if (!design && isPhone && pop.dataset.mobile !== 'true') return;
-    const wheel = $('[data-spin-wheel]', pop);
-    const form = $('.spin__form', pop);
-    const heading = $('[data-spin-heading]', pop), text = $('[data-spin-text]', pop);
+    let sizes = [];
+    try { sizes = JSON.parse($('[data-quiz-sizes]', pop).textContent); } catch (e) { return; }
+    if (!sizes.length) return;
+    const heading = $('[data-quiz-heading]', pop), text = $('[data-quiz-text]', pop);
     const base = { offer: pop.dataset.offer, code: pop.dataset.code, heading: heading.textContent, text: text.textContent };
-    let mode = base, open = false, spinning = false, lastFocus = null;
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let mode = base, open = false, lastFocus = null, result = null;
 
+    const step = name => {
+      $$('[data-quiz-step]', pop).forEach(s => { s.hidden = s.dataset.quizStep !== name; });
+      const first = $(`[data-quiz-step="${name}"] input:not([type=radio]):not([type=hidden]), [data-quiz-step="${name}"] select`, pop);
+      if (first && !isPhone) first.focus({ preventScroll: true });
+    };
     const setMode = m => {
       mode = m;
       heading.textContent = m.heading;
       text.textContent = m.text;
-      $$('[data-spin-label]', pop).forEach(l => { l.textContent = m.offer; });
+      $$('[data-quiz-offer]', pop).forEach(el => { el.textContent = m.offer; });
     };
     const show = m => {
       if (open) return;
       setMode(m);
-      $('[data-spin-step="form"]', pop).hidden = false;
-      $('[data-spin-step="won"]', pop).hidden = true;
+      step('start');
       pop.hidden = false;
       open = true;
       lastFocus = document.activeElement;
       document.documentElement.classList.add('spin-open');
       requestAnimationFrame(() => pop.classList.add('is-open'));
-      const email = $('input[type=email]', pop);
-      if (email && !isPhone) email.focus({ preventScroll: true });
     };
     const close = () => {
-      if (!open || spinning) return;
+      if (!open) return;
       pop.classList.remove('is-open');
       document.documentElement.classList.remove('spin-open');
       open = false;
@@ -652,49 +662,89 @@
       if (!design) store.set({ seen: true });
       if (lastFocus) lastFocus.focus({ preventScroll: true });
     };
-    $$('[data-spin-close]', pop).forEach(b => b.addEventListener('click', close));
+    $$('[data-quiz-close]', pop).forEach(b => b.addEventListener('click', close));
+    $$('[data-quiz-go]', pop).forEach(b => b.addEventListener('click', () => step(b.dataset.quizGo)));
     pop.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
 
-    form.addEventListener('submit', async e => {
+    // A measurement between two sizes gets the larger one; waist and hips use the larger of the two.
+    const indexFor = (cm, key) => {
+      if (!cm) return null;
+      const i = sizes.findIndex(s => s[key] && cm <= s[key]);
+      return i === -1 ? sizes.length : i;
+    };
+    const measure = $('[data-quiz-step="measure"]', pop);
+    measure.addEventListener('submit', e => {
       e.preventDefault();
-      if (spinning || !form.reportValidity()) return;
-      spinning = true;
-      $('[data-spin-submit]', pop).disabled = true;
-      // Save the email as a Shopify customer who agreed to marketing; the code is shown either way.
-      fetch(form.action, { method: 'POST', body: new FormData(form), credentials: 'same-origin' }).catch(() => {});
-      // Every slice carries the same offer; land on a random slice centre under the pointer.
-      const slice = Math.floor(Math.random() * 8);
-      const deg = 6 * 360 - (slice * 45 + 22.5);
-      wheel.style.transition = 'transform 4.2s cubic-bezier(.12,.75,.18,1)';
-      wheel.style.transform = `rotate(${deg}deg)`;
-      setTimeout(() => {
-        spinning = false;
-        store.set({ claimed: mode.code });
-        $('[data-spin-won-offer]', pop).textContent = mode.offer;
-        $('[data-spin-won-code]', pop).textContent = mode.code;
-        $('[data-spin-step="form"]', pop).hidden = true;
-        $('[data-spin-step="won"]', pop).hidden = false;
-      }, reduceMotion ? 50 : 4400);
+      const err = $('[data-quiz-error]', pop);
+      const unit = measure.unit.value;
+      const toCm = v => { const n = parseFloat(String(v).replace(',', '.')); return n > 0 ? (unit === 'in' ? n * 2.54 : n) : 0; };
+      const waist = toCm(measure.waist.value), hips = toCm(measure.hips.value);
+      const ok = v => !v || (v >= 45 && v <= 200);
+      if ((!waist && !hips) || !ok(waist) || !ok(hips)) {
+        err.textContent = unit === 'in' ? 'Please enter your waist and/or hips in inches (e.g. 32).' : 'Please enter your waist and/or hips in cm (e.g. 81).';
+        err.hidden = false;
+        return;
+      }
+      err.hidden = true;
+      const iw = indexFor(waist, 'waist'), ih = indexFor(hips, 'hips');
+      const i = Math.max(iw ?? -1, ih ?? -1);
+      result = { index: i, split: iw !== null && ih !== null && iw !== ih };
+      step('email');
     });
-    $('[data-spin-copy]', pop).addEventListener('click', e => {
-      if (navigator.clipboard) navigator.clipboard.writeText(mode.code).then(() => { e.target.textContent = 'Copied'; }).catch(() => {});
+    measure.addEventListener('change', e => {
+      if (e.target.name !== 'unit') return;
+      measure.waist.placeholder = e.target.value === 'in' ? 'e.g. 32' : 'e.g. 81';
+      measure.hips.placeholder = e.target.value === 'in' ? 'e.g. 40' : 'e.g. 102';
     });
-    $('[data-spin-apply]', pop).addEventListener('click', async () => {
-      // Visiting /discount/CODE stores the code so it is applied automatically at checkout.
-      try { await fetch(root + 'discount/' + encodeURIComponent(mode.code), { credentials: 'same-origin' }); } catch (e) { /* offline */ }
-      $('[data-spin-applied]', pop).hidden = false;
-      setTimeout(close, 900);
+    $('[data-quiz-step="jeans"]', pop).addEventListener('submit', e => {
+      e.preventDefault();
+      result = { index: Number(e.target.jeans.value), split: false, jeans: true };
+      step('email');
     });
 
+    const showResult = withCode => {
+      const over = result.index >= sizes.length;
+      const size = sizes[Math.min(result.index, sizes.length - 1)].name;
+      $('[data-quiz-size]', pop).textContent = size;
+      const note = $('[data-quiz-note]', pop);
+      if (over) note.textContent = `Your measurements are above our largest size (${size}), so it may feel too firm. Message us before ordering and we'll help you decide.`;
+      else if (result.split) note.textContent = 'Your waist and hips point to different sizes — we recommend the larger one for all-day comfort.';
+      else if (result.jeans) note.textContent = 'Based on your jeans size. Between sizes? Choose the larger one.';
+      else note.textContent = 'Between sizes? Choose the larger one.';
+      $('[data-quiz-code-wrap]', pop).hidden = !withCode;
+      $('[data-quiz-code]', pop).textContent = mode.code;
+      const shop = $('[data-quiz-shop]', pop);
+      const url = new URL(pop.dataset.shopUrl || shop.href, location.href);
+      url.searchParams.set('size', size);
+      shop.href = url.toString();
+      shop.textContent = `Shop size ${size}`;
+      try { localStorage.setItem('blkm_size', size); } catch (e) { /* private mode */ }
+      step('result');
+    };
+    const emailForm = $('.quiz__form', pop);
+    emailForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      if (!emailForm.reportValidity()) return;
+      // Save the email as a Shopify customer who agreed to marketing, and keep the code for checkout.
+      fetch(emailForm.action, { method: 'POST', body: new FormData(emailForm), credentials: 'same-origin' }).catch(() => {});
+      fetch(root + 'discount/' + encodeURIComponent(mode.code), { credentials: 'same-origin' }).catch(() => {});
+      store.set({ claimed: mode.code });
+      showResult(true);
+    });
+    $('[data-quiz-skip-email]', pop).addEventListener('click', () => showResult(false));
+    $('[data-quiz-copy]', pop).addEventListener('click', e => {
+      if (navigator.clipboard) navigator.clipboard.writeText(mode.code).then(() => { e.target.textContent = 'Copied'; }).catch(() => {});
+    });
+    $('[data-quiz-shop]', pop).addEventListener('click', () => store.set({ seen: true }));
+
     if (design) {
-      // Theme editor: open while the section is selected so it can be edited.
       document.addEventListener('shopify:section:select', e => { if (pop.closest('#shopify-section-' + e.detail.sectionId)) show(base); });
-      document.addEventListener('shopify:section:deselect', e => { if (pop.closest('#shopify-section-' + e.detail.sectionId)) { open && close(); } });
+      document.addEventListener('shopify:section:deselect', e => { if (pop.closest('#shopify-section-' + e.detail.sectionId)) close(); });
       return;
     }
     const state = store.get();
     if (state.claimed) return;
-    if (!state.seen) setTimeout(() => { if (!store.get().claimed && !store.get().seen) show(base); }, Number(pop.dataset.delay || 8) * 1000);
+    if (!state.seen) setTimeout(() => { const st = store.get(); if (!st.claimed && !st.seen) show(base); }, Number(pop.dataset.delay || 8) * 1000);
     if (pop.dataset.leave === 'true' && pop.dataset.leaveCode && window.matchMedia('(pointer: fine)').matches && !state.leaveSeen) {
       const leave = { offer: pop.dataset.leaveOffer, code: pop.dataset.leaveCode, heading: pop.dataset.leaveHeading, text: pop.dataset.leaveText };
       const onLeave = e => {
@@ -705,7 +755,6 @@
         store.set({ leaveSeen: true });
         show(leave);
       };
-      // Give the visitor a few seconds on the page before watching for exit.
       setTimeout(() => document.addEventListener('mouseout', onLeave), 5000);
     }
   });
