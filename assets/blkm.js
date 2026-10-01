@@ -637,8 +637,11 @@
       const first = $(`[data-quiz-step="${name}"] input:not([type=radio]):not([type=hidden]), [data-quiz-step="${name}"] select`, pop);
       if (first && !isPhone) first.focus({ preventScroll: true });
     };
+    const arts = $$('[data-quiz-art]', pop);
     const setMode = m => {
       mode = m;
+      const art = m === base ? 'welcome' : 'leave';
+      if (arts.some(a => a.dataset.quizArt === art)) arts.forEach(a => { a.hidden = a.dataset.quizArt !== art; });
       heading.textContent = m.heading;
       text.textContent = m.text;
       $$('[data-quiz-offer]', pop).forEach(el => { el.textContent = m.offer; });

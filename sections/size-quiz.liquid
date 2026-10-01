@@ -26,9 +26,12 @@
     <button type="button" class="spin__close" data-quiz-close aria-label="{{ 'general.close' | t }}">×</button>
     <div class="quiz__art" aria-hidden="true">
       {%- if s.image != blank -%}
-        {{ s.image | image_url: width: 700 | image_tag: loading: 'lazy', alt: '' }}
+        {{ s.image | image_url: width: 800 | image_tag: loading: 'lazy', alt: '', data-quiz-art: 'welcome' }}
       {%- else -%}
-        <img src="{{ 'blkm-duo.webp' | asset_url }}" alt="" width="700" height="700" loading="lazy">
+        <img src="{{ 'blkm-duo.webp' | asset_url }}" alt="" width="700" height="700" loading="lazy" data-quiz-art="welcome">
+      {%- endif -%}
+      {%- if s.leave_image != blank -%}
+        {{ s.leave_image | image_url: width: 800 | image_tag: loading: 'lazy', alt: '', data-quiz-art: 'leave', hidden: true }}
       {%- endif -%}
     </div>
 
@@ -115,7 +118,7 @@
     { "type": "range", "id": "delay", "label": "Show after", "min": 2, "max": 60, "step": 1, "unit": "s", "default": 8 },
     { "type": "checkbox", "id": "show_on_mobile", "label": "Show on phones", "default": true },
     { "type": "product", "id": "product", "label": "Product for “Shop my size”" },
-    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "image_picker", "id": "image", "label": "Image", "info": "Shown on computers only." },
     { "type": "header", "content": "Text" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "BLK_MAJESTY" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Find your perfect size" },
@@ -130,6 +133,7 @@
     { "type": "text", "id": "code", "label": "Discount code", "default": "FIT10" },
     { "type": "header", "content": "Leaving offer" },
     { "type": "checkbox", "id": "leave_enabled", "label": "Show a better offer when a visitor moves to leave", "default": true, "info": "Computers: when the mouse moves to leave. Phones (after 20s on a page): a fast scroll back up, or coming back from another tab or app. Only for visitors without a code; shows once." },
+    { "type": "image_picker", "id": "leave_image", "label": "Image for the leaving offer", "info": "Empty uses the main image." },
     { "type": "text", "id": "leave_label", "label": "Offer", "default": "15% off" },
     { "type": "text", "id": "leave_code", "label": "Discount code", "default": "STAY15" },
     { "type": "text", "id": "leave_heading", "label": "Heading", "default": "Wait — find your size + get 15% off" },

@@ -76,7 +76,9 @@
         "size6"
       ],
       "settings": {
-        "product": "culotte-post-patrum"
+        "product": "culotte-post-patrum",
+        "image": "shopify://shop_images/blkm-quiz-welcome.png",
+        "leave_image": "shopify://shop_images/blkm-quiz-leave.png"
       }
     }
   },
