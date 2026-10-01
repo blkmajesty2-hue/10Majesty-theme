@@ -342,7 +342,7 @@
           "settings": {
             "color": "Black",
             "swatch": "#111111",
-            "fallback": "blkm-cut-black.webp"
+            "fallback": "blkm-color-black.webp"
           }
         },
         "col2": {
@@ -350,7 +350,7 @@
           "settings": {
             "color": "Beige",
             "swatch": "#e3cfa9",
-            "fallback": "blkm-cut-beige.webp"
+            "fallback": "blkm-color-beige.webp"
           }
         },
         "col3": {
@@ -358,7 +358,7 @@
           "settings": {
             "color": "Navy Blue",
             "swatch": "#1c2a55",
-            "fallback": "blkm-cut-navy.webp"
+            "fallback": "blkm-color-navy.webp"
           }
         },
         "col4": {
@@ -366,7 +366,7 @@
           "settings": {
             "color": "Lilac",
             "swatch": "#cbb2ef",
-            "fallback": "blkm-cut-lilac.webp"
+            "fallback": "blkm-color-lilac.webp"
           }
         },
         "col5": {
@@ -374,7 +374,7 @@
           "settings": {
             "color": "Royal Blue",
             "swatch": "#1f4fd6",
-            "fallback": "blkm-cut-royal-blue.webp"
+            "fallback": "blkm-color-royal-blue.webp"
           }
         },
         "col6": {
@@ -382,7 +382,7 @@
           "settings": {
             "color": "Fuchsia Pink",
             "swatch": "#e5187c",
-            "fallback": "blkm-cut-fuchsia.webp"
+            "fallback": "blkm-color-fuchsia.webp"
           }
         },
         "col7": {
@@ -390,7 +390,7 @@
           "settings": {
             "color": "Plum",
             "swatch": "#5a1840",
-            "fallback": "blkm-cut-plum.webp"
+            "fallback": "blkm-color-plum.webp"
           }
         }
       },
@@ -403,22 +403,7 @@
         "col6",
         "col7"
       ],
-      "settings": {
-        "eyebrow": "",
-        "heading": "ENGINEERED TO SHAPE.\nDESIGNED TO MOVE.",
-        "text": "Targeted X-shaped support meets breathable, all-day comfort.",
-        "feature_1": "360° SUPPORT",
-        "feature_2": "HIGH-WAIST SCULPTING",
-        "feature_3": "BREATHABLE MESH",
-        "feature_4": "S–3XL",
-        "shade_heading": "FIND YOUR SHADE",
-        "start": 1,
-        "auto_rotate": true,
-        "interval": 4,
-        "button_label": "SHOP THE COLLECTION",
-        "product": "",
-        "film_image": "shopify://shop_images/blkm-3d-showcase.png"
-      }
+      "settings": {}
     },
     "circles": {
       "type": "circle-features",
