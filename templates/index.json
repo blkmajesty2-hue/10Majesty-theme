@@ -156,13 +156,13 @@
         "feature_2": "HIGH-WAIST SCULPTING",
         "feature_3": "BREATHABLE MESH",
         "feature_4": "S–3XL",
+        "film_image": "shopify://shop_images/blkm-3d-showcase.png",
         "shade_heading": "FIND YOUR SHADE",
         "start": 1,
         "auto_rotate": true,
         "interval": 4,
         "button_label": "SHOP THE COLLECTION",
-        "product": "",
-        "film_image": "shopify://shop_images/blkm-3d-showcase.png"
+        "product": "culotte-post-patrum"
       }
     },
     "closer": {
