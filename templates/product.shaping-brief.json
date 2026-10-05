@@ -58,7 +58,7 @@
           "settings": {
             "quantity": 4,
             "title": "Buy 2, get 2 free",
-            "subtitle": "4 briefs",
+            "subtitle": "4 briefs · Free shipping",
             "price_label": "",
             "per_label": "[each] / brief",
             "badge": "BEST OFFER",
@@ -71,7 +71,7 @@
           "settings": {
             "quantity": 6,
             "title": "Buy 3, get 3 free",
-            "subtitle": "6 briefs",
+            "subtitle": "6 briefs · Free shipping",
             "price_label": "",
             "per_label": "[each] / brief",
             "badge": "BEST VALUE",
