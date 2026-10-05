@@ -15,7 +15,7 @@
       {% for review_name in review_names %}
         {% assign image_number = forloop.index %}
         {% if image_number == 9 %}{% assign image_number = 1 %}{% endif %}
-        {% assign filename = 'belayan-review-' | append: image_number | append: '.webp' %}
+        {% assign filename = 'belayan-review-' | append: image_number | append: '.webp.jpg' %}
         <article class="blkm-review">
           <div class="blkm-review__image-wrap">
             <img
