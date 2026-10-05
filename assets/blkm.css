@@ -971,3 +971,6 @@ footer .wordmark,.footer-grid .wordmark{font-size:clamp(26px,2.6vw,34px);font-we
 .video-reels{background:#fff;border:0}
 .video-reels__text{margin:-8px auto 20px;max-width:560px;text-align:center;color:#555}
 .video-reels__placeholder{display:grid;place-items:center;background:#f1f1f1;border:2px dashed #c9c9c9;color:#777;font-size:13px;text-align:center;padding:12px}
+.country-picker{display:flex;align-items:center;gap:8px;font-size:11px;color:#aaa}
+.country-picker label{white-space:nowrap}
+.country-picker select{width:auto;padding:6px 8px;background:#222;color:#fff;border:1px solid #555;font-size:12px}
