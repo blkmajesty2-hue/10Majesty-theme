@@ -953,3 +953,18 @@ footer .wordmark,.footer-grid .wordmark{font-size:clamp(26px,2.6vw,34px);font-we
 /* Header wordmark: a little smaller, with looser tracking so letters (e.g. "AJ") don't touch. */
 .site-header .wordmark{font-size:clamp(22px,2.3vw,30px);font-weight:800;letter-spacing:-.01em}
 @media(max-width:760px){.site-header .wordmark{font-size:24px}}
+
+/* ---------- Video strip ---------- */
+.film-heading{margin:0 0 18px;text-align:center;font-size:clamp(24px,2.6vw,34px)}
+.product-film--video{padding:34px 0}
+.film-video{position:relative;flex:0 0 220px;margin:0;border-radius:14px;overflow:hidden;background:#111;aspect-ratio:9/16;scroll-snap-align:start}
+.film-video video{display:block;width:100%;height:100%;object-fit:cover}
+.film-video figcaption{position:absolute;left:0;right:0;bottom:0;padding:26px 12px 12px;background:linear-gradient(transparent,rgba(0,0,0,.6));color:#fff;font-size:13px;font-weight:700}
+.film-video__sound{position:absolute;top:10px;right:10px;z-index:1;width:34px;height:34px;display:grid;place-items:center;border-radius:50%;background:rgba(0,0,0,.55);color:#fff}
+.film-video__sound svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.film-video__sound svg path:first-child{fill:currentColor;stroke:none}
+.film-video__wave{display:none}
+.film-video__sound[aria-pressed=true] .film-video__wave{display:inline}
+.film-video__sound[aria-pressed=true] .film-video__mute{display:none}
+.product-film--video .film-track{scroll-snap-type:x mandatory;gap:14px}
+@media(max-width:760px){.film-video{flex-basis:46vw;border-radius:12px}}

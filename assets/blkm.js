@@ -632,6 +632,31 @@
     }).observe(buy);
   }
 
+  // ---------- Video strip ----------
+  // Clips autoplay muted; only those on screen keep playing. The speaker button turns sound on for one clip.
+  $$('[data-film]').forEach(film => {
+    const videos = $$('.film-video video', film);
+    if (!videos.length) return;
+    videos.forEach(v => { v.muted = true; v.playsInline = true; });
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(entries => entries.forEach(e => {
+        if (e.isIntersecting) e.target.play().catch(() => {}); else e.target.pause();
+      }), { threshold: 0.25 });
+      videos.forEach(v => io.observe(v));
+    }
+    $$('[data-film-sound]', film).forEach(btn => btn.addEventListener('click', () => {
+      const video = $('video', btn.closest('.film-video'));
+      const turnOn = video.muted;
+      $$('[data-film-sound]', film).forEach(b => { $('video', b.closest('.film-video')).muted = true; b.setAttribute('aria-pressed', 'false'); b.setAttribute('aria-label', 'Turn sound on'); });
+      if (turnOn) {
+        video.muted = false;
+        video.play().catch(() => {});
+        btn.setAttribute('aria-pressed', 'true');
+        btn.setAttribute('aria-label', 'Turn sound off');
+      }
+    }));
+  });
+
   // ---------- Size quiz pop-up ----------
   // Waist/hips (or jeans size) → recommended size; subscribers get a welcome code. Shown once per
   // visitor; a better leaving offer can appear once on desktop for visitors without a code.

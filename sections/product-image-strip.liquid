@@ -1,17 +1,40 @@
 {%- liquid
   assign fallback = 'blkm-duo.webp,blkm-details-black.webp,blkm-details-beige.webp,blkm-closer-look.webp,blkm-blue.webp' | split: ','
-  assign picked = section.blocks | where: 'type', 'image'
+  assign shown = 0
+  assign has_video = false
+  for block in section.blocks
+    if block.type == 'video' and block.settings.video != blank
+      assign shown = shown | plus: 1
+      assign has_video = true
+    elsif block.type == 'image' and block.settings.image != blank
+      assign shown = shown | plus: 1
+    endif
+  endfor
 -%}
-<section class="product-film">
+<section class="product-film{% if has_video %} product-film--video{% endif %}" data-film>
   <div class="wrap">
+    {%- if section.settings.heading != blank -%}<h2 class="film-heading">{{ section.settings.heading | escape }}</h2>{%- endif -%}
     <div class="film-track">
-      {%- if picked.size > 0 -%}
-        {%- for block in picked -%}
-          {%- if block.settings.image != blank -%}
-            <span class="film-item" {{ block.shopify_attributes }}>
-              {{ block.settings.image | image_url: width: 400 | image_tag: loading: 'lazy', alt: block.settings.image.alt | default: product.title }}
-            </span>
-          {%- endif -%}
+      {%- if shown > 0 -%}
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'video' -%}
+              {%- if block.settings.video != blank -%}
+                <figure class="film-video" {{ block.shopify_attributes }}>
+                  {{ block.settings.video | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, controls: false, preload: 'metadata', image_size: '600x' }}
+                  <button type="button" class="film-video__sound" data-film-sound aria-label="Turn sound on" aria-pressed="false">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path class="film-video__wave" d="M16 8.5a5 5 0 010 7M18.5 6a8.5 8.5 0 010 12"/><path class="film-video__mute" d="M16 9l5 6M21 9l-5 6"/></svg>
+                  </button>
+                  {%- if block.settings.caption != blank -%}<figcaption>{{ block.settings.caption | escape }}</figcaption>{%- endif -%}
+                </figure>
+              {%- endif -%}
+            {%- when 'image' -%}
+              {%- if block.settings.image != blank -%}
+                <span class="film-item" {{ block.shopify_attributes }}>
+                  {{ block.settings.image | image_url: width: 400 | image_tag: loading: 'lazy', alt: block.settings.image.alt | default: product.title }}
+                </span>
+              {%- endif -%}
+          {%- endcase -%}
         {%- endfor -%}
       {%- elsif section.settings.use_product_media and product and product.media.size > 0 -%}
         {%- for media in product.media -%}
@@ -30,10 +53,19 @@
 {
   "name": "Product image strip",
   "settings": [
-    { "type": "paragraph", "content": "Add an Image block for each photo you want in the strip. Remove or drag blocks to change it. With no image blocks, the strip shows all the product's photos." },
-    { "type": "checkbox", "id": "use_product_media", "label": "Show all product photos when no image blocks are added", "default": true }
+    { "type": "paragraph", "content": "Add Video or Image blocks; drag them to change the order. Videos play silently on loop (tap for sound). With no blocks, the strip shows all the product's photos." },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    { "type": "checkbox", "id": "use_product_media", "label": "Show all product photos when no blocks are added", "default": true }
   ],
   "blocks": [
+    {
+      "type": "video",
+      "name": "Video",
+      "settings": [
+        { "type": "video", "id": "video", "label": "Video", "info": "Short vertical clips (9:16, 5–15 s) look best. Upload in Content → Files." },
+        { "type": "text", "id": "caption", "label": "Caption" }
+      ]
+    },
     {
       "type": "image",
       "name": "Image",
