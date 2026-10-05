@@ -11,7 +11,8 @@
 
   // ---------- Money ----------
   function formatMoney(cents) {
-    const format = config.moneyFormat || '${{amount}}';
+    // Shop format when the shopper pays in the store currency; otherwise their currency's symbol (e.g. £, €).
+    const format = config.moneyFormat || ((config.currencySymbol || '$') + '{{amount}}');
     const value = Number(cents) / 100;
     const withDelimiters = (n, decimals, thousands, decimal) => {
       const [whole, frac] = n.toFixed(decimals).split('.');

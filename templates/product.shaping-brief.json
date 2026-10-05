@@ -46,10 +46,11 @@
             "quantity": 2,
             "title": "Buy 1, get 1 free",
             "subtitle": "2 briefs",
-            "price_label": "$39.99",
-            "per_label": "$20.00 / brief",
+            "price_label": "",
+            "per_label": "[each] / brief",
             "badge": "",
-            "selected": false
+            "selected": false,
+            "paid": 1
           }
         },
         "bundle4": {
@@ -58,10 +59,11 @@
             "quantity": 4,
             "title": "Buy 2, get 2 free",
             "subtitle": "4 briefs",
-            "price_label": "$79.98",
-            "per_label": "$20.00 / brief",
+            "price_label": "",
+            "per_label": "[each] / brief",
             "badge": "BEST OFFER",
-            "selected": true
+            "selected": true,
+            "paid": 2
           }
         },
         "bundle6": {
@@ -70,10 +72,11 @@
             "quantity": 6,
             "title": "Buy 3, get 3 free",
             "subtitle": "6 briefs",
-            "price_label": "$119.97",
-            "per_label": "$20.00 / brief",
+            "price_label": "",
+            "per_label": "[each] / brief",
             "badge": "BEST VALUE",
-            "selected": false
+            "selected": false,
+            "paid": 3
           }
         },
         "c1": {
@@ -112,7 +115,7 @@
         "subtitle": "Seamless tummy control",
         "lead": "A smooth foundation, with a high waist and X-shaped bands designed to wrap around the midsection.",
         "offer_text": "",
-        "offer_price": "$79.98",
+        "offer_price": "[x2]",
         "button_label": "Add bundle to bag",
         "note": "Mix sizes and colors in any bundle.",
         "size_chart": "shopify://shop_images/blkm-size-guide.webp",
@@ -121,7 +124,7 @@
         "stock_threshold": 10,
         "stock_text": "Selling fast — only a few left!",
         "urgency_text": "Order today — your bundle ships fast",
-        "deal_text": "🎁 Buy 2, get 2 free — $79.98 ($20.00 per brief)",
+        "deal_text": "🎁 Buy 2, get 2 free — [x2] ([half] per brief)",
         "gift_text": "FREE GIFT with every order: Shipping Protection ([value] value)",
         "countdown_end": "",
         "countdown_text": "Hurry! The offer ends in",

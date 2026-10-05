@@ -2,6 +2,7 @@
   Story-style landing page (advertorial). Every heading, paragraph, image, quote and button is a block,
   so the page can be rewritten and reordered in Customize. Images fall back to built-in theme photos.
 {%- endcomment -%}
+{%- capture free_shipping -%}{% render 'free-shipping-amount' %}{%- endcapture -%}
 {%- liquid
   assign link = section.settings.button_link | default: routes.all_products_collection_url
 -%}
@@ -69,7 +70,7 @@
         {%- when 'button' -%}
           <div class="bg-cta-wrap" {{ block.shopify_attributes }}>
             <a class="bg-cta" href="{{ block.settings.link | default: link }}">{{ block.settings.label | escape }}</a>
-            {%- if block.settings.note != blank -%}<p class="bg-note">{{ block.settings.note | escape }}</p>{%- endif -%}
+            {%- if block.settings.note != blank -%}<p class="bg-note">{{ block.settings.note | escape | replace: '[free_shipping]', free_shipping }}</p>{%- endif -%}
           </div>
       {%- endcase -%}
     {%- endfor -%}
@@ -77,7 +78,7 @@
 
   <div class="bg-foot">
     <strong>{{ section.settings.footer_brand | escape }}</strong>
-    {%- if section.settings.footer_line != blank -%}<br>{{ section.settings.footer_line | escape }}{%- endif -%}
+    {%- if section.settings.footer_line != blank -%}<br>{{ section.settings.footer_line | escape | replace: '[free_shipping]', free_shipping }}{%- endif -%}
     {%- if section.settings.disclaimer != blank -%}<p>{{ section.settings.disclaimer | escape }}</p>{%- endif -%}
   </div>
 
@@ -106,7 +107,7 @@
     { "type": "url", "id": "button_link", "label": "Default button link", "info": "Used by the sticky bar and by any button block without its own link." },
     { "type": "header", "content": "Bottom of page" },
     { "type": "text", "id": "footer_brand", "label": "Footer brand", "default": "BLK_MAJESTY" },
-    { "type": "text", "id": "footer_line", "label": "Footer line", "default": "Sizes S–3XL · Free shipping over $75 · 30-day money-back guarantee", "info": "Only add a rating here once you have real reviews to back it up." },
+    { "type": "text", "id": "footer_line", "label": "Footer line", "default": "Sizes S–3XL · Free shipping over [free_shipping] · 30-day money-back guarantee", "info": "Only add a rating here once you have real reviews to back it up." },
     { "type": "textarea", "id": "disclaimer", "label": "Disclaimer", "default": "BLK_MAJESTY shapewear provides aesthetic silhouette support while it is worn. It is not a medical device or a treatment for diastasis recti. Individual experiences vary. For medical concerns, consult a qualified healthcare professional." },
     { "type": "text", "id": "sticky_label", "label": "Sticky button text", "default": "I WANT TO FEEL LIKE MYSELF AGAIN →", "info": "Leave empty to hide the sticky bar." },
     { "type": "text", "id": "sticky_note", "label": "Sticky bar note", "default": "Buy 2, get 2 free · 30-day money-back guarantee" }
@@ -155,7 +156,7 @@
     { "type": "button", "name": "Button", "settings": [
       { "type": "text", "id": "label", "label": "Button text", "default": "SHOP NOW →" },
       { "type": "url", "id": "link", "label": "Link", "info": "Empty uses the default button link." },
-      { "type": "text", "id": "note", "label": "Text under button", "default": "Buy 2, get 2 free · 30-day money-back guarantee · Free shipping over $75" }
+      { "type": "text", "id": "note", "label": "Text under button", "default": "Buy 2, get 2 free · 30-day money-back guarantee · Free shipping over [free_shipping]" }
     ] }
   ],
   "presets": [{ "name": "Story landing page" }]

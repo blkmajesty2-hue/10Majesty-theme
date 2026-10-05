@@ -1,0 +1,8 @@
+{%- comment -%} Free-shipping minimum in the shopper's currency (euro threshold for EUR carts), e.g. "£60". {%- endcomment -%}
+{%- liquid
+  assign fs_amount = settings.free_shipping_threshold
+  if cart.currency.iso_code == 'EUR' and settings.free_shipping_threshold_eur > 0
+    assign fs_amount = settings.free_shipping_threshold_eur
+  endif
+  echo fs_amount | times: 100 | round | money_without_trailing_zeros
+-%}

@@ -1,5 +1,10 @@
 {%- liquid
   assign current_variant = product.selected_or_first_available_variant
+  # Price tokens for texts, in the shopper's currency: [price], [half], [x2], [x3]
+  assign price_money = current_variant.price | money
+  assign half_money = current_variant.price | times: 0.5 | round | money
+  assign x2_money = current_variant.price | times: 2 | money
+  assign x3_money = current_variant.price | times: 3 | money
   assign zoom_id = 'zoom-' | append: section.id
   assign size_id = 'size-' | append: section.id
   assign bundles = section.blocks | where: 'type', 'bundle'
@@ -61,7 +66,7 @@
         <p class="urgency-line"><span aria-hidden="true">🔥</span> {{ section.settings.urgency_text | escape }}</p>
       {%- endif -%}
       {%- if section.settings.deal_text != blank -%}
-        <p class="deal-box">{{ section.settings.deal_text | escape }}</p>
+        <p class="deal-box">{{ section.settings.deal_text | escape | replace: '[price]', price_money | replace: '[half]', half_money | replace: '[x2]', x2_money | replace: '[x3]', x3_money }}</p>
       {%- endif -%}
       {%- if section.settings.gift_text != blank and settings.protection_mode != 'off' -%}
         {%- liquid
@@ -89,7 +94,7 @@
         </div>
       {%- endif -%}
       {%- if section.settings.offer_text != blank -%}
-        <div class="offer-banner">{{ section.settings.offer_text | escape }} <strong>{{ section.settings.offer_price | escape }}</strong></div>
+        <div class="offer-banner">{{ section.settings.offer_text | escape }} <strong>{{ section.settings.offer_price | escape | replace: '[price]', price_money | replace: '[half]', half_money | replace: '[x2]', x2_money | replace: '[x3]', x3_money }}</strong></div>
       {%- endif -%}
       <div class="bundle-heading">
         <b>{{ 'products.choose_bundle' | t }}</b>
@@ -105,17 +110,26 @@
             if default_found == false and forloop.first
               assign is_selected = true
             endif
-            assign price_label = block.settings.price_label
-            if price_label == blank
-              assign price_label = current_variant.price | times: qty | money
+            assign paid = block.settings.paid
+            if paid == blank or paid < 1 or paid > qty
+              assign paid = qty
             endif
+            assign bundle_cents = current_variant.price | times: paid
+            assign each_cents = bundle_cents | times: 1.0 | divided_by: qty | round
+            assign bundle_money = bundle_cents | money
+            assign each_money = each_cents | money
+            assign price_label = block.settings.price_label | replace: '[total]', bundle_money | replace: '[each]', each_money
+            if price_label == blank
+              assign price_label = bundle_money
+            endif
+            assign per_label = block.settings.per_label | replace: '[total]', bundle_money | replace: '[each]', each_money
           -%}
           {%- if is_selected -%}{%- assign selected_label = price_label -%}{%- endif -%}
           <div class="bundle{% if is_selected %} selected{% endif %}" data-quantity="{{ qty }}" {{ block.shopify_attributes }}>
             <label class="bundle-label">
               <input type="radio" autocomplete="off" name="bundle-{{ section.id }}" value="{{ qty }}" data-title="{{ block.settings.title | escape }}" data-price-label="{{ price_label | strip_html | escape }}"{% if is_selected %} checked{% endif %}>
               <span><b>{{ block.settings.title | escape }}</b><small>{{ block.settings.subtitle | escape }}</small></span>
-              <span class="bundle-price">{{ price_label }}{% if block.settings.per_label != blank %}<small>{{ block.settings.per_label | escape }}</small>{% endif %}</span>
+              <span class="bundle-price">{{ price_label }}{% if per_label != blank %}<small>{{ per_label }}</small>{% endif %}</span>
               {%- if block.settings.badge != blank -%}<em>{{ block.settings.badge | escape }}</em>{%- endif -%}
             </label>
             {%- unless product.has_only_default_variant -%}<div class="variant-rows" data-count="{{ qty }}"></div>{%- endunless -%}
@@ -165,7 +179,7 @@
 
 {%- if section.settings.sticky_bar -%}
   <div class="sticky-buy">
-    <span><b>{{ product.title | escape }}</b><small>{{ section.settings.offer_text | escape }} {{ section.settings.offer_price | escape }}</small></span>
+    <span><b>{{ product.title | escape }}</b><small>{{ section.settings.offer_text | escape }} {{ section.settings.offer_price | escape | replace: '[price]', price_money | replace: '[half]', half_money | replace: '[x2]', x2_money | replace: '[x3]', x3_money }}</small></span>
     <a class="primary" href="#buy">{{ 'products.choose_bundle' | t }}</a>
   </div>
 {%- endif -%}
@@ -184,7 +198,7 @@
     { "type": "text", "id": "subtitle", "label": "Subtitle badge", "default": "Seamless tummy control" },
     { "type": "textarea", "id": "lead", "label": "Intro text", "default": "A smooth everyday foundation, with a high-rise waist and X-shaped cross-over bands that wrap the midsection." },
     { "type": "text", "id": "offer_text", "label": "Offer banner text", "default": "BUY 2, GET 2 FREE" },
-    { "type": "text", "id": "offer_price", "label": "Offer banner price" },
+    { "type": "text", "id": "offer_price", "label": "Offer banner price", "info": "Can use [price], [half], [x2], [x3]." },
     { "type": "text", "id": "button_label", "label": "Button label", "default": "Add bundle to bag" },
     { "type": "text", "id": "note", "label": "Note under button", "default": "Mix sizes and colors in any bundle." },
     { "type": "image_picker", "id": "size_chart", "label": "Size chart image" },
@@ -196,7 +210,7 @@
     { "type": "header", "content": "Urgency line" },
     { "type": "text", "id": "urgency_text", "label": "Urgency text", "default": "Order today — your bundle ships fast", "info": "Always shown. Keep it true: use your real shipping time. Leave empty to hide." },
     { "type": "header", "content": "Deal box" },
-    { "type": "text", "id": "deal_text", "label": "Deal text", "default": "🎁 Buy 2, get 2 free — $79.98 ($20.00 per brief)" },
+    { "type": "text", "id": "deal_text", "label": "Deal text", "default": "🎁 Buy 2, get 2 free — [x2] ([half] per brief)", "info": "Prices update to the shopper's currency: [price] = one item, [half] = half price, [x2] / [x3] = 2 or 3 items." },
     { "type": "text", "id": "gift_text", "label": "Free gift line", "default": "FREE GIFT with every order: Shipping Protection ([value] value)", "info": "[value] shows the protection product's price. Hidden when shipping protection is off." },
     { "type": "header", "content": "Countdown" },
     { "type": "paragraph", "content": "Counts down to a real end date, such as when your sale ends. Hidden when empty or after the date passes." },
@@ -224,8 +238,9 @@
         { "type": "range", "id": "quantity", "label": "Items in bundle", "min": 1, "max": 10, "step": 1, "default": 2 },
         { "type": "text", "id": "title", "label": "Title", "default": "Buy 1, get 1 free" },
         { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "2 briefs" },
-        { "type": "text", "id": "price_label", "label": "Price label", "info": "Leave empty to show the regular price × quantity." },
-        { "type": "text", "id": "per_label", "label": "Per-item label" },
+        { "type": "range", "id": "paid", "label": "Items paid for (the rest are free)", "min": 1, "max": 10, "step": 1, "default": 1, "info": "e.g. Buy 2, get 2 free → 4 items, 2 paid. Must match your Buy X Get Y discount." },
+        { "type": "text", "id": "price_label", "label": "Price label", "info": "Leave empty to show the bundle price automatically in the shopper's currency. Can use [total] and [each]." },
+        { "type": "text", "id": "per_label", "label": "Per-item label", "default": "[each] / brief", "info": "[each] = price per item, in the shopper's currency." },
         { "type": "text", "id": "badge", "label": "Badge" },
         { "type": "checkbox", "id": "selected", "label": "Selected by default", "default": false }
       ]

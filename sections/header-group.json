@@ -17,7 +17,7 @@
         "a1": {
           "type": "announcement",
           "settings": {
-            "text": "FREE SHIPPING OVER $75"
+            "text": "FREE SHIPPING OVER [free_shipping]"
           }
         },
         "a2": {

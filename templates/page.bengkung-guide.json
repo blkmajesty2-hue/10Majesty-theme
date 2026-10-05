@@ -186,7 +186,7 @@
           "settings": {
             "label": "TRY BLK_MAJESTY NOW →",
             "link": "shopify://products/culotte-post-patrum",
-            "note": "Buy 2, get 2 free · 30-day money-back guarantee · Free shipping over $75"
+            "note": "Buy 2, get 2 free · 30-day money-back guarantee · Free shipping over [free_shipping]"
           }
         },
         "image_28": {

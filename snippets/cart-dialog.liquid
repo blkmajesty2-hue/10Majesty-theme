@@ -1,8 +1,15 @@
 {%- comment -%} Cart drawer, filled from the live cart. Also passes money format and strings to blkm.js. {%- endcomment -%}
-{%- assign free_ship_cents = settings.free_shipping_threshold | times: 100 | round -%}
+{%- liquid
+  assign free_ship = settings.free_shipping_threshold
+  if cart.currency.iso_code == 'EUR' and settings.free_shipping_threshold_eur > 0
+    assign free_ship = settings.free_shipping_threshold_eur
+  endif
+  assign free_ship_cents = free_ship | times: 100 | round
+-%}
 <script>
   window.blkm = {
-    moneyFormat: {{ shop.money_format | json }},
+    moneyFormat: {% if cart.currency.iso_code == shop.currency %}{{ shop.money_format | json }}{% else %}null{% endif %},
+    currencySymbol: {{ cart.currency.symbol | json }},
     currency: {{ cart.currency.iso_code | json }},
     freeShipping: {{ free_ship_cents | default: 0 }},
     protectionMode: {{ settings.protection_mode | json }},
