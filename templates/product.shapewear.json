@@ -113,7 +113,8 @@
     },
     "strip": {
       "type": "product-image-strip",
-      "settings": {}
+      "settings": {},
+      "disabled": true
     },
     "details": {
       "type": "image-with-text",
@@ -435,11 +436,21 @@
         "c2"
       ],
       "settings": {}
+    },
+    "reels": {
+      "type": "video-reels",
+      "blocks": {},
+      "block_order": [],
+      "settings": {
+        "heading": "See it in motion",
+        "text": ""
+      }
     }
   },
   "order": [
     "main",
     "strip",
+    "reels",
     "size",
     "mechanism",
     "features",

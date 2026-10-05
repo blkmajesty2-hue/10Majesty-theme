@@ -968,3 +968,6 @@ footer .wordmark,.footer-grid .wordmark{font-size:clamp(26px,2.6vw,34px);font-we
 .film-video__sound[aria-pressed=true] .film-video__mute{display:none}
 .product-film--video .film-track{scroll-snap-type:x mandatory;gap:14px}
 @media(max-width:760px){.film-video{flex-basis:46vw;border-radius:12px}}
+.video-reels{background:#fff;border:0}
+.video-reels__text{margin:-8px auto 20px;max-width:560px;text-align:center;color:#555}
+.video-reels__placeholder{display:grid;place-items:center;background:#f1f1f1;border:2px dashed #c9c9c9;color:#777;font-size:13px;text-align:center;padding:12px}

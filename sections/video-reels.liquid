@@ -1,0 +1,56 @@
+{%- comment -%}
+  Row of short vertical videos that autoplay muted on loop (tap the speaker for sound).
+  Hidden on the storefront until at least one video is added; the editor shows placeholders.
+{%- endcomment -%}
+{%- assign videos = section.blocks | where: 'type', 'video' -%}
+{%- assign count = 0 -%}
+{%- for block in videos -%}{%- if block.settings.video != blank -%}{%- assign count = count | plus: 1 -%}{%- endif -%}{%- endfor -%}
+{%- if count > 0 or request.design_mode -%}
+<section class="product-film product-film--video video-reels" data-film>
+  <div class="wrap">
+    {%- if section.settings.heading != blank -%}<h2 class="film-heading">{{ section.settings.heading | escape }}</h2>{%- endif -%}
+    {%- if section.settings.text != blank -%}<p class="video-reels__text">{{ section.settings.text | escape }}</p>{%- endif -%}
+    <div class="film-track">
+      {%- if count > 0 -%}
+        {%- for block in videos -%}
+          {%- if block.settings.video != blank -%}
+            <figure class="film-video" {{ block.shopify_attributes }}>
+              {{ block.settings.video | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, controls: false, preload: 'metadata', image_size: '600x' }}
+              <button type="button" class="film-video__sound" data-film-sound aria-label="Turn sound on" aria-pressed="false">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path class="film-video__wave" d="M16 8.5a5 5 0 010 7M18.5 6a8.5 8.5 0 010 12"/><path class="film-video__mute" d="M16 9l5 6M21 9l-5 6"/></svg>
+              </button>
+              {%- if block.settings.caption != blank -%}<figcaption>{{ block.settings.caption | escape }}</figcaption>{%- endif -%}
+            </figure>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..4) -%}
+          <figure class="film-video video-reels__placeholder"><span>Add a Video block<br>in this section</span></figure>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Video reels",
+  "settings": [
+    { "type": "paragraph", "content": "Add a Video block for each clip (upload videos in Content → Files). Short vertical clips, 9:16 and 5–15 seconds, look best. Hidden on the store until a video is added." },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "See it in motion" },
+    { "type": "text", "id": "text", "label": "Text" }
+  ],
+  "blocks": [
+    {
+      "type": "video",
+      "name": "Video",
+      "settings": [
+        { "type": "video", "id": "video", "label": "Video" },
+        { "type": "text", "id": "caption", "label": "Caption" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Video reels" }]
+}
+{% endschema %}
