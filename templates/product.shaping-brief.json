@@ -122,206 +122,11 @@
         "stock_text": "Selling fast — only a few left!",
         "urgency_text": "Order today — your bundle ships fast",
         "deal_text": "🎁 Buy 2, get 2 free — $79.98 ($20.00 per brief)",
+        "gift_text": "FREE GIFT with every order: Shipping Protection ([value] value)",
         "countdown_end": "",
         "countdown_text": "Hurry! The offer ends in",
         "promo_link": "",
-        "sticky_bar": true,
-        "gift_text": "FREE GIFT with every order: Shipping Protection ([value] value)"
-      }
-    },
-    "strip": {
-      "type": "product-image-strip",
-      "blocks": {
-        "img01": {
-          "type": "image",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/IMG-3432.jpg"
-          }
-        },
-        "img02": {
-          "type": "image",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/IMG-3433.jpg"
-          }
-        },
-        "img03": {
-          "type": "image",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_21_47-1.png"
-          }
-        },
-        "img04": {
-          "type": "image",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_25_20-12.png"
-          }
-        },
-        "img05": {
-          "type": "image",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_21_47-1_f1fc395b-c1e0-4649-8455-60557a012053.png"
-          }
-        },
-        "img06": {
-          "type": "image",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_23_34-1.png"
-          }
-        },
-        "img07": {
-          "type": "image",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_23_49-2.png"
-          }
-        },
-        "img08": {
-          "type": "image",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_23_54-3.png"
-          }
-        },
-        "img09": {
-          "type": "image",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_24_05-4.png"
-          }
-        },
-        "img10": {
-          "type": "image",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_24_14-5.png"
-          }
-        },
-        "img11": {
-          "type": "image",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_24_23-6.png"
-          }
-        },
-        "img12": {
-          "type": "image",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_24_27-7.png"
-          }
-        },
-        "img13": {
-          "type": "image",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_24_32-8.png"
-          }
-        },
-        "img14": {
-          "type": "image",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_24_38-9.png"
-          }
-        },
-        "img15": {
-          "type": "image",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_25_06-10.png"
-          }
-        },
-        "img16": {
-          "type": "image",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_25_14-11.png"
-          }
-        },
-        "img17": {
-          "type": "image",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_00_25_26-13.png"
-          }
-        },
-        "img18": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/blkm-color-black.webp"
-          }
-        },
-        "img19": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/blkm-color-beige.webp"
-          }
-        },
-        "img20": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/blkm-color-royal-blue.webp"
-          }
-        },
-        "img21": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/blkm-color-plum.webp"
-          }
-        },
-        "img22": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/blkm-color-fuchsia.webp"
-          }
-        },
-        "img23": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/blkm-color-navy.webp"
-          }
-        },
-        "img24": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/blkm-color-lilac.webp"
-          }
-        }
-      },
-      "block_order": [
-        "img01",
-        "img02",
-        "img03",
-        "img04",
-        "img05",
-        "img06",
-        "img07",
-        "img08",
-        "img09",
-        "img10",
-        "img11",
-        "img12",
-        "img13",
-        "img14",
-        "img15",
-        "img16",
-        "img17",
-        "img18",
-        "img19",
-        "img20",
-        "img21",
-        "img22",
-        "img23",
-        "img24"
-      ],
-      "settings": {
-        "use_product_media": true
+        "sticky_bar": true
       }
     },
     "size": {
@@ -563,47 +368,7 @@
     },
     "reviews": {
       "type": "testimonials",
-      "blocks": {
-        "review_gB3JhP": {
-          "type": "review",
-          "settings": {
-            "image": "shopify://shop_images/Screenshot_2026-09-30_at_12.49.21_PM.png",
-            "name": "Customer",
-            "rating": 5,
-            "text": "",
-            "verified": false
-          }
-        },
-        "review_DxnEmn": {
-          "type": "review",
-          "settings": {
-            "image": "shopify://shop_images/Screenshot_2026-09-30_at_12.49.34_PM.png",
-            "name": "Customer",
-            "rating": 5,
-            "text": "",
-            "verified": false
-          }
-        },
-        "review_mzbx6k": {
-          "type": "review",
-          "settings": {
-            "image": "shopify://shop_images/Screenshot_2026-09-30_at_12.49.47_PM.png",
-            "name": "Customer",
-            "rating": 5,
-            "text": "",
-            "verified": false
-          }
-        }
-      },
-      "block_order": [
-        "review_gB3JhP",
-        "review_DxnEmn",
-        "review_mzbx6k"
-      ],
-      "settings": {
-        "eyebrow": "Reviews",
-        "heading": "Customer experiences."
-      }
+      "settings": {}
     },
     "faq": {
       "type": "faq",
@@ -724,7 +489,6 @@
   },
   "order": [
     "main",
-    "strip",
     "size",
     "mechanism",
     "circles",
