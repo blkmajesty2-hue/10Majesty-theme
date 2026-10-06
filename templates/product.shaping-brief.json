@@ -227,6 +227,7 @@
         "c1",
         "c2"
       ],
+      "disabled": true,
       "settings": {
         "heading": "Why it's NOT ordinary shapewear",
         "serif": true,
@@ -550,13 +551,13 @@
     "main",
     "reels",
     "size",
+    "details",
+    "black",
     "mechanism",
+    "closer",
     "circles",
     "features",
     "colors3d",
-    "details",
-    "closer",
-    "black",
     "reviews",
     "faq"
   ]
