@@ -342,6 +342,7 @@
         "col6",
         "col7"
       ],
+      "disabled": true,
       "settings": {
         "eyebrow": "Available in every mood",
         "heading": "Spin to see every color.",
@@ -415,7 +416,13 @@
       "settings": {
         "eyebrow": "",
         "heading": "Shape through thoughtful construction.",
-        "fallback_image": "blkm-details-black.webp"
+        "fallback_image": "blkm-details-black.webp",
+        "compare_show": false,
+        "compare_left_title": "CLASSIC WAIST CINCHER",
+        "compare_left_points": "Only compresses the front of the stomach\nRides up and slips after an hour\nShows under clothes",
+        "compare_right_title": "BLK_MAJESTY",
+        "compare_right_points": "360° — front, sides and back\nSlips on in 10 seconds, like underwear\nDisappears under every outfit",
+        "compare_note": "<strong>Inspired by the Malaysian bengkung</strong> — a cross-wrapping technique used for generations to support the belly after childbirth."
       }
     },
     "reviews": {
