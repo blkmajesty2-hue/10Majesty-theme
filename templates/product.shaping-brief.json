@@ -120,6 +120,11 @@
         "note": "Mix sizes and colors in any bundle.",
         "size_chart": "shopify://shop_images/blkm-size-guide.webp",
         "size_button_label": "📏 Size guide ›",
+        "story_title": "The secret of Malaysian mothers: the bengkung — for 500 years",
+        "story_text": "Classic waist cinchers only compress the front. Your belly goes all the way around. So does BLK_MAJESTY. That's the whole difference.",
+        "check_1": "Order your usual size",
+        "check_2": "Works even years after giving birth",
+        "check_3": "",
         "show_stock": true,
         "stock_threshold": 10,
         "stock_text": "Selling fast — only a few left!",
@@ -129,12 +134,7 @@
         "countdown_end": "",
         "countdown_text": "Hurry! The offer ends in",
         "promo_link": "",
-        "sticky_bar": true,
-        "story_title": "The secret of Malaysian mothers: the bengkung — for 500 years",
-        "story_text": "Classic waist cinchers only compress the front. Your belly goes all the way around. So does BLK_MAJESTY. That's the whole difference.",
-        "check_1": "Order your usual size",
-        "check_2": "Works even years after giving birth",
-        "check_3": ""
+        "sticky_bar": true
       }
     },
     "reels": {
@@ -188,6 +188,62 @@
         "note": "If you're between sizes, choose the larger size."
       }
     },
+    "details": {
+      "type": "image-with-text",
+      "blocks": {
+        "p1": {
+          "type": "point",
+          "settings": {
+            "title": "Cross-over front",
+            "text": "Two overlapping bands form the signature X-shaped front."
+          }
+        },
+        "p2": {
+          "type": "point",
+          "settings": {
+            "title": "Full coverage",
+            "text": "The high-waisted cut covers the front, sides and back."
+          }
+        },
+        "p3": {
+          "type": "point",
+          "settings": {
+            "title": "Bound edges",
+            "text": "Clean, bound leg openings for a smooth line under clothes."
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3"
+      ],
+      "settings": {
+        "eyebrow": "The cross-over design",
+        "heading": "Support, from every angle.",
+        "image": "shopify://shop_images/Screenshot_2026-09-30_at_2.42.46_AM.png",
+        "fallback_image": "blkm-details-beige.webp",
+        "image_eyebrow": "The signature construction",
+        "image_heading": "A defined silhouette.\nA simple first layer.",
+        "text": "<p>The X-shaped construction is the focal point. Overlapping bands sit across the front, while the high-rise cut extends coverage around the waist.</p>",
+        "button_label": "Choose your bundle",
+        "button_link": ""
+      }
+    },
+    "black": {
+      "type": "feature-image",
+      "settings": {
+        "eyebrow": "",
+        "heading": "Shape through thoughtful construction.",
+        "fallback_image": "blkm-details-black.webp",
+        "compare_show": false,
+        "compare_left_title": "CLASSIC WAIST CINCHER",
+        "compare_left_points": "Only compresses the front of the stomach\nRides up and slips after an hour\nShows under clothes",
+        "compare_right_title": "BLK_MAJESTY",
+        "compare_right_points": "360° — front, sides and back\nSlips on in 10 seconds, like underwear\nDisappears under every outfit",
+        "compare_note": "<strong>Inspired by the Malaysian bengkung</strong> — a cross-wrapping technique used for generations to support the belly after childbirth."
+      }
+    },
     "mechanism": {
       "type": "mechanism-banner",
       "settings": {
@@ -202,6 +258,21 @@
         "bg_top": "#f3f3f3",
         "bg_bottom": "#e9e9e9",
         "accent": "#000000"
+      }
+    },
+    "closer": {
+      "type": "feature-image",
+      "settings": {
+        "eyebrow": "A closer look",
+        "heading": "A different approach to shapewear.",
+        "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_02_48_19.png",
+        "fallback_image": "blkm-closer-look.webp",
+        "compare_show": true,
+        "compare_left_title": "CLASSIC WAIST CINCHER",
+        "compare_left_points": "Only compresses the front of the stomach\nRides up and slips after an hour\nShows under clothes\nZero lasting results — everything drops back every time",
+        "compare_right_title": "BLK_MAJESTY",
+        "compare_right_points": "360° — front, sides and back\nSlips on in 10 seconds, like underwear\nDisappears under every outfit\nVisible difference from week 2–3",
+        "compare_note": "<strong>Inspired by the Malaysian bengkung</strong> — a cross-compression technique used for 500 years to firm the abdominal wall after childbirth."
       }
     },
     "circles": {
@@ -360,79 +431,37 @@
         "product": ""
       }
     },
-    "details": {
-      "type": "image-with-text",
+    "reviews": {
+      "type": "testimonials",
+      "settings": {}
+    },
+    "1791250866bce8bf19": {
+      "type": "_blocks",
       "blocks": {
-        "p1": {
-          "type": "point",
+        "ai_gen_block_182a0b8_UhGnJt": {
+          "type": "ai_gen_block_182a0b8",
           "settings": {
-            "title": "Cross-over front",
-            "text": "Two overlapping bands form the signature X-shaped front."
-          }
-        },
-        "p2": {
-          "type": "point",
-          "settings": {
-            "title": "Full coverage",
-            "text": "The high-waisted cut covers the front, sides and back."
-          }
-        },
-        "p3": {
-          "type": "point",
-          "settings": {
-            "title": "Bound edges",
-            "text": "Clean, bound leg openings for a smooth line under clothes."
-          }
+            "eyebrow": "Customer feedback",
+            "heading": "Customer experiences.",
+            "intro": "Share verified feedback from your customers.",
+            "desktop_width_percent": 100,
+            "review_1_name": "",
+            "review_1_quote": "",
+            "review_2_name": "",
+            "review_2_quote": "",
+            "review_3_name": "",
+            "review_3_quote": "",
+            "text_color": "#222222",
+            "card_color": "#FFFFFF",
+            "border_color": "#D8D8D8",
+            "accent_color": "#5C3D4F"
+          },
+          "blocks": {}
         }
       },
       "block_order": [
-        "p1",
-        "p2",
-        "p3"
+        "ai_gen_block_182a0b8_UhGnJt"
       ],
-      "settings": {
-        "eyebrow": "The cross-over design",
-        "heading": "Support, from every angle.",
-        "image": "shopify://shop_images/Screenshot_2026-09-30_at_2.42.46_AM.png",
-        "fallback_image": "blkm-details-beige.webp",
-        "image_eyebrow": "The signature construction",
-        "image_heading": "A defined silhouette.\nA simple first layer.",
-        "text": "<p>The X-shaped construction is the focal point. Overlapping bands sit across the front, while the high-rise cut extends coverage around the waist.</p>",
-        "button_label": "Choose your bundle",
-        "button_link": ""
-      }
-    },
-    "closer": {
-      "type": "feature-image",
-      "settings": {
-        "eyebrow": "A closer look",
-        "heading": "A different approach to shapewear.",
-        "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_02_48_19.png",
-        "fallback_image": "blkm-closer-look.webp",
-        "compare_show": true,
-        "compare_left_title": "CLASSIC WAIST CINCHER",
-        "compare_left_points": "Only compresses the front of the stomach\nRides up and slips after an hour\nShows under clothes\nZero lasting results — everything drops back every time",
-        "compare_right_title": "BLK_MAJESTY",
-        "compare_right_points": "360° — front, sides and back\nSlips on in 10 seconds, like underwear\nDisappears under every outfit\nVisible difference from week 2–3",
-        "compare_note": "<strong>Inspired by the Malaysian bengkung</strong> — a cross-compression technique used for 500 years to firm the abdominal wall after childbirth."
-      }
-    },
-    "black": {
-      "type": "feature-image",
-      "settings": {
-        "eyebrow": "",
-        "heading": "Shape through thoughtful construction.",
-        "fallback_image": "blkm-details-black.webp",
-        "compare_show": false,
-        "compare_left_title": "CLASSIC WAIST CINCHER",
-        "compare_left_points": "Only compresses the front of the stomach\nRides up and slips after an hour\nShows under clothes",
-        "compare_right_title": "BLK_MAJESTY",
-        "compare_right_points": "360° — front, sides and back\nSlips on in 10 seconds, like underwear\nDisappears under every outfit",
-        "compare_note": "<strong>Inspired by the Malaysian bengkung</strong> — a cross-wrapping technique used for generations to support the belly after childbirth."
-      }
-    },
-    "reviews": {
-      "type": "testimonials",
       "settings": {}
     },
     "faq": {
@@ -564,6 +593,7 @@
     "features",
     "colors3d",
     "reviews",
+    "1791250866bce8bf19",
     "faq"
   ]
 }
