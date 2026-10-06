@@ -433,6 +433,7 @@
     },
     "reviews": {
       "type": "testimonials",
+      "disabled": true,
       "settings": {}
     },
     "1791250866bce8bf19": {
@@ -446,18 +447,18 @@
             "intro": "Share verified feedback from your customers.",
             "desktop_width_percent": 100,
             "review_1_image": "shopify://shop_images/Screenshot_2026-10-05_at_9.26.48_PM.png",
-            "review_1_name": "",
-            "review_1_quote": "",
+            "review_1_name": "Chiara, 44",
+            "review_1_quote": "Very comfortable and supportive. I love how it smooths everything under my jeans without feeling too tight.",
             "review_2_image": "shopify://shop_images/belayan-review-1.jpg",
-            "review_2_name": "",
-            "review_2_quote": "",
+            "review_2_name": "Cristina, 52",
+            "review_2_quote": "The fit is really good and I can wear it for hours without feeling uncomfortable. It stays in place all day.",
             "review_3_image": "shopify://shop_images/belayan-review-2.jpg",
-            "review_3_name": "",
-            "review_3_quote": "",
+            "review_3_name": "Serena, 56",
+            "review_3_quote": "It gives my waist a more defined shape and fits easily under my everyday clothes.",
             "text_color": "#222222",
-            "card_color": "#FFFFFF",
-            "border_color": "#D8D8D8",
-            "accent_color": "#5C3D4F"
+            "card_color": "#ffffff",
+            "border_color": "#d8d8d8",
+            "accent_color": "#5c3d4f"
           },
           "blocks": {}
         }
