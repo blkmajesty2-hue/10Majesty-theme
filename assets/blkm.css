@@ -974,3 +974,30 @@ footer .wordmark,.footer-grid .wordmark{font-size:clamp(26px,2.6vw,34px);font-we
 .country-picker{display:flex;align-items:center;gap:8px;font-size:11px;color:#aaa}
 .country-picker label{white-space:nowrap}
 .country-picker select{width:auto;padding:6px 8px;background:#222;color:#fff;border:1px solid #555;font-size:12px}
+
+/* Feature image: comparison cards under the image */
+.fi-compare{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:850px;margin:28px auto 0}
+.fi-card{padding:26px 28px;border:1.5px solid #dcdcdc;border-radius:16px;background:#fff}
+.fi-card--us{border:2px solid #000;box-shadow:0 3px 0 #000}
+.fi-card__title{margin:0 0 16px;font-size:15px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.fi-card--them .fi-card__title{color:#777}
+.fi-card ul{list-style:none;margin:0;padding:0}
+.fi-card li{position:relative;margin:0 0 12px;padding-left:28px;font-size:15px;line-height:1.5}
+.fi-card li:last-child{margin-bottom:0}
+.fi-card li::before{position:absolute;left:0;top:0;font-weight:700}
+.fi-card--them li{color:#666}
+.fi-card--them li::before{content:'✕';color:#aaa}
+.fi-card--us li{color:#111}
+.fi-card--us li::before{content:'✔';color:#000}
+.fi-note{display:flex;align-items:center;gap:18px;max-width:850px;margin:20px auto 0;padding:22px 28px;border-radius:16px;background:#f3f3f3;color:#111}
+.fi-note svg{flex-shrink:0;color:#555}
+.fi-note p{margin:0;font-size:15px;line-height:1.6;color:#333}
+.fi-note strong{color:#000}
+@media(max-width:760px){
+  .fi-compare{grid-template-columns:1fr;gap:12px;margin-top:20px}
+  .fi-card{padding:20px}
+  .fi-card__title{font-size:14px;margin-bottom:12px}
+  .fi-card li,.fi-note p{font-size:14px}
+  .fi-note{align-items:flex-start;gap:14px;padding:18px 20px}
+  .fi-note svg{width:28px;height:28px}
+}

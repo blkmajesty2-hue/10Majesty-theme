@@ -6,6 +6,33 @@
   {%- else -%}
     <img src="{{ section.settings.fallback_image | default: 'blkm-closer-look.webp' | asset_url }}" alt="{{ section.settings.heading | escape }}" width="1254" height="1254" loading="lazy">
   {%- endif -%}
+
+  {%- if section.settings.compare_show -%}
+    {%- liquid
+      assign left_points = section.settings.compare_left_points | newline_to_br | split: '<br />'
+      assign right_points = section.settings.compare_right_points | newline_to_br | split: '<br />'
+    -%}
+    <div class="fi-compare">
+      <div class="fi-card fi-card--them">
+        <p class="fi-card__title"><span aria-hidden="true">✕</span> {{ section.settings.compare_left_title | escape }}</p>
+        <ul>
+          {%- for point in left_points -%}{%- assign point = point | strip -%}{%- if point != blank -%}<li>{{ point | escape }}</li>{%- endif -%}{%- endfor -%}
+        </ul>
+      </div>
+      <div class="fi-card fi-card--us">
+        <p class="fi-card__title"><span aria-hidden="true">✔</span> {{ section.settings.compare_right_title | escape }}</p>
+        <ul>
+          {%- for point in right_points -%}{%- assign point = point | strip -%}{%- if point != blank -%}<li>{{ point | escape }}</li>{%- endif -%}{%- endfor -%}
+        </ul>
+      </div>
+    </div>
+    {%- if section.settings.compare_note != blank -%}
+      <div class="fi-note">
+        <svg aria-hidden="true" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M12 3 3 8l9 5 9-5-9-5Z" fill="currentColor" fill-opacity=".18"/><path d="m3 12 9 5 9-5"/><path d="m3 16 9 5 9-5"/></svg>
+        <p>{{ section.settings.compare_note }}</p>
+      </div>
+    {%- endif -%}
+  {%- endif -%}
 </section>
 
 {% schema %}
@@ -15,7 +42,14 @@
     { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "A closer look." },
     { "type": "image_picker", "id": "image", "label": "Image" },
-    { "type": "text", "id": "fallback_image", "label": "Built-in image file", "default": "blkm-closer-look.webp", "info": "Used when no image is picked. One of: blkm-duo.webp, blkm-details-black.webp, blkm-details-beige.webp, blkm-closer-look.webp, blkm-blue.webp" }
+    { "type": "text", "id": "fallback_image", "label": "Built-in image file", "default": "blkm-closer-look.webp", "info": "Used when no image is picked. One of: blkm-duo.webp, blkm-details-black.webp, blkm-details-beige.webp, blkm-closer-look.webp, blkm-blue.webp" },
+    { "type": "header", "content": "Comparison under the image" },
+    { "type": "checkbox", "id": "compare_show", "label": "Show comparison", "default": false },
+    { "type": "text", "id": "compare_left_title", "label": "Left card title", "default": "CLASSIC WAIST CINCHER" },
+    { "type": "textarea", "id": "compare_left_points", "label": "Left card points", "info": "One point per line.", "default": "Only compresses the front of the stomach\nRides up and slips after an hour\nShows under clothes" },
+    { "type": "text", "id": "compare_right_title", "label": "Right card title", "default": "BLK_MAJESTY" },
+    { "type": "textarea", "id": "compare_right_points", "label": "Right card points", "info": "One point per line.", "default": "360° — front, sides and back\nSlips on in 10 seconds, like underwear\nDisappears under every outfit" },
+    { "type": "inline_richtext", "id": "compare_note", "label": "Note under the cards", "default": "<strong>Inspired by the Malaysian bengkung</strong> — a cross-wrapping technique used for generations to support the belly after childbirth." }
   ],
   "presets": [{ "name": "Feature image" }]
 }

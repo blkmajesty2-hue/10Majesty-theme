@@ -401,7 +401,13 @@
         "eyebrow": "A closer look",
         "heading": "A different approach to shapewear.",
         "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_02_48_19.png",
-        "fallback_image": "blkm-closer-look.webp"
+        "fallback_image": "blkm-closer-look.webp",
+        "compare_show": true,
+        "compare_left_title": "CLASSIC WAIST CINCHER",
+        "compare_left_points": "Only compresses the front of the stomach\nRides up and slips after an hour\nShows under clothes\nZero lasting results — everything drops back every time",
+        "compare_right_title": "BLK_MAJESTY",
+        "compare_right_points": "360° — front, sides and back\nSlips on in 10 seconds, like underwear\nDisappears under every outfit\nVisible difference from week 2–3",
+        "compare_note": "<strong>Inspired by the Malaysian bengkung</strong> — a cross-compression technique used for 500 years to firm the abdominal wall after childbirth."
       }
     },
     "black": {
