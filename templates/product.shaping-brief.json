@@ -46,11 +46,11 @@
             "quantity": 2,
             "title": "Buy 1, get 1 free",
             "subtitle": "2 briefs",
+            "paid": 1,
             "price_label": "",
             "per_label": "[each] / brief",
             "badge": "",
-            "selected": false,
-            "paid": 1
+            "selected": false
           }
         },
         "bundle4": {
@@ -59,11 +59,11 @@
             "quantity": 4,
             "title": "Buy 2, get 2 free",
             "subtitle": "4 briefs · Free shipping",
+            "paid": 2,
             "price_label": "",
             "per_label": "[each] / brief",
             "badge": "BEST OFFER",
-            "selected": true,
-            "paid": 2
+            "selected": true
           }
         },
         "bundle6": {
@@ -72,11 +72,11 @@
             "quantity": 6,
             "title": "Buy 3, get 3 free",
             "subtitle": "6 briefs · Free shipping",
+            "paid": 3,
             "price_label": "",
             "per_label": "[each] / brief",
             "badge": "BEST VALUE",
-            "selected": false,
-            "paid": 3
+            "selected": false
           }
         },
         "c1": {
@@ -130,6 +130,49 @@
         "countdown_text": "Hurry! The offer ends in",
         "promo_link": "",
         "sticky_bar": true
+      }
+    },
+    "reels": {
+      "type": "video-reels",
+      "blocks": {
+        "video_tzzGVB": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/99697fce6b4845dc8729bb3a0a341d7d.mp4",
+            "caption": ""
+          }
+        },
+        "video_XkFgTA": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/d236bae63abd4aeeadd122e8a1951b29.mp4",
+            "caption": ""
+          }
+        },
+        "video_Lem9K7": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/fd79406e16ac4216b21fd99720db9584 (1).mp4",
+            "caption": ""
+          }
+        },
+        "video_ffQggL": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/11c8a8d9711c4510926fefbfac18e176.mp4",
+            "caption": ""
+          }
+        }
+      },
+      "block_order": [
+        "video_tzzGVB",
+        "video_XkFgTA",
+        "video_Lem9K7",
+        "video_ffQggL"
+      ],
+      "settings": {
+        "heading": "See it in motion",
+        "text": ""
       }
     },
     "size": {
@@ -487,15 +530,6 @@
         "eyebrow": "Frequently asked questions",
         "heading": "Before you choose.",
         "text": "Product and shopping information, in plain English."
-      }
-    },
-    "reels": {
-      "type": "video-reels",
-      "blocks": {},
-      "block_order": [],
-      "settings": {
-        "heading": "See it in motion",
-        "text": ""
       }
     }
   },
