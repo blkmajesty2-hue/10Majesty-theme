@@ -48,6 +48,32 @@
         </ul>
       {%- endif -%}
       {%- liquid
+        assign checks = ''
+        for i in (1..3)
+          assign check_key = 'check_' | append: i
+          if section.settings[check_key] != blank
+            assign checks = checks | append: section.settings[check_key] | append: '|||'
+          endif
+        endfor
+        assign checks = checks | split: '|||'
+      -%}
+      {%- if section.settings.story_title != blank or section.settings.story_text != blank -%}
+        <div class="pd-story">
+          <svg class="pd-story__icon" aria-hidden="true" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M12 3 3 8l9 5 9-5-9-5Z" fill="currentColor" fill-opacity=".18"/><path d="m3 12 9 5 9-5"/><path d="m3 16 9 5 9-5"/></svg>
+          <div>
+            {%- if section.settings.story_title != blank -%}<p class="pd-story__title">{{ section.settings.story_title | escape }}</p>{%- endif -%}
+            {%- if section.settings.story_text != blank -%}<p class="pd-story__text">{{ section.settings.story_text | escape }}</p>{%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+      {%- if checks.size > 0 -%}
+        <ul class="pd-checks">
+          {%- for check in checks -%}
+            <li><span class="pd-checks__box" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17.5 19 7"/></svg></span>{{ check | escape }}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+      {%- liquid
         assign stock_total = 0
         assign stock_tracked = false
         for v in product.variants
@@ -203,6 +229,13 @@
     { "type": "text", "id": "note", "label": "Note under button", "default": "Mix sizes and colors in any bundle." },
     { "type": "image_picker", "id": "size_chart", "label": "Size chart image" },
     { "type": "text", "id": "size_button_label", "label": "Size guide button", "default": "📏 Size guide ›", "info": "Shown under the deal box when a size chart image is set. Leave empty to hide the button." },
+    { "type": "header", "content": "Story box and checklist" },
+    { "type": "paragraph", "content": "Shown under the intro text and benefits." },
+    { "type": "text", "id": "story_title", "label": "Story box title" },
+    { "type": "textarea", "id": "story_text", "label": "Story box text" },
+    { "type": "text", "id": "check_1", "label": "Checklist line 1" },
+    { "type": "text", "id": "check_2", "label": "Checklist line 2" },
+    { "type": "text", "id": "check_3", "label": "Checklist line 3" },
     { "type": "header", "content": "Low-stock alert" },
     { "type": "checkbox", "id": "show_stock", "label": "Show low-stock alert", "default": true, "info": "Uses the product's real Shopify inventory. Shows only when stock is tracked and the total left is at or below the number below." },
     { "type": "range", "id": "stock_threshold", "label": "Show when stock is at or below", "min": 1, "max": 50, "step": 1, "default": 10 },
