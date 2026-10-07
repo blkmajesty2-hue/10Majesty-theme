@@ -10,7 +10,7 @@
 -%}
 <script>
   window.blkm = {
-    moneyFormat: {% if cart.currency.iso_code == shop.currency %}{{ shop.money_format | json }}{% elsif cart.currency.iso_code == 'SEK' %}"{{ '{{' }}amount_with_comma_separator{{ '}}' }} kr"{% else %}null{% endif %},
+    moneyFormat: {% if cart.currency.iso_code == shop.currency %}{{ shop.money_format | json }}{% elsif cart.currency.iso_code == 'SEK' %}"{% raw %}{{amount_with_comma_separator}}{% endraw %} kr"{% else %}null{% endif %},
     currencySymbol: {{ cart.currency.symbol | json }},
     currency: {{ cart.currency.iso_code | json }},
     freeShipping: {{ free_ship_cents | default: 0 }},

@@ -268,7 +268,7 @@
       }
       list.append(line);
     });
-    total.textContent = formatMoney(cart.total_price) + (config.currency ? ' ' + config.currency : '');
+    total.textContent = formatMoney(cart.total_price) + (config.currency && config.currency !== 'SEK' ? ' ' + config.currency : '');
     actions.hidden = false;
   }
   if (bag && protectionId && config.protectionMode === 'optional') {

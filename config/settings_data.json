@@ -16,6 +16,7 @@
     "protection_product": "shipping-protection",
     "protection_mode": "gift",
     "protection_included_title": "FREE GIFT: Shipping Protection",
+    "protection_included_text": "Lost, stolen or damaged in transit? We'll refund or replace it.",
     "free_shipping_threshold_eur": 70,
     "free_shipping_threshold_sek": 600
   },
