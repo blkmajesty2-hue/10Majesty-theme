@@ -16,7 +16,8 @@
     "protection_product": "shipping-protection",
     "protection_mode": "gift",
     "protection_included_title": "FREE GIFT: Shipping Protection",
-    "free_shipping_threshold_eur": 70
+    "free_shipping_threshold_eur": 70,
+    "free_shipping_threshold_sek": 600
   },
   "presets": {
     "Default": {

@@ -3,12 +3,14 @@
   assign free_ship = settings.free_shipping_threshold
   if cart.currency.iso_code == 'EUR' and settings.free_shipping_threshold_eur > 0
     assign free_ship = settings.free_shipping_threshold_eur
+  elsif cart.currency.iso_code == 'SEK' and settings.free_shipping_threshold_sek > 0
+    assign free_ship = settings.free_shipping_threshold_sek
   endif
   assign free_ship_cents = free_ship | times: 100 | round
 -%}
 <script>
   window.blkm = {
-    moneyFormat: {% if cart.currency.iso_code == shop.currency %}{{ shop.money_format | json }}{% else %}null{% endif %},
+    moneyFormat: {% if cart.currency.iso_code == shop.currency %}{{ shop.money_format | json }}{% elsif cart.currency.iso_code == 'SEK' %}"{{ '{{' }}amount_with_comma_separator{{ '}}' }} kr"{% else %}null{% endif %},
     currencySymbol: {{ cart.currency.symbol | json }},
     currency: {{ cart.currency.iso_code | json }},
     freeShipping: {{ free_ship_cents | default: 0 }},

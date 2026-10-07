@@ -61,6 +61,13 @@
         "label": "Free shipping from (EUR)",
         "info": "Used for shoppers paying in euros. 0 uses the amount above.",
         "default": 70
+      },
+      {
+        "type": "number",
+        "id": "free_shipping_threshold_sek",
+        "label": "Free shipping from (SEK)",
+        "info": "Used for shoppers paying in Swedish kronor. 0 uses the amount above.",
+        "default": 600
       }
     ]
   },
