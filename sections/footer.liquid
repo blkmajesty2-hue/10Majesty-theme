@@ -12,7 +12,7 @@
     <div>
       <h3>{{ section.settings.links_heading | escape }}</h3>
       <ul>
-        {%- if section.settings.show_contact -%}<li><a href="{{ section.settings.contact_link | default: '/pages/contact' }}">Contact us</a></li>{%- endif -%}
+        {%- if section.settings.show_contact -%}<li><a href="{{ section.settings.contact_link | default: '/pages/contact' }}">{{ 'general.contact_us' | t }}</a></li>{%- endif -%}
         {%- for link in section.settings.menu.links -%}
           <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
         {%- endfor -%}
@@ -49,14 +49,14 @@
     <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name | link_to: routes.root_url }} · {{ powered_by_link }}</span>
     {%- if localization.available_countries.size > 1 -%}
       {%- form 'localization', class: 'country-picker' -%}
-        <label for="FooterCountry">Country / currency</label>
+        <label for="FooterCountry">{{ 'general.country_currency' | t }}</label>
         <select id="FooterCountry" name="country_code" onchange="this.form.submit()">
           {%- for country in localization.available_countries -%}
             <option value="{{ country.iso_code }}"{% if country.iso_code == localization.country.iso_code %} selected{% endif %}>{{ country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})</option>
           {%- endfor -%}
         </select>
         <input type="hidden" name="return_to" value="{{ request.path }}">
-        <noscript><button type="submit">Update</button></noscript>
+        <noscript><button type="submit">{{ 'general.update' | t }}</button></noscript>
       {%- endform -%}
     {%- endif -%}
     <span class="footer-payments">{% render 'payment-icons' %}</span>

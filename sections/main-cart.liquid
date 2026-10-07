@@ -29,7 +29,7 @@
         <p class="total">{{ 'cart.subtotal' | t }} {{ cart.total_price | money }}</p>
         {%- if settings.cart_note != blank -%}<p class="muted">{{ settings.cart_note }}</p>{%- endif -%}
         <label>{{ 'cart.note' | t }}<textarea name="note" rows="2">{{ cart.note }}</textarea></label>
-        <button class="outline" type="submit" name="update">Update bag</button>
+        <button class="outline" type="submit" name="update">{{ 'cart.update' | t }}</button>
         <button class="primary" type="submit" name="checkout">{{ 'cart.checkout' | t }}</button>
       </div>
     </form>

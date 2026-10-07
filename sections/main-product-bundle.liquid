@@ -110,12 +110,12 @@
         <div class="countdown" data-countdown="{{ section.settings.countdown_end | escape }}" hidden>
           <p class="countdown__label">{{ section.settings.countdown_text | escape }}</p>
           <div class="countdown__clock" aria-live="off">
-            <span class="countdown__unit" data-days hidden><b>00</b><small>days</small></span>
-            <span class="countdown__unit"><b data-h>00</b><small>hours</small></span>
+            <span class="countdown__unit" data-days hidden><b>00</b><small>{{ 'countdown.days' | t }}</small></span>
+            <span class="countdown__unit"><b data-h>00</b><small>{{ 'countdown.hours' | t }}</small></span>
             <span class="countdown__sep" aria-hidden="true">:</span>
-            <span class="countdown__unit"><b data-m>00</b><small>min</small></span>
+            <span class="countdown__unit"><b data-m>00</b><small>{{ 'countdown.min' | t }}</small></span>
             <span class="countdown__sep" aria-hidden="true">:</span>
-            <span class="countdown__unit"><b data-s>00</b><small>sec</small></span>
+            <span class="countdown__unit"><b data-s>00</b><small>{{ 'countdown.sec' | t }}</small></span>
           </div>
         </div>
       {%- endif -%}
@@ -180,7 +180,7 @@
       {%- endfor -%}
       {%- if product.description != blank -%}
         <details>
-          <summary>Description</summary>
+          <summary>{{ 'general.description' | t }}</summary>
           <div class="rte">{{ product.description }}</div>
         </details>
       {%- endif -%}

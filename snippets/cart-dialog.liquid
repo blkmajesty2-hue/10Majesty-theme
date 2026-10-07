@@ -30,7 +30,22 @@
       item: {{ 'cart.item' | t | json }},
       items: {{ 'cart.items' | t | json }},
       freeShipRemaining: {{ 'cart.free_shipping_remaining' | t | json }},
-      freeShipReached: {{ 'cart.free_shipping_reached' | t | json }}
+      freeShipReached: {{ 'cart.free_shipping_reached' | t | json }},
+      decrease: {{ 'general.decrease' | t | json }},
+      increase: {{ 'general.increase' | t | json }},
+      bundle: {{ 'cart.bundle' | t | json }},
+      itemOf: {{ 'cart.item_of' | t | json }},
+      soundOn: {{ 'video.sound_on' | t | json }},
+      soundOff: {{ 'video.sound_off' | t | json }},
+      quizErrorIn: {{ 'quiz.error_in' | t | json }},
+      quizErrorCm: {{ 'quiz.error_cm' | t | json }},
+      quizSplit: {{ 'quiz.note_split' | t | json }},
+      quizJeans: {{ 'quiz.note_jeans' | t | json }},
+      quizBetween: {{ 'quiz.note_between' | t | json }},
+      quizOver: {{ 'quiz.note_over' | t | json }},
+      quizShopSize: {{ 'quiz.shop_size' | t | json }},
+      quizExample: {{ 'quiz.example' | t | json }},
+      copied: {{ 'quiz.copied' | t | json }}
     }
   };
 </script>
@@ -56,7 +71,7 @@
         <span class="protection__text">
           <b>{% if settings.protection_mode == 'gift' %}🎁 {% endif %}{{ settings.protection_included_title | escape }}</b>
           {%- if settings.protection_product != blank -%}
-            <span class="protection__price"><s>{{ settings.protection_product.selected_or_first_available_variant.price | money }}</s> <strong>FREE</strong></span>
+            <span class="protection__price"><s>{{ settings.protection_product.selected_or_first_available_variant.price | money }}</s> <strong>{{ 'general.free' | t }}</strong></span>
           {%- endif -%}
           <small>{{ settings.protection_included_text | escape }}</small>
         </span>

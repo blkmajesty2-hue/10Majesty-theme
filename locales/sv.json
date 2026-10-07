@@ -1,0 +1,153 @@
+{
+  "general": {
+    "close": "Stäng",
+    "search": "Sök",
+    "continue_shopping": "Fortsätt handla",
+    "view_all": "Visa alla",
+    "pagination": {
+      "previous": "Föregående",
+      "next": "Nästa"
+    },
+    "password": {
+      "enter": "Gå in med lösenord",
+      "password": "Lösenord",
+      "opening_soon": "Öppnar snart",
+      "admin": "Är du butiksägaren? Logga in här"
+    },
+    "contact_us": "Kontakta oss",
+    "country_currency": "Land / valuta",
+    "update": "Uppdatera",
+    "description": "Beskrivning",
+    "bag": "Varukorg",
+    "free": "GRATIS",
+    "decrease": "Minska antal",
+    "increase": "Öka antal",
+    "collections": "Kollektioner",
+    "no_products": "Inga produkter hittades i den här kollektionen.",
+    "product_title": "Produktnamn"
+  },
+  "accessibility": {
+    "skip_to_content": "Hoppa till innehållet",
+    "main_navigation": "Huvudmeny"
+  },
+  "products": {
+    "add_to_cart": "Lägg i varukorgen",
+    "view": "Visa produkt",
+    "sold_out": "Slutsåld",
+    "unavailable": "Inte tillgänglig",
+    "sale": "Rea",
+    "from": "Från {{ price }}",
+    "adding": "Lägger till…",
+    "added": "Tillagd i din varukorg.",
+    "error": "Något gick fel. Försök igen.",
+    "choose_bundle": "Välj ditt paket",
+    "size_guide": "Storleksguide",
+    "combination_unavailable": "En eller flera av de valda kombinationerna är inte tillgängliga."
+  },
+  "cart": {
+    "title": "Din varukorg",
+    "empty": "Din varukorg är tom.",
+    "remove": "Ta bort",
+    "subtotal": "Delsumma",
+    "checkout": "Till kassan",
+    "note": "Meddelande till beställningen",
+    "quantity": "Antal",
+    "discounts": "Rabatter",
+    "item": "artikel",
+    "items": "artiklar",
+    "product": "Produkt",
+    "total": "Summa",
+    "estimated_total": "Beräknad summa",
+    "taxes_note": "Skatter och frakt beräknas i kassan",
+    "free_shipping_remaining": "Bara [amount] kvar till fri frakt.",
+    "free_shipping_reached": "Du har fått fri frakt!",
+    "update": "Uppdatera varukorgen",
+    "bundle": "Paket",
+    "item_of": "[name] – artikel [n] av [count]"
+  },
+  "search": {
+    "title": "Sök",
+    "placeholder": "Sök produkter",
+    "results": {
+      "one": "{{ count }} resultat för ”{{ terms }}”",
+      "other": "{{ count }} resultat för ”{{ terms }}”"
+    },
+    "none": "Inga resultat för ”{{ terms }}”."
+  },
+  "newsletter": {
+    "label": "E-postadress",
+    "placeholder": "Din e-postadress",
+    "button": "Gå med",
+    "success": "Tack för din prenumeration."
+  },
+  "contact": {
+    "name": "Namn",
+    "email": "E-post",
+    "order": "Ordernummer (valfritt)",
+    "message": "Meddelande",
+    "send": "Skicka meddelande",
+    "success": "Tack för ditt meddelande. Vi återkommer snart."
+  },
+  "blogs": {
+    "read_more": "Läs mer",
+    "back": "Tillbaka till {{ title }}"
+  },
+  "gift_cards": {
+    "title": "Ditt presentkort",
+    "code": "Presentkortskod",
+    "print": "Skriv ut",
+    "expired": "Utgånget",
+    "disabled": "Inaktiverat"
+  },
+  "not_found": {
+    "title": "Sidan hittades inte",
+    "text": "Sidan du letade efter finns inte."
+  },
+  "countdown": {
+    "days": "dagar",
+    "hours": "timmar",
+    "min": "min",
+    "sec": "sek"
+  },
+  "video": {
+    "sound_on": "Slå på ljudet",
+    "sound_off": "Stäng av ljudet"
+  },
+  "quiz": {
+    "measurements_button": "Jag vet mina mått",
+    "jeans_button": "Använd min jeansstorlek",
+    "step_1": "Steg 1 av 2",
+    "step_2": "Steg 2 av 2",
+    "measurements_title": "Dina mått",
+    "units": "Enheter",
+    "inches": "tum",
+    "cm": "cm",
+    "waist": "Midja",
+    "waist_hint": "– smalaste stället, strax ovanför naveln",
+    "hips": "Höfter",
+    "hips_hint": "– bredaste stället, med fötterna ihop",
+    "next": "Nästa",
+    "back": "‹ Tillbaka",
+    "jeans_title": "Din vanliga jeansstorlek",
+    "jeans_label": "Damstorlek (EU, ungefärlig)",
+    "jeans_note": "Måtten är mer exakta – har du ett måttband, använd hellre dem.",
+    "size_ready": "Din storlek är klar",
+    "email_text": "Ange din e-post för att se den och få [offer] på din första beställning.",
+    "email": "E-post",
+    "skip_email": "Visa min storlek utan rabatten",
+    "your_size": "Din BLK_MAJESTY-storlek",
+    "your_code": "Din kod för [offer]",
+    "copy": "Kopiera",
+    "copied": "Kopierad",
+    "shop_my_size": "Handla min storlek",
+    "shop_size": "Handla storlek [size]",
+    "start_over": "Börja om",
+    "error_in": "Ange din midja och/eller dina höfter i tum (t.ex. 32).",
+    "error_cm": "Ange din midja och/eller dina höfter i cm (t.ex. 81).",
+    "note_split": "Din midja och dina höfter pekar på olika storlekar – vi rekommenderar den större för bekvämlighet hela dagen.",
+    "note_jeans": "Baserat på din jeansstorlek. Mellan två storlekar? Välj den större.",
+    "note_between": "Mellan två storlekar? Välj den större.",
+    "note_over": "Dina mått ligger över vår största storlek ([size]), så den kan kännas för tight. Skicka ett meddelande till oss innan du beställer så hjälper vi dig.",
+    "example": "t.ex. [value]"
+  }
+}

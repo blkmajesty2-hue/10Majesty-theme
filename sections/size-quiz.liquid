@@ -6,6 +6,18 @@
 {%- liquid
   assign s = section.settings
   assign shop_url = routes.all_products_collection_url
+  # Metric (cm) everywhere except the UK, where clothes are usually measured in inches.
+  assign metric = true
+  if localization.country.iso_code == 'GB'
+    assign metric = false
+  endif
+  if metric
+    assign waist_example = '81'
+    assign hips_example = '102'
+  else
+    assign waist_example = '32'
+    assign hips_example = '40'
+  endif
   if s.product != blank
     assign shop_url = s.product.url
   endif
@@ -41,69 +53,69 @@
         <h2 class="spin__title" id="QuizTitle-{{ section.id }}" data-quiz-heading>{{ s.heading | escape }}</h2>
         <p class="spin__text" data-quiz-text>{{ s.text | escape }}</p>
         <div class="quiz__choices">
-          <button type="button" class="spin__button" data-quiz-go="measure">I know my measurements</button>
-          <button type="button" class="quiz__outline" data-quiz-go="jeans">Use my jeans size</button>
+          <button type="button" class="spin__button" data-quiz-go="measure">{{ 'quiz.measurements_button' | t }}</button>
+          <button type="button" class="quiz__outline" data-quiz-go="jeans">{{ 'quiz.jeans_button' | t }}</button>
         </div>
         <button type="button" class="spin__skip" data-quiz-close>{{ s.decline_label | escape }}</button>
       </div>
 
       <form data-quiz-step="measure" class="quiz__step" hidden novalidate>
-        <p class="spin__eyebrow">Step 1 of 2</p>
-        <h2 class="spin__title">Your measurements</h2>
-        <div class="quiz__units" role="radiogroup" aria-label="Units">
-          <label><input type="radio" name="unit" value="in" checked> inches</label>
-          <label><input type="radio" name="unit" value="cm"> cm</label>
+        <p class="spin__eyebrow">{{ 'quiz.step_1' | t }}</p>
+        <h2 class="spin__title">{{ 'quiz.measurements_title' | t }}</h2>
+        <div class="quiz__units" role="radiogroup" aria-label="{{ 'quiz.units' | t }}">
+          <label><input type="radio" name="unit" value="in"{% unless metric %} checked{% endunless %}> {{ 'quiz.inches' | t }}</label>
+          <label><input type="radio" name="unit" value="cm"{% if metric %} checked{% endif %}> {{ 'quiz.cm' | t }}</label>
         </div>
-        <label class="quiz__field">Waist <small>— narrowest point, just above the navel</small>
-          <input type="number" name="waist" inputmode="decimal" step="0.5" min="1" placeholder="e.g. 32">
+        <label class="quiz__field">{{ 'quiz.waist' | t }} <small>{{ 'quiz.waist_hint' | t }}</small>
+          <input type="number" name="waist" inputmode="decimal" step="0.5" min="1" placeholder="{{ 'quiz.example' | t | replace: '[value]', waist_example }}">
         </label>
-        <label class="quiz__field">Hips <small>— widest point, feet together</small>
-          <input type="number" name="hips" inputmode="decimal" step="0.5" min="1" placeholder="e.g. 40">
+        <label class="quiz__field">{{ 'quiz.hips' | t }} <small>{{ 'quiz.hips_hint' | t }}</small>
+          <input type="number" name="hips" inputmode="decimal" step="0.5" min="1" placeholder="{{ 'quiz.example' | t | replace: '[value]', hips_example }}">
         </label>
         <p class="quiz__error" data-quiz-error role="alert" hidden></p>
-        <button type="submit" class="spin__button">Next</button>
-        <button type="button" class="spin__skip" data-quiz-go="start">‹ Back</button>
+        <button type="submit" class="spin__button">{{ 'quiz.next' | t }}</button>
+        <button type="button" class="spin__skip" data-quiz-go="start">{{ 'quiz.back' | t }}</button>
       </form>
 
       <form data-quiz-step="jeans" class="quiz__step" hidden>
-        <p class="spin__eyebrow">Step 1 of 2</p>
-        <h2 class="spin__title">Your usual jeans size</h2>
-        <label class="quiz__field">US women's size
+        <p class="spin__eyebrow">{{ 'quiz.step_1' | t }}</p>
+        <h2 class="spin__title">{{ 'quiz.jeans_title' | t }}</h2>
+        <label class="quiz__field">{{ 'quiz.jeans_label' | t }}
           <select name="jeans" required>
             {%- for block in section.blocks -%}
               {%- if block.settings.us != blank -%}<option value="{{ forloop.index0 }}">{{ block.settings.us | escape }}</option>{%- endif -%}
             {%- endfor -%}
           </select>
         </label>
-        <p class="spin__fine">Measurements are more accurate — if you have a tape measure, use those instead.</p>
-        <button type="submit" class="spin__button">Next</button>
-        <button type="button" class="spin__skip" data-quiz-go="start">‹ Back</button>
+        <p class="spin__fine">{{ 'quiz.jeans_note' | t }}</p>
+        <button type="submit" class="spin__button">{{ 'quiz.next' | t }}</button>
+        <button type="button" class="spin__skip" data-quiz-go="start">{{ 'quiz.back' | t }}</button>
       </form>
 
       <div data-quiz-step="email" hidden>
-        <p class="spin__eyebrow">Step 2 of 2</p>
-        <h2 class="spin__title">Your size is ready</h2>
-        <p class="spin__text" data-quiz-email-text>Enter your email to see it and get <strong data-quiz-offer></strong> your first order.</p>
+        <p class="spin__eyebrow">{{ 'quiz.step_2' | t }}</p>
+        <h2 class="spin__title">{{ 'quiz.size_ready' | t }}</h2>
+        <p class="spin__text" data-quiz-email-text>{{ 'quiz.email_text' | t | replace: '[offer]', '<strong data-quiz-offer></strong>' }}</p>
         {%- form 'customer', class: 'spin__form quiz__form' -%}
           <input type="hidden" name="contact[tags]" value="newsletter,size-quiz">
-          <label class="visually-hidden" for="QuizEmail-{{ section.id }}">Email</label>
+          <label class="visually-hidden" for="QuizEmail-{{ section.id }}">{{ 'quiz.email' | t }}</label>
           <input id="QuizEmail-{{ section.id }}" type="email" name="contact[email]" autocomplete="email" placeholder="{{ s.email_placeholder | escape }}" required>
           <button type="submit" class="spin__button">{{ s.button_label | escape }}</button>
         {%- endform -%}
         {%- if s.consent != blank -%}<p class="spin__fine">{{ s.consent | escape }}</p>{%- endif -%}
-        <button type="button" class="spin__skip" data-quiz-skip-email>Show my size without the discount</button>
+        <button type="button" class="spin__skip" data-quiz-skip-email>{{ 'quiz.skip_email' | t }}</button>
       </div>
 
       <div data-quiz-step="result" hidden>
-        <p class="spin__eyebrow">Your BLK_MAJESTY size</p>
+        <p class="spin__eyebrow">{{ 'quiz.your_size' | t }}</p>
         <p class="quiz__size" data-quiz-size></p>
         <p class="spin__text" data-quiz-note></p>
         <div data-quiz-code-wrap hidden>
-          <p class="spin__fine quiz__code-label">Your <span data-quiz-offer></span> code</p>
-          <div class="spin__code"><span data-quiz-code></span><button type="button" data-quiz-copy>Copy</button></div>
+          <p class="spin__fine quiz__code-label">{{ 'quiz.your_code' | t | replace: '[offer]', '<span data-quiz-offer></span>' }}</p>
+          <div class="spin__code"><span data-quiz-code></span><button type="button" data-quiz-copy>{{ 'quiz.copy' | t }}</button></div>
         </div>
-        <a class="spin__button quiz__shop" data-quiz-shop href="{{ shop_url }}">Shop my size</a>
-        <button type="button" class="spin__skip" data-quiz-go="start">Start over</button>
+        <a class="spin__button quiz__shop" data-quiz-shop href="{{ shop_url }}">{{ 'quiz.shop_my_size' | t }}</a>
+        <button type="button" class="spin__skip" data-quiz-go="start">{{ 'quiz.start_over' | t }}</button>
       </div>
     </div>
   </div>

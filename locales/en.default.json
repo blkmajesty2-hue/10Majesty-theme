@@ -22,7 +22,18 @@
       "password": "Password",
       "opening_soon": "Opening soon",
       "admin": "Are you the store owner? Log in here"
-    }
+    },
+    "contact_us": "Contact us",
+    "country_currency": "Country / currency",
+    "update": "Update",
+    "description": "Description",
+    "bag": "Bag",
+    "free": "FREE",
+    "decrease": "Decrease quantity",
+    "increase": "Increase quantity",
+    "collections": "Collections",
+    "no_products": "No products found in this collection.",
+    "product_title": "Product title"
   },
   "accessibility": {
     "skip_to_content": "Skip to content",
@@ -58,7 +69,10 @@
     "estimated_total": "Estimated total",
     "taxes_note": "Taxes and shipping calculated at checkout",
     "free_shipping_remaining": "Only [amount] away from free shipping.",
-    "free_shipping_reached": "You've unlocked free shipping!"
+    "free_shipping_reached": "You've unlocked free shipping!",
+    "update": "Update bag",
+    "bundle": "Bundle",
+    "item_of": "[name] — item [n] of [count]"
   },
   "search": {
     "title": "Search",
@@ -97,5 +111,52 @@
   "not_found": {
     "title": "Page not found",
     "text": "The page you were looking for doesn't exist."
+  },
+  "countdown": {
+    "days": "days",
+    "hours": "hours",
+    "min": "min",
+    "sec": "sec"
+  },
+  "video": {
+    "sound_on": "Turn sound on",
+    "sound_off": "Turn sound off"
+  },
+  "quiz": {
+    "measurements_button": "I know my measurements",
+    "jeans_button": "Use my jeans size",
+    "step_1": "Step 1 of 2",
+    "step_2": "Step 2 of 2",
+    "measurements_title": "Your measurements",
+    "units": "Units",
+    "inches": "inches",
+    "cm": "cm",
+    "waist": "Waist",
+    "waist_hint": "— narrowest point, just above the navel",
+    "hips": "Hips",
+    "hips_hint": "— widest point, feet together",
+    "next": "Next",
+    "back": "‹ Back",
+    "jeans_title": "Your usual jeans size",
+    "jeans_label": "US women's size",
+    "jeans_note": "Measurements are more accurate — if you have a tape measure, use those instead.",
+    "size_ready": "Your size is ready",
+    "email_text": "Enter your email to see it and get [offer] your first order.",
+    "email": "Email",
+    "skip_email": "Show my size without the discount",
+    "your_size": "Your BLK_MAJESTY size",
+    "your_code": "Your [offer] code",
+    "copy": "Copy",
+    "copied": "Copied",
+    "shop_my_size": "Shop my size",
+    "shop_size": "Shop size [size]",
+    "start_over": "Start over",
+    "error_in": "Please enter your waist and/or hips in inches (e.g. 32).",
+    "error_cm": "Please enter your waist and/or hips in cm (e.g. 81).",
+    "note_split": "Your waist and hips point to different sizes — we recommend the larger one for all-day comfort.",
+    "note_jeans": "Based on your jeans size. Between sizes? Choose the larger one.",
+    "note_between": "Between sizes? Choose the larger one.",
+    "note_over": "Your measurements are above our largest size ([size]), so it may feel too firm. Message us before ordering and we'll help you decide.",
+    "example": "e.g. [value]"
   }
 }

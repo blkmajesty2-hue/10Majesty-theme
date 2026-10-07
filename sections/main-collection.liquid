@@ -8,7 +8,7 @@
       {%- for product in collection.products -%}
         {%- render 'product-card', product: product -%}
       {%- else -%}
-        <p class="muted">No products found in this collection.</p>
+        <p class="muted">{{ 'general.no_products' | t }}</p>
       {%- endfor -%}
     </div>
     {%- render 'pagination', paginate: paginate -%}

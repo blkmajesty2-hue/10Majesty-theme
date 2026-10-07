@@ -218,7 +218,7 @@
         title.className = 'drawer-line__title';
         title.textContent = first.product_title;
         info.append(title);
-        info.append(metaLine(`${props._bundle_title || 'Bundle'} · ${count} ${count === 1 ? 'item' : 'items'}`, 'drawer-line__bundle'));
+        info.append(metaLine(`${props._bundle_title || t.bundle || 'Bundle'} · ${count} ${count === 1 ? (t.item || 'item') : (t.items || 'items')}`, 'drawer-line__bundle'));
         // One line per size/color with its total quantity across the paid and free lines.
         const perVariant = new Map();
         unit.items.forEach(i => {
@@ -250,14 +250,14 @@
         stepper.className = 'qty-stepper';
         const minus = document.createElement('button');
         minus.type = 'button'; minus.textContent = '−';
-        minus.setAttribute('aria-label', 'Decrease quantity');
+        minus.setAttribute('aria-label', t.decrease || 'Decrease quantity');
         minus.addEventListener('click', () => changeLine(item.key, Math.max(0, item.quantity - 1)));
         const qty = document.createElement('span');
         qty.textContent = item.quantity;
         qty.setAttribute('aria-label', (t.quantity || 'Quantity') + ' ' + item.quantity);
         const plus = document.createElement('button');
         plus.type = 'button'; plus.textContent = '+';
-        plus.setAttribute('aria-label', 'Increase quantity');
+        plus.setAttribute('aria-label', t.increase || 'Increase quantity');
         plus.addEventListener('click', () => changeLine(item.key, item.quantity + 1));
         stepper.append(minus, qty, plus);
         remove.setAttribute('aria-label', (t.remove || 'Remove') + ' ' + item.product_title);
@@ -396,10 +396,10 @@
     const valuesFor = i => [...new Set(product.variants.map(v => v.options[i]))];
     const findVariant = values => product.variants.find(v => v.options.every((o, i) => o === values[i]));
     // Small photo of the chosen color on each bundle row; a color dot when the variant has no photo.
-    const swatchColors = { black: '#111', beige: '#e3cfa9', 'navy blue': '#1c2a55', navy: '#1c2a55', 'royal blue': '#1f4fd6', blue: '#1f4fd6', plum: '#5a1840', purple: '#6b2b8f', 'dark purple': '#4a1d5e', 'fuchsia pink': '#e5187c', pink: '#e5187c', fuchsia: '#e5187c', lilac: '#cbb2ef', white: '#fff', nude: '#d9b99b' };
-    const colorIndex = opts.findIndex(o => /colou?r/i.test(o));
+    const swatchColors = { black: '#111', beige: '#e3cfa9', 'navy blue': '#1c2a55', navy: '#1c2a55', 'royal blue': '#1f4fd6', blue: '#1f4fd6', plum: '#5a1840', purple: '#6b2b8f', 'dark purple': '#4a1d5e', 'fuchsia pink': '#e5187c', pink: '#e5187c', fuchsia: '#e5187c', lilac: '#cbb2ef', white: '#fff', nude: '#d9b99b', svart: '#111', 'marinblå': '#1c2a55', 'kungsblå': '#1f4fd6', plommon: '#5a1840', 'fuchsiarosa': '#e5187c', lila: '#cbb2ef' };
+    const colorIndex = opts.findIndex(o => /colou?r|färg/i.test(o));
     // Preselect the size from the size quiz (or ?size=) and the color from ?color=.
-    const sizeIndex = opts.findIndex(o => /size|taglia/i.test(o));
+    const sizeIndex = opts.findIndex(o => /size|taglia|storlek/i.test(o));
     const params = new URLSearchParams(location.search);
     let preferredSize = params.get('size');
     try { preferredSize = preferredSize || localStorage.getItem('blkm_size'); } catch (e) { /* private mode */ }
@@ -440,7 +440,7 @@
         opts.forEach((name, i) => {
           const s = document.createElement('select');
           s.dataset.index = i;
-          s.setAttribute('aria-label', `${name} — item ${n + 1} of ${count}`);
+          s.setAttribute('aria-label', (t.itemOf || '[name] — item [n] of [count]').replace('[name]', name).replace('[n]', n + 1).replace('[count]', count));
           valuesFor(i).forEach(v => {
             const o = document.createElement('option');
             o.value = v; o.textContent = v;
@@ -648,12 +648,12 @@
     $$('[data-film-sound]', film).forEach(btn => btn.addEventListener('click', () => {
       const video = $('video', btn.closest('.film-video'));
       const turnOn = video.muted;
-      $$('[data-film-sound]', film).forEach(b => { $('video', b.closest('.film-video')).muted = true; b.setAttribute('aria-pressed', 'false'); b.setAttribute('aria-label', 'Turn sound on'); });
+      $$('[data-film-sound]', film).forEach(b => { $('video', b.closest('.film-video')).muted = true; b.setAttribute('aria-pressed', 'false'); b.setAttribute('aria-label', t.soundOn || 'Turn sound on'); });
       if (turnOn) {
         video.muted = false;
         video.play().catch(() => {});
         btn.setAttribute('aria-pressed', 'true');
-        btn.setAttribute('aria-label', 'Turn sound off');
+        btn.setAttribute('aria-label', t.soundOff || 'Turn sound off');
       }
     }));
   });
@@ -729,7 +729,7 @@
       const waist = toCm(measure.waist.value), hips = toCm(measure.hips.value);
       const ok = v => !v || (v >= 45 && v <= 200);
       if ((!waist && !hips) || !ok(waist) || !ok(hips)) {
-        err.textContent = unit === 'in' ? 'Please enter your waist and/or hips in inches (e.g. 32).' : 'Please enter your waist and/or hips in cm (e.g. 81).';
+        err.textContent = unit === 'in' ? (t.quizErrorIn || 'Please enter your waist and/or hips in inches (e.g. 32).') : (t.quizErrorCm || 'Please enter your waist and/or hips in cm (e.g. 81).');
         err.hidden = false;
         return;
       }
@@ -741,8 +741,9 @@
     });
     measure.addEventListener('change', e => {
       if (e.target.name !== 'unit') return;
-      measure.waist.placeholder = e.target.value === 'in' ? 'e.g. 32' : 'e.g. 81';
-      measure.hips.placeholder = e.target.value === 'in' ? 'e.g. 40' : 'e.g. 102';
+      const ex = v => (t.quizExample || 'e.g. [value]').replace('[value]', v);
+      measure.waist.placeholder = ex(e.target.value === 'in' ? 32 : 81);
+      measure.hips.placeholder = ex(e.target.value === 'in' ? 40 : 102);
     });
     $('[data-quiz-step="jeans"]', pop).addEventListener('submit', e => {
       e.preventDefault();
@@ -755,17 +756,17 @@
       const size = sizes[Math.min(result.index, sizes.length - 1)].name;
       $('[data-quiz-size]', pop).textContent = size;
       const note = $('[data-quiz-note]', pop);
-      if (over) note.textContent = `Your measurements are above our largest size (${size}), so it may feel too firm. Message us before ordering and we'll help you decide.`;
-      else if (result.split) note.textContent = 'Your waist and hips point to different sizes — we recommend the larger one for all-day comfort.';
-      else if (result.jeans) note.textContent = 'Based on your jeans size. Between sizes? Choose the larger one.';
-      else note.textContent = 'Between sizes? Choose the larger one.';
+      if (over) note.textContent = (t.quizOver || 'Your measurements are above our largest size ([size]), so it may feel too firm. Message us before ordering and we\'ll help you decide.').replace('[size]', size);
+      else if (result.split) note.textContent = t.quizSplit || 'Your waist and hips point to different sizes — we recommend the larger one for all-day comfort.';
+      else if (result.jeans) note.textContent = t.quizJeans || 'Based on your jeans size. Between sizes? Choose the larger one.';
+      else note.textContent = t.quizBetween || 'Between sizes? Choose the larger one.';
       $('[data-quiz-code-wrap]', pop).hidden = !withCode;
       $('[data-quiz-code]', pop).textContent = mode.code;
       const shop = $('[data-quiz-shop]', pop);
       const url = new URL(pop.dataset.shopUrl || shop.href, location.href);
       url.searchParams.set('size', size);
       shop.href = url.toString();
-      shop.textContent = `Shop size ${size}`;
+      shop.textContent = (t.quizShopSize || 'Shop size [size]').replace('[size]', size);
       try { localStorage.setItem('blkm_size', size); } catch (e) { /* private mode */ }
       step('result');
     };
@@ -781,7 +782,7 @@
     });
     $('[data-quiz-skip-email]', pop).addEventListener('click', () => showResult(false));
     $('[data-quiz-copy]', pop).addEventListener('click', e => {
-      if (navigator.clipboard) navigator.clipboard.writeText(mode.code).then(() => { e.target.textContent = 'Copied'; }).catch(() => {});
+      if (navigator.clipboard) navigator.clipboard.writeText(mode.code).then(() => { e.target.textContent = t.copied || 'Copied'; }).catch(() => {});
     });
     $('[data-quiz-shop]', pop).addEventListener('click', () => store.set({ seen: true }));
 

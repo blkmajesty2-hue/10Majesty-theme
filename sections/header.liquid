@@ -29,7 +29,7 @@
     {%- if section.settings.show_account and shop.customer_accounts_enabled -%}
       <a href="{{ routes.account_url }}">{% if customer %}{{ customer.first_name | default: 'Account' }}{% else %}Log in{% endif %}</a>
     {%- endif -%}
-    <a class="cart-button" href="{{ routes.cart_url }}" data-dialog="bag">Bag <span data-cart-count>{{ cart.item_count }}</span></a>
+    <a class="cart-button" href="{{ routes.cart_url }}" data-dialog="bag">{{ 'general.bag' | t }} <span data-cart-count>{{ cart.item_count }}</span></a>
   </div>
 </header>
 
