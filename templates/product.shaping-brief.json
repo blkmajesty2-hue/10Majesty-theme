@@ -139,7 +139,8 @@
         "countdown_end": "",
         "countdown_text": "Hurry! The offer ends in",
         "promo_link": "",
-        "sticky_bar": true
+        "sticky_bar": true,
+        "size_table": "S | 71–74 | 86–91\nM | 76–81 | 91–97\nL | 86–94 | 97–104\nXL | 99–104 | 104–112\n2XL | 107–112 | 112–119\n3XL | 114–118 | 119–124\n4XL | 119–122 | 124–129\n5XL | 124–127 | 129–134\n6XL | 128–132 | 134–139"
       }
     },
     "reels": {
@@ -472,14 +473,16 @@
       "block_order": [
         "ai_gen_block_182a0b8_UhGnJt"
       ],
-      "settings": {}
+      "settings": {},
+      "disabled": true
     },
     "belayan_review_list_XPxFLh": {
       "type": "belayan-review-list",
       "name": "Belayan review layout",
       "settings": {
         "heading": "Kundomdömen från Belayan"
-      }
+      },
+      "disabled": true
     },
     "faq": {
       "type": "faq",
@@ -596,6 +599,13 @@
         "heading": "Before you choose.",
         "text": "Product and shopping information, in plain English."
       }
+    },
+    "customer_reviews": {
+      "type": "product-reviews",
+      "settings": {
+        "heading": "BLK_Majesty – customer reviews",
+        "decimal_mark": ","
+      }
     }
   },
   "order": [
@@ -612,6 +622,7 @@
     "reviews",
     "1791250866bce8bf19",
     "belayan_review_list_XPxFLh",
+    "customer_reviews",
     "faq"
   ]
 }

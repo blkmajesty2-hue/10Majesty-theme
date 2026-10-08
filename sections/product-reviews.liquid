@@ -1,0 +1,178 @@
+{%- comment -%}
+  Customer reviews: rating summary, star breakdown, review list and a "Write a review" form.
+  Reviews are Review blocks added in Customize. Submitted reviews arrive by email (Shopify contact form)
+  so they can be checked before being added. The summary is calculated from the blocks.
+{%- endcomment -%}
+{%- liquid
+  assign reviews = section.blocks | where: 'type', 'review'
+  assign total = 0
+  assign sum = 0
+  assign c5 = 0
+  assign c4 = 0
+  assign c3 = 0
+  assign c2 = 0
+  assign c1 = 0
+  for block in reviews
+    assign r = block.settings.rating
+    assign total = total | plus: 1
+    assign sum = sum | plus: r
+    case r
+      when 5
+        assign c5 = c5 | plus: 1
+      when 4
+        assign c4 = c4 | plus: 1
+      when 3
+        assign c3 = c3 | plus: 1
+      when 2
+        assign c2 = c2 | plus: 1
+      else
+        assign c1 = c1 | plus: 1
+    endcase
+  endfor
+  if total > 0
+    assign average = sum | times: 1.0 | divided_by: total | round: 1
+    assign full_stars = average | floor
+  else
+    assign full_stars = 0
+  endif
+  assign form_id = 'ReviewForm-' | append: section.id
+-%}
+<section class="prv" id="reviews-{{ section.id }}">
+  <div class="prv__wrap">
+    {%- if section.settings.heading != blank -%}<h2 class="prv__title">{{ section.settings.heading | escape }}</h2>{%- endif -%}
+
+    <div class="prv__summary">
+      <p class="prv__avg">
+        {%- if total > 0 -%}<strong>{{ average | replace: '.', section.settings.decimal_mark }}</strong>{%- else -%}<strong class="prv__dash" aria-label="{{ 'reviews.no_rating' | t }}"></strong>{%- endif -%}<span>/5</span>
+      </p>
+      <p class="prv__stars" aria-hidden="true">{% for i in (1..5) %}{% if i <= full_stars %}★{% else %}☆{% endif %}{% endfor %}</p>
+      <p class="prv__count">{{ 'reviews.count' | t: count: total }}</p>
+    </div>
+
+    <div class="prv__bars">
+      {%- for star in (1..5) reversed -%}
+        {%- liquid
+          case star
+            when 5
+              assign n = c5
+            when 4
+              assign n = c4
+            when 3
+              assign n = c3
+            when 2
+              assign n = c2
+            else
+              assign n = c1
+          endcase
+          if total > 0
+            assign pct = n | times: 100 | divided_by: total
+          else
+            assign pct = 0
+          endif
+        -%}
+        <div class="prv__bar-row">
+          <span class="prv__bar-label">{{ star }} <span class="prv__star">★</span></span>
+          <span class="prv__bar"><span style="width: {{ pct }}%"></span></span>
+          <span class="prv__pct">{{ pct }}%</span>
+          <span class="prv__n">({{ n }})</span>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <a class="prv__button" href="#{{ form_id }}-card" data-review-open>{{ 'reviews.write' | t }}</a>
+
+    <hr class="prv__rule">
+
+    {%- if total > 0 -%}
+      <div class="prv__list">
+        {%- for block in reviews -%}
+          <article class="prv__item" {{ block.shopify_attributes }}>
+            <p class="prv__item-stars" aria-label="{{ 'reviews.stars_label' | t: count: block.settings.rating }}">{% for i in (1..5) %}{% if i <= block.settings.rating %}★{% else %}☆{% endif %}{% endfor %}</p>
+            {%- if block.settings.title != blank -%}<h3>{{ block.settings.title | escape }}</h3>{%- endif -%}
+            {%- if block.settings.text != blank -%}<p class="prv__item-text">{{ block.settings.text | escape | newline_to_br }}</p>{%- endif -%}
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 400 | image_tag: loading: 'lazy', class: 'prv__item-img', alt: block.settings.name }}
+            {%- endif -%}
+            <p class="prv__item-meta">
+              <strong>{{ block.settings.name | escape }}</strong>
+              {%- if block.settings.verified %} · <span class="prv__verified">✓ {{ 'reviews.verified' | t }}</span>{% endif -%}
+              {%- if block.settings.date != blank %} · {{ block.settings.date | escape }}{% endif -%}
+            </p>
+          </article>
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <p class="prv__empty">{{ 'reviews.empty' | t }}</p>
+    {%- endif -%}
+
+    <details class="prv__form-card" id="{{ form_id }}-card">
+      <summary>{{ 'reviews.write' | t }}<span aria-hidden="true">+</span></summary>
+      {%- form 'contact', id: form_id, class: 'prv__form' -%}
+        {%- if form.posted_successfully? -%}
+          <p class="prv__thanks" role="status">{{ 'reviews.thanks' | t }}</p>
+        {%- else -%}
+          {%- if form.errors -%}<p class="prv__error" role="alert">{{ form.errors | default_errors }}</p>{%- endif -%}
+          <input type="hidden" name="contact[Type]" value="Product review">
+          <input type="hidden" name="contact[Product]" value="{{ product.title | default: section.settings.heading | escape }}">
+          <fieldset class="prv__rate">
+            <legend>{{ 'reviews.your_rating' | t }}</legend>
+            <div class="prv__rate-stars">
+              {%- for i in (1..5) reversed -%}
+                <input type="radio" id="{{ form_id }}-r{{ i }}" name="contact[Rating]" value="{{ i }}/5" required{% if i == 5 %} checked{% endif %}>
+                <label for="{{ form_id }}-r{{ i }}" title="{{ i }}/5">★</label>
+              {%- endfor -%}
+            </div>
+          </fieldset>
+          <label class="prv__field"><span>{{ 'reviews.name' | t }}</span><input type="text" name="contact[Name]" autocomplete="name" required></label>
+          <label class="prv__field"><span>{{ 'reviews.email' | t }}</span><input type="email" name="contact[email]" autocomplete="email" required></label>
+          <label class="prv__field"><span>{{ 'reviews.review_title' | t }}</span><input type="text" name="contact[Title]"></label>
+          <label class="prv__field"><span>{{ 'reviews.review_text' | t }}</span><textarea name="contact[body]" rows="5" required></textarea></label>
+          <p class="prv__note">{{ 'reviews.note' | t }}</p>
+          <button type="submit" class="prv__button prv__button--submit">{{ 'reviews.submit' | t }}</button>
+        {%- endif -%}
+      {%- endform -%}
+    </details>
+  </div>
+</section>
+
+<script>
+  // Keep the form open after sending so the thank-you or error message is visible.
+  document.querySelectorAll('.prv__form-card').forEach((card) => {
+    if (card.querySelector('.prv__thanks, .prv__error')) card.open = true;
+  });
+  document.querySelectorAll('[data-review-open]').forEach((link) => {
+    link.addEventListener('click', () => {
+      const card = document.querySelector(link.getAttribute('href'));
+      if (card) card.open = true;
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Customer reviews",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "BLK_Majesty – customer reviews" },
+    { "type": "select", "id": "decimal_mark", "label": "Decimal mark in the average", "default": ",", "options": [ { "value": ",", "label": "Comma (4,8)" }, { "value": ".", "label": "Dot (4.8)" } ] },
+    { "type": "paragraph", "content": "Reviews sent with the form arrive in your email (and Customers → Inbox). Add each real review as a Review block. The average and star breakdown are calculated from these blocks." }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "paragraph", "content": "Only add reviews written by real customers." },
+        { "type": "text", "id": "name", "label": "Customer name", "default": "Customer name" },
+        { "type": "range", "id": "rating", "label": "Stars", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "text", "id": "title", "label": "Review title" },
+        { "type": "textarea", "id": "text", "label": "Review" },
+        { "type": "image_picker", "id": "image", "label": "Customer photo (optional)" },
+        { "type": "text", "id": "date", "label": "Date", "info": "e.g. 12/10/2026" },
+        { "type": "checkbox", "id": "verified", "label": "Verified buyer", "default": true }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Customer reviews" }]
+}
+{% endschema %}

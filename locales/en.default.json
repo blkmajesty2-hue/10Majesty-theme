@@ -166,5 +166,33 @@
     "caption": "Ett urval av sex omdömen, översatta från franska.",
     "translation": "Översatt omdöme från Belayan",
     "stars": "{{ score }} av 5 stjärnor"
+  },
+  "reviews": {
+    "write": "Write a review",
+    "no_rating": "No rating yet",
+    "count": {
+      "one": "{{ count }} review",
+      "other": "{{ count }} reviews"
+    },
+    "stars_label": "{{ count }} out of 5 stars",
+    "verified": "Verified buyer",
+    "empty": "No reviews yet. Be the first to share your experience.",
+    "your_rating": "Your rating",
+    "name": "Name",
+    "email": "Email (not published)",
+    "review_title": "Title",
+    "review_text": "Your review",
+    "note": "Your review will be published after we've checked it.",
+    "submit": "Send review",
+    "thanks": "Thank you! Your review has been sent and will appear once we've checked it."
+  },
+  "size_table": {
+    "size": "Size",
+    "waist": "Waist (cm)",
+    "hips": "Hips (cm)",
+    "step": "Step {{ number }}",
+    "step_1": "Stand straight and measure your waist at its narrowest point (above the belly button).",
+    "step_2": "Measure your hips at the widest point with your feet together.",
+    "step_3": "Compare your measurements with the table to find your size. Between two sizes? Choose the larger one."
   }
 }

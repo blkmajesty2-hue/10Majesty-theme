@@ -1007,10 +1007,10 @@ footer .wordmark,.footer-grid .wordmark{font-size:clamp(26px,2.6vw,34px);font-we
 .pd-story__icon{flex-shrink:0;color:#555;margin-top:2px}
 .pd-story__title{margin:0 0 8px;font-size:17px;font-weight:800;line-height:1.35;color:#000}
 .pd-story__text{margin:0;font-size:15px;line-height:1.6;color:#555}
-.pd-checks{list-style:none;margin:0 0 16px;padding:18px 22px;border:1.5px solid #e2e2e2;border-radius:16px;background:#f3f3f3}
-.pd-checks li{display:flex;align-items:center;gap:14px;margin:0 0 12px;font-size:15px;font-weight:700;line-height:1.4;color:#111}
+.pd-checks{list-style:none;margin:0 0 16px;padding:18px 22px;border:1.5px solid #e8d5c9;border-radius:16px;background:#f8ece4}
+.pd-checks li{display:flex;align-items:center;gap:14px;margin:0 0 12px;font-size:15px;font-weight:700;line-height:1.4;color:#4a2c18}
 .pd-checks li:last-child{margin-bottom:0}
-.pd-checks__box{display:inline-grid;place-items:center;flex-shrink:0;width:26px;height:26px;border-radius:6px;background:#000;color:#fff}
+.pd-checks__box{display:inline-grid;place-items:center;flex-shrink:0;width:26px;height:26px;border-radius:6px;background:#6b4227;color:#fff}
 @media(max-width:760px){
   .pd-story{gap:14px;padding:18px}
   .pd-story__icon{width:30px;height:30px}
@@ -1018,3 +1018,74 @@ footer .wordmark,.footer-grid .wordmark{font-size:clamp(26px,2.6vw,34px);font-we
   .pd-story__text,.pd-checks li{font-size:14px}
   .pd-checks{padding:16px 18px}
 }
+
+/* Customer reviews */
+.prv{padding:56px 0;background:#fff;color:#111}
+.prv__wrap{width:min(100% - 32px,1240px);margin:0 auto}
+.prv__title{margin:0 0 36px;text-align:center;font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-.01em}
+.prv__summary{text-align:center}
+.prv__avg{display:flex;align-items:flex-end;justify-content:center;gap:4px;margin:0;line-height:1}
+.prv__avg strong{font-size:44px;font-weight:800}
+.prv__avg span{font-size:30px;font-weight:700;color:#555}
+.prv__dash{display:inline-block;width:72px;height:10px;margin-bottom:20px;background:#111}
+.prv__stars{margin:12px 0 10px;font-size:38px;line-height:1;letter-spacing:4px;color:#dd982c}
+.prv__count{margin:0 0 36px;font-size:18px}
+.prv__bars{display:grid;gap:22px;width:min(100%,740px);margin:0 auto 40px}
+.prv__bar-row{display:grid;grid-template-columns:56px 1fr 52px 52px;align-items:center;gap:18px;font-size:16px}
+.prv__star{color:#dd982c;font-size:22px}
+.prv__bar{display:block;height:20px;background:#eee}
+.prv__bar span{display:block;height:100%;background:#dd982c}
+.prv__n{text-align:right}
+.prv__button{display:block;width:min(100%,800px);margin:0 auto;padding:22px 20px;border:0;border-radius:6px;background:#111;color:#fff;text-align:center;font:inherit;font-size:18px;text-decoration:none;cursor:pointer}
+.prv__button:hover{background:#333}
+.prv__rule{margin:44px 0;border:0;border-top:1px solid #ddd}
+.prv__empty{margin:0 0 70px;text-align:center;font-size:18px;color:#666}
+.prv__list{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;margin:0 0 56px}
+.prv__item{padding:22px;border:1px solid #ddd;border-radius:12px}
+.prv__item-stars{margin:0 0 10px;color:#dd982c;font-size:20px;letter-spacing:2px}
+.prv__item h3{margin:0 0 8px;font-size:17px}
+.prv__item-text{margin:0 0 14px;line-height:1.6}
+.prv__item-img{display:block;width:96px;height:96px;margin:0 0 14px;border-radius:8px;object-fit:cover}
+.prv__item-meta{margin:0;font-size:14px;color:#555}
+.prv__verified{color:#2e7d32}
+.prv__form-card{border:1px solid #ddd;border-radius:14px;background:#fff}
+.prv__form-card summary{display:flex;justify-content:space-between;align-items:center;padding:34px 32px;font-size:22px;font-weight:700;list-style:none;cursor:pointer}
+.prv__form-card summary::-webkit-details-marker{display:none}
+.prv__form-card summary:after{content:none}
+.prv__form-card summary span{font-size:30px;font-weight:400;line-height:1;transition:transform .2s}
+.prv__form-card[open] summary span{transform:rotate(45deg)}
+.prv__form{display:grid;gap:16px;padding:0 32px 32px}
+.prv__rate{margin:0;padding:0;border:0}
+.prv__rate legend{margin-bottom:6px;font-weight:600}
+.prv__rate-stars{display:inline-flex;flex-direction:row-reverse;gap:4px}
+.prv__rate-stars input{position:absolute;opacity:0;pointer-events:none}
+.prv__rate-stars label{font-size:34px;line-height:1;color:#ddd;cursor:pointer}
+.prv__rate-stars input:checked~label,.prv__rate-stars label:hover,.prv__rate-stars label:hover~label{color:#dd982c}
+.prv__rate-stars input:focus-visible+label{outline:2px solid #111;outline-offset:2px}
+.prv__field{display:grid;gap:6px;font-weight:600}
+.prv__field input,.prv__field textarea{width:100%;padding:14px;border:1px solid #ccc;border-radius:6px;font:inherit;font-weight:400}
+.prv__note{margin:0;font-size:13px;color:#666}
+.prv__button--submit{width:100%;padding:18px}
+.prv__thanks{margin:0;padding:18px;border-radius:8px;background:#f8ece4;color:#4a2c18;font-weight:600}
+.prv__error{margin:0;color:#b00020}
+@media(max-width:600px){
+  .prv{padding:40px 0}
+  .prv__stars{font-size:32px}
+  .prv__bar-row{grid-template-columns:44px 1fr 44px 40px;gap:10px;font-size:15px}
+  .prv__bars{gap:18px}
+  .prv__form-card summary{padding:26px 20px;font-size:19px}
+  .prv__form{padding:0 20px 24px}
+}
+
+/* Size guide table */
+.size-table{background:#faf8f4;padding:24px 20px;border-radius:14px}
+.size-table__brand{margin:0 0 18px;text-align:center;font-size:20px;letter-spacing:.45em;text-transform:uppercase}
+.size-table table{width:100%;border-collapse:collapse;overflow:hidden;border-radius:14px;background:#fff;box-shadow:0 6px 18px #0000000f;font-size:17px;text-align:center}
+.size-table thead th{padding:16px 10px;background:#111;color:#fff;font-weight:700;font-size:15px;letter-spacing:.02em}
+.size-table tbody th{font-weight:800}
+.size-table tbody th,.size-table td{padding:13px 10px}
+.size-table tbody tr:nth-child(even){background:#efedea}
+.size-table__steps{display:grid;gap:14px;margin:26px 0 0;padding:0;list-style:none}
+.size-table__steps li{display:flex;align-items:flex-start;gap:14px;font-size:15px;line-height:1.5}
+.size-table__steps b{flex-shrink:0;padding:4px 14px;border-radius:999px;background:#111;color:#fff;font-size:13px;letter-spacing:.04em;text-transform:uppercase}
+@media(max-width:600px){.size-table{padding:18px 12px}.size-table table{font-size:15px}.size-table thead th{font-size:12px;padding:12px 6px}.size-table tbody th,.size-table td{padding:11px 6px}}

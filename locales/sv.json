@@ -149,5 +149,33 @@
     "note_between": "Mellan två storlekar? Välj den större.",
     "note_over": "Dina mått ligger över vår största storlek ([size]), så den kan kännas för tight. Skicka ett meddelande till oss innan du beställer så hjälper vi dig.",
     "example": "t.ex. [value]"
+  },
+  "reviews": {
+    "write": "Skriv en recension",
+    "no_rating": "Inget betyg ännu",
+    "count": {
+      "one": "{{ count }} omdöme",
+      "other": "{{ count }} omdömen"
+    },
+    "stars_label": "{{ count }} av 5 stjärnor",
+    "verified": "Verifierad köpare",
+    "empty": "Inga recensioner ännu. Bli först med att dela din upplevelse.",
+    "your_rating": "Ditt betyg",
+    "name": "Namn",
+    "email": "E-post (publiceras inte)",
+    "review_title": "Rubrik",
+    "review_text": "Din recension",
+    "note": "Din recension publiceras när vi har granskat den.",
+    "submit": "Skicka recension",
+    "thanks": "Tack! Din recension har skickats och visas när vi har granskat den."
+  },
+  "size_table": {
+    "size": "Storlek",
+    "waist": "Midja (cm)",
+    "hips": "Höfter (cm)",
+    "step": "Steg {{ number }}",
+    "step_1": "Stå rak och mät midjan där den är smalast (ovanför naveln).",
+    "step_2": "Mät höfterna där de är bredast, med fötterna ihop.",
+    "step_3": "Jämför dina mått med tabellen för att hitta din storlek. Mellan två storlekar? Välj den större."
   }
 }

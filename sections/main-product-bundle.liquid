@@ -1,4 +1,10 @@
 {%- liquid
+  assign has_size_guide = false
+  if section.settings.size_chart != blank or section.settings.size_table != blank
+    assign has_size_guide = true
+  endif
+-%}
+{%- liquid
   assign current_variant = product.selected_or_first_available_variant
   # Price tokens for texts, in the shopper's currency: [price], [half], [x2], [x3]
   assign price_money = current_variant.price | money
@@ -105,7 +111,7 @@
         -%}
         <p class="gift-line"><span aria-hidden="true">🎁</span> {{ section.settings.gift_text | escape | replace: '[value]', gift_value }}</p>
       {%- endif -%}
-      {%- if section.settings.size_chart != blank and section.settings.size_button_label != blank -%}
+      {%- if has_size_guide and section.settings.size_button_label != blank -%}
         <div class="size-guide-button-wrap"><button type="button" class="size-guide-button" data-dialog="{{ size_id }}">{{ section.settings.size_button_label | escape }}</button></div>
       {%- endif -%}
       {%- if section.settings.countdown_end != blank -%}
@@ -126,7 +132,7 @@
       {%- endif -%}
       <div class="bundle-heading">
         <b>{{ 'products.choose_bundle' | t }}</b>
-        {%- if section.settings.size_chart != blank and section.settings.size_button_label == blank -%}
+        {%- if has_size_guide and section.settings.size_button_label == blank -%}
           <button type="button" class="text-link" data-dialog="{{ size_id }}">{{ 'products.size_guide' | t }}</button>
         {%- endif -%}
       </div>
@@ -197,11 +203,34 @@
   </section>
 </div>
 
-{%- if section.settings.size_chart != blank -%}
+{%- if has_size_guide -%}
   <dialog id="{{ size_id }}" class="large-dialog">
     <button class="close" aria-label="{{ 'general.close' | t }}">×</button>
     <h2>{{ 'products.size_guide' | t }}</h2>
-    {{ section.settings.size_chart | image_url: width: 1600 | image_tag: loading: 'lazy' }}
+    {%- if section.settings.size_table != blank -%}
+      {%- assign size_rows = section.settings.size_table | newline_to_br | split: '<br />' -%}
+      <div class="size-table">
+        <p class="size-table__brand">{{ shop.name | escape }}</p>
+        <table>
+          <thead><tr><th>{{ 'size_table.size' | t }}</th><th>{{ 'size_table.waist' | t }}</th><th>{{ 'size_table.hips' | t }}</th></tr></thead>
+          <tbody>
+            {%- for row in size_rows -%}
+              {%- assign cells = row | strip | split: '|' -%}
+              {%- if cells.size >= 3 -%}
+                <tr><th scope="row">{{ cells[0] | strip | escape }}</th><td>{{ cells[1] | strip | escape }} cm</td><td>{{ cells[2] | strip | escape }} cm</td></tr>
+              {%- endif -%}
+            {%- endfor -%}
+          </tbody>
+        </table>
+        <ol class="size-table__steps">
+          <li><b>{{ 'size_table.step' | t: number: 1 }}</b><span>{{ 'size_table.step_1' | t }}</span></li>
+          <li><b>{{ 'size_table.step' | t: number: 2 }}</b><span>{{ 'size_table.step_2' | t }}</span></li>
+          <li><b>{{ 'size_table.step' | t: number: 3 }}</b><span>{{ 'size_table.step_3' | t }}</span></li>
+        </ol>
+      </div>
+    {%- else -%}
+      {{ section.settings.size_chart | image_url: width: 1600 | image_tag: loading: 'lazy' }}
+    {%- endif -%}
   </dialog>
 {%- endif -%}
 
@@ -237,8 +266,9 @@
     { "type": "text", "id": "offer_price", "label": "Offer banner price", "info": "Can use [price], [half], [x2], [x3]." },
     { "type": "text", "id": "button_label", "label": "Button label", "default": "Add bundle to bag" },
     { "type": "text", "id": "note", "label": "Note under button", "default": "Mix sizes and colors in any bundle." },
-    { "type": "image_picker", "id": "size_chart", "label": "Size chart image" },
-    { "type": "text", "id": "size_button_label", "label": "Size guide button", "default": "📏 Size guide ›", "info": "Shown under the deal box when a size chart image is set. Leave empty to hide the button." },
+    { "type": "image_picker", "id": "size_chart", "label": "Size chart image", "info": "Used when the size table below is empty." },
+    { "type": "textarea", "id": "size_table", "label": "Size table", "info": "One size per line: size | waist (cm) | hips (cm). Shown as a translated table in the size guide.", "default": "S | 71–74 | 86–91\nM | 76–81 | 91–97\nL | 86–94 | 97–104\nXL | 99–104 | 104–112\n2XL | 107–112 | 112–119\n3XL | 114–118 | 119–124" },
+    { "type": "text", "id": "size_button_label", "label": "Size guide button", "default": "📏 Size guide ›", "info": "Shown under the deal box when a size table or size chart image is set. Leave empty to hide the button." },
     { "type": "header", "content": "Story box and checklist" },
     { "type": "paragraph", "content": "Shown under the intro text and benefits." },
     { "type": "text", "id": "story_title", "label": "Story box title" },
