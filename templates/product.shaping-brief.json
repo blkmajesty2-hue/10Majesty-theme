@@ -135,7 +135,9 @@
         "countdown_text": "Hurry! The offer ends in",
         "promo_link": "",
         "sticky_bar": true,
-        "show_reference_banner": true
+        "show_reference_banner": true,
+        "reference_bold": "Över 6 000 svenska mammor",
+        "reference_text": "har valt BLK_Majesty"
       }
     },
     "reels": {
