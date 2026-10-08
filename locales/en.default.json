@@ -158,5 +158,13 @@
     "note_between": "Between sizes? Choose the larger one.",
     "note_over": "Your measurements are above our largest size ([size]), so it may feel too firm. Message us before ordering and we'll help you decide.",
     "example": "e.g. [value]"
+  },
+  "belayan_reviews": {
+    "source": "Betyg och omdömen från referensbutiken Belayan, inte från BLK_Majestys kunder. Källa:",
+    "count": "Baserat på 2 760 omdömen hos Belayan",
+    "all": "Se alla omdömen hos Belayan",
+    "caption": "Ett urval av sex omdömen, översatta från franska.",
+    "translation": "Översatt omdöme från Belayan",
+    "stars": "{{ score }} av 5 stjärnor"
   }
 }

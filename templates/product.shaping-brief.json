@@ -108,11 +108,6 @@
         "c2"
       ],
       "settings": {
-        "show_reference_banner": true,
-        "reference_score": "4,8/5",
-        "reference_bold": "Över 6 000 svenska mammor",
-        "reference_text": "har valt BLK_Majesty",
-        "reference_source": "Enligt referensbutiken Belayan",
         "rating_text": "",
         "rating_label": "Customer rating",
         "eyebrow": "",
@@ -139,7 +134,10 @@
         "countdown_end": "",
         "countdown_text": "Hurry! The offer ends in",
         "promo_link": "",
-        "sticky_bar": true
+        "sticky_bar": true,
+        "show_reference_banner": true,
+        "reference_bold": "Över 6 000 svenska mammor",
+        "reference_text": "har valt BLK_Majesty"
       }
     },
     "reels": {
@@ -188,7 +186,7 @@
     "size": {
       "type": "size-chart",
       "settings": {
-        "image": "shopify://shop_images/4_storleksguide_sv.jpg",
+        "image": "shopify://shop_images/blkm-size-guide.webp",
         "heading": "",
         "note": "If you're between sizes, choose the larger size."
       }
@@ -240,7 +238,6 @@
       "settings": {
         "eyebrow": "",
         "heading": "Shape through thoughtful construction.",
-        "image": "shopify://shop_images/3_detaljer_sv.jpg",
         "fallback_image": "blkm-details-black.webp",
         "compare_show": false,
         "compare_left_title": "CLASSIC WAIST CINCHER",
@@ -271,7 +268,7 @@
       "settings": {
         "eyebrow": "A closer look",
         "heading": "A different approach to shapewear.",
-        "image": "shopify://shop_images/5_passform_sv.jpg",
+        "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_02_48_19.png",
         "fallback_image": "blkm-closer-look.webp",
         "compare_show": true,
         "compare_left_title": "CLASSIC WAIST CINCHER",
@@ -472,7 +469,8 @@
       "block_order": [
         "ai_gen_block_182a0b8_UhGnJt"
       ],
-      "settings": {}
+      "settings": {},
+      "disabled": true
     },
     "faq": {
       "type": "faq",
@@ -589,6 +587,70 @@
         "heading": "Before you choose.",
         "text": "Product and shopping information, in plain English."
       }
+    },
+    "belayan_reviews": {
+      "type": "belayan-review-list",
+      "settings": {
+        "heading": "Kundomdömen från Belayan"
+      },
+      "blocks": {
+        "review0": {
+          "type": "review",
+          "settings": {
+            "author": "Clement Bernard",
+            "rating": 5,
+            "text": "Perfekt efter förlossningen."
+          }
+        },
+        "review1": {
+          "type": "review",
+          "settings": {
+            "author": "Marie Lefebvre",
+            "rating": 4,
+            "text": "Mycket praktisk."
+          }
+        },
+        "review2": {
+          "type": "review",
+          "settings": {
+            "author": "Oceane Roy",
+            "rating": 5,
+            "text": "Perfekt under en klänning."
+          }
+        },
+        "review3": {
+          "type": "review",
+          "settings": {
+            "author": "Marie Durand",
+            "rating": 5,
+            "text": "Jag rekommenderar den."
+          }
+        },
+        "review4": {
+          "type": "review",
+          "settings": {
+            "author": "Eva Roussel",
+            "rating": 4,
+            "text": "Bra stöd för magen."
+          }
+        },
+        "review5": {
+          "type": "review",
+          "settings": {
+            "author": "Caroline Robert",
+            "rating": 5,
+            "text": "Produkten motsvarar beskrivningen."
+          }
+        }
+      },
+      "block_order": [
+        "review0",
+        "review1",
+        "review2",
+        "review3",
+        "review4",
+        "review5"
+      ]
     }
   },
   "order": [
@@ -604,6 +666,7 @@
     "colors3d",
     "reviews",
     "1791250866bce8bf19",
+    "belayan_reviews",
     "faq"
   ]
 }

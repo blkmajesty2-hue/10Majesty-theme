@@ -1,0 +1,83 @@
+<section class="bm-review-section" id="belayan-reviews-{{ section.id }}">
+  <div class="bm-review-wrap">
+    <h2>{{ section.settings.heading | escape }}</h2>
+    <p class="bm-review-source">{{ 'belayan_reviews.source' | t }} <a href="https://belayan.com/products/culotte-haute-gainante-special-post-partum">Belayan</a></p>
+    <div class="bm-review-summary">
+      <div class="bm-review-total">
+        <strong>4,8<span>/5</span></strong>
+        <div class="bm-review-stars" aria-hidden="true">★★★★★</div>
+        <p>{{ 'belayan_reviews.count' | t }}</p>
+      </div>
+      <div class="bm-review-bars">
+        {% for rating in (1..5) reversed %}
+          {% liquid
+            assign amount = 0
+            assign percent = 0
+            if rating == 5
+              assign amount = 2152
+              assign percent = 78
+            elsif rating == 4
+              assign amount = 608
+              assign percent = 22
+            endif
+          %}
+          <div class="bm-review-bar-row">
+            <span>{{ rating }} <span class="bm-review-stars" aria-hidden="true">★</span></span>
+            <span class="bm-review-bar"><span style="width: {{ percent }}%"></span></span>
+            <span>{{ percent }}%</span><span>({{ amount }})</span>
+          </div>
+        {% endfor %}
+      </div>
+      <a class="bm-review-link" href="https://belayan.com/products/culotte-haute-gainante-special-post-partum">{{ 'belayan_reviews.all' | t }} ↗</a>
+    </div>
+    <p class="bm-review-caption">{{ 'belayan_reviews.caption' | t }}</p>
+    <div class="bm-review-list">
+      {% for block in section.blocks %}
+        <article class="bm-review-item" {{ block.shopify_attributes }}>
+          <div class="bm-review-person"><span class="bm-review-avatar" aria-hidden="true">{{ block.settings.author | slice: 0 | escape }}</span><strong>{{ block.settings.author | escape }}</strong></div>
+          <div class="bm-review-body">
+            <div class="bm-review-stars" aria-label="{{ 'belayan_reviews.stars' | t: score: block.settings.rating }}">{% for star in (1..5) %}{% if star <= block.settings.rating %}★{% else %}☆{% endif %}{% endfor %}</div>
+            <p>{{ block.settings.text | escape }}</p>
+            <small>{{ 'belayan_reviews.translation' | t }}</small>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% stylesheet %}
+.bm-review-section{background:#fff;color:#171717;padding:64px 0;font-family:inherit}
+.bm-review-wrap{width:min(1200px,calc(100% - 40px));margin:auto}
+.bm-review-section h2{text-align:center;font-size:clamp(28px,3vw,40px);line-height:1.2;letter-spacing:-.02em;margin:0 0 12px}
+.bm-review-source{text-align:center;font-size:14px;line-height:1.6;color:#626262;margin:0 auto 32px;max-width:750px}
+.bm-review-source a{color:inherit;text-decoration:underline}
+.bm-review-summary{display:grid;grid-template-columns:1fr 1.4fr 1fr;align-items:center;gap:32px;padding:24px 0 32px;border-bottom:1px solid #dedede}
+.bm-review-total{text-align:center}
+.bm-review-total>strong{font-size:48px;line-height:1.2;letter-spacing:-.04em}
+.bm-review-total>strong span{font-size:20px;letter-spacing:0;color:#666}
+.bm-review-stars{color:#dd981f;letter-spacing:2px;font-size:20px;line-height:1.4}
+.bm-review-total p{font-size:14px;margin:8px 0 0}
+.bm-review-bars{border-inline:1px solid #e6e6e6;padding:0 28px}
+.bm-review-bar-row{display:grid;grid-template-columns:36px 1fr 36px 46px;align-items:center;gap:8px;font-size:12px;margin:6px 0;font-variant-numeric:tabular-nums}
+.bm-review-bar-row .bm-review-stars{font-size:15px}
+.bm-review-bar{height:10px;background:#eee;overflow:hidden}
+.bm-review-bar>span{height:100%;display:block;background:#171717}
+.bm-review-link{display:block;text-align:center;padding:14px 18px;background:#111;color:#fff;text-decoration:none;font-size:14px;border-radius:4px}
+.bm-review-link:hover{background:#353535}
+.bm-review-link:focus-visible,.bm-review-source a:focus-visible{outline:3px solid #986100;outline-offset:4px}
+.bm-review-caption{font-size:13px;color:#666;margin:22px 0}
+.bm-review-item{display:grid;grid-template-columns:240px minmax(0,1fr);gap:24px;padding:24px 0;border-top:1px solid #e4e4e4}
+.bm-review-person{display:flex;align-items:center;gap:12px;align-self:start;font-size:15px}
+.bm-review-avatar{display:grid;place-items:center;flex:0 0 40px;height:40px;border-radius:50%;background:#f2efeb;color:#444;font-size:16px}
+.bm-review-body p{font-size:16px;line-height:1.6;margin:10px 0;letter-spacing:0}
+.bm-review-body small{font-size:12px;color:#666}
+@media(max-width:749px){.bm-review-section{padding:40px 0}.bm-review-wrap{width:calc(100% - 32px)}.bm-review-summary{grid-template-columns:1fr;gap:22px;padding-top:8px}.bm-review-bars{border:0;padding:0;max-width:400px;width:100%;margin:auto}.bm-review-link{max-width:400px;width:100%;box-sizing:border-box;margin:auto}.bm-review-item{grid-template-columns:1fr;gap:12px;padding:22px 0}.bm-review-source{font-size:13px;margin-bottom:20px}.bm-review-body p{font-size:15px}.bm-review-caption{line-height:1.6}}
+{% endstylesheet %}
+{% schema %}
+{
+"name":"Belayan review layout",
+"settings":[{"type":"text","id":"heading","label":"Rubrik","default":"Kundomdömen från Belayan"}],
+"blocks":[{"type":"review","name":"Omdöme","settings":[{"type":"text","id":"author","label":"Namn"},{"type":"range","id":"rating","label":"Betyg","min":1,"max":5,"step":1,"default":5},{"type":"textarea","id":"text","label":"Svensk översättning"}]}],
+"presets":[{"name":"Belayan review layout"}]
+}
+{% endschema %}
