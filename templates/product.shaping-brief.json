@@ -474,6 +474,13 @@
       ],
       "settings": {}
     },
+    "belayan_review_list_XPxFLh": {
+      "type": "belayan-review-list",
+      "name": "Belayan review layout",
+      "settings": {
+        "heading": "Kundomdömen från Belayan"
+      }
+    },
     "faq": {
       "type": "faq",
       "blocks": {
@@ -604,6 +611,7 @@
     "colors3d",
     "reviews",
     "1791250866bce8bf19",
+    "belayan_review_list_XPxFLh",
     "faq"
   ]
 }
