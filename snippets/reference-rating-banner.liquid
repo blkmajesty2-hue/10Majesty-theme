@@ -15,23 +15,25 @@ Renders the editable reference-store rating banner.
     {% endfor %}
   </div>
   <div class="blkm-reference-proof__copy">
-    <div class="blkm-reference-proof__score"><span aria-hidden="true">★★★★★</span><b>{{ section.settings.reference_score | escape }}</b></div>
+    <div class="blkm-reference-proof__score" aria-label="{{ section.settings.reference_source | escape }}"><span aria-hidden="true">★★★★★</span><b>{{ section.settings.reference_score | escape }}</b></div>
     <p><strong>{{ section.settings.reference_bold | escape }}</strong> {{ section.settings.reference_text | escape }}</p>
-    <small>{{ section.settings.reference_source | escape }}</small>
   </div>
 </div>
 {% stylesheet %}
-.blkm-reference-proof{display:flex;align-items:center;gap:20px;width:100%;box-sizing:border-box;padding:20px 24px;margin:0 0 24px;border:1px solid #e6dcd2;border-radius:20px;background:#f4f0ec;color:#151515;font-family:inherit;letter-spacing:normal;line-height:1.35}
-.blkm-reference-proof__photos{display:flex;flex:none;padding-left:0}
-.blkm-reference-proof__photos img{width:56px;height:56px;object-fit:cover;border-radius:50%;border:3px solid #f4f0ec;margin:0 0 0 -12px;max-width:none}
+.blkm-reference-proof{display:flex;align-items:center;gap:16px;width:100%;box-sizing:border-box;padding:14px 20px;margin:0 0 18px;border:1px solid #e6dcd2;border-radius:18px;background:#f4f0ec;color:#151515;font-family:inherit;letter-spacing:.3px;line-height:1.3}
+.blkm-reference-proof__photos{display:flex;flex:none}
+.blkm-reference-proof__photos img{width:44px;height:44px;object-fit:cover;border-radius:50%;border:2px solid #f4f0ec;margin:0 0 0 -10px;max-width:none}
 .blkm-reference-proof__photos img:first-child{margin-left:0}
 .blkm-reference-proof__copy{min-width:0}
-.blkm-reference-proof__score{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:5px}
-.blkm-reference-proof__score span{color:#eaa12e;letter-spacing:1px;font-size:24px;line-height:1}
-.blkm-reference-proof__score b{font-size:22px;font-weight:800;color:#151515}
-.blkm-reference-proof__copy p{margin:0;font-size:18px;line-height:1.4;color:#555}
+.blkm-reference-proof__score{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin-bottom:4px}
+.blkm-reference-proof__score span{color:#eaa12e;letter-spacing:1px;font-size:20px;line-height:1}
+.blkm-reference-proof__score b{font-size:20px;font-weight:800;color:#151515}
+.blkm-reference-proof__copy p{margin:0;font-size:16px;line-height:1.4;color:#555}
 .blkm-reference-proof__copy strong{color:#151515;font-weight:800}
-.blkm-reference-proof__copy small{display:block;margin-top:5px;font-size:11px;line-height:1.4;color:#6d625a}
-@media(max-width:749px){.blkm-reference-proof{gap:12px;padding:16px 14px;border-radius:16px;margin-bottom:20px}.blkm-reference-proof__photos img{width:38px;height:38px;margin-left:-10px;border-width:2px}.blkm-reference-proof__score span{font-size:18px;letter-spacing:0}.blkm-reference-proof__score b{font-size:18px}.blkm-reference-proof__copy p{font-size:14px}.blkm-reference-proof__copy small{font-size:10px}}
-@media(min-width:750px) and (max-width:1100px){.blkm-reference-proof{gap:12px;padding:18px}.blkm-reference-proof__photos img{width:42px;height:42px}.blkm-reference-proof__copy p{font-size:16px}}
+.product-layout:has(.blkm-reference-proof) .thumbs{gap:10px;margin-top:10px;padding:0 0 4px}
+.product-layout:has(.blkm-reference-proof) .thumbs button{border-radius:0;overflow:hidden;flex:0 0 calc((100% - 40px)/5);width:calc((100% - 40px)/5);opacity:1}
+.product-layout:has(.blkm-reference-proof) .thumbs img{border-radius:0}
+.product-layout:has(.blkm-reference-proof) .product-title{margin-top:0}
+@media(max-width:900px){.product-layout:has(.blkm-reference-proof){row-gap:16px}.product-layout:has(.blkm-reference-proof) .gallery{margin-bottom:0}}
+@media(max-width:749px){.blkm-reference-proof{gap:10px;padding:10px 12px;border-radius:16px;margin-bottom:16px}.blkm-reference-proof__photos img{width:32px;height:32px;margin-left:-9px}.blkm-reference-proof__score span{font-size:16px;letter-spacing:0}.blkm-reference-proof__score b{font-size:17px}.blkm-reference-proof__copy p{font-size:13px;letter-spacing:.2px}}
 {% endstylesheet %}
