@@ -164,7 +164,14 @@
       "settings": {
         "eyebrow": "A closer look",
         "heading": "The details make the difference.",
-        "fallback_image": "blkm-details-black.webp"
+        "image": "shopify://shop_images/3_detaljer_sv.jpg",
+        "fallback_image": "blkm-details-black.webp",
+        "compare_show": false,
+        "compare_left_title": "CLASSIC WAIST CINCHER",
+        "compare_left_points": "Only compresses the front of the stomach\nRides up and slips after an hour\nShows under clothes",
+        "compare_right_title": "BLK_MAJESTY",
+        "compare_right_points": "360° — front, sides and back\nSlips on in 10 seconds, like underwear\nDisappears under every outfit",
+        "compare_note": "<strong>Inspired by the Malaysian bengkung</strong> — a cross-wrapping technique used for generations to support the belly after childbirth."
       }
     },
     "mechanism_banner_Y6dWtH": {
