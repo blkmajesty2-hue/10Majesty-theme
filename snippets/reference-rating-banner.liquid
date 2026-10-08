@@ -1,0 +1,37 @@
+{% doc %}
+Renders the editable reference-store rating banner.
+@param {section} section - Product section settings.
+{% enddoc %}
+<div class="blkm-reference-proof">
+  <div class="blkm-reference-proof__photos" aria-hidden="true">
+    {% assign photos = '262120138_5135161053168911_4317808011404363710_n.jpg,440963873_10228932907180188_5795405126749105216_n.jpg,70808168_2543092175756262_7125276819086901248_n.jpg' | split: ',' %}
+    {% for photo in photos %}
+      {% assign key = 'reference_avatar_' | append: forloop.index %}
+      {% if section.settings[key] != blank %}
+        {{ section.settings[key] | image_url: width: 120 | image_tag: width: 56, height: 56, alt: '', loading: 'lazy' }}
+      {% else %}
+        <img src="https://cdn.shopify.com/s/files/1/0819/0882/6369/files/{{ photo }}?v=1783066492" width="56" height="56" alt="" loading="lazy">
+      {% endif %}
+    {% endfor %}
+  </div>
+  <div class="blkm-reference-proof__copy">
+    <div class="blkm-reference-proof__score"><span aria-hidden="true">★★★★★</span><b>{{ section.settings.reference_score | escape }}</b></div>
+    <p><strong>{{ section.settings.reference_bold | escape }}</strong> {{ section.settings.reference_text | escape }}</p>
+    <small>{{ section.settings.reference_source | escape }}</small>
+  </div>
+</div>
+{% stylesheet %}
+.blkm-reference-proof{display:flex;align-items:center;gap:20px;width:100%;box-sizing:border-box;padding:20px 24px;margin:0 0 24px;border:1px solid #e6dcd2;border-radius:20px;background:#f4f0ec;color:#151515;font-family:inherit;letter-spacing:normal;line-height:1.35}
+.blkm-reference-proof__photos{display:flex;flex:none;padding-left:0}
+.blkm-reference-proof__photos img{width:56px;height:56px;object-fit:cover;border-radius:50%;border:3px solid #f4f0ec;margin:0 0 0 -12px;max-width:none}
+.blkm-reference-proof__photos img:first-child{margin-left:0}
+.blkm-reference-proof__copy{min-width:0}
+.blkm-reference-proof__score{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:5px}
+.blkm-reference-proof__score span{color:#eaa12e;letter-spacing:1px;font-size:24px;line-height:1}
+.blkm-reference-proof__score b{font-size:22px;font-weight:800;color:#151515}
+.blkm-reference-proof__copy p{margin:0;font-size:18px;line-height:1.4;color:#555}
+.blkm-reference-proof__copy strong{color:#151515;font-weight:800}
+.blkm-reference-proof__copy small{display:block;margin-top:5px;font-size:11px;line-height:1.4;color:#6d625a}
+@media(max-width:749px){.blkm-reference-proof{gap:12px;padding:16px 14px;border-radius:16px;margin-bottom:20px}.blkm-reference-proof__photos img{width:38px;height:38px;margin-left:-10px;border-width:2px}.blkm-reference-proof__score span{font-size:18px;letter-spacing:0}.blkm-reference-proof__score b{font-size:18px}.blkm-reference-proof__copy p{font-size:14px}.blkm-reference-proof__copy small{font-size:10px}}
+@media(min-width:750px) and (max-width:1100px){.blkm-reference-proof{gap:12px;padding:18px}.blkm-reference-proof__photos img{width:42px;height:42px}.blkm-reference-proof__copy p{font-size:16px}}
+{% endstylesheet %}

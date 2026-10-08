@@ -134,7 +134,8 @@
         "countdown_end": "",
         "countdown_text": "Hurry! The offer ends in",
         "promo_link": "",
-        "sticky_bar": true
+        "sticky_bar": true,
+        "show_reference_banner": true
       }
     },
     "reels": {

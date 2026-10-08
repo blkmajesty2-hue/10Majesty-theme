@@ -32,7 +32,9 @@
           assign rating_label = section.settings.rating_label
         endif
       -%}
-      {%- if rating_value != blank -%}
+      {%- if section.settings.show_reference_banner -%}
+        {% render 'reference-rating-banner', section: section %}
+      {%- elsif rating_value != blank -%}
         <div class="rating"><span aria-hidden="true">★★★★★</span> <b>{{ rating_value }}/5</b><small>{{ rating_label | escape }}</small></div>
       {%- endif -%}
       {%- if section.settings.eyebrow != blank -%}<p class="product-eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
@@ -214,6 +216,14 @@
 {
   "name": "Product bundle picker",
   "settings": [
+{"type":"checkbox","id":"show_reference_banner","label":"Show reference rating banner","default":false},
+{"type":"text","id":"reference_score","label":"Reference rating","default":"4,8/5"},
+{"type":"text","id":"reference_bold","label":"Banner bold text","default":"Över 6 000 franska mammor"},
+{"type":"text","id":"reference_text","label":"Banner text","default":"har valt Belayan"},
+{"type":"text","id":"reference_source","label":"Source attribution","default":"Enligt referensbutiken Belayan"},
+{"type":"image_picker","id":"reference_avatar_1","label":"Reference photo 1"},
+{"type":"image_picker","id":"reference_avatar_2","label":"Reference photo 2"},
+{"type":"image_picker","id":"reference_avatar_3","label":"Reference photo 3"},
     { "type": "header", "content": "Rating box" },
     { "type": "paragraph", "content": "Shows automatically when a reviews app (Judge.me, Shopify Product Reviews, etc.) adds ratings to the product. Otherwise it uses the text below; leave it empty to hide the box." },
     { "type": "text", "id": "rating_text", "label": "Rating", "info": "For example 4.8. Only use your real rating." },
