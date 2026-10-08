@@ -1007,7 +1007,7 @@ footer .wordmark,.footer-grid .wordmark{font-size:clamp(26px,2.6vw,34px);font-we
 .pd-story__icon{flex-shrink:0;color:#555;margin-top:2px}
 .pd-story__title{margin:0 0 8px;font-size:17px;font-weight:800;line-height:1.35;color:#000}
 .pd-story__text{margin:0;font-size:15px;line-height:1.6;color:#555}
-.pd-checks{list-style:none;margin:0 0 16px;padding:18px 22px;border:1.5px solid #e8d5c9;border-radius:16px;background:#f8ece4}
+.pd-checks{list-style:none;margin:0 0 16px;padding:18px 22px;border:1.5px solid #e4ddd5;border-radius:16px;background:#f4f0ec}
 .pd-checks li{display:flex;align-items:center;gap:14px;margin:0 0 12px;font-size:15px;font-weight:700;line-height:1.4;color:#4a2c18}
 .pd-checks li:last-child{margin-bottom:0}
 .pd-checks__box{display:inline-grid;place-items:center;flex-shrink:0;width:26px;height:26px;border-radius:6px;background:#6b4227;color:#fff}
