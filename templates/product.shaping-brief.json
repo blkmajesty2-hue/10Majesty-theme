@@ -240,6 +240,7 @@
       "settings": {
         "eyebrow": "",
         "heading": "Shape through thoughtful construction.",
+        "image": "shopify://shop_images/3_detaljer_sv.jpg",
         "fallback_image": "blkm-details-black.webp",
         "compare_show": false,
         "compare_left_title": "CLASSIC WAIST CINCHER",
@@ -270,7 +271,7 @@
       "settings": {
         "eyebrow": "A closer look",
         "heading": "A different approach to shapewear.",
-        "image": "shopify://shop_images/ChatGPT_Image_30_Sept_2026_02_48_19.png",
+        "image": "shopify://shop_images/5_passform_sv.jpg",
         "fallback_image": "blkm-closer-look.webp",
         "compare_show": true,
         "compare_left_title": "CLASSIC WAIST CINCHER",
