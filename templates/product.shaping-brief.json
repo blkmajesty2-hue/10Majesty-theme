@@ -487,6 +487,105 @@
     "customer_reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_WAXFxB": {
+          "type": "review",
+          "settings": {
+            "name": "Jade Muller",
+            "rating": 5,
+            "title": "",
+            "text": "Jag rekommenderar den efter förlossningen.",
+            "date": "",
+            "verified": true
+          }
+        },
+        "review_CX9py9": {
+          "type": "review",
+          "settings": {
+            "name": "Paul Richard",
+            "rating": 5,
+            "title": "",
+            "text": "Syns inte under kläderna.",
+            "date": "",
+            "verified": true
+          }
+        },
+        "review_KbE9WN": {
+          "type": "review",
+          "settings": {
+            "name": "Noemie Richard",
+            "rating": 5,
+            "title": "",
+            "text": "Ger verkligen en formande effekt.",
+            "date": "",
+            "verified": true
+          }
+        },
+        "review_4QpHqe": {
+          "type": "review",
+          "settings": {
+            "name": "Mathieu Roussel",
+            "rating": 5,
+            "title": "",
+            "text": "Mycket praktisk.",
+            "date": "",
+            "verified": true
+          }
+        },
+        "review_tDpXeE": {
+          "type": "review",
+          "settings": {
+            "name": "Lucie Lefebvre",
+            "rating": 5,
+            "title": "",
+            "text": "Den rullar inte ner alls.",
+            "date": "",
+            "verified": true
+          }
+        },
+        "review_TYHxTb": {
+          "type": "review",
+          "settings": {
+            "name": "Nathalie Francois",
+            "rating": 5,
+            "title": "",
+            "text": "Magen ser plattare ut direkt.",
+            "date": "",
+            "verified": true
+          }
+        },
+        "review_r8zxqT": {
+          "type": "review",
+          "settings": {
+            "name": "Oceane Joly",
+            "rating": 5,
+            "title": "",
+            "text": "Fantastiskt bra stöd.",
+            "date": "",
+            "verified": true
+          }
+        },
+        "review_Yw6cDj": {
+          "type": "review",
+          "settings": {
+            "name": "Veronique Fournier",
+            "rating": 5,
+            "title": "",
+            "text": "Ger en jämnare och slätare silhuett.",
+            "date": "Ej angivet",
+            "verified": true
+          }
+        },
+        "review_tibx4e": {
+          "type": "review",
+          "settings": {
+            "name": "Coralie Lefebvre",
+            "rating": 5,
+            "title": "",
+            "text": "Jag kommer att beställa fler.",
+            "date": "Ej angivet",
+            "verified": true
+          }
+        },
         "review_wep7Vq": {
           "type": "review",
           "settings": {
@@ -588,6 +687,15 @@
         }
       },
       "block_order": [
+        "review_WAXFxB",
+        "review_CX9py9",
+        "review_KbE9WN",
+        "review_4QpHqe",
+        "review_tDpXeE",
+        "review_TYHxTb",
+        "review_r8zxqT",
+        "review_Yw6cDj",
+        "review_tibx4e",
         "review_wep7Vq",
         "review_AaExcU",
         "review_rajrAp",
