@@ -440,8 +440,36 @@
         "accent": "#000000"
       }
     },
-    "testimonials_C8TEdj": {
-      "type": "testimonials",
+    "blocks_m44Xpg": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_182a0b8_WbGnMt": {
+          "type": "ai_gen_block_182a0b8",
+          "settings": {
+            "eyebrow": "Customer feedback",
+            "heading": "Customer experiences.",
+            "intro": "Share verified feedback from your customers.",
+            "desktop_width_percent": 100,
+            "review_1_image": "shopify://shop_images/belayan-review-4.jpg",
+            "review_1_name": "",
+            "review_1_quote": "",
+            "review_2_image": "shopify://shop_images/belayan-review-1.jpg",
+            "review_2_name": "",
+            "review_2_quote": "",
+            "review_3_image": "shopify://shop_images/belayan-review-2.jpg",
+            "review_3_name": "",
+            "review_3_quote": "",
+            "text_color": "#222222",
+            "card_color": "#FFFFFF",
+            "border_color": "#D8D8D8",
+            "accent_color": "#5C3D4F"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_182a0b8_WbGnMt"
+      ],
       "name": "Customer reviews",
       "settings": {}
     },
@@ -926,7 +954,7 @@
     "closer",
     "circles",
     "features",
-    "testimonials_C8TEdj",
+    "blocks_m44Xpg",
     "colors3d",
     "reviews",
     "1791250866bce8bf19",
