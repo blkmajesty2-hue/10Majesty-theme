@@ -124,6 +124,7 @@
         "button_label": "Add bundle to bag",
         "note": "Mix sizes and colors in any bundle.",
         "size_chart": "shopify://shop_images/blkm-size-guide.webp",
+        "size_table": "S | 71–74 | 86–91\nM | 76–81 | 91–97\nL | 86–94 | 97–104\nXL | 99–104 | 104–112\n2XL | 107–112 | 112–119\n3XL | 114–118 | 119–124\n4XL | 119–122 | 124–129\n5XL | 124–127 | 129–134\n6XL | 128–132 | 134–139",
         "size_button_label": "📏 Size guide ›",
         "story_title": "The secret of Malaysian mothers: the bengkung — for 500 years",
         "story_text": "Classic waist cinchers only compress the front. Your belly goes all the way around. So does BLK_MAJESTY. That's the whole difference.",
@@ -139,8 +140,7 @@
         "countdown_end": "",
         "countdown_text": "Hurry! The offer ends in",
         "promo_link": "",
-        "sticky_bar": true,
-        "size_table": "S | 71–74 | 86–91\nM | 76–81 | 91–97\nL | 86–94 | 97–104\nXL | 99–104 | 104–112\n2XL | 107–112 | 112–119\n3XL | 114–118 | 119–124\n4XL | 119–122 | 124–129\n5XL | 124–127 | 129–134\n6XL | 128–132 | 134–139"
+        "sticky_bar": true
       }
     },
     "reels": {
@@ -473,16 +473,111 @@
       "block_order": [
         "ai_gen_block_182a0b8_UhGnJt"
       ],
-      "settings": {},
-      "disabled": true
+      "disabled": true,
+      "settings": {}
     },
     "belayan_review_list_XPxFLh": {
       "type": "belayan-review-list",
+      "disabled": true,
       "name": "Belayan review layout",
       "settings": {
         "heading": "Kundomdömen från Belayan"
+      }
+    },
+    "customer_reviews": {
+      "type": "product-reviews",
+      "blocks": {
+        "review_rajrAp": {
+          "type": "review",
+          "settings": {
+            "name": "Valerie Michel",
+            "rating": 5,
+            "title": "",
+            "text": "Den formande effekten är verkligen effektiv.",
+            "date": "",
+            "verified": true
+          }
+        },
+        "review_9WXt6A": {
+          "type": "review",
+          "settings": {
+            "name": "Caroline Robert",
+            "rating": 5,
+            "title": "",
+            "text": "Produkten motsvarar beskrivningen.",
+            "date": "",
+            "verified": true
+          }
+        },
+        "review_RRPyrp": {
+          "type": "review",
+          "settings": {
+            "name": "Eva Roussel",
+            "rating": 5,
+            "title": "",
+            "text": "Ger bra stöd åt magen.",
+            "date": "",
+            "verified": true
+          }
+        },
+        "review_XtaxaL": {
+          "type": "review",
+          "settings": {
+            "name": "Oceane Roy",
+            "rating": 5,
+            "title": "",
+            "text": "Perfekt att bära under en klänning.",
+            "date": "",
+            "verified": true
+          }
+        },
+        "review_NgbPMz": {
+          "type": "review",
+          "settings": {
+            "name": "Marie Lefebvre",
+            "rating": 5,
+            "title": "",
+            "text": "Jag rekommenderar den verkligen.",
+            "date": "",
+            "verified": true
+          }
+        },
+        "review_et6cHD": {
+          "type": "review",
+          "settings": {
+            "name": "Marie Durand",
+            "rating": 5,
+            "title": "",
+            "text": "Jag rekommenderar den verkligen.",
+            "date": "",
+            "verified": true
+          }
+        },
+        "review_gjqWWr": {
+          "type": "review",
+          "settings": {
+            "name": "Clement Bernard",
+            "rating": 4,
+            "title": "",
+            "text": "Perfekt efter förlossningen.",
+            "date": "",
+            "verified": true
+          }
+        }
       },
-      "disabled": true
+      "block_order": [
+        "review_rajrAp",
+        "review_9WXt6A",
+        "review_RRPyrp",
+        "review_XtaxaL",
+        "review_NgbPMz",
+        "review_et6cHD",
+        "review_gjqWWr"
+      ],
+      "settings": {
+        "heading": "BLK_Majesty – customer reviews",
+        "decimal_mark": ","
+      }
     },
     "faq": {
       "type": "faq",
@@ -598,13 +693,6 @@
         "eyebrow": "Frequently asked questions",
         "heading": "Before you choose.",
         "text": "Product and shopping information, in plain English."
-      }
-    },
-    "customer_reviews": {
-      "type": "product-reviews",
-      "settings": {
-        "heading": "BLK_Majesty – customer reviews",
-        "decimal_mark": ","
       }
     }
   },
