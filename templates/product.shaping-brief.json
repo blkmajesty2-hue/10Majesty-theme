@@ -452,18 +452,18 @@
             "intro": "Ta del av verifierade omdömen från våra kunder.",
             "desktop_width_percent": 100,
             "review_1_image": "shopify://shop_images/belayan-review-4.jpg",
-            "review_1_name": "",
-            "review_1_quote": "",
+            "review_1_name": "— Camille B., 31 år",
+            "review_1_quote": "Jag födde barn för 4 månader sedan och hade fortfarande en mjuk mage som inte ville försvinna. Belayan-trosorna känns precis som vanliga trosor, och jag glömmer nästan bort att jag har dem på mig under dagen.\n\nEfter bara 2 veckor sa min man till mig: 'Har din mage inte blivit plattare?' Jag önskar verkligen att jag hade haft dem redan efter förlossningen.",
             "review_2_image": "shopify://shop_images/belayan-review-1.jpg",
-            "review_2_name": "",
-            "review_2_quote": "",
+            "review_2_name": "— Sarah M., 28 år",
+            "review_2_quote": "Jag var orolig för att trosorna skulle synas eller rulla ner. Men inte alls! Jag använder dem varje dag under mina sommarklänningar, och ingen kan se att jag har formande trosor på mig.\n\nDet här är de första shapingtrosorna som inte känns obekväma. Jag kan till och med sitta på kontoret hela dagen utan problem.",
             "review_3_image": "shopify://shop_images/belayan-review-2.jpg",
-            "review_3_name": "",
-            "review_3_quote": "",
+            "review_3_name": "— Inès D., 34 år",
+            "review_3_quote": "Min barnmorska hade rekommenderat mig att vänta 6 veckor. Så fort jag kunde börja använda trosorna kände jag ett stöd som jag aldrig hade upplevt med något annat stödbälte.\n\nDe trycker inte mot ärret och ger stöd åt hela magen, sidorna och ryggen. Vilken lättnad!",
             "text_color": "#222222",
-            "card_color": "#FFFFFF",
-            "border_color": "#D8D8D8",
-            "accent_color": "#5C3D4F"
+            "card_color": "#ffffff",
+            "border_color": "#d8d8d8",
+            "accent_color": "#5c3d4f"
           },
           "blocks": {}
         }
