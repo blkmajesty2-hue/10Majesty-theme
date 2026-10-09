@@ -1,0 +1,28 @@
+<section class="bm-showcase bm-showcase--{{ section.settings.layout }}">
+  <div class="bm-showcase-wrap">
+    <h2>{{ section.settings.heading | escape }}</h2>
+    <div class="bm-showcase-track">
+      {% for block in section.blocks %}
+        <figure {{ block.shopify_attributes }}>
+          <video controls muted playsinline loop preload="metadata" aria-label="{{ section.settings.heading | escape }} {{ forloop.index }}"><source src="{{ block.settings.file | asset_url }}" type="video/mp4"></video>
+          {% if block.settings.caption != blank %}<figcaption>{{ block.settings.caption | escape }}</figcaption>{% endif %}
+        </figure>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% stylesheet %}
+.bm-showcase{padding:56px 0;background:#fff;color:#111}
+.bm-showcase-wrap{width:min(1240px,calc(100% - 40px));margin:auto}
+.bm-showcase h2{text-align:center;font-family:inherit;font-size:clamp(25px,3vw,38px);font-weight:800;line-height:1.25;max-width:950px;margin:0 auto 36px}
+.bm-showcase-track{display:flex;gap:24px;overflow:auto;scroll-snap-type:x mandatory;padding-bottom:12px}
+.bm-showcase figure{margin:0;flex:0 0 calc((100% - 48px)/3);scroll-snap-align:start;min-width:0}
+.bm-showcase video{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;background:#eee;border-radius:20px}
+.bm-showcase--wide figure{flex-basis:100%}
+.bm-showcase--wide video{aspect-ratio:16/9;object-fit:contain}
+.bm-showcase figcaption{text-align:center;font-size:14px;line-height:1.6;padding-top:10px}
+@media(max-width:749px){.bm-showcase{padding:36px 0}.bm-showcase-wrap{width:calc(100% - 24px)}.bm-showcase h2{margin-bottom:24px}.bm-showcase figure{flex-basis:78%}.bm-showcase--wide figure{flex-basis:100%}.bm-showcase-track{gap:16px}.bm-showcase video{border-radius:16px}}
+{% endstylesheet %}
+{% schema %}
+{"name":"BLK video showcase","settings":[{"type":"text","id":"heading","label":"Rubrik","default":"Se plagget i rörelse"},{"type":"select","id":"layout","label":"Layout","options":[{"value":"wide","label":"Bred video"},{"value":"carousel","label":"Videokarusell"}],"default":"carousel"}],"blocks":[{"type":"video","name":"Video","settings":[{"type":"text","id":"file","label":"Videofil i temat"},{"type":"text","id":"caption","label":"Bildtext"}]}],"presets":[{"name":"BLK video showcase"}]}
+{% endschema %}

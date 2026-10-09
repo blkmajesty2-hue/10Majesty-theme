@@ -194,5 +194,19 @@
     "step_1": "Stand straight and measure your waist at its narrowest point (above the belly button).",
     "step_2": "Measure your hips at the widest point with your feet together.",
     "step_3": "Compare your measurements with the table to find your size. Between two sizes? Choose the larger one."
+  },
+  "brand_reviews": {
+    "count": "{{ count }} omdömen",
+    "write": "Skriv en recension",
+    "empty": "Inga recensioner ännu. Bli först med att dela din upplevelse.",
+    "name": "Namn",
+    "email": "E-postadress (visas inte offentligt)",
+    "rating": "Ditt betyg",
+    "choose": "Välj ett betyg",
+    "review": "Din recension",
+    "note": "Din recension skickas till BLK_Majesty för granskning före publicering. Din e-postadress publiceras aldrig.",
+    "send": "Skicka recension",
+    "success": "Tack! Din recension har skickats till oss för granskning.",
+    "stars": "{{ score }} av 5 stjärnor"
   }
 }

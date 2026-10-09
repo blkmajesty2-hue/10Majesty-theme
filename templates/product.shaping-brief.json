@@ -46,12 +46,12 @@
             "quantity": 2,
             "title": "Buy 1, get 1 free",
             "subtitle": "2 briefs · Free shipping",
+            "bundle_price": 39.9,
             "paid": 1,
             "price_label": "",
             "per_label": "[each] / brief",
             "badge": "",
-            "selected": false,
-            "bundle_price": 39.9
+            "selected": false
           }
         },
         "bundle4": {
@@ -60,12 +60,12 @@
             "quantity": 4,
             "title": "Buy 2, get 2 free",
             "subtitle": "4 briefs · Free shipping",
+            "bundle_price": 44.9,
             "paid": 2,
             "price_label": "",
             "per_label": "[each] / brief",
             "badge": "BEST OFFER",
-            "selected": true,
-            "bundle_price": 44.9
+            "selected": true
           }
         },
         "bundle6": {
@@ -74,12 +74,12 @@
             "quantity": 6,
             "title": "Buy 3, get 3 free",
             "subtitle": "6 briefs · Free shipping",
+            "bundle_price": 60.9,
             "paid": 3,
             "price_label": "",
             "per_label": "[each] / brief",
             "badge": "BEST VALUE",
-            "selected": false,
-            "bundle_price": 60.9
+            "selected": false
           }
         },
         "c1": {
@@ -126,6 +126,8 @@
         "offer_price": "[bundle_4]",
         "button_label": "Add bundle to bag",
         "note": "Mix sizes and colors in any bundle.",
+        "base_unit_price": 39.99,
+        "show_compare": true,
         "size_chart": "shopify://shop_images/blkm-size-guide.webp",
         "size_table": "S | 71–74 | 86–91\nM | 76–81 | 91–97\nL | 86–94 | 97–104\nXL | 99–104 | 104–112\n2XL | 107–112 | 112–119\n3XL | 114–118 | 119–124\n4XL | 119–122 | 124–129\n5XL | 124–127 | 129–134\n6XL | 128–132 | 134–139",
         "size_button_label": "📏 Size guide ›",
@@ -143,9 +145,7 @@
         "countdown_end": "",
         "countdown_text": "Hurry! The offer ends in",
         "promo_link": "",
-        "sticky_bar": true,
-        "base_unit_price": 39.99,
-        "show_compare": true
+        "sticky_bar": true
       }
     },
     "reels": {
@@ -480,14 +480,6 @@
       ],
       "disabled": true,
       "settings": {}
-    },
-    "belayan_review_list_XPxFLh": {
-      "type": "belayan-review-list",
-      "disabled": true,
-      "name": "Belayan review layout",
-      "settings": {
-        "heading": "Kundomdömen från Belayan"
-      }
     },
     "customer_reviews": {
       "type": "product-reviews",
@@ -831,10 +823,89 @@
         "heading": "Before you choose.",
         "text": "Product and shopping information, in plain English."
       }
+    },
+    "brand_reviews": {
+      "type": "brand-review-list",
+      "settings": {
+        "heading": "BLK_Majesty – kundomdömen"
+      }
+    },
+    "before_after_video": {
+      "type": "brand-video-showcase",
+      "blocks": {
+        "v1": {
+          "type": "video",
+          "settings": {
+            "file": "blkm-showcase-v1.mp4"
+          }
+        }
+      },
+      "block_order": [
+        "v1"
+      ],
+      "settings": {
+        "heading": "Före / efter",
+        "layout": "wide"
+      }
+    },
+    "product_video_carousel": {
+      "type": "brand-video-showcase",
+      "blocks": {
+        "v2": {
+          "type": "video",
+          "settings": {
+            "file": "blkm-showcase-v2.mp4"
+          }
+        },
+        "v3": {
+          "type": "video",
+          "settings": {
+            "file": "blkm-showcase-v3.mp4"
+          }
+        },
+        "v4": {
+          "type": "video",
+          "settings": {
+            "file": "blkm-showcase-v4.mp4"
+          }
+        },
+        "v5": {
+          "type": "video",
+          "settings": {
+            "file": "blkm-showcase-v5.mp4"
+          }
+        },
+        "v6": {
+          "type": "video",
+          "settings": {
+            "file": "blkm-showcase-v6.mp4"
+          }
+        },
+        "v7": {
+          "type": "video",
+          "settings": {
+            "file": "blkm-showcase-v7.mp4"
+          }
+        }
+      },
+      "block_order": [
+        "v2",
+        "v3",
+        "v4",
+        "v5",
+        "v6",
+        "v7"
+      ],
+      "settings": {
+        "heading": "Se plagget i rörelse",
+        "layout": "carousel"
+      }
     }
   },
   "order": [
     "main",
+    "before_after_video",
+    "product_video_carousel",
     "reels",
     "size",
     "details",
@@ -846,8 +917,8 @@
     "colors3d",
     "reviews",
     "1791250866bce8bf19",
-    "belayan_review_list_XPxFLh",
     "customer_reviews",
+    "brand_reviews",
     "faq"
   ]
 }
