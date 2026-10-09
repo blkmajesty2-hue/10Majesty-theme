@@ -487,6 +487,28 @@
     "customer_reviews": {
       "type": "product-reviews",
       "blocks": {
+        "review_wep7Vq": {
+          "type": "review",
+          "settings": {
+            "name": "Laurent Renard",
+            "rating": 5,
+            "title": "",
+            "text": "Produkten är precis som beskriven.",
+            "date": "Ej angivet",
+            "verified": true
+          }
+        },
+        "review_AaExcU": {
+          "type": "review",
+          "settings": {
+            "name": "Philippe Lefebvre",
+            "rating": 5,
+            "title": "",
+            "text": "Magen ser plattare ut direkt.",
+            "date": "Ej angivet",
+            "verified": true
+          }
+        },
         "review_rajrAp": {
           "type": "review",
           "settings": {
@@ -494,7 +516,7 @@
             "rating": 5,
             "title": "",
             "text": "Den formande effekten är verkligen effektiv.",
-            "date": "",
+            "date": "Ej angivet",
             "verified": true
           }
         },
@@ -505,7 +527,7 @@
             "rating": 5,
             "title": "",
             "text": "Produkten motsvarar beskrivningen.",
-            "date": "",
+            "date": "Ej angivet",
             "verified": true
           }
         },
@@ -516,7 +538,7 @@
             "rating": 5,
             "title": "",
             "text": "Ger bra stöd åt magen.",
-            "date": "",
+            "date": "Ej angivet",
             "verified": true
           }
         },
@@ -527,7 +549,7 @@
             "rating": 5,
             "title": "",
             "text": "Perfekt att bära under en klänning.",
-            "date": "",
+            "date": "Ej angivet",
             "verified": true
           }
         },
@@ -538,7 +560,7 @@
             "rating": 5,
             "title": "",
             "text": "Jag rekommenderar den verkligen.",
-            "date": "",
+            "date": "Ej angivet",
             "verified": true
           }
         },
@@ -549,7 +571,7 @@
             "rating": 5,
             "title": "",
             "text": "Jag rekommenderar den verkligen.",
-            "date": "",
+            "date": "Ej angivet",
             "verified": true
           }
         },
@@ -560,12 +582,14 @@
             "rating": 4,
             "title": "",
             "text": "Perfekt efter förlossningen.",
-            "date": "",
+            "date": "Ej angivet",
             "verified": true
           }
         }
       },
       "block_order": [
+        "review_wep7Vq",
+        "review_AaExcU",
         "review_rajrAp",
         "review_9WXt6A",
         "review_RRPyrp",
