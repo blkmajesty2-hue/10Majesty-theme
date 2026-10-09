@@ -186,8 +186,11 @@
           {%- liquid
             assign qty = block.settings.quantity
             assign is_selected = block.settings.selected
-            if default_found == false and forloop.first
-              assign is_selected = true
+            # No bundle marked as default: select the second one (or the only one)
+            if default_found == false
+              if forloop.index == 2 or forloop.length == 1
+                assign is_selected = true
+              endif
             endif
             assign bundle_cents = bundle_totals[forloop.index0] | times: 1
             assign list_cents = current_variant.price | times: qty
@@ -362,7 +365,7 @@
         { "type": "text", "id": "price_label", "label": "Price label", "info": "Leave empty to show the bundle price automatically in the shopper's currency. Can use [total] and [each]." },
         { "type": "text", "id": "per_label", "label": "Per-item label", "default": "[each] / brief", "info": "[each] = price per item, in the shopper's currency." },
         { "type": "text", "id": "badge", "label": "Badge" },
-        { "type": "checkbox", "id": "selected", "label": "Selected by default", "default": false }
+        { "type": "checkbox", "id": "selected", "label": "Selected by default", "default": false, "info": "If no bundle is ticked, the second bundle is selected." }
       ]
     },
     {
