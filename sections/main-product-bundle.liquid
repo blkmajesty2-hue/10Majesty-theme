@@ -20,6 +20,43 @@
       assign default_found = true
     endif
   endfor
+
+  # Bundle totals in the shopper's currency. A bundle with a fixed price (store currency) is shown as
+  # regular price x quantity minus the converted saving, which matches the automatic discount at checkout.
+  assign fx = 1
+  if section.settings.base_unit_price > 0
+    assign fx = current_variant.price | times: 1.0 | divided_by: section.settings.base_unit_price | divided_by: 100 | round: 2
+  endif
+  assign bundle_totals = ''
+  for b in bundles
+    assign b_qty = b.settings.quantity
+    if b.settings.bundle_price > 0 and section.settings.base_unit_price > 0
+      assign b_list = current_variant.price | times: b_qty
+      assign b_save = section.settings.base_unit_price | times: b_qty | minus: b.settings.bundle_price | times: 100 | times: fx | round
+      assign b_cents = b_list | minus: b_save
+    else
+      assign b_paid = b.settings.paid
+      if b_paid == blank or b_paid < 1 or b_paid > b_qty
+        assign b_paid = b_qty
+      endif
+      assign b_cents = current_variant.price | times: b_paid
+    endif
+    assign bundle_totals = bundle_totals | append: b_cents | append: ','
+  endfor
+  assign bundle_totals = bundle_totals | split: ','
+  # [bundle_2], [bundle_4], [bundle_6] … tokens: the total of the bundle with that many items
+  assign bundle_tokens = ''
+  for b in bundles
+    assign b_money = bundle_totals[forloop.index0] | times: 1 | money
+    assign bundle_tokens = bundle_tokens | append: '[bundle_' | append: b.settings.quantity | append: ']=' | append: b_money | append: '||'
+  endfor
+  assign bundle_tokens = bundle_tokens | split: '||'
+  assign offer_out = section.settings.offer_price | escape | replace: '[price]', price_money | replace: '[half]', half_money | replace: '[x2]', x2_money | replace: '[x3]', x3_money
+  for tk in bundle_tokens
+    assign tk_parts = tk | split: ']='
+    assign tk_name = tk_parts[0] | append: ']'
+    assign offer_out = offer_out | replace: tk_name, tk_parts[1]
+  endfor
 -%}
 <div class="wrap" data-bundle-form>
   <script type="application/json" data-product-json>{{ product | json }}</script>
@@ -100,7 +137,15 @@
         <p class="urgency-line"><span aria-hidden="true">🔥</span> {{ section.settings.urgency_text | escape }}</p>
       {%- endif -%}
       {%- if section.settings.deal_text != blank -%}
-        <p class="deal-box">{{ section.settings.deal_text | escape | replace: '[price]', price_money | replace: '[half]', half_money | replace: '[x2]', x2_money | replace: '[x3]', x3_money }}</p>
+        {%- liquid
+          assign deal_out = section.settings.deal_text | escape | replace: '[price]', price_money | replace: '[half]', half_money | replace: '[x2]', x2_money | replace: '[x3]', x3_money
+          for tk in bundle_tokens
+            assign tk_parts = tk | split: ']='
+            assign tk_name = tk_parts[0] | append: ']'
+            assign deal_out = deal_out | replace: tk_name, tk_parts[1]
+          endfor
+        -%}
+        <p class="deal-box">{{ deal_out }}</p>
       {%- endif -%}
       {%- if section.settings.gift_text != blank and settings.protection_mode != 'off' -%}
         {%- liquid
@@ -128,7 +173,7 @@
         </div>
       {%- endif -%}
       {%- if section.settings.offer_text != blank -%}
-        <div class="offer-banner">{{ section.settings.offer_text | escape }} <strong>{{ section.settings.offer_price | escape | replace: '[price]', price_money | replace: '[half]', half_money | replace: '[x2]', x2_money | replace: '[x3]', x3_money }}</strong></div>
+        <div class="offer-banner">{{ section.settings.offer_text | escape }} <strong>{{ offer_out }}</strong></div>
       {%- endif -%}
       <div class="bundle-heading">
         <b>{{ 'products.choose_bundle' | t }}</b>
@@ -144,11 +189,8 @@
             if default_found == false and forloop.first
               assign is_selected = true
             endif
-            assign paid = block.settings.paid
-            if paid == blank or paid < 1 or paid > qty
-              assign paid = qty
-            endif
-            assign bundle_cents = current_variant.price | times: paid
+            assign bundle_cents = bundle_totals[forloop.index0] | times: 1
+            assign list_cents = current_variant.price | times: qty
             assign each_cents = bundle_cents | times: 1.0 | divided_by: qty | round
             assign bundle_money = bundle_cents | money
             assign each_money = each_cents | money
@@ -162,8 +204,9 @@
           <div class="bundle{% if is_selected %} selected{% endif %}" data-quantity="{{ qty }}" {{ block.shopify_attributes }}>
             <label class="bundle-label">
               <input type="radio" autocomplete="off" name="bundle-{{ section.id }}" value="{{ qty }}" data-title="{{ block.settings.title | escape }}" data-price-label="{{ price_label | strip_html | escape }}"{% if is_selected %} checked{% endif %}>
+              {%- if block.settings.image != blank -%}{{ block.settings.image | image_url: width: 160 | image_tag: loading: 'lazy', class: 'bundle-thumb', alt: block.settings.title }}{%- endif -%}
               <span><b>{{ block.settings.title | escape }}</b><small>{{ block.settings.subtitle | escape }}</small></span>
-              <span class="bundle-price">{{ price_label }}{% if per_label != blank %}<small>{{ per_label }}</small>{% endif %}</span>
+              <span class="bundle-price">{{ price_label }}{% if section.settings.show_compare and list_cents > bundle_cents %}<s class="bundle-compare">{{ list_cents | money }}</s>{% endif %}{% if per_label != blank %}<small>{{ per_label }}</small>{% endif %}</span>
               {%- if block.settings.badge != blank -%}<em>{{ block.settings.badge | escape }}</em>{%- endif -%}
             </label>
             {%- unless product.has_only_default_variant -%}<div class="variant-rows" data-count="{{ qty }}"></div>{%- endunless -%}
@@ -236,7 +279,7 @@
 
 {%- if section.settings.sticky_bar -%}
   <div class="sticky-buy">
-    <span><b>{{ product.title | escape }}</b><small>{{ section.settings.offer_text | escape }} {{ section.settings.offer_price | escape | replace: '[price]', price_money | replace: '[half]', half_money | replace: '[x2]', x2_money | replace: '[x3]', x3_money }}</small></span>
+    <span><b>{{ product.title | escape }}</b><small>{{ section.settings.offer_text | escape }} {{ offer_out }}</small></span>
     <a class="primary" href="#buy">{{ 'products.choose_bundle' | t }}</a>
   </div>
 {%- endif -%}
@@ -263,9 +306,11 @@
     { "type": "text", "id": "subtitle", "label": "Subtitle badge", "default": "Seamless tummy control" },
     { "type": "textarea", "id": "lead", "label": "Intro text", "default": "A smooth everyday foundation, with a high-rise waist and X-shaped cross-over bands that wrap the midsection." },
     { "type": "text", "id": "offer_text", "label": "Offer banner text", "default": "BUY 2, GET 2 FREE" },
-    { "type": "text", "id": "offer_price", "label": "Offer banner price", "info": "Can use [price], [half], [x2], [x3]." },
+    { "type": "text", "id": "offer_price", "label": "Offer banner price", "info": "Can use [price], [half], [x2], [x3] and bundle totals like [bundle_4]." },
     { "type": "text", "id": "button_label", "label": "Button label", "default": "Add bundle to bag" },
     { "type": "text", "id": "note", "label": "Note under button", "default": "Mix sizes and colors in any bundle." },
+    { "type": "number", "id": "base_unit_price", "label": "Regular price per item (store currency)", "info": "e.g. 39.99. Must match the product price. Needed for fixed bundle prices to show correctly in every currency." },
+    { "type": "checkbox", "id": "show_compare", "label": "Show regular price crossed out on bundles", "default": true },
     { "type": "image_picker", "id": "size_chart", "label": "Size chart image", "info": "Used when the size table below is empty." },
     { "type": "textarea", "id": "size_table", "label": "Size table", "info": "One size per line: size | waist (cm) | hips (cm). Shown as a translated table in the size guide.", "default": "S | 71–74 | 86–91\nM | 76–81 | 91–97\nL | 86–94 | 97–104\nXL | 99–104 | 104–112\n2XL | 107–112 | 112–119\n3XL | 114–118 | 119–124" },
     { "type": "text", "id": "size_button_label", "label": "Size guide button", "default": "📏 Size guide ›", "info": "Shown under the deal box when a size table or size chart image is set. Leave empty to hide the button." },
@@ -311,7 +356,9 @@
         { "type": "range", "id": "quantity", "label": "Items in bundle", "min": 1, "max": 10, "step": 1, "default": 2 },
         { "type": "text", "id": "title", "label": "Title", "default": "Buy 1, get 1 free" },
         { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "2 briefs" },
-        { "type": "range", "id": "paid", "label": "Items paid for (the rest are free)", "min": 1, "max": 10, "step": 1, "default": 1, "info": "e.g. Buy 2, get 2 free → 4 items, 2 paid. Must match your Buy X Get Y discount." },
+        { "type": "number", "id": "bundle_price", "label": "Bundle price (store currency)", "info": "e.g. 39.90. Must match the automatic discount for this quantity. Leave empty to use 'Items paid for'." },
+        { "type": "range", "id": "paid", "label": "Items paid for (the rest are free)", "min": 1, "max": 10, "step": 1, "default": 1, "info": "Used when no bundle price is set. e.g. Buy 2, get 2 free → 4 items, 2 paid." },
+        { "type": "image_picker", "id": "image", "label": "Thumbnail" },
         { "type": "text", "id": "price_label", "label": "Price label", "info": "Leave empty to show the bundle price automatically in the shopper's currency. Can use [total] and [each]." },
         { "type": "text", "id": "per_label", "label": "Per-item label", "default": "[each] / brief", "info": "[each] = price per item, in the shopper's currency." },
         { "type": "text", "id": "badge", "label": "Badge" },

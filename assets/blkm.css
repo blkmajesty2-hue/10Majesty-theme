@@ -1102,3 +1102,8 @@ footer .wordmark,.footer-grid .wordmark{font-size:clamp(26px,2.6vw,34px);font-we
 .size-table__steps li{display:flex;align-items:flex-start;gap:14px;font-size:15px;line-height:1.5}
 .size-table__steps b{flex-shrink:0;padding:4px 14px;border-radius:999px;background:#111;color:#fff;font-size:13px;letter-spacing:.04em;text-transform:uppercase}
 @media(max-width:600px){.size-table{padding:18px 12px}.size-table table{font-size:15px}.size-table thead th{font-size:12px;padding:12px 6px}.size-table tbody th,.size-table td{padding:11px 6px}}
+
+/* Bundle thumbnails and crossed-out regular price */
+.bundle-thumb{flex-shrink:0;width:58px;height:58px;border-radius:8px;object-fit:cover;background:#f4f0ec}
+.bundle-price .bundle-compare{display:block;font-size:13px;font-weight:500;color:#8a8a8a}
+@media(max-width:600px){.bundle-thumb{width:48px;height:48px}}
