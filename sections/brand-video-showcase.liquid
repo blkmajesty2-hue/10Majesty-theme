@@ -4,7 +4,7 @@
     <div class="bm-showcase-track">
       {% for block in section.blocks %}
         <figure {{ block.shopify_attributes }}>
-          <video controls muted playsinline loop preload="metadata" aria-label="{{ section.settings.heading | escape }} {{ forloop.index }}"><source src="{{ block.settings.file | asset_url }}" type="video/mp4"></video>
+          <video autoplay muted playsinline loop preload="auto" disablepictureinpicture disableremoteplayback aria-label="{{ section.settings.heading | escape }} {{ forloop.index }}"><source src="{{ block.settings.file | asset_url }}" type="video/mp4"></video>
           {% if block.settings.caption != blank %}<figcaption>{{ block.settings.caption | escape }}</figcaption>{% endif %}
         </figure>
       {% endfor %}
