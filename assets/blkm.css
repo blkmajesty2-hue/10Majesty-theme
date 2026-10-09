@@ -1031,7 +1031,7 @@ footer .wordmark,.footer-grid .wordmark{font-size:clamp(26px,2.6vw,34px);font-we
 .prv__stars{margin:12px 0 10px;font-size:38px;line-height:1;letter-spacing:4px;color:#dd982c}
 .prv__count{margin:0 0 36px;font-size:18px}
 .prv__bars{display:grid;gap:22px;width:min(100%,740px);margin:0 auto 40px}
-.prv__bar-row{display:grid;grid-template-columns:56px 1fr 52px 52px;align-items:center;gap:18px;font-size:16px}
+.prv__bar-row{display:grid;grid-template-columns:56px minmax(0,1fr) 52px 52px;align-items:center;gap:18px;font-size:16px}
 .prv__star{color:#dd982c;font-size:22px}
 .prv__bar{display:block;height:20px;background:#eee}
 .prv__bar span{display:block;height:100%;background:#dd982c}
@@ -1057,7 +1057,7 @@ footer .wordmark,.footer-grid .wordmark{font-size:clamp(26px,2.6vw,34px);font-we
 .prv__form{display:grid;gap:16px;padding:0 32px 32px}
 .prv__rate{margin:0;padding:0;border:0}
 .prv__rate legend{margin-bottom:6px;font-weight:600}
-.prv__rate-stars{display:inline-flex;flex-direction:row-reverse;gap:4px}
+.prv__rate-stars{position:relative;display:inline-flex;flex-direction:row-reverse;gap:4px}
 .prv__rate-stars input{position:absolute;opacity:0;pointer-events:none}
 .prv__rate-stars label{font-size:34px;line-height:1;color:#ddd;cursor:pointer}
 .prv__rate-stars input:checked~label,.prv__rate-stars label:hover,.prv__rate-stars label:hover~label{color:#dd982c}
@@ -1069,13 +1069,26 @@ footer .wordmark,.footer-grid .wordmark{font-size:clamp(26px,2.6vw,34px);font-we
 .prv__thanks{margin:0;padding:18px;border-radius:8px;background:#f8ece4;color:#4a2c18;font-weight:600}
 .prv__error{margin:0;color:#b00020}
 @media(max-width:600px){
-  .prv{padding:40px 0}
-  .prv__stars{font-size:32px}
-  .prv__bar-row{grid-template-columns:44px 1fr 44px 40px;gap:10px;font-size:15px}
-  .prv__bars{gap:18px}
-  .prv__form-card summary{padding:26px 20px;font-size:19px}
-  .prv__form{padding:0 20px 24px}
+  .prv{padding:32px 0;overflow-x:clip}
+  .prv__title{margin-bottom:20px;font-size:24px;overflow-wrap:anywhere}
+  .prv__avg strong{font-size:32px}
+  .prv__avg span{font-size:22px}
+  .prv__dash{width:48px;height:7px;margin-bottom:12px}
+  .prv__stars{margin:8px 0 6px;font-size:24px;letter-spacing:2px}
+  .prv__count{margin-bottom:22px;font-size:15px}
+  .prv__bars{gap:10px;margin-bottom:24px}
+  .prv__bar-row{grid-template-columns:34px minmax(0,1fr) 36px 28px;gap:8px;font-size:13px}
+  .prv__star{font-size:14px}
+  .prv__bar{height:10px}
+  .prv__button{padding:14px 16px;font-size:15px}
+  .prv__rule{margin:26px 0}
+  .prv__empty{margin-bottom:28px;font-size:15px}
+  .prv__form-card summary{padding:18px 18px;font-size:16px}
+  .prv__form-card summary span{font-size:24px}
+  .prv__form{padding:0 18px 20px}
+  .prv__rate-stars label{font-size:28px}
 }
+
 
 /* Size guide table */
 .size-table{background:#faf8f4;padding:24px 20px;border-radius:14px}
