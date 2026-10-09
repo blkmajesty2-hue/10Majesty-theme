@@ -822,6 +822,7 @@
     },
     "brand_reviews": {
       "type": "brand-review-list",
+      "disabled": true,
       "settings": {
         "heading": "BLK_Majesty – kundomdömen"
       }
