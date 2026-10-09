@@ -126,7 +126,7 @@
         "offer_price": "[bundle_4]",
         "button_label": "Add bundle to bag",
         "note": "Mix sizes and colors in any bundle.",
-        "base_unit_price": 40.0,
+        "base_unit_price": 40,
         "show_compare": true,
         "size_chart": "shopify://shop_images/blkm-size-guide.webp",
         "size_table": "S | 71–74 | 86–91\nM | 76–81 | 91–97\nL | 86–94 | 97–104\nXL | 99–104 | 104–112\n2XL | 107–112 | 112–119\n3XL | 114–118 | 119–124\n4XL | 119–122 | 124–129\n5XL | 124–127 | 129–134\n6XL | 128–132 | 134–139",
@@ -447,9 +447,9 @@
         "ai_gen_block_182a0b8_WbGnMt": {
           "type": "ai_gen_block_182a0b8",
           "settings": {
-            "eyebrow": "Customer feedback",
-            "heading": "Customer experiences.",
-            "intro": "Share verified feedback from your customers.",
+            "eyebrow": "Kundomdömen",
+            "heading": "Kundernas upplevelser.",
+            "intro": "Ta del av verifierade omdömen från våra kunder.",
             "desktop_width_percent": 100,
             "review_1_image": "shopify://shop_images/belayan-review-4.jpg",
             "review_1_name": "",
@@ -566,9 +566,9 @@
         "ai_gen_block_182a0b8_UhGnJt": {
           "type": "ai_gen_block_182a0b8",
           "settings": {
-            "eyebrow": "Customer feedback",
-            "heading": "Customer experiences.",
-            "intro": "Share verified feedback from your customers.",
+            "eyebrow": "Kundomdömen",
+            "heading": "Kundernas upplevelser.",
+            "intro": "Ta del av verifierade omdömen från våra kunder.",
             "desktop_width_percent": 100,
             "review_1_image": "shopify://shop_images/Screenshot_2026-10-05_at_9.26.48_PM.png",
             "review_1_name": "Chiara, 44",
