@@ -126,7 +126,7 @@
         "offer_price": "[bundle_4]",
         "button_label": "Add bundle to bag",
         "note": "Mix sizes and colors in any bundle.",
-        "base_unit_price": 39.99,
+        "base_unit_price": 40.0,
         "show_compare": true,
         "size_chart": "shopify://shop_images/blkm-size-guide.webp",
         "size_table": "S | 71–74 | 86–91\nM | 76–81 | 91–97\nL | 86–94 | 97–104\nXL | 99–104 | 104–112\n2XL | 107–112 | 112–119\n3XL | 114–118 | 119–124\n4XL | 119–122 | 124–129\n5XL | 124–127 | 129–134\n6XL | 128–132 | 134–139",
@@ -146,6 +146,84 @@
         "countdown_text": "Hurry! The offer ends in",
         "promo_link": "",
         "sticky_bar": true
+      }
+    },
+    "before_after_video": {
+      "type": "brand-video-showcase",
+      "blocks": {
+        "v1": {
+          "type": "video",
+          "settings": {
+            "file": "blkm-showcase-v1.mp4",
+            "caption": ""
+          }
+        }
+      },
+      "block_order": [
+        "v1"
+      ],
+      "settings": {
+        "heading": "Före / efter",
+        "layout": "wide"
+      }
+    },
+    "product_video_carousel": {
+      "type": "brand-video-showcase",
+      "blocks": {
+        "v2": {
+          "type": "video",
+          "settings": {
+            "file": "blkm-showcase-v2.mp4",
+            "caption": ""
+          }
+        },
+        "v3": {
+          "type": "video",
+          "settings": {
+            "file": "blkm-showcase-v3.mp4",
+            "caption": ""
+          }
+        },
+        "v4": {
+          "type": "video",
+          "settings": {
+            "file": "blkm-showcase-v4.mp4",
+            "caption": ""
+          }
+        },
+        "v5": {
+          "type": "video",
+          "settings": {
+            "file": "blkm-showcase-v5.mp4",
+            "caption": ""
+          }
+        },
+        "v6": {
+          "type": "video",
+          "settings": {
+            "file": "blkm-showcase-v6.mp4",
+            "caption": ""
+          }
+        },
+        "v7": {
+          "type": "video",
+          "settings": {
+            "file": "blkm-showcase-v7.mp4",
+            "caption": ""
+          }
+        }
+      },
+      "block_order": [
+        "v2",
+        "v3",
+        "v4",
+        "v5",
+        "v6",
+        "v7"
+      ],
+      "settings": {
+        "heading": "Se plagget i rörelse",
+        "layout": "carousel"
       }
     },
     "reels": {
@@ -361,6 +439,11 @@
         "card_bg": "#e9e9e9",
         "accent": "#000000"
       }
+    },
+    "testimonials_C8TEdj": {
+      "type": "testimonials",
+      "name": "Customer reviews",
+      "settings": {}
     },
     "colors3d": {
       "type": "color-carousel-3d",
@@ -708,6 +791,12 @@
         "decimal_mark": ","
       }
     },
+    "brand_reviews": {
+      "type": "brand-review-list",
+      "settings": {
+        "heading": "BLK_Majesty – kundomdömen"
+      }
+    },
     "faq": {
       "type": "faq",
       "blocks": {
@@ -823,83 +912,6 @@
         "heading": "Before you choose.",
         "text": "Product and shopping information, in plain English."
       }
-    },
-    "brand_reviews": {
-      "type": "brand-review-list",
-      "settings": {
-        "heading": "BLK_Majesty – kundomdömen"
-      }
-    },
-    "before_after_video": {
-      "type": "brand-video-showcase",
-      "blocks": {
-        "v1": {
-          "type": "video",
-          "settings": {
-            "file": "blkm-showcase-v1.mp4"
-          }
-        }
-      },
-      "block_order": [
-        "v1"
-      ],
-      "settings": {
-        "heading": "Före / efter",
-        "layout": "wide"
-      }
-    },
-    "product_video_carousel": {
-      "type": "brand-video-showcase",
-      "blocks": {
-        "v2": {
-          "type": "video",
-          "settings": {
-            "file": "blkm-showcase-v2.mp4"
-          }
-        },
-        "v3": {
-          "type": "video",
-          "settings": {
-            "file": "blkm-showcase-v3.mp4"
-          }
-        },
-        "v4": {
-          "type": "video",
-          "settings": {
-            "file": "blkm-showcase-v4.mp4"
-          }
-        },
-        "v5": {
-          "type": "video",
-          "settings": {
-            "file": "blkm-showcase-v5.mp4"
-          }
-        },
-        "v6": {
-          "type": "video",
-          "settings": {
-            "file": "blkm-showcase-v6.mp4"
-          }
-        },
-        "v7": {
-          "type": "video",
-          "settings": {
-            "file": "blkm-showcase-v7.mp4"
-          }
-        }
-      },
-      "block_order": [
-        "v2",
-        "v3",
-        "v4",
-        "v5",
-        "v6",
-        "v7"
-      ],
-      "settings": {
-        "heading": "Se plagget i rörelse",
-        "layout": "carousel"
-      }
     }
   },
   "order": [
@@ -914,6 +926,7 @@
     "closer",
     "circles",
     "features",
+    "testimonials_C8TEdj",
     "colors3d",
     "reviews",
     "1791250866bce8bf19",
