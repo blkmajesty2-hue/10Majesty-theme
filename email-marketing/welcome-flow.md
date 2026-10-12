@@ -1,5 +1,8 @@
 # BLK Majesty – Welcome Flow (Shopify Email + Shopify Flow)
 
+**Hero product:** High-Waist Shaping Briefs – https://blkmajesty.shop/products/culotte-post-patrum – $39.99 ($33.99 with WELCOME15), sizes S–6XL, 7 colors.
+**Copy rule:** the product page says it is a shaping garment, not a medical or post-surgical garment. Do not claim post-partum recovery, belly loss or health benefits in emails.
+
 Brand palette (from the site): black `#090909`, off-white `#f1f1ee`, lime accent `#d8ff36`, red `#ff3038`.
 Discount code: `WELCOME15` (15% off, already created in Shopify, all customers, no end date).
 
@@ -26,23 +29,23 @@ Create each email in Shopify Email (Marketing → Automations/Campaigns → Shop
 >
 > Here's 15% off your first order: **WELCOME15**
 >
-> [Button: SHOP NEW ARRIVALS → /collections/all]
+> [Button: SHOP THE BRIEFS → /products/culotte-post-patrum]
 >
 > Free shipping details / returns line here.
 >
 > – The BLK Majesty team
 
 ## Email 2 – sent 2 days later
-**Subject:** What everyone's wearing right now
-**Preview:** Our best sellers, picked for you.
+**Subject:** Shaping you stop noticing
+**Preview:** Meet the High-Waist Shaping Briefs, picked for you.
 
-> Our best sellers
+> Meet the High-Waist Shaping Briefs
 >
-> [Product block: 3 best-selling products]
+> [Product block: High-Waist Shaping Briefs – crossed X-band, doesn't roll, invisible under clothes]
 >
 > Your 15% off code **WELCOME15** is still waiting.
 >
-> [Button: SHOP BEST SELLERS → /collections/all?sort_by=best-selling]
+> [Button: SHOP THE BRIEFS → /products/culotte-post-patrum]
 
 ## Email 3 – sent 3 days after Email 2 (skip if they ordered)
 **Subject:** Your 15% off ends soon
@@ -50,7 +53,7 @@ Create each email in Shopify Email (Marketing → Automations/Campaigns → Shop
 
 > Quick reminder: **WELCOME15** expires on [date].
 >
-> [Product block: 1–2 featured products]
+> [Product block: High-Waist Shaping Briefs]
 >
 > [Button: USE MY 15% OFF → /]
 >
