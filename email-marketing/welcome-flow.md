@@ -41,11 +41,15 @@ Create each email in Shopify Email (Marketing → Automations/Campaigns → Shop
 
 > Meet the High-Waist Shaping Briefs
 >
-> [Product block: High-Waist Shaping Briefs – crossed X-band, doesn't roll, invisible under clothes]
+> > - Crossed X-band: 360° support, not just across the front
+> - Doesn't roll: the crossover holds the waistband flat all day
+> - Lifted shape: the high-rise back panel rounds and lifts
+> - Invisible: seamless edges and nude tones, no visible lines under clothes
+> - Breathable cotton gusset: comfortable all day, sizes S to 6XL
 >
 > Your 15% off code **WELCOME15** is still waiting.
 >
-> [Button: SHOP THE BRIEFS → /products/culotte-post-patrum]
+> [Button: FIND YOUR SIZE → size guide URL, or product page #size]
 
 ## Email 3 – sent 3 days after Email 2 (skip if they ordered)
 **Subject:** Your 15% off ends soon
@@ -53,9 +57,9 @@ Create each email in Shopify Email (Marketing → Automations/Campaigns → Shop
 
 > Quick reminder: **WELCOME15** expires on [date].
 >
-> [Product block: High-Waist Shaping Briefs]
+> Sizes S to 6XL. 7 colors: black, beige, navy blue, royal blue, plum, fuchsia pink, lilac.
 >
-> [Button: USE MY 15% OFF → /]
+> [Button: USE WELCOME15 → /products/culotte-post-patrum]
 >
 > Questions? Just reply to this email.
 
