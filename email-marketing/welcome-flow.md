@@ -3,7 +3,7 @@
 **Hero product:** High-Waist Shaping Briefs – https://blkmajesty.shop/products/culotte-post-patrum – $39.99 ($33.99 with WELCOME15), sizes S–6XL, 7 colors.
 **Copy rule:** the product page says it is a shaping garment, not a medical or post-surgical garment. Do not claim post-partum recovery, belly loss or health benefits in emails.
 
-Brand palette (from the site): black `#090909`, off-white `#f1f1ee`, lime accent `#d8ff36`, red `#ff3038`.
+Brand palette (from the live theme): black `#101010`, white, light grey `#f3f3f3`, text grey `#666`; font Poppins.
 Discount code: `WELCOME15` (15% off, already created in Shopify, all customers, no end date).
 
 ## Flow setup (Shopify admin → Apps → Flow → Create workflow)
@@ -41,7 +41,7 @@ Create each email in Shopify Email (Marketing → Automations/Campaigns → Shop
 
 > Meet the High-Waist Shaping Briefs
 >
-> > - Crossed X-band: 360° support, not just across the front
+> - Crossed X-band: 360° support, not just across the front
 > - Doesn't roll: the crossover holds the waistband flat all day
 > - Lifted shape: the high-rise back panel rounds and lifts
 > - Invisible: seamless edges and nude tones, no visible lines under clothes
