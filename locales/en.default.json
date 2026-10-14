@@ -9,155 +9,183 @@
  */
 {
   "general": {
-    "close": "Close",
-    "search": "Search",
-    "continue_shopping": "Continue shopping",
-    "view_all": "View all",
+    "close": "Stäng",
+    "search": "Sök",
+    "continue_shopping": "Fortsätt handla",
+    "view_all": "Visa alla",
     "pagination": {
-      "previous": "Previous",
-      "next": "Next"
+      "previous": "Föregående",
+      "next": "Nästa"
     },
     "password": {
-      "enter": "Enter using password",
-      "password": "Password",
-      "opening_soon": "Opening soon",
-      "admin": "Are you the store owner? Log in here"
+      "enter": "Gå in med lösenord",
+      "password": "Lösenord",
+      "opening_soon": "Öppnar snart",
+      "admin": "Är du butiksägaren? Logga in här"
     },
-    "contact_us": "Contact us",
-    "country_currency": "Country / currency",
-    "update": "Update",
-    "description": "Description",
-    "bag": "Bag",
-    "free": "FREE",
-    "decrease": "Decrease quantity",
-    "increase": "Increase quantity",
-    "collections": "Collections",
-    "no_products": "No products found in this collection.",
-    "product_title": "Product title"
+    "contact_us": "Kontakta oss",
+    "country_currency": "Land / valuta",
+    "update": "Uppdatera",
+    "description": "Beskrivning",
+    "bag": "Varukorg",
+    "free": "GRATIS",
+    "decrease": "Minska antal",
+    "increase": "Öka antal",
+    "collections": "Kollektioner",
+    "no_products": "Inga produkter hittades i den här kollektionen.",
+    "product_title": "Produktnamn"
   },
   "accessibility": {
-    "skip_to_content": "Skip to content",
-    "main_navigation": "Main navigation"
+    "skip_to_content": "Hoppa till innehållet",
+    "main_navigation": "Huvudmeny"
   },
   "products": {
-    "add_to_cart": "Add to bag",
-    "view": "View product",
-    "sold_out": "Sold out",
-    "unavailable": "Unavailable",
-    "sale": "Sale",
-    "from": "From {{ price }}",
-    "adding": "Adding…",
-    "added": "Added to your bag.",
-    "error": "Something went wrong. Please try again.",
-    "choose_bundle": "Choose your bundle",
-    "size_guide": "Size guide",
-    "combination_unavailable": "One or more selected combinations are unavailable."
+    "add_to_cart": "Lägg i varukorgen",
+    "view": "Visa produkt",
+    "sold_out": "Slutsåld",
+    "unavailable": "Inte tillgänglig",
+    "sale": "Rea",
+    "from": "Från {{ price }}",
+    "adding": "Lägger till…",
+    "added": "Tillagd i din varukorg.",
+    "error": "Något gick fel. Försök igen.",
+    "choose_bundle": "Välj ditt paket",
+    "size_guide": "Storleksguide",
+    "combination_unavailable": "En eller flera av de valda kombinationerna är inte tillgängliga."
   },
   "cart": {
-    "title": "Your cart",
-    "empty": "Your cart is empty.",
-    "remove": "Remove",
-    "subtotal": "Subtotal",
-    "checkout": "Check out",
-    "note": "Order note",
-    "quantity": "Quantity",
-    "discounts": "Discounts",
-    "item": "item",
-    "items": "items",
-    "product": "Product",
-    "total": "Total",
-    "estimated_total": "Estimated total",
-    "taxes_note": "Taxes and shipping calculated at checkout",
-    "free_shipping_remaining": "Only [amount] away from free shipping.",
-    "free_shipping_reached": "You've unlocked free shipping!",
-    "update": "Update bag",
-    "bundle": "Bundle",
-    "item_of": "[name] — item [n] of [count]"
+    "title": "Din varukorg",
+    "empty": "Din varukorg är tom.",
+    "remove": "Ta bort",
+    "subtotal": "Delsumma",
+    "checkout": "Till kassan",
+    "note": "Meddelande till beställningen",
+    "quantity": "Antal",
+    "discounts": "Rabatter",
+    "item": "artikel",
+    "items": "artiklar",
+    "product": "Produkt",
+    "total": "Summa",
+    "estimated_total": "Beräknad summa",
+    "taxes_note": "Skatter och frakt beräknas i kassan",
+    "free_shipping_remaining": "Bara [amount] kvar till fri frakt.",
+    "free_shipping_reached": "Du har fått fri frakt!",
+    "update": "Uppdatera varukorgen",
+    "bundle": "Paket",
+    "item_of": "[name] – artikel [n] av [count]"
   },
   "search": {
-    "title": "Search",
-    "placeholder": "Search products",
+    "title": "Sök",
+    "placeholder": "Sök produkter",
     "results": {
-      "one": "{{ count }} result for “{{ terms }}”",
-      "other": "{{ count }} results for “{{ terms }}”"
+      "one": "{{ count }} resultat för ”{{ terms }}”",
+      "other": "{{ count }} resultat för ”{{ terms }}”"
     },
-    "none": "No results for “{{ terms }}”."
+    "none": "Inga resultat för ”{{ terms }}”."
   },
   "newsletter": {
-    "label": "Email address",
-    "placeholder": "Your email address",
-    "button": "Join",
-    "success": "Thanks for subscribing."
+    "label": "E-postadress",
+    "placeholder": "Din e-postadress",
+    "button": "Gå med",
+    "success": "Tack för din prenumeration."
   },
   "contact": {
-    "name": "Name",
-    "email": "Email",
-    "order": "Order number (optional)",
-    "message": "Message",
-    "send": "Send message",
-    "success": "Thanks for your message. We'll get back to you soon."
+    "name": "Namn",
+    "email": "E-post",
+    "order": "Ordernummer (valfritt)",
+    "message": "Meddelande",
+    "send": "Skicka meddelande",
+    "success": "Tack för ditt meddelande. Vi återkommer snart."
   },
   "blogs": {
-    "read_more": "Read more",
-    "back": "Back to {{ title }}"
+    "read_more": "Läs mer",
+    "back": "Tillbaka till {{ title }}"
   },
   "gift_cards": {
-    "title": "Your gift card",
-    "code": "Gift card code",
-    "print": "Print",
-    "expired": "Expired",
-    "disabled": "Disabled"
+    "title": "Ditt presentkort",
+    "code": "Presentkortskod",
+    "print": "Skriv ut",
+    "expired": "Utgånget",
+    "disabled": "Inaktiverat"
   },
   "not_found": {
-    "title": "Page not found",
-    "text": "The page you were looking for doesn't exist."
+    "title": "Sidan hittades inte",
+    "text": "Sidan du letade efter finns inte."
   },
   "countdown": {
-    "days": "days",
-    "hours": "hours",
+    "days": "dagar",
+    "hours": "timmar",
     "min": "min",
-    "sec": "sec"
+    "sec": "sek"
   },
   "video": {
-    "sound_on": "Turn sound on",
-    "sound_off": "Turn sound off"
+    "sound_on": "Slå på ljudet",
+    "sound_off": "Stäng av ljudet"
   },
   "quiz": {
-    "measurements_button": "I know my measurements",
-    "jeans_button": "Use my jeans size",
-    "step_1": "Step 1 of 2",
-    "step_2": "Step 2 of 2",
-    "measurements_title": "Your measurements",
-    "units": "Units",
-    "inches": "inches",
+    "measurements_button": "Jag vet mina mått",
+    "jeans_button": "Använd min jeansstorlek",
+    "step_1": "Steg 1 av 2",
+    "step_2": "Steg 2 av 2",
+    "measurements_title": "Dina mått",
+    "units": "Enheter",
+    "inches": "tum",
     "cm": "cm",
-    "waist": "Waist",
-    "waist_hint": "— narrowest point, just above the navel",
-    "hips": "Hips",
-    "hips_hint": "— widest point, feet together",
-    "next": "Next",
-    "back": "‹ Back",
-    "jeans_title": "Your usual jeans size",
-    "jeans_label": "US women's size",
-    "jeans_note": "Measurements are more accurate — if you have a tape measure, use those instead.",
-    "size_ready": "Your size is ready",
-    "email_text": "Enter your email to see it and get [offer] your first order.",
-    "email": "Email",
-    "skip_email": "Show my size without the discount",
-    "your_size": "Your BLK_MAJESTY size",
-    "your_code": "Your [offer] code",
-    "copy": "Copy",
-    "copied": "Copied",
-    "shop_my_size": "Shop my size",
-    "shop_size": "Shop size [size]",
-    "start_over": "Start over",
-    "error_in": "Please enter your waist and/or hips in inches (e.g. 32).",
-    "error_cm": "Please enter your waist and/or hips in cm (e.g. 81).",
-    "note_split": "Your waist and hips point to different sizes — we recommend the larger one for all-day comfort.",
-    "note_jeans": "Based on your jeans size. Between sizes? Choose the larger one.",
-    "note_between": "Between sizes? Choose the larger one.",
-    "note_over": "Your measurements are above our largest size ([size]), so it may feel too firm. Message us before ordering and we'll help you decide.",
-    "example": "e.g. [value]"
+    "waist": "Midja",
+    "waist_hint": "– smalaste stället, strax ovanför naveln",
+    "hips": "Höfter",
+    "hips_hint": "– bredaste stället, med fötterna ihop",
+    "next": "Nästa",
+    "back": "‹ Tillbaka",
+    "jeans_title": "Din vanliga jeansstorlek",
+    "jeans_label": "Damstorlek (EU, ungefärlig)",
+    "jeans_note": "Måtten är mer exakta – har du ett måttband, använd hellre dem.",
+    "size_ready": "Din storlek är klar",
+    "email_text": "Ange din e-post för att se den och få [offer] på din första beställning.",
+    "email": "E-post",
+    "skip_email": "Visa min storlek utan rabatten",
+    "your_size": "Din BLK_MAJESTY-storlek",
+    "your_code": "Din kod för [offer]",
+    "copy": "Kopiera",
+    "copied": "Kopierad",
+    "shop_my_size": "Handla min storlek",
+    "shop_size": "Handla storlek [size]",
+    "start_over": "Börja om",
+    "error_in": "Ange din midja och/eller dina höfter i tum (t.ex. 32).",
+    "error_cm": "Ange din midja och/eller dina höfter i cm (t.ex. 81).",
+    "note_split": "Din midja och dina höfter pekar på olika storlekar – vi rekommenderar den större för bekvämlighet hela dagen.",
+    "note_jeans": "Baserat på din jeansstorlek. Mellan två storlekar? Välj den större.",
+    "note_between": "Mellan två storlekar? Välj den större.",
+    "note_over": "Dina mått ligger över vår största storlek ([size]), så den kan kännas för tight. Skicka ett meddelande till oss innan du beställer så hjälper vi dig.",
+    "example": "t.ex. [value]"
+  },
+  "reviews": {
+    "write": "Skriv en recension",
+    "no_rating": "Inget betyg ännu",
+    "count": {
+      "one": "{{ count }} omdöme",
+      "other": "{{ count }} omdömen"
+    },
+    "stars_label": "{{ count }} av 5 stjärnor",
+    "verified": "Verifierad köpare",
+    "empty": "Inga recensioner ännu. Bli först med att dela din upplevelse.",
+    "your_rating": "Ditt betyg",
+    "name": "Namn",
+    "email": "E-post (publiceras inte)",
+    "review_title": "Rubrik",
+    "review_text": "Din recension",
+    "note": "Din recension publiceras när vi har granskat den.",
+    "submit": "Skicka recension",
+    "thanks": "Tack! Din recension har skickats och visas när vi har granskat den."
+  },
+  "size_table": {
+    "size": "Storlek",
+    "waist": "Midja (cm)",
+    "hips": "Höfter (cm)",
+    "step": "Steg {{ number }}",
+    "step_1": "Stå rak och mät midjan där den är smalast (ovanför naveln).",
+    "step_2": "Mät höfterna där de är bredast, med fötterna ihop.",
+    "step_3": "Jämför dina mått med tabellen för att hitta din storlek. Mellan två storlekar? Välj den större."
   },
   "belayan_reviews": {
     "source": "Betyg och omdömen från referensbutiken Belayan, inte från BLK_Majestys kunder. Källa:",
@@ -166,34 +194,6 @@
     "caption": "Ett urval av sex omdömen, översatta från franska.",
     "translation": "Översatt omdöme från Belayan",
     "stars": "{{ score }} av 5 stjärnor"
-  },
-  "reviews": {
-    "write": "Write a review",
-    "no_rating": "No rating yet",
-    "count": {
-      "one": "{{ count }} review",
-      "other": "{{ count }} reviews"
-    },
-    "stars_label": "{{ count }} out of 5 stars",
-    "verified": "Verified buyer",
-    "empty": "No reviews yet. Be the first to share your experience.",
-    "your_rating": "Your rating",
-    "name": "Name",
-    "email": "Email (not published)",
-    "review_title": "Title",
-    "review_text": "Your review",
-    "note": "Your review will be published after we've checked it.",
-    "submit": "Send review",
-    "thanks": "Thank you! Your review has been sent and will appear once we've checked it."
-  },
-  "size_table": {
-    "size": "Size",
-    "waist": "Waist (cm)",
-    "hips": "Hips (cm)",
-    "step": "Step {{ number }}",
-    "step_1": "Stand straight and measure your waist at its narrowest point (above the belly button).",
-    "step_2": "Measure your hips at the widest point with your feet together.",
-    "step_3": "Compare your measurements with the table to find your size. Between two sizes? Choose the larger one."
   },
   "brand_reviews": {
     "count": "{{ count }} omdömen",
