@@ -432,8 +432,15 @@
       if (!thumb) return;
       const v = rowVariant(row);
       const img = v && (v.featured_image || (v.featured_media && v.featured_media.preview_image));
-      const src = img && (img.src || img.url);
-      const colorName = colorIndex >= 0 ? $$('select', row)[colorIndex].value : '';
+      let src = img && (img.src || img.url);
+      if (!src) {
+        let map = {};
+        try { map = JSON.parse(row.closest('.variant-rows').dataset.colorImages || '{}'); } catch (e) { /* no map */ }
+        const cs = colorIndex >= 0 ? $(`select[data-index="${colorIndex}"]`, row) : null;
+        src = cs ? map[cs.value.toLowerCase()] : null;
+      }
+      const colorSelect = colorIndex >= 0 ? $(`select[data-index="${colorIndex}"]`, row) : null;
+      const colorName = colorSelect ? colorSelect.value : '';
       thumb.replaceChildren();
       thumb.title = colorName;
       if (src) {
@@ -448,19 +455,25 @@
       }
     }
 
+    // Colour first (with its photo inside the field), then size, then any other option.
+    const optionOrder = opts.map((_, i) => i).sort((a, b) => (a === colorIndex ? -1 : b === colorIndex ? 1 : a === sizeIndex ? -1 : b === sizeIndex ? 1 : a - b));
     $$('.variant-rows', section).forEach(container => {
       const count = Number(container.dataset.count);
+      const heading = document.createElement('p');
+      heading.className = 'variant-rows__label';
+      heading.textContent = optionOrder.map(i => opts[i]).join(', ');
+      container.append(heading);
       for (let n = 0; n < count; n++) {
         const row = document.createElement('div');
         row.className = 'variant-row';
-        row.style.gridTemplateColumns = `24px 34px repeat(${Math.max(opts.length, 1)}, minmax(0, 1fr))`;
+        const cols = optionOrder.map(i => (i === colorIndex ? 'minmax(0, 1.7fr)' : 'minmax(0, 1fr)')).join(' ');
+        row.style.gridTemplateColumns = `30px ${cols}`;
         const label = document.createElement('span');
+        label.className = 'variant-row__n';
         label.textContent = '#' + (n + 1);
-        const thumb = document.createElement('span');
-        thumb.className = 'variant-thumb';
-        thumb.setAttribute('aria-hidden', 'true');
-        row.append(label, thumb);
-        opts.forEach((name, i) => {
+        row.append(label);
+        optionOrder.forEach(i => {
+          const name = opts[i];
           const s = document.createElement('select');
           s.dataset.index = i;
           s.setAttribute('aria-label', (t.itemOf || '[name] — item [n] of [count]').replace('[name]', name).replace('[n]', n + 1).replace('[count]', count));
@@ -479,14 +492,26 @@
             const v = rowVariant(row);
             if (v && v.featured_media) showMedia(gallery, v.featured_media.id);
           });
-          row.append(s);
+          if (i === colorIndex) {
+            const field = document.createElement('span');
+            field.className = 'variant-field variant-field--color';
+            const thumb = document.createElement('span');
+            thumb.className = 'variant-thumb';
+            thumb.setAttribute('aria-hidden', 'true');
+            field.append(thumb, s);
+            row.append(field);
+          } else {
+            row.append(s);
+          }
         });
         container.append(row);
         updateThumb(row);
       }
     });
     function rowVariant(row) {
-      return findVariant($$('select', row).map(s => s.value));
+      const values = [];
+      $$('select', row).forEach(s => { values[Number(s.dataset.index)] = s.value; });
+      return findVariant(values);
     }
     function validate(row) {
       const v = rowVariant(row);

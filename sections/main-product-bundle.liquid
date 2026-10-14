@@ -233,7 +233,7 @@
               <span class="bundle-price">{{ price_label }}{% if section.settings.show_compare and list_cents > bundle_cents %}<s class="bundle-compare">{{ list_cents | money }}</s>{% endif %}{% if per_label != blank %}<small>{{ per_label }}</small>{% endif %}</span>
               {%- if block.settings.badge != blank -%}<em>{{ block.settings.badge | escape }}</em>{%- endif -%}
             </label>
-            {%- unless product.has_only_default_variant -%}<div class="variant-rows" data-count="{{ qty }}"></div>{%- endunless -%}
+            {%- unless product.has_only_default_variant -%}<div class="variant-rows" data-count="{{ qty }}" data-color-images='{"black":"{{ 'blkm-color-black.webp' | asset_url }}","svart":"{{ 'blkm-color-black.webp' | asset_url }}","beige":"{{ 'blkm-color-beige.webp' | asset_url }}","navy blue":"{{ 'blkm-color-navy.webp' | asset_url }}","marinblå":"{{ 'blkm-color-navy.webp' | asset_url }}","royal blue":"{{ 'blkm-color-royal-blue.webp' | asset_url }}","kungsblå":"{{ 'blkm-color-royal-blue.webp' | asset_url }}","plum":"{{ 'blkm-color-plum.webp' | asset_url }}","plommon":"{{ 'blkm-color-plum.webp' | asset_url }}","fuchsia pink":"{{ 'blkm-color-fuchsia.webp' | asset_url }}","fuchsiarosa":"{{ 'blkm-color-fuchsia.webp' | asset_url }}","lilac":"{{ 'blkm-color-lilac.webp' | asset_url }}","lila":"{{ 'blkm-color-lilac.webp' | asset_url }}"}'></div>{%- endunless -%}
           </div>
         {%- endfor -%}
       </div>
