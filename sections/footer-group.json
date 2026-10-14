@@ -32,6 +32,15 @@
             "us": "2–4"
           }
         },
+        "size_QbbQxa": {
+          "type": "size",
+          "settings": {
+            "name": "M",
+            "waist_max": 81,
+            "hips_max": 97,
+            "us": "2–4"
+          }
+        },
         "size_gGRpjX": {
           "type": "size",
           "settings": {
@@ -72,6 +81,7 @@
       "block_order": [
         "size_tXG4N3",
         "size_YEJpNN",
+        "size_QbbQxa",
         "size_gGRpjX",
         "size_gi6Npt",
         "size_Q8aFJd",
