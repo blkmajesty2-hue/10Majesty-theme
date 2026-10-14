@@ -11,12 +11,104 @@
   "type": "footer",
   "name": "Sidfot",
   "sections": {
+    "size_quiz_hiRqcW": {
+      "type": "size-quiz",
+      "blocks": {
+        "size_tXG4N3": {
+          "type": "size",
+          "settings": {
+            "name": "S",
+            "waist_max": 74,
+            "hips_max": 91,
+            "us": "0"
+          }
+        },
+        "size_YEJpNN": {
+          "type": "size",
+          "settings": {
+            "name": "M",
+            "waist_max": 81,
+            "hips_max": 97,
+            "us": "2–4"
+          }
+        },
+        "size_gGRpjX": {
+          "type": "size",
+          "settings": {
+            "name": "L",
+            "waist_max": 94,
+            "hips_max": 104,
+            "us": "6–8"
+          }
+        },
+        "size_gi6Npt": {
+          "type": "size",
+          "settings": {
+            "name": "XL",
+            "waist_max": 104,
+            "hips_max": 112,
+            "us": "10–12"
+          }
+        },
+        "size_Q8aFJd": {
+          "type": "size",
+          "settings": {
+            "name": "2XL",
+            "waist_max": 112,
+            "hips_max": 119,
+            "us": "14–16"
+          }
+        },
+        "size_FAL9Hq": {
+          "type": "size",
+          "settings": {
+            "name": "3XL",
+            "waist_max": 118,
+            "hips_max": 124,
+            "us": "18–20"
+          }
+        }
+      },
+      "block_order": [
+        "size_tXG4N3",
+        "size_YEJpNN",
+        "size_gGRpjX",
+        "size_gi6Npt",
+        "size_Q8aFJd",
+        "size_FAL9Hq"
+      ],
+      "name": "Size quiz pop-up",
+      "settings": {
+        "enabled": true,
+        "delay": 5,
+        "show_on_mobile": true,
+        "product": "culotte-post-patrum",
+        "image": "shopify://shop_images/Gemini_Generated_Image_vskw3lvskw3lvskw.jpg",
+        "eyebrow": "BLK_MAJESTY",
+        "heading": "Find your perfect size",
+        "text": "2 quick questions — get your size and 10% off your first order.",
+        "decline_label": "No thanks",
+        "email_placeholder": "Your email address",
+        "button_label": "SHOW MY SIZE",
+        "consent": "By entering your email you agree to receive BLK_MAJESTY emails. Unsubscribe anytime.",
+        "offer_label": "10% off",
+        "code": "FIT10",
+        "leave_enabled": true,
+        "leave_image": "shopify://shop_images/blkm-quiz-welcome.png",
+        "leave_label": "15% off",
+        "leave_code": "STAY15",
+        "leave_heading": "Wait — find your size + get 15% off",
+        "leave_text": "2 quick questions before you go — get your size and 15% off your first order."
+      }
+    },
     "footer": {
       "type": "footer",
       "settings": {
         "tagline": "Shapewear. Stöd. Självförtroende varje dag.",
         "links_heading": "Användbara länkar",
         "menu": "footer",
+        "show_contact": true,
+        "contact_link": "",
         "show_policies": false,
         "care_heading": "Kundtjänst",
         "care_text": "<p>Måndag–fredag<br>08.00–13.00 & 14.00–20.00<br>Lördag–söndag · 10.00–16.00</p>",
@@ -91,13 +183,31 @@
         "size6"
       ],
       "settings": {
+        "enabled": true,
+        "delay": 8,
+        "show_on_mobile": true,
         "product": "culotte-post-patrum",
         "image": "shopify://shop_images/blkm-quiz-welcome.png",
-        "leave_image": "shopify://shop_images/blkm-quiz-leave.png"
+        "eyebrow": "BLK_MAJESTY",
+        "heading": "Find your perfect size",
+        "text": "2 quick questions — get your size and 10% off your first order.",
+        "decline_label": "No thanks",
+        "email_placeholder": "Your email address",
+        "button_label": "SHOW MY SIZE",
+        "consent": "By entering your email you agree to receive BLK_MAJESTY emails. Unsubscribe anytime.",
+        "offer_label": "10% off",
+        "code": "FIT10",
+        "leave_enabled": true,
+        "leave_image": "shopify://shop_images/blkm-quiz-leave.png",
+        "leave_label": "15% off",
+        "leave_code": "STAY15",
+        "leave_heading": "Wait — find your size + get 15% off",
+        "leave_text": "2 quick questions before you go — get your size and 15% off your first order."
       }
     }
   },
   "order": [
+    "size_quiz_hiRqcW",
     "footer",
     "size_quiz"
   ]
