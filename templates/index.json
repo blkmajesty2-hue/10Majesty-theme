@@ -84,7 +84,7 @@
         "color_7bTjp3": {
           "type": "color",
           "settings": {
-            "color": "Black",
+            "color": "Svart",
             "swatch": "#111111",
             "fallback": "blkm-color-black.webp"
           }
@@ -100,7 +100,7 @@
         "color_HWpBDe": {
           "type": "color",
           "settings": {
-            "color": "Navy Blue",
+            "color": "Marinblå",
             "swatch": "#1c2a55",
             "fallback": "blkm-color-navy.webp"
           }
@@ -108,7 +108,7 @@
         "color_HbREaY": {
           "type": "color",
           "settings": {
-            "color": "Lilac",
+            "color": "Lila",
             "swatch": "#cbb2ef",
             "fallback": "blkm-color-lilac.webp"
           }
@@ -116,7 +116,7 @@
         "color_XXAczY": {
           "type": "color",
           "settings": {
-            "color": "Royal Blue",
+            "color": "Kungsblå",
             "swatch": "#1f4fd6",
             "fallback": "blkm-color-royal-blue.webp"
           }
@@ -124,7 +124,7 @@
         "color_HjxV4y": {
           "type": "color",
           "settings": {
-            "color": "Fuchsia Pink",
+            "color": "Fuchsiarosa",
             "swatch": "#e5187c",
             "fallback": "blkm-color-fuchsia.webp"
           }
@@ -132,7 +132,7 @@
         "color_qLhMkC": {
           "type": "color",
           "settings": {
-            "color": "Plum",
+            "color": "Plommon",
             "swatch": "#5a1840",
             "fallback": "blkm-color-plum.webp"
           }
