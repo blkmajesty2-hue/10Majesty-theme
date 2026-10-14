@@ -345,6 +345,32 @@
     </div>
   </section>
 
+  <section class="blkm-exp" aria-labelledby="BLKMExpTitle-{{ section.id }}">
+    <header class="blkm-exp__head">
+      <h2 id="BLKMExpTitle-{{ section.id }}">{{ section.settings.exp_heading | escape }}</h2>
+      <p>{{ section.settings.exp_subheading | escape }}</p>
+    </header>
+    <div class="blkm-exp__grid">
+      {% for block in section.blocks %}
+        {% if block.type == 'experience' %}
+          <article class="blkm-exp__card" {{ block.shopify_attributes }}>
+            <div class="blkm-exp__media">
+              {% if block.settings.image != blank %}
+                {{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400, 600, 900', sizes: '(min-width: 990px) 30vw, 85vw' }}
+              {% else %}
+                {{ 'image' | placeholder_svg_tag: 'blkm-placeholder' }}
+              {% endif %}
+            </div>
+            <div class="blkm-exp__body">
+              <strong>{{ block.settings.name | escape }}</strong>
+              <p>{{ block.settings.text | escape }}</p>
+            </div>
+          </article>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </section>
+
   <section class="blkm-story" aria-labelledby="BLKMStoryTitle-{{ section.id }}">
     <p class="blkm-kicker">WE ARE MAJESTY</p>
     <h2 id="BLKMStoryTitle-{{ section.id }}">{{ section.settings.story_heading | newline_to_br }}</h2>
@@ -490,6 +516,19 @@
   #BLKMajesty-{{ section.id }} .blkm-review__body{padding:12px 4px 0;font-size:14px;line-height:1.5}
   #BLKMajesty-{{ section.id }} .blkm-review__body p{margin:4px 0 8px}
   #BLKMajesty-{{ section.id }} .blkm-review__stars{color:#f5a623;letter-spacing:2px}
+
+  #BLKMajesty-{{ section.id }} .blkm-exp{padding:56px clamp(16px,4vw,48px);background:#fff}
+  #BLKMajesty-{{ section.id }} .blkm-exp__head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px;padding-bottom:20px;margin-bottom:28px;border-bottom:1px solid var(--blkm-line)}
+  #BLKMajesty-{{ section.id }} .blkm-exp__head h2{margin:0;font-size:clamp(34px,5vw,64px);font-weight:900;letter-spacing:-.04em;line-height:1}
+  #BLKMajesty-{{ section.id }} .blkm-exp__head p{margin:0;font-size:14px}
+  #BLKMajesty-{{ section.id }} .blkm-exp__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+  #BLKMajesty-{{ section.id }} .blkm-exp__card{overflow:hidden;border:1px solid var(--blkm-line);border-radius:14px;background:#fff}
+  #BLKMajesty-{{ section.id }} .blkm-exp__media{aspect-ratio:4/3;background:#eee}
+  #BLKMajesty-{{ section.id }} .blkm-exp__media img,#BLKMajesty-{{ section.id }} .blkm-exp__media .blkm-placeholder{display:block;width:100%;height:100%;object-fit:cover}
+  #BLKMajesty-{{ section.id }} .blkm-exp__body{padding:24px 28px 32px}
+  #BLKMajesty-{{ section.id }} .blkm-exp__body strong{display:block;margin-bottom:10px;font-size:20px}
+  #BLKMajesty-{{ section.id }} .blkm-exp__body p{margin:0;font-size:17px;line-height:1.65}
+  @media(max-width:749px){#BLKMajesty-{{ section.id }} .blkm-exp__grid{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:85%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}#BLKMajesty-{{ section.id }} .blkm-exp__card{scroll-snap-align:start}}
 
   #BLKMajesty-{{ section.id }} .blkm-story{padding:120px clamp(24px,6vw,92px);background:#deded8}
   #BLKMajesty-{{ section.id }} .blkm-story__row{display:grid;grid-template-columns:minmax(0,650px) auto;justify-content:space-between;align-items:end;gap:60px;margin-top:58px}
@@ -712,15 +751,19 @@
     {"type":"textarea","id":"editorial_copy","label":"Editorial copy","default":"Monochrome pieces for the hours when the city feels like yours."},
     {"type":"url","id":"editorial_link","label":"Editorial link"},
 
-    {"type":"header","content":"Före / efter"},
-    {"type":"text","id":"ba_heading","label":"Heading","default":"Före / efter"},
+    {"type":"header","content":"Before / after"},
+    {"type":"text","id":"ba_heading","label":"Heading","default":"Before / after"},
     {"type":"image_picker","id":"ba_before_image","label":"Before image"},
     {"type":"image_picker","id":"ba_after_image","label":"After image"},
-    {"type":"text","id":"ba_before_label","label":"Before label","default":"FÖRE"},
-    {"type":"text","id":"ba_after_label","label":"After label","default":"EFTER"},
+    {"type":"text","id":"ba_before_label","label":"Before label","default":"BEFORE"},
+    {"type":"text","id":"ba_after_label","label":"After label","default":"AFTER"},
 
     {"type":"header","content":"Customer reviews"},
-    {"type":"text","id":"reviews_heading","label":"Heading","default":"Tusentals mammor har redan återfått sin silhuett med BLK_MAJESTY"},
+    {"type":"text","id":"reviews_heading","label":"Heading","default":"Thousands of moms have already regained their silhouette with BLK_MAJESTY"},
+
+    {"type":"header","content":"Customer experiences"},
+    {"type":"text","id":"exp_heading","label":"Heading","default":"Customer experiences."},
+    {"type":"text","id":"exp_subheading","label":"Subheading","default":"Share verified feedback from your customers."},
 
     {"type":"header","content":"Brand story"},
     {"type":"textarea","id":"story_heading","label":"Story heading","default":"NO NOISE.\nJUST PRESENCE."},
@@ -734,6 +777,15 @@
   ],
   "blocks": [
     {
+      "type": "experience",
+      "name": "Customer experience",
+      "settings": [
+        {"type":"image_picker","id":"image","label":"Customer photo"},
+        {"type":"text","id":"name","label":"Name and age","default":"Name, 40"},
+        {"type":"textarea","id":"text","label":"Review text"}
+      ]
+    },
+    {
       "type": "review",
       "name": "Review",
       "settings": [
@@ -745,7 +797,12 @@
     }
   ],
   "presets": [
-    {"name":"BLK Majesty Storefront","blocks":[{"type":"review"},{"type":"review"},{"type":"review"}]}
+    {"name":"BLK Majesty Storefront","blocks":[
+      {"type":"review"},{"type":"review"},{"type":"review"},
+      {"type":"experience","settings":{"name":"Chiara, 44","text":"Very comfortable and supportive. I love how it smooths everything under my jeans without feeling too tight."}},
+      {"type":"experience","settings":{"name":"Cristina, 52","text":"The fit is really good and I can wear it for hours without feeling uncomfortable. It stays in place all day."}},
+      {"type":"experience","settings":{"name":"Serena, 56","text":"It gives my waist a more defined shape and fits easily under my everyday clothes."}}
+    ]}
   ]
 }
 {% endschema %}
