@@ -219,7 +219,16 @@
           <div class="bundle{% if is_selected %} selected{% endif %}" data-quantity="{{ qty }}" {{ block.shopify_attributes }}>
             <label class="bundle-label">
               <input type="radio" autocomplete="off" name="bundle-{{ section.id }}" value="{{ qty }}" data-title="{{ block.settings.title | escape }}" data-price-label="{{ price_label | strip_html | escape }}"{% if is_selected %} checked{% endif %}>
-              {%- if block.settings.image != blank -%}{{ block.settings.image | image_url: width: 160 | image_tag: loading: 'lazy', class: 'bundle-thumb', alt: block.settings.title }}{%- endif -%}
+              {%- if block.settings.image != blank or block.settings.thumb_fallback != blank -%}
+                <span class="bundle-thumb">
+                  {%- if block.settings.image != blank -%}
+                    {{ block.settings.image | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}
+                  {%- else -%}
+                    <img src="{{ block.settings.thumb_fallback | asset_url }}" alt="" width="160" height="160" loading="lazy">
+                  {%- endif -%}
+                  {%- if block.settings.thumb_badge != blank -%}<span class="bundle-thumb__badge">{{ block.settings.thumb_badge | escape }}</span>{%- endif -%}
+                </span>
+              {%- endif -%}
               <span><b>{{ block.settings.title | escape }}</b><small>{{ block.settings.subtitle | escape }}</small></span>
               <span class="bundle-price">{{ price_label }}{% if section.settings.show_compare and list_cents > bundle_cents %}<s class="bundle-compare">{{ list_cents | money }}</s>{% endif %}{% if per_label != blank %}<small>{{ per_label }}</small>{% endif %}</span>
               {%- if block.settings.badge != blank -%}<em>{{ block.settings.badge | escape }}</em>{%- endif -%}
@@ -387,6 +396,8 @@
         { "type": "number", "id": "bundle_price", "label": "Bundle price (store currency)", "info": "e.g. 39.90. Must match the automatic discount for this quantity. Leave empty to use 'Items paid for'." },
         { "type": "range", "id": "paid", "label": "Items paid for (the rest are free)", "min": 1, "max": 10, "step": 1, "default": 1, "info": "Used when no bundle price is set. e.g. Buy 2, get 2 free → 4 items, 2 paid." },
         { "type": "image_picker", "id": "image", "label": "Thumbnail" },
+        { "type": "text", "id": "thumb_fallback", "label": "Built-in thumbnail file", "info": "Used when no thumbnail is picked, e.g. blkm-color-beige.webp." },
+        { "type": "text", "id": "thumb_badge", "label": "Thumbnail badge", "info": "Small label on the thumbnail, e.g. 2+2." },
         { "type": "text", "id": "price_label", "label": "Price label", "info": "Leave empty to show the bundle price automatically in the shopper's currency. Can use [total] and [each]." },
         { "type": "text", "id": "per_label", "label": "Per-item label", "default": "[each] / brief", "info": "[each] = price per item, in the shopper's currency." },
         { "type": "text", "id": "badge", "label": "Badge" },

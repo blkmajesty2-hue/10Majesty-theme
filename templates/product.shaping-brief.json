@@ -23,7 +23,9 @@
             "price_label": "",
             "per_label": "[each] / trosa",
             "badge": "",
-            "selected": false
+            "selected": false,
+            "thumb_fallback": "blkm-color-black.webp",
+            "thumb_badge": ""
           }
         },
         "bundle4": {
@@ -37,7 +39,9 @@
             "price_label": "",
             "per_label": "[each] / trosa",
             "badge": "BÄSTA ERBJUDANDET",
-            "selected": true
+            "selected": true,
+            "thumb_fallback": "blkm-color-beige.webp",
+            "thumb_badge": "2+2"
           }
         },
         "bundle6": {
@@ -51,7 +55,9 @@
             "price_label": "",
             "per_label": "[each] / trosa",
             "badge": "BÄSTA VÄRDET",
-            "selected": false
+            "selected": false,
+            "thumb_fallback": "blkm-color-fuchsia.webp",
+            "thumb_badge": "3+3"
           }
         },
         "c1": {
