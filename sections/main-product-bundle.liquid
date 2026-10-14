@@ -81,12 +81,26 @@
       {%- if section.settings.eyebrow != blank -%}<p class="product-eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
       <h1 class="product-title">{% if section.settings.title_override != blank %}{{ section.settings.title_override | escape | newline_to_br }}{% else %}{{ product.title | escape }}{% endif %}</h1>
       {%- if section.settings.subtitle != blank -%}<p class="subtitle">{{ section.settings.subtitle | escape }}</p>{%- endif -%}
-      {%- if section.settings.lead != blank -%}<p class="lead">{{ section.settings.lead | escape }}</p>{%- endif -%}
+      {%- if section.settings.lead_rich != blank -%}
+        <div class="lead lead--rich">{{ section.settings.lead_rich }}</div>
+      {%- elsif section.settings.lead != blank -%}
+        <p class="lead">{{ section.settings.lead | escape }}</p>
+      {%- endif -%}
       {%- assign benefits = section.blocks | where: 'type', 'benefit' -%}
       {%- if benefits.size > 0 -%}
         <ul class="benefits">
           {%- for block in benefits -%}
-            <li {{ block.shopify_attributes }}><b>{{ block.settings.title | escape }}</b>{% if block.settings.text != blank %} — {{ block.settings.text | escape }}{% endif %}</li>
+            {%- assign icon = block.settings.icon | default: 'check' -%}
+            <li class="benefits__item{% if icon != 'check' %} benefits__item--icon{% endif %}" {{ block.shopify_attributes }}>
+              {%- if icon != 'check' -%}<span class="benefits__icon" aria-hidden="true">{% render 'benefit-icon', icon: icon %}</span>{%- endif -%}
+              <span>
+                {%- if block.settings.rich != blank -%}
+                  {{ block.settings.rich }}
+                {%- else -%}
+                  <b>{{ block.settings.title | escape }}</b>{% if block.settings.text != blank %} — {{ block.settings.text | escape }}{% endif %}
+                {%- endif -%}
+              </span>
+            </li>
           {%- endfor -%}
         </ul>
       {%- endif -%}
@@ -305,6 +319,7 @@
     { "type": "text", "id": "eyebrow", "label": "Small label above title", "default": "BLK_MAJESTY · SHAPEWEAR" },
     { "type": "textarea", "id": "title_override", "label": "Title shown on page", "info": "Leave empty to use the product title. Press Enter for a line break." },
     { "type": "text", "id": "subtitle", "label": "Subtitle badge", "default": "Seamless tummy control" },
+    { "type": "richtext", "id": "lead_rich", "label": "Intro text (with bold)", "info": "Used instead of the plain intro text below when filled. Use one paragraph per line." },
     { "type": "textarea", "id": "lead", "label": "Intro text", "default": "A smooth everyday foundation, with a high-rise waist and X-shaped cross-over bands that wrap the midsection." },
     { "type": "text", "id": "offer_text", "label": "Offer banner text", "default": "BUY 2, GET 2 FREE" },
     { "type": "text", "id": "offer_price", "label": "Offer banner price", "info": "Can use [price], [half], [x2], [x3] and bundle totals like [bundle_4]." },
@@ -345,6 +360,18 @@
       "type": "benefit",
       "name": "Benefit",
       "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "default": "check", "options": [
+          { "value": "check", "label": "Check mark" },
+          { "value": "person", "label": "Person" },
+          { "value": "eye-off", "label": "Hidden (eye)" },
+          { "value": "rotate", "label": "360° / all around" },
+          { "value": "heart", "label": "Heart" },
+          { "value": "clock", "label": "Clock" },
+          { "value": "shield", "label": "Shield" },
+          { "value": "layers", "label": "Layers" },
+          { "value": "truck", "label": "Delivery" }
+        ] },
+        { "type": "inline_richtext", "id": "rich", "label": "Text (with bold)", "info": "Used instead of title and text when filled." },
         { "type": "text", "id": "title", "label": "Title", "default": "Benefit" },
         { "type": "text", "id": "text", "label": "Text" }
       ]

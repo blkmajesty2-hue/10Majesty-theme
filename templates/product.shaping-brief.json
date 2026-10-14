@@ -12,34 +12,6 @@
     "main": {
       "type": "main-product-bundle",
       "blocks": {
-        "b1": {
-          "type": "benefit",
-          "settings": {
-            "title": "360° stöd",
-            "text": "en omslutande korsbandsdesign."
-          }
-        },
-        "b2": {
-          "type": "benefit",
-          "settings": {
-            "title": "Hög midja",
-            "text": "en strukturerad silhuett som sitter kvar."
-          }
-        },
-        "b3": {
-          "type": "benefit",
-          "settings": {
-            "title": "Sömlös finish",
-            "text": "ett diskret lager under kläderna."
-          }
-        },
-        "b4": {
-          "type": "benefit",
-          "settings": {
-            "title": "Storlekar S–3XL",
-            "text": "en passform för alla kroppar."
-          }
-        },
         "bundle2": {
           "type": "bundle",
           "settings": {
@@ -97,6 +69,60 @@
             "content": "<p>Handtvätta eller maskintvätta kallt på skonsamt program med milt tvättmedel. Lufttorka. Använd inte blekmedel eller sköljmedel.</p>",
             "page": ""
           }
+        },
+        "b1": {
+          "type": "benefit",
+          "settings": {
+            "icon": "person",
+            "rich": "Smoother, <strong>supported</strong> tummy",
+            "title": "",
+            "text": ""
+          }
+        },
+        "b2": {
+          "type": "benefit",
+          "settings": {
+            "icon": "eye-off",
+            "rich": "<strong>Discreet</strong> under clothes",
+            "title": "",
+            "text": ""
+          }
+        },
+        "b3": {
+          "type": "benefit",
+          "settings": {
+            "icon": "rotate",
+            "rich": "<strong>360°</strong> wraparound support",
+            "title": "",
+            "text": ""
+          }
+        },
+        "b4": {
+          "type": "benefit",
+          "settings": {
+            "icon": "layers",
+            "rich": "Stays <strong>in place</strong> — no rolling down",
+            "title": "",
+            "text": ""
+          }
+        },
+        "b5": {
+          "type": "benefit",
+          "settings": {
+            "icon": "clock",
+            "rich": "Slips on in <strong>seconds</strong>, like underwear",
+            "title": "",
+            "text": ""
+          }
+        },
+        "b6": {
+          "type": "benefit",
+          "settings": {
+            "icon": "shield",
+            "rich": "<strong>30-day</strong> returns",
+            "title": "",
+            "text": ""
+          }
         }
       },
       "block_order": [
@@ -104,6 +130,8 @@
         "b2",
         "b3",
         "b4",
+        "b5",
+        "b6",
         "bundle2",
         "bundle4",
         "bundle6",
@@ -145,7 +173,8 @@
         "countdown_end": "",
         "countdown_text": "Skynda dig! Erbjudandet slutar om",
         "promo_link": "",
-        "sticky_bar": true
+        "sticky_bar": true,
+        "lead_rich": "<p>Your body carried life for 9 months.</p><p>It deserves to be <strong>supported</strong> — not squeezed.</p><p>360° cross-over support, inspired by the Malaysian <strong>bengkung</strong>.</p>"
       }
     },
     "before_after_video": {

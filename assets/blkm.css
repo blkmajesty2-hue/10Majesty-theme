@@ -1107,3 +1107,11 @@ footer .wordmark,.footer-grid .wordmark{font-size:clamp(26px,2.6vw,34px);font-we
 .bundle-thumb{flex-shrink:0;width:58px;height:58px;border-radius:8px;object-fit:cover;background:#f4f0ec}
 .bundle-price .bundle-compare{display:block;font-size:13px;font-weight:500;color:#8a8a8a}
 @media(max-width:600px){.bundle-thumb{width:48px;height:48px}}
+
+/* Product intro with bold words and benefits with icons */
+.lead--rich p{margin:0 0 4px}
+.lead--rich{margin-bottom:22px;font-size:16px;line-height:1.6}
+.benefits .benefits__item--icon{display:flex;align-items:center;gap:18px;margin:14px 0;padding-left:0;font-size:16px;line-height:1.4}
+.benefits .benefits__item--icon::before,.benefits .benefits__item--icon:before{content:none;display:none}
+.benefits__icon{display:inline-grid;place-items:center;flex-shrink:0;width:26px;height:26px;color:#111}
+@media(max-width:600px){.lead--rich{font-size:15px}.benefits .benefits__item--icon{gap:14px;font-size:15px;margin:12px 0}}
