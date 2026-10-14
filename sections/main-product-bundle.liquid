@@ -21,8 +21,8 @@
     endif
   endfor
 
-  # Bundle totals in the shopper's currency. A bundle with a fixed price (store currency) is shown as
-  # regular price x quantity minus the converted saving, which matches the automatic discount at checkout.
+  # Bundle totals in the shopper's currency: the fixed bundle price (store currency) times the market's
+  # exchange rate, which matches the automatic discount at checkout. The rate comes from the product price.
   assign fx = 1
   if section.settings.base_unit_price > 0
     assign fx = current_variant.price | times: 1.0 | divided_by: section.settings.base_unit_price | divided_by: 100 | round: 2
@@ -31,9 +31,7 @@
   for b in bundles
     assign b_qty = b.settings.quantity
     if b.settings.bundle_price > 0 and section.settings.base_unit_price > 0
-      assign b_list = current_variant.price | times: b_qty
-      assign b_save = section.settings.base_unit_price | times: b_qty | minus: b.settings.bundle_price | times: 100 | times: fx | round
-      assign b_cents = b_list | minus: b_save
+      assign b_cents = b.settings.bundle_price | times: 100 | times: fx | round
     else
       assign b_paid = b.settings.paid
       if b_paid == blank or b_paid < 1 or b_paid > b_qty
