@@ -1152,3 +1152,20 @@ footer .wordmark,.footer-grid .wordmark{font-size:clamp(26px,2.6vw,34px);font-we
 .cart-drawer__pay{margin-top:12px;text-align:center}
 .cart-drawer__pay svg{width:34px;height:22px}
 @media(max-width:480px){.cart-drawer__head h2{font-size:20px}.cart-upsell__item{grid-template-columns:56px 1fr;}.cart-upsell__side{grid-column:2;display:flex;align-items:center;justify-content:space-between;text-align:left}.cart-upsell__price{margin:0}}
+
+/* Under the buy button: trust row, question rows with check icons, trust grid */
+.pd-trust{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0 10px;padding:0;list-style:none;text-align:center;font-size:14px;font-weight:700;line-height:1.3}
+.pd-trust__icon{display:grid;place-items:center;height:34px;margin-bottom:8px}
+.pd-trust__icon svg{width:28px;height:28px}
+.buy-panel details.pd-acc{margin:0;padding:0 4px;border:0;border-bottom:1px solid #e5e5e5;border-radius:0}
+.buy-panel details.pd-acc summary{display:flex;align-items:center;gap:16px;padding:20px 0;font-size:17px;font-weight:700;line-height:1.35}
+.buy-panel details.pd-acc summary:after{content:'';flex-shrink:0;width:9px;height:9px;margin:0 6px 4px auto;border-right:1.6px solid #777;border-bottom:1.6px solid #777;transform:rotate(45deg);transition:transform .2s}
+.buy-panel details.pd-acc[open] summary:after{transform:rotate(-135deg);margin-bottom:-4px}
+.pd-acc__check{flex-shrink:0;display:grid;place-items:center;width:28px;height:28px}
+.pd-acc__check svg{width:28px;height:28px;fill:none;stroke:#111;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.pd-acc__q{flex:1}
+.buy-panel details.pd-acc .rte{padding:0 0 18px 44px;font-size:15px;color:#444}
+.pd-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px 12px;margin:28px 0 8px;padding:0;list-style:none;text-align:center;font-size:16px;font-weight:700;color:#333}
+.pd-grid__icon{display:grid;place-items:center;height:40px;margin-bottom:10px;color:#6f8a62}
+.pd-grid__icon svg{width:34px;height:34px}
+@media(max-width:600px){.pd-trust{font-size:13px}.buy-panel details.pd-acc summary{font-size:16px;gap:14px}.pd-grid{font-size:15px}}

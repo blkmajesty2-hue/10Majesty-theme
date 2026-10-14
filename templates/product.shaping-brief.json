@@ -129,6 +129,38 @@
             "title": "",
             "text": ""
           }
+        },
+        "q_size": {
+          "type": "collapsible",
+          "settings": {
+            "heading": "Hur väljer jag min storlek?",
+            "content": "<p>Mät midjan där den är smalast och höfterna där de är bredast, och jämför med storleksguiden. Ligger du mellan två storlekar, välj den större.</p>",
+            "page": ""
+          }
+        },
+        "q_years": {
+          "type": "collapsible",
+          "settings": {
+            "heading": "Fungerar de flera år efter förlossningen?",
+            "content": "<p>Ja – de formar och stöttar medan du har dem på dig, oavsett hur länge sedan förlossningen var. De förändrar inte kroppen permanent.</p>",
+            "page": ""
+          }
+        },
+        "q_after": {
+          "type": "collapsible",
+          "settings": {
+            "heading": "Kan jag använda dem efter förlossningen?",
+            "content": "<p>Det här är formande trosor för vardagen, inte ett medicinskt plagg. Om du återhämtar dig efter förlossning eller kejsarsnitt, fråga din läkare eller barnmorska innan du använder shapewear.</p>",
+            "page": ""
+          }
+        },
+        "q_show": {
+          "type": "collapsible",
+          "settings": {
+            "heading": "Syns de under kläderna?",
+            "content": "<p>De kantade kanterna och de släta banden sitter diskret under kläderna. Hur synliga de är beror på passform, färg och vad du har över.</p>",
+            "page": ""
+          }
         }
       },
       "block_order": [
@@ -141,6 +173,10 @@
         "bundle2",
         "bundle4",
         "bundle6",
+        "q_size",
+        "q_years",
+        "q_after",
+        "q_show",
         "c1",
         "c2"
       ],
@@ -180,7 +216,22 @@
         "countdown_text": "Skynda dig! Erbjudandet slutar om",
         "promo_link": "",
         "sticky_bar": true,
-        "lead_rich": "<p>Din kropp bar på ett liv i 9 månader.</p><p>Den förtjänar att få <strong>stöd</strong> — inte att klämmas.</p><p>360° korsat stöd, inspirerat av malaysisk <strong>bengkung</strong>.</p>"
+        "lead_rich": "<p>Din kropp bar på ett liv i 9 månader.</p><p>Den förtjänar att få <strong>stöd</strong> — inte att klämmas.</p><p>360° korsat stöd, inspirerat av malaysisk <strong>bengkung</strong>.</p>",
+        "trust_1": "30 dagars returrätt",
+        "trust_icon_1": "rotate",
+        "trust_2": "Säker betalning",
+        "trust_icon_2": "lock",
+        "trust_3": "Fri frakt",
+        "trust_icon_3": "truck",
+        "grid_1": "30 dagars returrätt",
+        "grid_icon_1": "shield",
+        "grid_2": "Fri frakt",
+        "grid_icon_2": "truck",
+        "grid_3": "Säker betalning",
+        "grid_icon_3": "lock",
+        "grid_4": "Storlekar S–3XL",
+        "grid_icon_4": "check",
+        "show_description": true
       }
     },
     "before_after_video": {

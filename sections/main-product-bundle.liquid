@@ -242,10 +242,30 @@
       </button>
       <p class="center-note" role="status" data-form-status>{{ section.settings.note | escape }}</p>
       <div class="payments">{% render 'payment-icons' %}</div>
+      {%- liquid
+        assign trust_row = ''
+        for i in (1..3)
+          assign tk = 'trust_' | append: i
+          if section.settings[tk] != blank
+            assign trust_row = 'yes'
+          endif
+        endfor
+      -%}
+      {%- if trust_row != blank -%}
+        <ul class="pd-trust">
+          {%- for i in (1..3) -%}
+            {%- assign tk = 'trust_' | append: i -%}
+            {%- assign ti = 'trust_icon_' | append: i -%}
+            {%- if section.settings[tk] != blank -%}
+              <li><span class="pd-trust__icon">{% render 'benefit-icon', icon: section.settings[ti] %}</span>{{ section.settings[tk] | escape }}</li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
       {%- for block in section.blocks -%}
         {%- if block.type == 'collapsible' -%}
-          <details {{ block.shopify_attributes }}>
-            <summary>{{ block.settings.heading | escape }}</summary>
+          <details class="pd-acc" {{ block.shopify_attributes }}>
+            <summary><span class="pd-acc__check" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7.5 12.5 10.5 15.5 16.5 9"/></svg></span><span class="pd-acc__q">{{ block.settings.heading | escape }}</span></summary>
             <div class="rte">
               {{ block.settings.content }}
               {%- if block.settings.page != blank -%}{{ block.settings.page.content }}{%- endif -%}
@@ -253,11 +273,31 @@
           </details>
         {%- endif -%}
       {%- endfor -%}
-      {%- if product.description != blank -%}
-        <details>
-          <summary>{{ 'general.description' | t }}</summary>
+      {%- if product.description != blank and section.settings.show_description -%}
+        <details class="pd-acc">
+          <summary><span class="pd-acc__check" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7.5 12.5 10.5 15.5 16.5 9"/></svg></span><span class="pd-acc__q">{{ 'general.description' | t }}</span></summary>
           <div class="rte">{{ product.description }}</div>
         </details>
+      {%- endif -%}
+      {%- liquid
+        assign trust_grid = ''
+        for i in (1..4)
+          assign gk = 'grid_' | append: i
+          if section.settings[gk] != blank
+            assign trust_grid = 'yes'
+          endif
+        endfor
+      -%}
+      {%- if trust_grid != blank -%}
+        <ul class="pd-grid">
+          {%- for i in (1..4) -%}
+            {%- assign gk = 'grid_' | append: i -%}
+            {%- assign gi = 'grid_icon_' | append: i -%}
+            {%- if section.settings[gk] != blank -%}
+              <li><span class="pd-grid__icon">{% render 'benefit-icon', icon: section.settings[gi] %}</span>{{ section.settings[gk] | escape }}</li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
       {%- endif -%}
       {%- if section.settings.promo_image != blank -%}
         <div class="source-offer-image">
@@ -361,6 +401,23 @@
     { "type": "text", "id": "countdown_text", "label": "Countdown text", "default": "Hurry! The offer ends in" },
     { "type": "image_picker", "id": "promo_image", "label": "Promo image under the buy box" },
     { "type": "url", "id": "promo_link", "label": "Promo image link" },
+    { "type": "header", "content": "Trust icons" },
+    { "type": "paragraph", "content": "A row of three under the payment icons, and a 2×2 grid under the questions. Leave text empty to hide." },
+    { "type": "text", "id": "trust_1", "label": "Row 1 text" },
+    { "type": "select", "id": "trust_icon_1", "label": "Row 1 icon", "default": "rotate", "options": [{ "value": "heart", "label": "Heart" },{ "value": "shield", "label": "Shield" },{ "value": "lock", "label": "Lock" },{ "value": "truck", "label": "Delivery" },{ "value": "box", "label": "Box" },{ "value": "rotate", "label": "Return" },{ "value": "clock", "label": "Clock" },{ "value": "check", "label": "Check" }] },
+    { "type": "text", "id": "trust_2", "label": "Row 2 text" },
+    { "type": "select", "id": "trust_icon_2", "label": "Row 2 icon", "default": "lock", "options": [{ "value": "heart", "label": "Heart" },{ "value": "shield", "label": "Shield" },{ "value": "lock", "label": "Lock" },{ "value": "truck", "label": "Delivery" },{ "value": "box", "label": "Box" },{ "value": "rotate", "label": "Return" },{ "value": "clock", "label": "Clock" },{ "value": "check", "label": "Check" }] },
+    { "type": "text", "id": "trust_3", "label": "Row 3 text" },
+    { "type": "select", "id": "trust_icon_3", "label": "Row 3 icon", "default": "truck", "options": [{ "value": "heart", "label": "Heart" },{ "value": "shield", "label": "Shield" },{ "value": "lock", "label": "Lock" },{ "value": "truck", "label": "Delivery" },{ "value": "box", "label": "Box" },{ "value": "rotate", "label": "Return" },{ "value": "clock", "label": "Clock" },{ "value": "check", "label": "Check" }] },
+    { "type": "text", "id": "grid_1", "label": "Grid 1 text" },
+    { "type": "select", "id": "grid_icon_1", "label": "Grid 1 icon", "default": "shield", "options": [{ "value": "heart", "label": "Heart" },{ "value": "shield", "label": "Shield" },{ "value": "lock", "label": "Lock" },{ "value": "truck", "label": "Delivery" },{ "value": "box", "label": "Box" },{ "value": "rotate", "label": "Return" },{ "value": "clock", "label": "Clock" },{ "value": "check", "label": "Check" }] },
+    { "type": "text", "id": "grid_2", "label": "Grid 2 text" },
+    { "type": "select", "id": "grid_icon_2", "label": "Grid 2 icon", "default": "truck", "options": [{ "value": "heart", "label": "Heart" },{ "value": "shield", "label": "Shield" },{ "value": "lock", "label": "Lock" },{ "value": "truck", "label": "Delivery" },{ "value": "box", "label": "Box" },{ "value": "rotate", "label": "Return" },{ "value": "clock", "label": "Clock" },{ "value": "check", "label": "Check" }] },
+    { "type": "text", "id": "grid_3", "label": "Grid 3 text" },
+    { "type": "select", "id": "grid_icon_3", "label": "Grid 3 icon", "default": "box", "options": [{ "value": "heart", "label": "Heart" },{ "value": "shield", "label": "Shield" },{ "value": "lock", "label": "Lock" },{ "value": "truck", "label": "Delivery" },{ "value": "box", "label": "Box" },{ "value": "rotate", "label": "Return" },{ "value": "clock", "label": "Clock" },{ "value": "check", "label": "Check" }] },
+    { "type": "text", "id": "grid_4", "label": "Grid 4 text" },
+    { "type": "select", "id": "grid_icon_4", "label": "Grid 4 icon", "default": "lock", "options": [{ "value": "heart", "label": "Heart" },{ "value": "shield", "label": "Shield" },{ "value": "lock", "label": "Lock" },{ "value": "truck", "label": "Delivery" },{ "value": "box", "label": "Box" },{ "value": "rotate", "label": "Return" },{ "value": "clock", "label": "Clock" },{ "value": "check", "label": "Check" }] },
+    { "type": "checkbox", "id": "show_description", "label": "Show product description as a question row", "default": true },
     { "type": "checkbox", "id": "sticky_bar", "label": "Show sticky buy bar", "default": true },
     { "type": "paragraph", "content": "Bundle prices shown here are labels only. Create matching automatic discounts in Shopify admin (Discounts) so checkout charges the same amount." }
   ],
