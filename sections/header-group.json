@@ -9,7 +9,7 @@
  */
 {
   "type": "header",
-  "name": "Header group",
+  "name": "Sidhuvud",
   "sections": {
     "announcement": {
       "type": "announcement-bar",
@@ -17,13 +17,13 @@
         "a1": {
           "type": "announcement",
           "settings": {
-            "text": "FREE SHIPPING OVER [free_shipping]"
+            "text": "FRI FRAKT ÖVER [free_shipping]"
           }
         },
         "a2": {
           "type": "announcement",
           "settings": {
-            "text": "30-DAY MONEY-BACK GUARANTEE"
+            "text": "30 DAGARS PENGARNA-TILLBAKA-GARANTI"
           }
         }
       },
