@@ -18,10 +18,10 @@
         "overlay": 55,
         "text_color": "#0a0a0a",
         "eyebrow": "",
-        "heading": "POSTPARTUM SUPPORT,\nREIMAGINED.",
+        "heading": "STÖD EFTER FÖRLOSSNINGEN,\nOMTÄNKT.",
         "serif": true,
-        "text": "Sculpting comfort designed to support you through every movement.",
-        "button_label": "SHOP NOW",
+        "text": "Formande komfort som stöttar dig i varje rörelse.",
+        "button_label": "HANDLA NU",
         "button_link": "shopify://products/culotte-post-patrum",
         "small_text": "BLK_MAJESTY"
       }
@@ -30,8 +30,8 @@
       "type": "featured-collection",
       "disabled": true,
       "settings": {
-        "eyebrow": "The collection",
-        "heading": "Shop BLK_MAJESTY.",
+        "eyebrow": "Kollektionen",
+        "heading": "Handla BLK_MAJESTY.",
         "collection": "",
         "limit": 6,
         "columns": "3"
@@ -43,22 +43,22 @@
         "p1": {
           "type": "point",
           "settings": {
-            "title": "Cross-over front",
-            "text": "Two overlapping bands form the signature X-shaped front."
+            "title": "Korsad framsida",
+            "text": "Två överlappande band formar den karaktäristiska X-formade framsidan."
           }
         },
         "p2": {
           "type": "point",
           "settings": {
-            "title": "High-rise waist",
-            "text": "A high-waisted cut with full coverage at the front, sides and back."
+            "title": "Hög midja",
+            "text": "Ett högmidjat snitt med full täckning över framsida, sidor och rygg."
           }
         },
         "p3": {
           "type": "point",
           "settings": {
-            "title": "Mesh inserts",
-            "text": "Breathable mesh panels sit between the bands."
+            "title": "Mesh-inlägg",
+            "text": "Andningsbara mesh-paneler sitter mellan banden."
           }
         }
       },
@@ -68,13 +68,13 @@
         "p3"
       ],
       "settings": {
-        "eyebrow": "The cross-over design",
-        "heading": "Support, from every angle.",
+        "eyebrow": "Den korsade designen",
+        "heading": "Stöd, från alla vinklar.",
         "fallback_image": "blkm-details-beige.webp",
-        "image_eyebrow": "The signature construction",
-        "image_heading": "Designed around\nthe details.",
-        "text": "<p>Overlapping bands sit across the front, while the high-rise cut extends coverage around the waist. Bound edges keep the finish clean under clothes.</p>",
-        "button_label": "Shop the shaping briefs",
+        "image_eyebrow": "Den karaktäristiska konstruktionen",
+        "image_heading": "Designad kring\ndetaljerna.",
+        "text": "<p>Överlappande band ligger över framsidan medan det högmidjade snittet ger täckning runt midjan. Kantade kanter håller finishen ren under kläderna.</p>",
+        "button_label": "Handla de formande trosorna",
         "button_link": "shopify://collections/all"
       }
     },
@@ -147,45 +147,45 @@
         "color_HjxV4y",
         "color_qLhMkC"
       ],
-      "name": "3D color showcase",
+      "name": "3D-färgvisning",
       "settings": {
-        "eyebrow": "Available in every mood",
-        "heading": "Spin to see every color.",
-        "text": "Drag, swipe or tap a color. Mix any colors in your bundle.",
+        "eyebrow": "Finns i alla stämningar",
+        "heading": "Snurra för att se alla färger.",
+        "text": "Dra, svep eller tryck på en färg. Blanda valfria färger i ditt paket.",
         "auto_rotate": true,
         "speed": 4,
         "card_width": 280,
-        "button_label": "Shop this color",
+        "button_label": "Handla den här färgen",
         "product": "culotte-post-patrum"
       }
     },
     "closer": {
       "type": "feature-image",
       "settings": {
-        "eyebrow": "A closer look",
-        "heading": "The details make the difference.",
+        "eyebrow": "En närmare titt",
+        "heading": "Detaljerna gör skillnaden.",
         "image": "shopify://shop_images/Gemini_Generated_Image_vskw3lvskw3lvskw_43a871c6-5e61-4a92-b444-4824f634ebb4.jpg",
         "fallback_image": "blkm-details-black.webp",
         "compare_show": false,
-        "compare_left_title": "CLASSIC WAIST CINCHER",
-        "compare_left_points": "Only compresses the front of the stomach\nRides up and slips after an hour\nShows under clothes",
+        "compare_left_title": "KLASSISKT MIDJEKORSETT",
+        "compare_left_points": "Komprimerar bara framsidan av magen\nRullar upp och glider efter en timme\nSyns under kläderna",
         "compare_right_title": "BLK_MAJESTY",
-        "compare_right_points": "360° — front, sides and back\nSlips on in 10 seconds, like underwear\nDisappears under every outfit",
-        "compare_note": "<strong>Inspired by the Malaysian bengkung</strong> — a cross-wrapping technique used for generations to support the belly after childbirth."
+        "compare_right_points": "360° — framsida, sidor och rygg\nPå på 10 sekunder, som vanliga underkläder\nSyns inte under något plagg",
+        "compare_note": "<strong>Inspirerad av den malaysiska bengkung</strong> — en korsande lindningsteknik som använts i generationer för att stötta magen efter förlossning."
       }
     },
     "mechanism_banner_Y6dWtH": {
       "type": "mechanism-banner",
-      "name": "Mechanism banner",
+      "name": "Mekanismbanner",
       "settings": {
-        "eyebrow": "THE EXCLUSIVE MECHANISM",
-        "heading": "Smooth belly. Redefined waist. In 5 seconds.",
+        "eyebrow": "DEN EXKLUSIVA MEKANISMEN",
+        "heading": "Len mage. Omdefinierad midja. På 5 sekunder.",
         "serif": false,
-        "text": "It crosses over your belly and holds it at three points: it smooths without squeezing. And you can breathe.",
-        "button_label": "Try it risk-free for 30 days",
+        "text": "Den korsar din mage och håller den på tre punkter: den jämnar ut utan att klämma. Och du kan andas.",
+        "button_label": "Testa riskfritt i 30 dagar",
         "button_link": "",
         "rating_text": "",
-        "reviews_word": "verified reviews",
+        "reviews_word": "verifierade omdömen",
         "bg_top": "#f5f5f5",
         "bg_bottom": "#e9e9e9",
         "accent": "#000000"
@@ -194,9 +194,9 @@
     "contact": {
       "type": "contact-form",
       "settings": {
-        "eyebrow": "Customer care",
-        "heading": "Contact us.",
-        "text": "<p>Questions about sizing, bundles or delivery? Send a message and the BLK_MAJESTY team will get back to you.</p>"
+        "eyebrow": "Kundtjänst",
+        "heading": "Kontakta oss.",
+        "text": "<p>Frågor om storlek, paket eller leverans? Skicka ett meddelande så återkommer BLK_MAJESTY-teamet till dig.</p>"
       }
     }
   },
