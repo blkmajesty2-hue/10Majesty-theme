@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -6,27 +15,27 @@
         "quote_1": {
           "type": "quote",
           "settings": {
-            "quote": "My youngest is 17, and my stomach still looks exactly as it did when I left the delivery room. Do I have to accept it?",
+            "quote": "Mitt yngsta barn är 17, och min mage ser fortfarande ut precis som när jag lämnade förlossningen. Måste jag acceptera det?",
             "cite": ""
           }
         },
         "text_2": {
           "type": "text",
           "settings": {
-            "text": "<p>No. But you must stop doing what makes the problem worse. Tight shapewear, years of crunches and diets often address the front while the body wraps all the way around.</p>"
+            "text": "<p>Nej. Men du måste sluta göra det som förvärrar problemet. Åtsittande shapewear, år av situps och dieter fokuserar ofta på framsidan medan kroppen går hela vägen runt.</p>"
           }
         },
         "heading_3": {
           "type": "heading",
           "settings": {
-            "heading": "Ordinary shapewear compresses the front. Your body goes all the way around."
+            "heading": "Vanlig shapewear komprimerar framsidan. Din kropp går hela vägen runt."
           }
         },
         "image_4": {
           "type": "image",
           "settings": {
             "image_url": "https://cdn.shopify.com/s/files/1/0794/0797/2593/files/ADV_2.png?v=1779041950&width=900",
-            "caption": "Postpartum profile",
+            "caption": "Profil efter förlossningen",
             "hide_caption": true,
             "narrow": false,
             "fallback_image": ""
@@ -35,28 +44,28 @@
         "quote_5": {
           "type": "quote",
           "settings": {
-            "quote": "I lost every pregnancy pound, but the shape of my stomach was permanently different. Exercise changed nothing.",
+            "quote": "Jag gick ner alla graviditetskilon, men formen på min mage var permanent annorlunda. Träning förändrade ingenting.",
             "cite": ""
           }
         },
         "quote_6": {
           "type": "quote",
           "settings": {
-            "quote": "At 49, I no longer recognized myself in the mirror.",
+            "quote": "Vid 49 års ålder kände jag inte längre igen mig själv i spegeln.",
             "cite": ""
           }
         },
         "heading_7": {
           "type": "heading",
           "settings": {
-            "heading": "What nobody told you"
+            "heading": "Det ingen berättade för dig"
           }
         },
         "image_8": {
           "type": "image",
           "settings": {
             "image_url": "https://cdn.shopify.com/s/files/1/0794/0797/2593/files/ADV_3_1.jpg?v=1779041974&width=900",
-            "caption": "Postpartum exercise",
+            "caption": "Träning efter förlossningen",
             "hide_caption": true,
             "narrow": false,
             "fallback_image": ""
@@ -65,13 +74,13 @@
         "text_9": {
           "type": "text",
           "settings": {
-            "text": "<p>Walking, swimming, yoga and rigid shapewear may leave the same structural problem untouched. Classic crunches and sit-ups can increase outward pressure instead of bringing the abdominal wall inward.</p>"
+            "text": "<p>Promenader, simning, yoga och stel shapewear kan lämna samma strukturella problem orört. Klassiska crunches och situps kan öka trycket utåt i stället för att dra bukväggen inåt.</p>"
           }
         },
         "button_10": {
           "type": "button",
           "settings": {
-            "label": "Discover BLK_MAJESTY →",
+            "label": "Upptäck BLK_MAJESTY →",
             "link": "shopify://products/culotte-post-patrum",
             "note": ""
           }
@@ -79,26 +88,26 @@
         "heading_11": {
           "type": "heading",
           "settings": {
-            "heading": "The signs I recognized because I lived them"
+            "heading": "Tecknen jag kände igen eftersom jag levde dem"
           }
         },
         "text_12": {
           "type": "text",
           "settings": {
-            "text": "<p>A stomach that protrudes before breakfast. A ridge that appears when standing up. Clothes that fall differently even when your weight is unchanged. A silhouette that looks more rounded in the evening than in the morning.</p>"
+            "text": "<p>En mage som buktar ut före frukost. En ås som syns när man reser sig. Kläder som sitter annorlunda trots att vikten är densamma. En silhuett som ser rundare ut på kvällen än på morgonen.</p>"
           }
         },
         "heading_13": {
           "type": "heading",
           "settings": {
-            "heading": "The appointment that changed everything"
+            "heading": "Besöket som förändrade allt"
           }
         },
         "image_14": {
           "type": "image",
           "settings": {
             "image_url": "https://cdn.shopify.com/s/files/1/0794/0797/2593/files/1f37cf93-9e4d-46e0-a7b5-64c5c7b19c71.png?v=1778794749&width=900",
-            "caption": "Medical consultation",
+            "caption": "Läkarbesök",
             "hide_caption": true,
             "narrow": false,
             "fallback_image": ""
@@ -107,26 +116,26 @@
         "text_15": {
           "type": "text",
           "settings": {
-            "text": "<p>A colleague placed two fingers above my navel and explained abdominal separation. The relief was immediate: it was not a personal failure, and weight alone was not the issue.</p>"
+            "text": "<p>En kollega la två fingrar ovanför min navel och förklarade bukseparation. Lättnaden var omedelbar: det var inget personligt misslyckande, och vikten ensam var inte problemet.</p>"
           }
         },
         "pull_16": {
           "type": "pull",
           "settings": {
-            "text": "It wasn’t my fault.\nNobody had explained it."
+            "text": "Det var inte mitt fel.\nIngen hade förklarat det."
           }
         },
         "heading_17": {
           "type": "heading",
           "settings": {
-            "heading": "The structure behind the silhouette"
+            "heading": "Strukturen bakom silhuetten"
           }
         },
         "image_18": {
           "type": "image",
           "settings": {
             "image_url": "https://cdn.shopify.com/s/files/1/0794/0797/2593/files/3aa7e50f-f2a4-4147-917b-0e76a8162320.png?v=1778794954&width=900",
-            "caption": "Abdominal anatomy",
+            "caption": "Bukens anatomi",
             "hide_caption": true,
             "narrow": false,
             "fallback_image": ""
@@ -135,27 +144,27 @@
         "text_19": {
           "type": "text",
           "settings": {
-            "text": "<p>During pregnancy, the abdominal muscles move apart to make room. For many women the gap persists for years. A gentle, circular support can visually hold the abdomen from the front, sides and back.</p>"
+            "text": "<p>Under graviditeten flyttar sig magmusklerna isär för att ge plats. För många kvinnor finns gapet kvar i flera år. Ett skonsamt, omslutande stöd kan visuellt hålla magen från framsidan, sidorna och ryggen.</p>"
           }
         },
         "callout_20": {
           "type": "callout",
           "settings": {
-            "title": "A simple at-home check",
-            "text": "<p>Lie on your back with your knees bent. Place two fingers above your navel and gently lift your head. A visible ridge or a gap can be a reason to speak with a qualified healthcare professional.</p>"
+            "title": "Ett enkelt test hemma",
+            "text": "<p>Ligg på rygg med böjda knän. Placera två fingrar ovanför naveln och lyft försiktigt huvudet. En synlig ås eller ett gap kan vara en anledning att prata med legitimerad vårdpersonal.</p>"
           }
         },
         "heading_21": {
           "type": "heading",
           "settings": {
-            "heading": "Inspired by the Bengkung wrap"
+            "heading": "Inspirerad av bengkung-lindan"
           }
         },
         "image_22": {
           "type": "image",
           "settings": {
             "image_url": "https://cdn.shopify.com/s/files/1/0794/0797/2593/files/Design_sans_titre_20.png?v=1778795518&width=900",
-            "caption": "Woman wearing high-waist briefs",
+            "caption": "Kvinna i högmidjade trosor",
             "hide_caption": true,
             "narrow": false,
             "fallback_image": ""
@@ -164,20 +173,20 @@
         "text_23": {
           "type": "text",
           "settings": {
-            "text": "<p>The cross-band design distributes support around three zones. It is built as an everyday high-waist brief: easy to put on, smooth under clothes and comfortable through ordinary movement.</p>"
+            "text": "<p>Korsbandsdesignen fördelar stödet över tre zoner. Den är byggd som en högmidjad vardagstrosa: lätt att ta på, len under kläderna och bekväm i vardagliga rörelser.</p>"
           }
         },
         "heading_24": {
           "type": "heading",
           "settings": {
-            "heading": "Day 8—something changed"
+            "heading": "Dag 8 — något förändrades"
           }
         },
         "image_25": {
           "type": "image",
           "settings": {
             "image_url": "https://cdn.shopify.com/s/files/1/0794/0797/2593/files/ADV_7.jpg?v=1778795554&width=900",
-            "caption": "Woman fastening jeans",
+            "caption": "Kvinna som knäpper jeans",
             "hide_caption": true,
             "narrow": false,
             "fallback_image": ""
@@ -186,20 +195,20 @@
         "text_26": {
           "type": "text",
           "settings": {
-            "text": "<p>The jeans I had not closed since my second pregnancy finally buttoned without holding my breath. My waist looked present again.</p>"
+            "text": "<p>Jeansen jag inte hade kunnat knäppa sedan min andra graviditet gick äntligen att stänga utan att hålla andan. Min midja syntes igen.</p>"
           }
         },
         "heading_27": {
           "type": "heading",
           "settings": {
-            "heading": "Six weeks later"
+            "heading": "Sex veckor senare"
           }
         },
         "image_28": {
           "type": "image",
           "settings": {
             "image_url": "https://cdn.shopify.com/s/files/1/0794/0797/2593/files/ADV_8.jpg?v=1778795589&width=900",
-            "caption": "Six week silhouette comparison",
+            "caption": "Silhuettjämförelse efter sex veckor",
             "hide_caption": true,
             "narrow": false,
             "fallback_image": ""
@@ -209,7 +218,7 @@
           "type": "image",
           "settings": {
             "image_url": "https://cdn.shopify.com/s/files/1/0794/0797/2593/files/Capture_d_ecran_2026-05-17_181601.png?v=1779042292&width=786",
-            "caption": "Customer message",
+            "caption": "Kundmeddelande",
             "hide_caption": true,
             "narrow": true,
             "fallback_image": ""
@@ -218,20 +227,20 @@
         "text_30": {
           "type": "text",
           "settings": {
-            "text": "<p>For the first time in 13 years, I recognized myself in the mirror. Individual experiences vary, but the feeling of dressing with confidence mattered as much as the visual change.</p>"
+            "text": "<p>För första gången på 13 år kände jag igen mig själv i spegeln. Upplevelserna varierar, men känslan av att klä sig med självförtroende betydde lika mycket som den visuella förändringen.</p>"
           }
         },
         "heading_31": {
           "type": "heading",
           "settings": {
-            "heading": "Experiences from women who tried it"
+            "heading": "Upplevelser från kvinnor som har testat den"
           }
         },
         "image_32": {
           "type": "image",
           "settings": {
             "image_url": "https://cdn.shopify.com/s/files/1/0794/0797/2593/files/prima_1.png?v=1779042269&width=900",
-            "caption": "Before and after comparison",
+            "caption": "Före- och efterjämförelse",
             "hide_caption": true,
             "narrow": false,
             "fallback_image": ""
@@ -242,7 +251,7 @@
           "settings": {
             "rating": 5,
             "name": "Alessandra, 49",
-            "text": "I wear it from morning to evening and forget it is there. My stomach feels supported, not punished.",
+            "text": "Jag har den på från morgon till kväll och glömmer att den finns där. Min mage känns stöttad, inte bestraffad.",
             "verified": false
           }
         },
@@ -251,7 +260,7 @@
           "settings": {
             "rating": 5,
             "name": "Cristina, 52",
-            "text": "I sat, stood and ate through a family lunch without thinking about it once.",
+            "text": "Jag satt, stod och åt genom en hel familjelunch utan att tänka på den en enda gång.",
             "verified": false
           }
         },
@@ -260,21 +269,21 @@
           "settings": {
             "rating": 5,
             "name": "Valentina, 47",
-            "text": "My waist looked defined, and most importantly, I could breathe.",
+            "text": "Min midja såg definierad ut, och viktigast av allt: jag kunde andas.",
             "verified": false
           }
         },
         "heading_36": {
           "type": "heading",
           "settings": {
-            "heading": "The brief that gave me back my mirror"
+            "heading": "Trosan som gav mig tillbaka min spegel"
           }
         },
         "image_37": {
           "type": "image",
           "settings": {
             "image_url": "https://cdn.shopify.com/s/files/1/0794/0797/2593/files/adv_9.png?v=1779042323&width=900",
-            "caption": "BLK Majesty cross-band briefs",
+            "caption": "BLK Majesty korsbandstrosor",
             "hide_caption": true,
             "narrow": false,
             "fallback_image": ""
@@ -284,32 +293,32 @@
           "type": "badges",
           "settings": {
             "big_1": "✕",
-            "small_1": "Cross-band X design",
+            "small_1": "X-formad korsbandsdesign",
             "big_2": "8h+",
-            "small_2": "All-day comfort",
+            "small_2": "Komfort hela dagen",
             "big_3": "S→6XL",
-            "small_3": "Inclusive sizing"
+            "small_3": "Inkluderande storlekar"
           }
         },
         "text_39": {
           "type": "text",
           "settings": {
-            "text": "<p>High-waisted support with breathable fabric and a cotton gusset. Available in sizes S–6XL and seven colors.</p>"
+            "text": "<p>Högmidjat stöd med andningsbart tyg och bomullsgren. Finns i storlekarna S–6XL och sju färger.</p>"
           }
         },
         "button_40": {
           "type": "button",
           "settings": {
-            "label": "TRY BLK_MAJESTY NOW →",
+            "label": "PROVA BLK_MAJESTY NU →",
             "link": "shopify://products/culotte-post-patrum",
-            "note": "Buy 1, get 1 free · 30-day money-back guarantee · Free shipping"
+            "note": "Köp 1, få 1 gratis · 30 dagars pengarna-tillbaka-garanti · Fri frakt"
           }
         },
         "image_41": {
           "type": "image",
           "settings": {
             "image_url": "https://cdn.shopify.com/s/files/1/0794/0797/2593/files/adv_10.png?v=1779042352&width=900",
-            "caption": "Woman with restored silhouette",
+            "caption": "Kvinna med återfådd silhuett",
             "hide_caption": true,
             "narrow": false,
             "fallback_image": ""
@@ -318,25 +327,25 @@
         "heading_42": {
           "type": "heading",
           "settings": {
-            "heading": "If you are still reading, your silhouette is not finished"
+            "heading": "Om du fortfarande läser är din silhuett inte färdig"
           }
         },
         "pull_43": {
           "type": "pull",
           "settings": {
-            "text": "It is not your fault.\nYou are not too late.\nYou deserve the right support."
+            "text": "Det är inte ditt fel.\nDu är inte för sent ute.\nDu förtjänar rätt stöd."
           }
         },
         "text_44": {
           "type": "text",
           "settings": {
-            "text": "<p>At 47, I fit into clothes I thought I had lost forever. If the brief is not right for you, the order is covered by the store’s 30-day return promise.</p>"
+            "text": "<p>Vid 47 års ålder passar jag i kläder jag trodde jag förlorat för alltid. Om trosorna inte passar dig omfattas beställningen av butikens 30 dagars returlöfte.</p>"
           }
         },
         "button_45": {
           "type": "button",
           "settings": {
-            "label": "I WANT TO FEEL LIKE MYSELF AGAIN →",
+            "label": "JAG VILL KÄNNA MIG SOM MIG SJÄLV IGEN →",
             "link": "shopify://products/culotte-post-patrum",
             "note": ""
           }
@@ -390,19 +399,19 @@
         "button_45"
       ],
       "settings": {
-        "kicker_left": "#1 SILHOUETTE RECOVERY · AFTER 40",
-        "kicker_right": "ADVERTORIAL",
-        "tag": "Testimonial",
-        "title": "“I’m 47, I’ve been a midwife for 22 years—and for 13 years my stomach never returned. Then I understood why.”",
-        "byline": "By Giulia Ferretti, midwife in Milan for 22 years · May 17, 2026",
+        "kicker_left": "#1 SILHUETTÅTERHÄMTNING · EFTER 40",
+        "kicker_right": "ANNONS",
+        "tag": "Omdöme",
+        "title": "”Jag är 47, har varit barnmorska i 22 år — och i 13 år kom min mage aldrig tillbaka. Sedan förstod jag varför.”",
+        "byline": "Av Giulia Ferretti, barnmorska i Milano i 22 år · 17 maj 2026",
         "hero_image_url": "https://cdn.shopify.com/s/files/1/0794/0797/2593/files/1_7a54d9f0-7ee9-4d86-854f-11280108c526.png?v=1779041929&width=896",
         "hero_fallback": "",
         "button_link": "shopify://products/culotte-post-patrum",
         "footer_brand": "BLK_MAJESTY",
-        "footer_line": "4.8/5 from 2,000 reviews · Sizes S–6XL · Free shipping · 30-day guarantee",
-        "disclaimer": "This advertorial summarizes customer experiences. Results vary. BLK_MAJESTY shapewear provides aesthetic silhouette support and is not a medical treatment for diastasis. Consult a healthcare professional for medical concerns.",
-        "sticky_label": "I WANT TO FEEL LIKE MYSELF AGAIN →",
-        "sticky_note": "Buy 1, get 1 free · 30-day guarantee"
+        "footer_line": "4,8/5 från 2 000 omdömen · Storlekar S–6XL · Fri frakt · 30 dagars garanti",
+        "disclaimer": "Den här annonsartikeln sammanfattar kunders upplevelser. Resultaten varierar. BLK_MAJESTY shapewear ger estetiskt silhuettstöd och är inte en medicinsk behandling för diastas. Kontakta vårdpersonal vid medicinska frågor.",
+        "sticky_label": "JAG VILL KÄNNA MIG SOM MIG SJÄLV IGEN →",
+        "sticky_note": "Köp 1, få 1 gratis · 30 dagars garanti"
       }
     }
   },
