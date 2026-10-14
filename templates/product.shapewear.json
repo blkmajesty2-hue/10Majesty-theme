@@ -108,7 +108,20 @@
         "offer_text": "",
         "offer_price": "$39.90",
         "size_chart": "shopify://shop_images/blkm-size-guide.webp",
-        "gift_text": "GRATIS GÅVA vid varje beställning: Fraktskydd (värde [value])"
+        "gift_text": "GRATIS GÅVA vid varje beställning: Fraktskydd (värde [value])",
+        "reference_bold": "Över 6 000 svenska mammor",
+        "reference_text": "har valt BLK_Majesty",
+        "reference_source": "Enligt referensbutiken Belayan",
+        "rating_label": "Kundbetyg",
+        "subtitle": "Sömlös magkontroll",
+        "button_label": "Lägg paketet i varukorgen",
+        "note": "Blanda storlekar och färger i valfritt paket.",
+        "size_button_label": "📏 Storleksguide ›",
+        "stock_text": "Säljer snabbt — bara ett fåtal kvar!",
+        "urgency_text": "Beställ idag — ditt paket skickas snabbt",
+        "countdown_text": "Skynda dig! Erbjudandet slutar om",
+        "eyebrow": "BLK_MAJESTY · SHAPEWEAR",
+        "deal_text": "🎁 Köp 2, få 2 gratis — [x2] ([half] per trosa)"
       }
     },
     "strip": {
@@ -162,7 +175,12 @@
       "settings": {
         "eyebrow": "En närmare titt",
         "heading": "Ett annat sätt att tänka shapewear.",
-        "fallback_image": "blkm-closer-look.webp"
+        "fallback_image": "blkm-closer-look.webp",
+        "compare_left_title": "KLASSISKT MIDJEKORSETT",
+        "compare_left_points": "Komprimerar bara framsidan av magen\nRullar upp och glider efter en timme\nSyns under kläderna",
+        "compare_right_title": "BLK_MAJESTY",
+        "compare_right_points": "360° — framsida, sidor och rygg\nPå på 10 sekunder, som vanliga underkläder\nSyns inte under något plagg",
+        "compare_note": "<strong>Inspirerad av den malaysiska bengkung</strong> — en korsande lindningsteknik som använts i generationer för att stötta magen efter förlossning."
       }
     },
     "black": {
@@ -288,18 +306,27 @@
         "q13"
       ],
       "settings": {
-        "text": "Produkt- och köpinformation, på ett enkelt sätt."
+        "text": "Produkt- och köpinformation, på ett enkelt sätt.",
+        "eyebrow": "Vanliga frågor",
+        "heading": "Innan du väljer."
       }
     },
     "size": {
       "type": "size-chart",
       "settings": {
-        "image": "shopify://shop_images/blkm-size-guide.webp"
+        "image": "shopify://shop_images/blkm-size-guide.webp",
+        "note": "Om du ligger mellan två storlekar, välj den större."
       }
     },
     "mechanism": {
       "type": "mechanism-banner",
-      "settings": {}
+      "settings": {
+        "eyebrow": "DEN EXKLUSIVA MEKANISMEN",
+        "heading": "Len mage. Omdefinierad midja. På 5 sekunder.",
+        "text": "Den korsar din mage och håller den på tre punkter: den jämnar ut utan att klämma. Och du kan andas.",
+        "button_label": "Testa riskfritt i 30 dagar",
+        "reviews_word": "verifierade omdömen"
+      }
     },
     "features": {
       "type": "feature-cards",
@@ -334,7 +361,9 @@
         "c2",
         "c3"
       ],
-      "settings": {}
+      "settings": {
+        "heading": "Två korsade band. Tre zoner. Noll kompression."
+      }
     },
     "colors3d": {
       "type": "color-carousel-3d",
@@ -405,7 +434,12 @@
         "col6",
         "col7"
       ],
-      "settings": {}
+      "settings": {
+        "eyebrow": "Finns i alla stämningar",
+        "heading": "Snurra för att se alla färger.",
+        "text": "Dra, svep eller tryck på en färg. Blanda valfria färger i ditt paket.",
+        "button_label": "Handla den här färgen"
+      }
     },
     "circles": {
       "type": "circle-features",
@@ -435,7 +469,9 @@
         "c1",
         "c2"
       ],
-      "settings": {}
+      "settings": {
+        "heading": "Därför är den INTE vanlig shapewear"
+      }
     },
     "reels": {
       "type": "video-reels",
