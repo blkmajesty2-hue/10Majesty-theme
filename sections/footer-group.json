@@ -15,7 +15,13 @@
       "type": "footer",
       "settings": {
         "tagline": "Shapewear. Stöd. Självförtroende varje dag.",
-        "menu": "footer"
+        "links_heading": "Användbara länkar",
+        "menu": "footer",
+        "show_policies": false,
+        "care_heading": "Kundtjänst",
+        "care_text": "<p>Måndag–fredag<br>08.00–13.00 & 14.00–20.00<br>Lördag–söndag · 10.00–16.00</p>",
+        "newsletter_heading": "BLK_MAJESTY VIP-tillgång",
+        "newsletter_text": "En plats för nyheter och erbjudanden."
       }
     },
     "size_quiz": {
