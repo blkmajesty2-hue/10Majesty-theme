@@ -1117,3 +1117,38 @@ footer .wordmark,.footer-grid .wordmark{font-size:clamp(26px,2.6vw,34px);font-we
 .benefits .benefits__item--icon::before,.benefits .benefits__item--icon:before{content:none;display:none}
 .benefits__icon{display:inline-grid;place-items:center;flex-shrink:0;width:26px;height:26px;color:#111}
 @media(max-width:600px){.lead--rich{font-size:15px}.benefits .benefits__item--icon{gap:14px;font-size:15px;margin:12px 0}}
+
+/* Cart drawer: header bubble, striped free-shipping bar, add-ons, express pay */
+.cart-drawer__head{gap:12px;border-bottom:1px solid #eee}
+.cart-drawer__head h2{flex:1;font-size:24px;font-weight:800;letter-spacing:-.01em}
+.cart-drawer__count{margin-left:0;font-size:inherit;letter-spacing:inherit;text-transform:none;color:inherit}
+.cart-drawer__bubble{display:inline-grid;place-items:center;min-width:30px;height:30px;padding:0 8px;border-radius:999px;background:#111;color:#fff;font-size:14px;font-weight:800}
+.cart-drawer .close{border-radius:8px;background:#f2f2f2}
+.cart-drawer__ship{padding:16px 24px 6px;text-align:center}
+.cart-drawer__ship p{margin:0 0 14px;font-size:16px;font-weight:800}
+.cart-drawer__track{position:relative;padding-right:46px}
+.cart-drawer__bar{height:14px;border:2px solid #111;border-radius:999px;background:#fff}
+.cart-drawer__bar span{border-radius:999px;background:repeating-linear-gradient(-55deg,#111 0 7px,#fff 7px 11px)}
+.cart-drawer__truck{position:absolute;right:0;top:50%;display:grid;place-items:center;width:42px;height:42px;margin-top:-21px;border:2px solid #111;border-radius:50%;background:#fff}
+.cart-drawer__truck svg{width:22px;height:22px;fill:none;stroke:#111;stroke-width:1.7;stroke-linejoin:round}
+.cart-drawer__truck-label{display:block;margin-top:4px;text-align:right;font-size:12px;color:#444}
+.cart-drawer__scroll{flex:1;overflow-y:auto}
+.cart-drawer__scroll .cart-drawer__items{flex:none;overflow:visible}
+.cart-upsell{margin:6px 24px 0;padding:14px 0 6px;border-top:1px solid #e5e5e5}
+.cart-upsell__title{margin:0 0 10px;font-size:15px;font-weight:800}
+.cart-upsell__item{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid #eee}
+.cart-upsell__media img{display:block;width:64px;height:64px;border-radius:10px;object-fit:cover;background:#f4f0ec}
+.cart-upsell__name{margin:0 0 6px;font-size:14px;font-weight:800;line-height:1.3}
+.cart-upsell__select{width:100%;padding:8px 10px;border:1px solid #ccc;border-radius:8px;font-size:13px;background:#fff}
+.cart-upsell__side{text-align:right}
+.cart-upsell__price{margin:0 0 8px;font-size:14px}
+.cart-upsell__price b{display:block;font-weight:800}
+.cart-upsell__price s{display:block;font-size:12px;color:#888}
+.cart-upsell__add{padding:10px 14px;border-radius:8px;background:#111;color:#fff;font-size:13px;font-weight:800}
+.cart-upsell__add:disabled{opacity:.6}
+.cart-drawer__checkout{border-radius:10px;font-weight:800}
+.cart-drawer__express{margin-top:10px}
+.cart-drawer__express shopify-accelerated-checkout-cart,.cart-drawer__express .additional-checkout-buttons{--shopify-accelerated-checkout-button-border-radius:10px;--shopify-accelerated-checkout-inline-alignment:center}
+.cart-drawer__pay{margin-top:12px;text-align:center}
+.cart-drawer__pay svg{width:34px;height:22px}
+@media(max-width:480px){.cart-drawer__head h2{font-size:20px}.cart-upsell__item{grid-template-columns:56px 1fr;}.cart-upsell__side{grid-column:2;display:flex;align-items:center;justify-content:space-between;text-align:left}.cart-upsell__price{margin:0}}

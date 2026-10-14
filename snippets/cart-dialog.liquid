@@ -53,18 +53,54 @@
 </script>
 <dialog id="bag" class="cart-drawer" aria-labelledby="bag-title">
   <div class="cart-drawer__head">
-    <h2 id="bag-title">{{ 'cart.title' | t }} <span class="cart-drawer__count" data-cart-count-label></span></h2>
+    <h2 id="bag-title">{{ 'cart.title' | t }}<span class="cart-drawer__count" data-cart-count-label></span></h2>
+    <span class="cart-drawer__bubble" data-cart-count-bubble aria-hidden="true"{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span>
     <button class="close" aria-label="{{ 'general.close' | t }}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4l16 16M20 4L4 20"/></svg></button>
   </div>
   {%- if free_ship_cents > 0 -%}
     <div class="cart-drawer__ship" data-free-ship hidden>
       <p></p>
-      <div class="cart-drawer__bar"><span></span></div>
+      <div class="cart-drawer__track">
+        <div class="cart-drawer__bar"><span></span></div>
+        <span class="cart-drawer__truck" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2 6h11v10H2zM13 10h4l3 3v3h-7z"/><circle cx="6" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg></span>
+      </div>
+      <small class="cart-drawer__truck-label">{{ 'cart.free_shipping_label' | t }}</small>
     </div>
   {%- endif -%}
   <div class="cart-drawer__cols" data-cart-cols hidden><span>{{ 'cart.product' | t }}</span><span>{{ 'cart.total' | t }}</span></div>
-  <div id="bag-items" class="cart-drawer__items">
-    {%- if cart.item_count == 0 -%}<p class="empty-bag">{{ 'cart.empty' | t }}</p>{%- endif -%}
+  <div class="cart-drawer__scroll">
+    <div id="bag-items" class="cart-drawer__items">
+      {%- if cart.item_count == 0 -%}<p class="empty-bag">{{ 'cart.empty' | t }}</p>{%- endif -%}
+    </div>
+    {%- if settings.cart_upsell_products != blank -%}
+      <div class="cart-upsell" data-upsell{% if cart.item_count == 0 %} hidden{% endif %}>
+        <p class="cart-upsell__title">{{ 'cart.upsell_title' | t }}</p>
+        {%- for up in settings.cart_upsell_products -%}
+          {%- if up.available -%}
+            {%- assign uv = up.selected_or_first_available_variant -%}
+            <div class="cart-upsell__item">
+              <a class="cart-upsell__media" href="{{ up.url }}">
+                {%- if up.featured_media -%}{{ up.featured_media | image_url: width: 160 | image_tag: loading: 'lazy', alt: up.title }}{%- endif -%}
+              </a>
+              <div class="cart-upsell__body">
+                <p class="cart-upsell__name">{{ up.title | escape }}</p>
+                {%- unless up.has_only_default_variant -%}
+                  <select class="cart-upsell__select" data-upsell-variant aria-label="{{ up.title | escape }}">
+                    {%- for v in up.variants -%}
+                      {%- if v.available -%}<option value="{{ v.id }}" data-price="{{ v.price | money | escape }}" data-compare="{% if v.compare_at_price > v.price %}{{ v.compare_at_price | money | escape }}{% endif %}"{% if v.id == uv.id %} selected{% endif %}>{{ v.title | escape }}</option>{%- endif -%}
+                    {%- endfor -%}
+                  </select>
+                {%- endunless -%}
+              </div>
+              <div class="cart-upsell__side">
+                <p class="cart-upsell__price"><b data-upsell-price>{{ uv.price | money }}</b><s data-upsell-compare>{% if uv.compare_at_price > uv.price %}{{ uv.compare_at_price | money }}{% endif %}</s></p>
+                <button type="button" class="cart-upsell__add" data-upsell-add data-variant="{{ uv.id }}">{{ 'cart.add' | t }}</button>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
   </div>
   <div class="cart-drawer__foot cart-actions"{% if cart.item_count == 0 %} hidden{% endif %}>
     {%- if settings.protection_mode == 'included' or settings.protection_mode == 'gift' -%}
@@ -91,6 +127,10 @@
     <p class="cart-drawer__note">{{ 'cart.taxes_note' | t }}</p>
     <form action="{{ routes.cart_url }}" method="post">
       <button class="cart-drawer__checkout" type="submit" name="checkout">{{ 'cart.checkout' | t }}</button>
+      {%- if additional_checkout_buttons -%}
+        <div class="cart-drawer__express">{{ content_for_additional_checkout_buttons }}</div>
+      {%- endif -%}
     </form>
+    <div class="cart-drawer__pay">{% render 'payment-icons' %}</div>
   </div>
 </dialog>

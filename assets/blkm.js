@@ -128,7 +128,11 @@
     const cols = $('[data-cart-cols]', bag);
     const countLabel = $('[data-cart-count-label]', bag);
     const ship = $('[data-free-ship]', bag);
-    if (countLabel) countLabel.textContent = productCount ? `(${productCount} ${productCount === 1 ? (t.item || 'item') : (t.items || 'items')})` : '';
+    if (countLabel) countLabel.textContent = productCount ? ` • ${productCount} ${productCount === 1 ? (t.item || 'item') : (t.items || 'items')}` : '';
+    const bubble = $('[data-cart-count-bubble]', bag);
+    if (bubble) { bubble.textContent = productCount; bubble.hidden = !productCount; }
+    const upsell = $('[data-upsell]', bag);
+    if (upsell) upsell.hidden = !productCount;
     if (ship) {
       const goal = Number(config.freeShipping) || 0;
       ship.hidden = !goal || !productCount;
@@ -287,6 +291,25 @@
           renderBag(cart);
         }
       } catch (e) { toggle.disabled = false; }
+    });
+  }
+  // Cart add-ons: switch price with the variant, add one to the cart.
+  if (bag) {
+    bag.addEventListener('change', e => {
+      const sel = e.target.closest('[data-upsell-variant]');
+      if (!sel) return;
+      const item = sel.closest('.cart-upsell__item');
+      const opt = sel.selectedOptions[0];
+      $('[data-upsell-add]', item).dataset.variant = sel.value;
+      $('[data-upsell-price]', item).textContent = opt.dataset.price;
+      $('[data-upsell-compare]', item).textContent = opt.dataset.compare || '';
+    });
+    bag.addEventListener('click', async e => {
+      const btn = e.target.closest('[data-upsell-add]');
+      if (!btn) return;
+      btn.disabled = true;
+      try { await addItems([{ id: Number(btn.dataset.variant), quantity: 1 }]); } catch (err) { /* keep drawer as is */ }
+      btn.disabled = false;
     });
   }
   async function refreshCart() {

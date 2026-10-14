@@ -95,6 +95,13 @@
     "name": "Cart",
     "settings": [
       {
+        "type": "product_list",
+        "id": "cart_upsell_products",
+        "label": "Add-on products in the cart",
+        "limit": 3,
+        "info": "Shown under the cart items with a size/colour picker and an Add button. Leave empty to hide."
+      },
+      {
         "type": "select",
         "id": "protection_mode",
         "label": "Shipping protection",

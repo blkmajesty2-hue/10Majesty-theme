@@ -72,7 +72,10 @@
     "free_shipping_reached": "Du har fått fri frakt!",
     "update": "Uppdatera varukorgen",
     "bundle": "Paket",
-    "item_of": "[name] – artikel [n] av [count]"
+    "item_of": "[name] – artikel [n] av [count]",
+    "add": "Add",
+    "upsell_title": "Complete your order",
+    "free_shipping_label": "Free shipping"
   },
   "search": {
     "title": "Sök",
