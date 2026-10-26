@@ -1,0 +1,2154 @@
+{% comment %}
+  Coverless Duvet — complete product landing page
+  Add this file to sections/coverless-duvet.liquid, then add
+  "Coverless Duvet Page" in the Shopify theme editor (ideally on a product template).
+
+  Everything shown here is editable in the theme editor. Bracketed text such as
+  [Wash temperature] marks product facts that still need to be supplied — replace
+  it with information from the care label and your store policies.
+{% endcomment %}
+
+{% liquid
+  assign p = section.settings.featured_product
+  if p == blank and product != blank
+    assign p = product
+  endif
+
+  assign brand_name = section.settings.brand_name | default: shop.name
+
+  assign selected_variant = nil
+  assign color_index = -1
+  assign selected_color = ''
+  assign selected_color_handle = ''
+  if p != blank
+    assign selected_variant = p.selected_or_first_available_variant
+    for option in p.options_with_values
+      assign option_name_downcase = option.name | downcase
+      if option_name_downcase contains 'color' or option_name_downcase contains 'colour'
+        assign color_index = forloop.index0
+      endif
+    endfor
+    if color_index >= 0
+      assign selected_color = selected_variant.options[color_index]
+      assign selected_color_handle = selected_color | handleize
+    endif
+  endif
+
+  assign bundle_blocks = section.blocks | where: 'type', 'bundle'
+  assign detail_blocks = section.blocks | where: 'type', 'detail'
+  assign color_image_blocks = section.blocks | where: 'type', 'color_image'
+  assign size_blocks = section.blocks | where: 'type', 'size_row'
+  assign compare_blocks = section.blocks | where: 'type', 'compare_row'
+  assign review_blocks = section.blocks | where: 'type', 'review'
+  assign app_blocks = section.blocks | where: 'type', '@app'
+  assign faq_blocks = section.blocks | where: 'type', 'faq'
+
+  assign show_bundles = false
+  if section.settings.show_bundles and bundle_blocks.size > 1 and p != blank
+    assign show_bundles = true
+  endif
+  assign max_bundle = 1
+  for b in bundle_blocks
+    if b.settings.quantity > max_bundle
+      assign max_bundle = b.settings.quantity
+    endif
+  endfor
+
+  assign has_reviews = false
+  if review_blocks.size > 0 or app_blocks.size > 0
+    assign has_reviews = true
+  endif
+
+  assign returns_url = section.settings.returns_link | default: shop.refund_policy.url
+%}
+
+{%- capture icon_duvet -%}<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect x="4" y="8" width="24" height="16" rx="3"/><path d="M4 14h24M4 19h24M12 8v16M20 8v16"/></svg>{%- endcapture -%}
+{%- capture icon_wash -%}<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect x="6" y="4" width="20" height="24" rx="3"/><path d="M6 10h20"/><circle cx="16" cy="19" r="5.5"/><path d="M12.5 19.5c1.2-1 2.3-1 3.5 0s2.3 1 3.5 0"/><circle cx="10" cy="7" r=".6"/><circle cx="13" cy="7" r=".6"/></svg>{%- endcapture -%}
+{%- capture icon_feather -%}<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M25 5c-9 0-15 6-15 15v7"/><path d="M25 5c1 8-4 15-15 15"/><path d="M10 20l7-7"/></svg>{%- endcapture -%}
+{%- capture icon_palette -%}<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><circle cx="11" cy="12" r="5"/><circle cx="21" cy="12" r="5"/><circle cx="16" cy="20.5" r="5"/></svg>{%- endcapture -%}
+{%- capture icon_truck -%}<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M3 9h16v13H3zM19 13h5l4 4.5V22h-9"/><circle cx="8" cy="23.5" r="2.5"/><circle cx="23" cy="23.5" r="2.5"/></svg>{%- endcapture -%}
+{%- capture icon_return -%}<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M9 11h12a6 6 0 010 12h-9"/><path d="M13 6.5L8.5 11l4.5 4.5"/></svg>{%- endcapture -%}
+{%- capture icon_lock -%}<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect x="7" y="14" width="18" height="13" rx="2.5"/><path d="M11 14v-3.5a5 5 0 0110 0V14"/></svg>{%- endcapture -%}
+{%- capture icon_check -%}<svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg>{%- endcapture -%}
+{%- capture icon_play -%}<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 5.5v13l11-6.5z"/></svg>{%- endcapture -%}
+{%- capture icon_star -%}<svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M10 1.8l2.5 5.3 5.7.7-4.2 4 1.1 5.7L10 14.7l-5.1 2.8 1.1-5.7-4.2-4 5.7-.7z"/></svg>{%- endcapture -%}
+{%- capture icon_arrow -%}<svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 10h12M11.5 5.5L16 10l-4.5 4.5"/></svg>{%- endcapture -%}
+
+<div
+  id="CoverlessDuvet-{{ section.id }}"
+  class="cdv"
+  data-section-id="{{ section.id }}"
+  data-cart-add-url="{{ routes.cart_add_url }}"
+  data-cart-url="{{ routes.cart_url }}"
+  data-money-format="{{ shop.money_format | escape }}"
+  style="--cdv-ivory: {{ section.settings.color_ivory }}; --cdv-oat: {{ section.settings.color_oat }}; --cdv-navy: {{ section.settings.color_navy }}; --cdv-blue: {{ section.settings.color_blue }}; --cdv-ink: {{ section.settings.color_ink }};"
+>
+  <a class="cdv-skip" href="#cdv-product">Skip to product</a>
+
+  {%- if section.settings.show_announcement and section.settings.announcement_text != blank -%}
+    <div class="cdv-announcement">
+      {%- if section.settings.announcement_link != blank -%}
+        <a href="{{ section.settings.announcement_link }}">{{ section.settings.announcement_text | escape }}</a>
+      {%- else -%}
+        <p>{{ section.settings.announcement_text | escape }}</p>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  {%- if section.settings.show_header -%}
+    <header class="cdv-header" data-header>
+      <div class="cdv-header__inner">
+        <button type="button" class="cdv-icon-button cdv-header__menu" aria-label="Open menu" aria-controls="CdvMenu-{{ section.id }}" aria-expanded="false" data-menu-open>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+        </button>
+        <a class="cdv-logo" href="{{ routes.root_url }}">
+          {%- if section.settings.logo != blank -%}
+            {{ section.settings.logo | image_url: width: 400 | image_tag: alt: brand_name, widths: '160, 240, 320, 400', sizes: '160px', loading: 'eager' }}
+          {%- else -%}
+            {{ brand_name | escape }}
+          {%- endif -%}
+        </a>
+        <nav class="cdv-nav" aria-label="Main">
+          <ul>
+            {%- for i in (1..5) -%}
+              {%- liquid
+                assign label_key = 'nav_label_' | append: i
+                assign href_key = 'nav_href_' | append: i
+                assign nav_label = section.settings[label_key]
+                assign nav_href = section.settings[href_key]
+              -%}
+              {%- if nav_label != blank -%}
+                {%- unless nav_href == '#cdv-reviews' and has_reviews == false -%}
+                  <li><a href="{{ nav_href | default: '#' }}">{{ nav_label | escape }}</a></li>
+                {%- endunless -%}
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </nav>
+        <div class="cdv-header__actions">
+          <a class="cdv-icon-button cdv-header__search" href="{{ routes.search_url }}" aria-label="Search">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg>
+          </a>
+          <a class="cdv-icon-button cdv-bag" href="{{ routes.cart_url }}" aria-label="Shopping bag, {{ cart.item_count }} items" data-bag-link>
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 8h14l-1 13H6z"/><path d="M9 10V7a3 3 0 016 0v3"/></svg>
+            <span class="cdv-bag__count" data-bag-count{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <dialog class="cdv-drawer" id="CdvMenu-{{ section.id }}" aria-label="Menu" data-menu>
+      <div class="cdv-drawer__top">
+        <span class="cdv-logo">{{ brand_name | escape }}</span>
+        <button type="button" class="cdv-icon-button" aria-label="Close menu" data-menu-close>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+      <nav aria-label="Mobile">
+        <ul>
+          {%- for i in (1..5) -%}
+            {%- liquid
+              assign label_key = 'nav_label_' | append: i
+              assign href_key = 'nav_href_' | append: i
+              assign nav_label = section.settings[label_key]
+              assign nav_href = section.settings[href_key]
+            -%}
+            {%- if nav_label != blank -%}
+              {%- unless nav_href == '#cdv-reviews' and has_reviews == false -%}
+                <li><a href="{{ nav_href | default: '#' }}" data-menu-link>{{ nav_label | escape }}</a></li>
+              {%- endunless -%}
+            {%- endif -%}
+          {%- endfor -%}
+          <li><a href="{{ routes.search_url }}">Search</a></li>
+        </ul>
+      </nav>
+    </dialog>
+  {%- endif -%}
+
+  {%- comment -%} ───────────── 3. Product ───────────── {%- endcomment -%}
+  <section class="cdv-product" id="cdv-product" aria-labelledby="CdvTitle-{{ section.id }}">
+    {%- if p != blank -%}
+      <div class="cdv-container cdv-product__grid">
+        <div class="cdv-gallery" data-gallery>
+          <div class="cdv-gallery__track" data-gallery-track tabindex="0" aria-label="Product images">
+            {%- assign shared_count = 0 -%}
+            {%- for media in p.media -%}
+              {%- liquid
+                assign media_color = ''
+                if color_index >= 0
+                  for v in p.variants
+                    if v.featured_media.id == media.id
+                      assign media_color = v.options[color_index] | handleize
+                      break
+                    endif
+                  endfor
+                endif
+                assign skip_media = false
+                if media_color == ''
+                  assign shared_count = shared_count | plus: 1
+                  if shared_count > section.settings.gallery_limit
+                    assign skip_media = true
+                  endif
+                endif
+                assign media_alt = media.alt | default: p.title
+                assign is_lead = false
+                if selected_variant.featured_media != blank and media.id == selected_variant.featured_media.id
+                  assign is_lead = true
+                endif
+              -%}
+              {%- unless skip_media -%}
+                <figure
+                  class="cdv-slide{% if is_lead %} is-lead{% endif %}"
+                  data-slide
+                  data-media-id="{{ media.id }}"
+                  data-color="{{ media_color }}"
+                  {% if media_color != '' and media_color != selected_color_handle %}hidden{% endif %}
+                >
+                  {{ media.preview_image
+                    | image_url: width: 1800
+                    | image_tag:
+                      loading: 'lazy',
+                      widths: '600, 900, 1200, 1500, 1800',
+                      sizes: '(min-width: 990px) 56vw, 100vw',
+                      alt: media_alt
+                  }}
+                </figure>
+              {%- endunless -%}
+            {%- else -%}
+              <figure class="cdv-slide is-lead" data-slide data-color="">
+                {{ 'lifestyle-1' | placeholder_svg_tag: 'cdv-placeholder' }}
+              </figure>
+            {%- endfor -%}
+          </div>
+          <div class="cdv-gallery__dots" data-gallery-dots aria-hidden="true"></div>
+          <p class="cdv-gallery__count" data-gallery-count aria-live="polite"></p>
+        </div>
+
+        <div class="cdv-info" data-info>
+          {%- if section.settings.product_eyebrow != blank -%}
+            <p class="cdv-eyebrow">{{ section.settings.product_eyebrow | escape }}</p>
+          {%- endif -%}
+          <h1 class="cdv-info__title" id="CdvTitle-{{ section.id }}">{{ section.settings.product_title | default: p.title | escape }}</h1>
+          {%- if section.settings.product_intro != blank -%}
+            <div class="cdv-info__intro">{{ section.settings.product_intro }}</div>
+          {%- endif -%}
+
+          {%- assign rating = p.metafields.reviews.rating.value -%}
+          {%- assign rating_count = p.metafields.reviews.rating_count.value -%}
+          {%- if rating != blank and rating_count > 0 -%}
+            {%- assign rating_rounded = rating.rating | round -%}
+            <a class="cdv-rating-summary" href="#cdv-reviews">
+              <span class="cdv-stars" role="img" aria-label="Rated {{ rating.rating | round: 1 }} out of {{ rating.scale_max }}">
+                {%- for i in (1..5) -%}<span class="{% if i <= rating_rounded %}is-on{% endif %}">{{ icon_star }}</span>{%- endfor -%}
+              </span>
+              <span>{{ rating.rating | round: 1 }} · {{ rating_count }} reviews</span>
+            </a>
+          {%- endif -%}
+
+          <div class="cdv-price" aria-live="polite">
+            <span class="cdv-price__current" data-price>{{ selected_variant.price | money }}</span>
+            <s class="cdv-price__compare" data-compare-price{% unless selected_variant.compare_at_price > selected_variant.price %} hidden{% endunless %}>
+              {{- selected_variant.compare_at_price | money -}}
+            </s>
+            <span class="cdv-price__save" data-save-badge{% unless selected_variant.compare_at_price > selected_variant.price %} hidden{% endunless %}>
+              Save <span data-save-amount>{{ selected_variant.compare_at_price | minus: selected_variant.price | money }}</span>
+            </span>
+            <span class="cdv-price__currency">{{ cart.currency.iso_code | default: shop.currency }}</span>
+          </div>
+          {%- if section.settings.price_note != blank -%}
+            <p class="cdv-price__note">{{ section.settings.price_note | escape }}</p>
+          {%- endif -%}
+
+          <ul class="cdv-checks">
+            {%- for i in (1..3) -%}
+              {%- assign check_key = 'product_benefit_' | append: i -%}
+              {%- if section.settings[check_key] != blank -%}
+                <li>{{ icon_check }}<span>{{ section.settings[check_key] | escape }}</span></li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+
+          {%- assign product_form_id = 'CdvForm-' | append: section.id -%}
+          {%- form 'product', p, id: product_form_id, class: 'cdv-form', novalidate: 'novalidate', data-product-form: '' -%}
+            <input type="hidden" name="id" value="{{ selected_variant.id }}" data-variant-id>
+            <noscript>
+              <label class="cdv-label" for="CdvNoJsVariant-{{ section.id }}">Option</label>
+              <select id="CdvNoJsVariant-{{ section.id }}" name="id">
+                {%- for variant in p.variants -%}
+                  <option value="{{ variant.id }}"{% if variant.id == selected_variant.id %} selected{% endif %}{% unless variant.available %} disabled{% endunless %}>{{ variant.title | escape }}</option>
+                {%- endfor -%}
+              </select>
+            </noscript>
+
+            {%- unless p.has_only_default_variant -%}
+              {%- for option in p.options_with_values -%}
+                {%- liquid
+                  assign option_index = forloop.index0
+                  assign option_name_downcase = option.name | downcase
+                  assign is_color = false
+                  if option_index == color_index
+                    assign is_color = true
+                  endif
+                  assign is_size = false
+                  if option_name_downcase contains 'size'
+                    assign is_size = true
+                  endif
+                -%}
+                <fieldset class="cdv-option" data-option data-option-index="{{ option_index }}">
+                  <legend class="cdv-option__legend">
+                    <span>{{ option.name | escape }}</span>
+                    <span class="cdv-option__value" data-option-value>{{ selected_variant.options[option_index] | split: ' (' | first | escape }}</span>
+                  </legend>
+                  {%- if is_size and section.settings.show_size_guide -%}
+                    <button type="button" class="cdv-text-link cdv-option__guide" aria-haspopup="dialog" aria-controls="CdvSizeGuide-{{ section.id }}" data-size-guide-open>Size guide</button>
+                  {%- endif -%}
+                  <div class="{% if is_color %}cdv-swatches{% else %}cdv-chips{% endif %}">
+                    {%- for value in option.values -%}
+                      {%- liquid
+                        assign value_handle = value | handleize
+                        assign is_selected = false
+                        if selected_variant.options[option_index] == value
+                          assign is_selected = true
+                        endif
+                        assign value_name = value | split: ' (' | first
+                        assign value_detail = value | split: ' (' | last | remove: ')'
+                        if value_detail == value
+                          assign value_detail = ''
+                        endif
+                        assign swatch_hex = ''
+                        if is_color
+                          assign swatch_lines = section.settings.swatch_map | newline_to_br | split: '<br />'
+                          for line in swatch_lines
+                            assign pair = line | split: ':'
+                            assign pair_key = pair.first | strip | handleize
+                            if pair_key == value_handle
+                              assign swatch_hex = pair.last | strip
+                            endif
+                          endfor
+                        endif
+                      -%}
+                      <button
+                        type="button"
+                        class="{% if is_color %}cdv-swatch{% else %}cdv-chip{% endif %}"
+                        data-option-button
+                        data-value="{{ value | escape }}"
+                        aria-pressed="{{ is_selected }}"
+                        {% if is_color %}aria-label="{{ value | escape }}" title="{{ value | escape }}"{% endif %}
+                      >
+                        {%- if is_color -%}
+                          <span class="cdv-swatch__dot" style="--swatch: {{ swatch_hex | default: '#e8e2d8' }};"></span>
+                        {%- else -%}
+                          <span class="cdv-chip__name">{{ value_name | escape }}</span>
+                          {%- if value_detail != '' -%}<span class="cdv-chip__detail">{{ value_detail | escape }}</span>{%- endif -%}
+                        {%- endif -%}
+                      </button>
+                    {%- endfor -%}
+                  </div>
+                </fieldset>
+              {%- endfor -%}
+            {%- endunless -%}
+
+            {%- if show_bundles -%}
+              <fieldset class="cdv-bundles" data-bundles>
+                <legend class="cdv-option__legend"><span>{{ section.settings.bundle_heading | escape }}</span></legend>
+                <div class="cdv-bundles__options">
+                  {%- for b in bundle_blocks -%}
+                    <label class="cdv-bundle" {{ b.shopify_attributes }}>
+                      <input
+                        type="radio"
+                        name="cdv-bundle-{{ section.id }}"
+                        value="{{ b.settings.quantity }}"
+                        data-bundle-option
+                        data-savings="{{ b.settings.savings_percent }}"
+                        {% if forloop.first %}checked{% endif %}
+                      >
+                      <span class="cdv-bundle__body">
+                        <span class="cdv-bundle__title">{{ b.settings.title | escape }}</span>
+                        {%- if b.settings.badge != blank -%}<span class="cdv-bundle__badge">{{ b.settings.badge | escape }}</span>{%- endif -%}
+                        <span class="cdv-bundle__total" data-bundle-total></span>
+                        <span class="cdv-bundle__save" data-bundle-save hidden></span>
+                      </span>
+                    </label>
+                  {%- endfor -%}
+                </div>
+                <div class="cdv-bundle-rows" data-bundle-rows hidden>
+                  <p class="cdv-bundle-row cdv-bundle-row--main">
+                    <span class="cdv-bundle-row__label">Duvet 1</span>
+                    <span data-bundle-main-summary>{{ selected_variant.title | escape }}</span>
+                  </p>
+                  {%- if max_bundle > 1 -%}
+                    {%- for n in (2..max_bundle) -%}
+                      <div class="cdv-bundle-row" data-bundle-row="{{ n }}" hidden>
+                        <span class="cdv-bundle-row__label">Duvet {{ n }}</span>
+                        <div class="cdv-bundle-row__selects">
+                          {%- for option in p.options_with_values -%}
+                            <label class="cdv-visually-hidden" for="CdvBundle-{{ section.id }}-{{ n }}-{{ forloop.index0 }}">Duvet {{ n }} {{ option.name | escape }}</label>
+                            <select id="CdvBundle-{{ section.id }}-{{ n }}-{{ forloop.index0 }}" class="cdv-select" data-bundle-select="{{ forloop.index0 }}">
+                              {%- for value in option.values -%}
+                                <option value="{{ value | escape }}"{% if selected_variant.options[forloop.parentloop.index0] == value %} selected{% endif %}>{{ value | escape }}</option>
+                              {%- endfor -%}
+                            </select>
+                          {%- endfor -%}
+                        </div>
+                        <span class="cdv-bundle-row__status" data-bundle-row-status></span>
+                      </div>
+                    {%- endfor -%}
+                  {%- endif -%}
+                  <p class="cdv-bundle-rows__note" data-bundle-note hidden>{{ section.settings.bundle_note | escape }}</p>
+                </div>
+              </fieldset>
+            {%- endif -%}
+
+            <div class="cdv-buy">
+              <div class="cdv-quantity" data-quantity-wrap>
+                <label class="cdv-visually-hidden" for="CdvQty-{{ section.id }}">Quantity</label>
+                <button type="button" aria-label="Decrease quantity" data-qty-step="-1">−</button>
+                <input id="CdvQty-{{ section.id }}" type="number" name="quantity" value="1" min="1" max="20" inputmode="numeric" data-qty>
+                <button type="button" aria-label="Increase quantity" data-qty-step="1">+</button>
+              </div>
+              <button type="submit" name="add" class="cdv-button cdv-button--add" data-add-button{% unless selected_variant.available %} disabled{% endunless %}>
+                <span data-add-label>{% if selected_variant.available %}Add to Bag{% else %}Sold out{% endif %}</span>
+                <span class="cdv-button__price" data-add-price>{{ selected_variant.price | money }}</span>
+              </button>
+            </div>
+            <div class="cdv-form__message" role="status" aria-live="polite" data-form-message hidden></div>
+          {%- endform -%}
+
+          <ul class="cdv-assurance">
+            {%- if section.settings.delivery_text != blank -%}
+              <li>{{ icon_truck }}<div><strong>{{ section.settings.delivery_heading | escape }}</strong><span>{{ section.settings.delivery_text | escape }}</span></div></li>
+            {%- endif -%}
+            {%- if section.settings.returns_short != blank -%}
+              <li>{{ icon_return }}<div><strong>{{ section.settings.returns_short_heading | escape }}</strong><span>{{ section.settings.returns_short | escape }}{% if returns_url != blank %} <a href="{{ returns_url }}">Full terms</a>{% endif %}</span></div></li>
+            {%- endif -%}
+          </ul>
+
+          {%- if section.settings.show_payment_icons and shop.enabled_payment_types.size > 0 -%}
+            <div class="cdv-payments">
+              <p class="cdv-payments__label">{{ icon_lock }}<span>Secure checkout with</span></p>
+              <ul class="cdv-payments__list" role="list">
+                {%- for type in shop.enabled_payment_types -%}
+                  <li>{{ type | payment_type_svg_tag: class: 'cdv-payment-icon' }}</li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          {%- endif -%}
+
+          <script type="application/json" data-variants-json>{{ p.variants | json }}</script>
+        </div>
+      </div>
+    {%- else -%}
+      <div class="cdv-container cdv-setup">
+        <p class="cdv-eyebrow">Store setup</p>
+        <h1 id="CdvTitle-{{ section.id }}" class="cdv-heading">Choose your duvet product.</h1>
+        <p>Select a product in this section's settings (or add the section to a product template). Its real variants, prices, availability and images will appear here.</p>
+      </div>
+    {%- endif -%}
+  </section>
+
+  {%- comment -%} ───────────── 4. Benefit strip ───────────── {%- endcomment -%}
+  <section class="cdv-benefits" aria-label="Product benefits">
+    <ul class="cdv-container cdv-benefits__list" role="list">
+      {%- for i in (1..4) -%}
+        {%- liquid
+          assign t_key = 'benefit_title_' | append: i
+          assign x_key = 'benefit_text_' | append: i
+          assign i_key = 'benefit_icon_' | append: i
+        -%}
+        {%- if section.settings[t_key] != blank -%}
+          <li class="cdv-benefit">
+            <span class="cdv-benefit__icon">
+              {%- case section.settings[i_key] -%}
+                {%- when 'wash' -%}{{ icon_wash }}
+                {%- when 'feather' -%}{{ icon_feather }}
+                {%- when 'palette' -%}{{ icon_palette }}
+                {%- when 'truck' -%}{{ icon_truck }}
+                {%- when 'return' -%}{{ icon_return }}
+                {%- else -%}{{ icon_duvet }}
+              {%- endcase -%}
+            </span>
+            <h2 class="cdv-benefit__title">{{ section.settings[t_key] | escape }}</h2>
+            <p>{{ section.settings[x_key] | escape }}</p>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </section>
+
+  {%- comment -%} ───────────── 5. Editorial story ───────────── {%- endcomment -%}
+  <section class="cdv-story cdv-section" aria-labelledby="CdvStory-{{ section.id }}">
+    <div class="cdv-container cdv-story__grid">
+      <div class="cdv-story__media cdv-media">
+        {%- if section.settings.story_image != blank -%}
+          {{ section.settings.story_image | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '600, 900, 1200, 1600', sizes: '(min-width: 990px) 55vw, 100vw' }}
+        {%- elsif p.media[1] != blank -%}
+          {{ p.media[1].preview_image | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '600, 900, 1200, 1600', sizes: '(min-width: 990px) 55vw, 100vw', alt: p.media[1].alt }}
+        {%- else -%}
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'cdv-placeholder' }}
+        {%- endif -%}
+      </div>
+      <div class="cdv-story__copy">
+        <p class="cdv-eyebrow">{{ section.settings.story_eyebrow | escape }}</p>
+        <h2 class="cdv-heading" id="CdvStory-{{ section.id }}">{{ section.settings.story_heading | escape }}</h2>
+        <div class="cdv-rte">{{ section.settings.story_text }}</div>
+        {%- if section.settings.story_link_label != blank -%}
+          <a class="cdv-text-link" href="#cdv-details">{{ section.settings.story_link_label | escape }} {{ icon_arrow }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ───────────── 6. Demonstration video ───────────── {%- endcomment -%}
+  <section class="cdv-demo cdv-section cdv-section--alt" aria-labelledby="CdvDemo-{{ section.id }}">
+    <div class="cdv-container">
+      <div class="cdv-section-head cdv-section-head--center">
+        <p class="cdv-eyebrow">{{ section.settings.video_eyebrow | escape }}</p>
+        <h2 class="cdv-heading" id="CdvDemo-{{ section.id }}">{{ section.settings.video_heading | escape }}</h2>
+      </div>
+      {%- liquid
+        assign video = section.settings.video
+        assign video_url = section.settings.video_url
+        assign has_video = false
+        if video != blank or video_url != blank
+          assign has_video = true
+        endif
+        assign poster = section.settings.video_poster
+        if poster == blank and video != blank
+          assign poster = video.preview_image
+        endif
+      -%}
+      <div class="cdv-video" data-video>
+        <div class="cdv-video__poster cdv-media">
+          {%- if poster != blank -%}
+            {{ poster | image_url: width: 2000 | image_tag: loading: 'lazy', widths: '800, 1200, 1600, 2000', sizes: '(min-width: 1320px) 1240px, 94vw', alt: '' }}
+          {%- elsif p.media[2] != blank -%}
+            {{ p.media[2].preview_image | image_url: width: 2000 | image_tag: loading: 'lazy', widths: '800, 1200, 1600, 2000', sizes: '(min-width: 1320px) 1240px, 94vw', alt: '' }}
+          {%- else -%}
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'cdv-placeholder' }}
+          {%- endif -%}
+        </div>
+        {%- if has_video -%}
+          <button type="button" class="cdv-video__play" data-video-play aria-label="Play video: {{ section.settings.video_heading | escape }}">
+            <span>{{ icon_play }}</span>
+          </button>
+          {%- if video != blank -%}
+            <template data-video-template>
+              <video playsinline controls preload="none"{% if poster != blank %} poster="{{ poster | image_url: width: 2000 }}"{% endif %}>
+                {%- for source in video.sources -%}
+                  <source src="{{ source.url }}" type="{{ source.mime_type }}">
+                {%- endfor -%}
+                {%- if section.settings.video_captions != blank -%}
+                  <track kind="captions" src="{{ section.settings.video_captions }}" srclang="{{ request.locale.iso_code | default: 'en' }}" label="Captions" default>
+                {%- endif -%}
+              </video>
+            </template>
+          {%- elsif video_url.type == 'youtube' -%}
+            <template data-video-template>
+              <iframe src="https://www.youtube-nocookie.com/embed/{{ video_url.id }}?autoplay=1&mute=1&cc_load_policy=1&rel=0&playsinline=1" title="{{ section.settings.video_heading | escape }}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+            </template>
+          {%- elsif video_url.type == 'vimeo' -%}
+            <template data-video-template>
+              <iframe src="https://player.vimeo.com/video/{{ video_url.id }}?autoplay=1&muted=1&texttrack=en" title="{{ section.settings.video_heading | escape }}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+            </template>
+          {%- endif -%}
+        {%- elsif request.design_mode -%}
+          <p class="cdv-editor-note">Add a demonstration video in the section settings to show the play button.</p>
+        {%- endif -%}
+      </div>
+
+      <ol class="cdv-steps" role="list">
+        {%- for i in (1..3) -%}
+          {%- liquid
+            assign s_img = 'step_image_' | append: i
+            assign s_title = 'step_title_' | append: i
+            assign s_text = 'step_text_' | append: i
+            assign media_index = i | plus: 2
+          -%}
+          <li class="cdv-step">
+            <div class="cdv-step__media cdv-media">
+              {%- if section.settings[s_img] != blank -%}
+                {{ section.settings[s_img] | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400, 600, 900', sizes: '(min-width: 750px) 30vw, 88vw' }}
+              {%- elsif p.media[media_index] != blank -%}
+                {{ p.media[media_index].preview_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400, 600, 900', sizes: '(min-width: 750px) 30vw, 88vw', alt: p.media[media_index].alt }}
+              {%- else -%}
+                {{ 'lifestyle-2' | placeholder_svg_tag: 'cdv-placeholder' }}
+              {%- endif -%}
+            </div>
+            <p class="cdv-step__number">{{ i | prepend: '0' }}</p>
+            <h3 class="cdv-step__title">{{ section.settings[s_title] | escape }}</h3>
+            <p>{{ section.settings[s_text] | escape }}</p>
+          </li>
+        {%- endfor -%}
+      </ol>
+    </div>
+  </section>
+
+  {%- comment -%} ───────────── 7. Comfort and construction ───────────── {%- endcomment -%}
+  <section class="cdv-details cdv-section" id="cdv-details" aria-labelledby="CdvDetails-{{ section.id }}">
+    <div class="cdv-container cdv-details__grid">
+      <div class="cdv-details__images">
+        {%- for i in (1..3) -%}
+          {%- liquid
+            assign d_key = 'detail_image_' | append: i
+            assign media_index = i | plus: 5
+          -%}
+          <div class="cdv-details__image cdv-details__image--{{ i }} cdv-media">
+            {%- if section.settings[d_key] != blank -%}
+              {{ section.settings[d_key] | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '400, 700, 1000, 1400', sizes: '(min-width: 990px) 40vw, 90vw' }}
+            {%- elsif p.media[media_index] != blank -%}
+              {{ p.media[media_index].preview_image | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '400, 700, 1000, 1400', sizes: '(min-width: 990px) 40vw, 90vw', alt: p.media[media_index].alt }}
+            {%- else -%}
+              {{ 'product-1' | placeholder_svg_tag: 'cdv-placeholder' }}
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+      <div class="cdv-details__copy">
+        <p class="cdv-eyebrow">{{ section.settings.details_eyebrow | escape }}</p>
+        <h2 class="cdv-heading" id="CdvDetails-{{ section.id }}">{{ section.settings.details_heading | escape }}</h2>
+        {%- if section.settings.details_intro != blank -%}
+          <p class="cdv-lede">{{ section.settings.details_intro | escape }}</p>
+        {%- endif -%}
+        <dl class="cdv-spec-list">
+          {%- for block in detail_blocks -%}
+            <div class="cdv-spec" {{ block.shopify_attributes }}>
+              <dt>{{ block.settings.title | escape }}</dt>
+              <dd>{{ block.settings.text | escape }}</dd>
+            </div>
+          {%- endfor -%}
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ───────────── 8. Color collection ───────────── {%- endcomment -%}
+  {%- if p != blank and color_index >= 0 -%}
+    <section class="cdv-colors cdv-section cdv-section--alt" id="cdv-colors" aria-labelledby="CdvColors-{{ section.id }}">
+      <div class="cdv-container">
+        <div class="cdv-section-head">
+          <div>
+            <p class="cdv-eyebrow">{{ section.settings.colors_eyebrow | escape }}</p>
+            <h2 class="cdv-heading" id="CdvColors-{{ section.id }}">{{ section.settings.colors_heading | escape }}</h2>
+          </div>
+          {%- if section.settings.colors_text != blank -%}
+            <p class="cdv-section-head__text">{{ section.settings.colors_text | escape }}</p>
+          {%- endif -%}
+        </div>
+      </div>
+      <ul class="cdv-colors__track" role="list" data-color-track>
+        {%- for value in p.options_with_values[color_index].values -%}
+          {%- liquid
+            assign value_handle = value | handleize
+            assign tile_image = false
+            for cb in color_image_blocks
+              assign cb_handle = cb.settings.color | handleize
+              if cb_handle == value_handle and cb.settings.image != blank
+                assign tile_image = cb.settings.image
+              endif
+            endfor
+            unless tile_image
+              for v in p.variants
+                if v.options[color_index] == value and v.featured_media != blank
+                  assign tile_image = v.featured_media.preview_image
+                  break
+                endif
+              endfor
+            endunless
+          -%}
+          <li class="cdv-color-tile">
+            <button type="button" class="cdv-color-tile__button" data-color-tile data-value="{{ value | escape }}" aria-pressed="{% if value == selected_color %}true{% else %}false{% endif %}">
+              <span class="cdv-color-tile__media cdv-media">
+                {%- if tile_image -%}
+                  {{ tile_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400, 600, 900', sizes: '(min-width: 990px) 24vw, 70vw', alt: '' }}
+                {%- else -%}
+                  {{ 'lifestyle-1' | placeholder_svg_tag: 'cdv-placeholder' }}
+                {%- endif -%}
+              </span>
+              <span class="cdv-color-tile__name">{{ value | escape }}</span>
+              <span class="cdv-color-tile__state" aria-hidden="true">Selected</span>
+            </button>
+          </li>
+        {%- endfor -%}
+      </ul>
+      <div class="cdv-container cdv-colors__footer">
+        <p class="cdv-colors__selected" aria-live="polite">
+          Selected shade: <strong data-color-selected>{{ selected_color | escape }}</strong>
+        </p>
+        <a class="cdv-button cdv-button--outline" href="#cdv-product" data-back-to-buy>{{ section.settings.colors_button | escape }} {{ icon_arrow }}</a>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ───────────── 9. Care and size guidance ───────────── {%- endcomment -%}
+  <section class="cdv-care cdv-section" id="cdv-care" aria-labelledby="CdvCare-{{ section.id }}">
+    <div class="cdv-container">
+      <div class="cdv-section-head cdv-section-head--center">
+        <p class="cdv-eyebrow">{{ section.settings.care_eyebrow | escape }}</p>
+        <h2 class="cdv-heading" id="CdvCare-{{ section.id }}">{{ section.settings.care_heading | escape }}</h2>
+      </div>
+      <div class="cdv-care__grid">
+        <div class="cdv-care__panel">
+          <h3 class="cdv-subheading">{{ section.settings.care_wash_heading | escape }}</h3>
+          <div class="cdv-rte">{{ section.settings.care_text }}</div>
+          <dl class="cdv-care__list">
+            <div><dt>{{ icon_wash }}Washing</dt><dd>{{ section.settings.care_wash_temp | escape }}</dd></div>
+            <div><dt>{{ icon_duvet }}Machine capacity</dt><dd>{{ section.settings.care_capacity | escape }}</dd></div>
+            <div><dt>{{ icon_feather }}Drying</dt><dd>{{ section.settings.care_drying | escape }}</dd></div>
+          </dl>
+          {%- if section.settings.care_footnote != blank -%}
+            <p class="cdv-footnote">{{ section.settings.care_footnote | escape }}</p>
+          {%- endif -%}
+        </div>
+        <div class="cdv-care__panel" id="cdv-sizes">
+          <h3 class="cdv-subheading">{{ section.settings.size_heading | escape }}</h3>
+          {%- if section.settings.size_text != blank -%}
+            <p>{{ section.settings.size_text | escape }}</p>
+          {%- endif -%}
+          {%- capture size_table -%}
+            <div class="cdv-table-wrap" tabindex="0" role="region" aria-label="Duvet size chart">
+              <table class="cdv-table">
+                <caption class="cdv-visually-hidden">Duvet dimensions and suitable bed sizes</caption>
+                <thead><tr><th scope="col">Size</th><th scope="col">Duvet dimensions</th><th scope="col">Suitable for</th></tr></thead>
+                <tbody>
+                  {%- for block in size_blocks -%}
+                    <tr {{ block.shopify_attributes }}>
+                      <th scope="row">{{ block.settings.size | escape }}</th>
+                      <td>{{ block.settings.dimensions | escape }}</td>
+                      <td>{{ block.settings.bed | escape }}</td>
+                    </tr>
+                  {%- endfor -%}
+                </tbody>
+              </table>
+            </div>
+          {%- endcapture -%}
+          {{ size_table }}
+          {%- if section.settings.size_footnote != blank -%}
+            <p class="cdv-footnote">{{ section.settings.size_footnote | escape }}</p>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ───────────── 10. Comparison ───────────── {%- endcomment -%}
+  {%- if compare_blocks.size > 0 -%}
+    <section class="cdv-compare cdv-section cdv-section--alt" id="cdv-difference" aria-labelledby="CdvCompare-{{ section.id }}">
+      <div class="cdv-container cdv-container--narrow">
+        <div class="cdv-section-head cdv-section-head--center">
+          <p class="cdv-eyebrow">{{ section.settings.compare_eyebrow | escape }}</p>
+          <h2 class="cdv-heading" id="CdvCompare-{{ section.id }}">{{ section.settings.compare_heading | escape }}</h2>
+        </div>
+        <table class="cdv-compare__table">
+          <caption class="cdv-visually-hidden">{{ section.settings.compare_heading | escape }}</caption>
+          <thead>
+            <tr>
+              <td></td>
+              <th scope="col">{{ section.settings.compare_col_traditional | escape }}</th>
+              <th scope="col" class="is-ours">{{ section.settings.compare_col_ours | escape }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%- for block in compare_blocks -%}
+              <tr {{ block.shopify_attributes }}>
+                <th scope="row">{{ block.settings.feature | escape }}</th>
+                <td data-label="{{ section.settings.compare_col_traditional | escape }}">{{ block.settings.traditional | escape }}</td>
+                <td data-label="{{ section.settings.compare_col_ours | escape }}" class="is-ours">{{ block.settings.coverless | escape }}</td>
+              </tr>
+            {%- endfor -%}
+          </tbody>
+        </table>
+        {%- if section.settings.compare_footnote != blank -%}
+          <p class="cdv-footnote cdv-footnote--center">{{ section.settings.compare_footnote | escape }}</p>
+        {%- endif -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ───────────── 11. Reviews (authentic only — hidden when empty) ───────────── {%- endcomment -%}
+  {%- if has_reviews -%}
+    <section class="cdv-reviews cdv-section" id="cdv-reviews" aria-labelledby="CdvReviews-{{ section.id }}" data-reviews>
+      <div class="cdv-container">
+        <div class="cdv-section-head">
+          <div>
+            <p class="cdv-eyebrow">{{ section.settings.reviews_eyebrow | escape }}</p>
+            <h2 class="cdv-heading" id="CdvReviews-{{ section.id }}">{{ section.settings.reviews_heading | escape }}</h2>
+          </div>
+        </div>
+
+        {%- if review_blocks.size > 0 -%}
+          {%- liquid
+            assign rating_total = 0
+            assign c5 = 0
+            assign c4 = 0
+            assign c3 = 0
+            assign c2 = 0
+            assign c1 = 0
+            for r in review_blocks
+              assign rating_total = rating_total | plus: r.settings.rating
+              case r.settings.rating
+                when 5
+                  assign c5 = c5 | plus: 1
+                when 4
+                  assign c4 = c4 | plus: 1
+                when 3
+                  assign c3 = c3 | plus: 1
+                when 2
+                  assign c2 = c2 | plus: 1
+                else
+                  assign c1 = c1 | plus: 1
+              endcase
+            endfor
+            assign rating_avg = rating_total | times: 1.0 | divided_by: review_blocks.size | round: 1
+            assign rating_avg_rounded = rating_avg | round
+          -%}
+          <div class="cdv-reviews__summary">
+            <div class="cdv-reviews__score">
+              <p class="cdv-reviews__average">{{ rating_avg }}</p>
+              <span class="cdv-stars" role="img" aria-label="Average rating {{ rating_avg }} out of 5">
+                {%- for i in (1..5) -%}<span class="{% if i <= rating_avg_rounded %}is-on{% endif %}">{{ icon_star }}</span>{%- endfor -%}
+              </span>
+              <p>Based on {{ review_blocks.size }} review{% if review_blocks.size != 1 %}s{% endif %}</p>
+            </div>
+            <ul class="cdv-reviews__bars" role="list">
+              {%- for star in (1..5) reversed -%}
+                {%- liquid
+                  case star
+                    when 5
+                      assign count = c5
+                    when 4
+                      assign count = c4
+                    when 3
+                      assign count = c3
+                    when 2
+                      assign count = c2
+                    else
+                      assign count = c1
+                  endcase
+                  assign pct = count | times: 100 | divided_by: review_blocks.size
+                -%}
+                <li>
+                  <span>{{ star }} star</span>
+                  <span class="cdv-bar"><span style="width: {{ pct }}%;"></span></span>
+                  <span>{{ count }}</span>
+                </li>
+              {%- endfor -%}
+            </ul>
+            <div class="cdv-reviews__sort">
+              <label for="CdvSort-{{ section.id }}">Sort by</label>
+              <select id="CdvSort-{{ section.id }}" class="cdv-select" data-review-sort>
+                <option value="newest">Newest</option>
+                <option value="highest">Highest rated</option>
+                <option value="lowest">Lowest rated</option>
+              </select>
+            </div>
+          </div>
+
+          <ul class="cdv-reviews__track" role="list" data-review-track>
+            {%- for block in review_blocks -%}
+              <li class="cdv-review" data-review data-rating="{{ block.settings.rating }}" data-date="{{ block.settings.date | escape }}" {{ block.shopify_attributes }}>
+                {%- if block.settings.image != blank or block.settings.video_url != blank -%}
+                  <div class="cdv-review__media cdv-media" data-video>
+                    {%- if block.settings.image != blank -%}
+                      {{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400, 600, 900', sizes: '(min-width: 990px) 30vw, 80vw' }}
+                    {%- else -%}
+                      {{ 'lifestyle-2' | placeholder_svg_tag: 'cdv-placeholder' }}
+                    {%- endif -%}
+                    {%- if block.settings.video_url != blank -%}
+                      <button type="button" class="cdv-video__play cdv-video__play--small" data-video-play aria-label="Play video review from {{ block.settings.author | escape }}"><span>{{ icon_play }}</span></button>
+                      <template data-video-template>
+                        {%- if block.settings.video_url.type == 'youtube' -%}
+                          <iframe src="https://www.youtube-nocookie.com/embed/{{ block.settings.video_url.id }}?autoplay=1&mute=1&cc_load_policy=1&rel=0&playsinline=1" title="Video review from {{ block.settings.author | escape }}" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                        {%- else -%}
+                          <iframe src="https://player.vimeo.com/video/{{ block.settings.video_url.id }}?autoplay=1&muted=1" title="Video review from {{ block.settings.author | escape }}" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                        {%- endif -%}
+                      </template>
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+                <div class="cdv-review__body">
+                  <span class="cdv-stars" role="img" aria-label="Rated {{ block.settings.rating }} out of 5">
+                    {%- for i in (1..5) -%}<span class="{% if i <= block.settings.rating %}is-on{% endif %}">{{ icon_star }}</span>{%- endfor -%}
+                  </span>
+                  {%- if block.settings.title != blank -%}<h3 class="cdv-review__title">{{ block.settings.title | escape }}</h3>{%- endif -%}
+                  <p>{{ block.settings.body | escape }}</p>
+                  <p class="cdv-review__meta">
+                    <span class="cdv-review__author">{{ block.settings.author | escape }}</span>
+                    {%- if block.settings.date != blank -%}<time datetime="{{ block.settings.date | escape }}">{{ block.settings.date | date: '%B %-d, %Y' }}</time>{%- endif -%}
+                  </p>
+                  {%- if block.settings.verified -%}
+                    <p class="cdv-review__verified">{{ icon_check }}Verified purchase</p>
+                  {%- endif -%}
+                </div>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+
+        {%- for block in app_blocks -%}
+          <div class="cdv-reviews__app">{% render block %}</div>
+        {%- endfor -%}
+      </div>
+    </section>
+  {%- elsif request.design_mode -%}
+    <div class="cdv-container"><p class="cdv-editor-note">The reviews section is hidden until you add authentic Review blocks or a review app block. Only add reviews from real customers.</p></div>
+  {%- endif -%}
+
+  {%- comment -%} ───────────── 12. Returns and reassurance ───────────── {%- endcomment -%}
+  <section class="cdv-returns cdv-section cdv-section--alt" aria-labelledby="CdvReturns-{{ section.id }}">
+    <div class="cdv-container cdv-container--narrow cdv-returns__inner">
+      <span class="cdv-returns__icon">{{ icon_return }}</span>
+      <h2 class="cdv-heading cdv-heading--small" id="CdvReturns-{{ section.id }}">{{ section.settings.returns_heading | escape }}</h2>
+      <div class="cdv-rte">{{ section.settings.returns_text }}</div>
+      {%- if returns_url != blank -%}
+        <a class="cdv-text-link" href="{{ returns_url }}">{{ section.settings.returns_link_label | escape }} {{ icon_arrow }}</a>
+      {%- endif -%}
+    </div>
+  </section>
+
+  {%- comment -%} ───────────── 13. FAQ ───────────── {%- endcomment -%}
+  {%- if faq_blocks.size > 0 -%}
+    <section class="cdv-faq cdv-section" id="cdv-faq" aria-labelledby="CdvFaq-{{ section.id }}">
+      <div class="cdv-container cdv-faq__grid">
+        <div class="cdv-faq__head">
+          <p class="cdv-eyebrow">{{ section.settings.faq_eyebrow | escape }}</p>
+          <h2 class="cdv-heading" id="CdvFaq-{{ section.id }}">{{ section.settings.faq_heading | escape }}</h2>
+          {%- if section.settings.faq_text != blank -%}
+            <div class="cdv-rte">{{ section.settings.faq_text }}</div>
+          {%- endif -%}
+        </div>
+        <div class="cdv-faq__list">
+          {%- for block in faq_blocks -%}
+            <details class="cdv-faq__item" {{ block.shopify_attributes }}>
+              <summary>
+                <span>{{ block.settings.question | escape }}</span>
+                <span class="cdv-faq__icon" aria-hidden="true"></span>
+              </summary>
+              <div class="cdv-rte">{{ block.settings.answer }}</div>
+            </details>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ───────────── 14. Final shopping section ───────────── {%- endcomment -%}
+  <section class="cdv-final" aria-labelledby="CdvFinal-{{ section.id }}">
+    <div class="cdv-final__media cdv-media">
+      {%- if section.settings.final_image != blank -%}
+        {{ section.settings.final_image | image_url: width: 2600 | image_tag: loading: 'lazy', widths: '800, 1200, 1800, 2600', sizes: '100vw' }}
+      {%- elsif p.featured_media != blank -%}
+        {{ p.featured_media.preview_image | image_url: width: 2600 | image_tag: loading: 'lazy', widths: '800, 1200, 1800, 2600', sizes: '100vw', alt: '' }}
+      {%- else -%}
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'cdv-placeholder' }}
+      {%- endif -%}
+    </div>
+    <div class="cdv-container">
+      <div class="cdv-final__card">
+        <h2 class="cdv-heading" id="CdvFinal-{{ section.id }}">{{ section.settings.final_heading | escape }}</h2>
+        {%- if section.settings.final_text != blank -%}<p>{{ section.settings.final_text | escape }}</p>{%- endif -%}
+        <a class="cdv-button" href="#cdv-product" data-back-to-buy>{{ section.settings.final_button | escape }}</a>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ───────────── Footer ───────────── {%- endcomment -%}
+  {%- if section.settings.show_footer -%}
+    <footer class="cdv-footer">
+      <div class="cdv-container cdv-footer__grid">
+        <div class="cdv-footer__brand">
+          <p class="cdv-logo cdv-logo--light">{{ brand_name | escape }}</p>
+          <p>{{ section.settings.footer_statement | escape }}</p>
+          {%- if section.settings.show_newsletter -%}
+            {%- form 'customer', class: 'cdv-newsletter' -%}
+              <input type="hidden" name="contact[tags]" value="newsletter">
+              <label for="CdvEmail-{{ section.id }}">{{ section.settings.newsletter_label | escape }}</label>
+              <div class="cdv-newsletter__row">
+                <input id="CdvEmail-{{ section.id }}" type="email" name="contact[email]" autocomplete="email" autocapitalize="off" autocorrect="off" placeholder="you@example.com" required>
+                <button type="submit">Subscribe</button>
+              </div>
+              {%- if form.posted_successfully? -%}<p role="status">Thank you for subscribing.</p>{%- endif -%}
+              {%- if form.errors -%}<div role="alert">{{ form.errors | default_errors }}</div>{%- endif -%}
+            {%- endform -%}
+          {%- endif -%}
+        </div>
+        <nav class="cdv-footer__col" aria-label="Shop">
+          <h2>Shop</h2>
+          <ul>
+            {%- for link in linklists[section.settings.footer_menu].links -%}
+              <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+            {%- else -%}
+              <li><a href="#cdv-product">{{ section.settings.nav_label_1 | default: 'Shop Duvets' | escape }}</a></li>
+              <li><a href="#cdv-care">Care Guide</a></li>
+              <li><a href="#cdv-faq">FAQ</a></li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+        <nav class="cdv-footer__col" aria-label="Customer care">
+          <h2>Customer care</h2>
+          <ul>
+            {%- if shop.shipping_policy != blank -%}<li><a href="{{ shop.shipping_policy.url }}">Shipping</a></li>{%- endif -%}
+            {%- if shop.refund_policy != blank -%}<li><a href="{{ shop.refund_policy.url }}">Returns</a></li>{%- endif -%}
+            {%- if shop.privacy_policy != blank -%}<li><a href="{{ shop.privacy_policy.url }}">Privacy</a></li>{%- endif -%}
+            {%- if shop.terms_of_service != blank -%}<li><a href="{{ shop.terms_of_service.url }}">Terms</a></li>{%- endif -%}
+          </ul>
+        </nav>
+        <div class="cdv-footer__col">
+          <h2>Contact</h2>
+          <ul>
+            {%- if section.settings.contact_email != blank -%}<li><a href="mailto:{{ section.settings.contact_email | escape }}">{{ section.settings.contact_email | escape }}</a></li>{%- endif -%}
+            {%- if section.settings.contact_phone != blank -%}<li><a href="tel:{{ section.settings.contact_phone | remove: ' ' | escape }}">{{ section.settings.contact_phone | escape }}</a></li>{%- endif -%}
+            {%- if section.settings.contact_hours != blank -%}<li>{{ section.settings.contact_hours | escape }}</li>{%- endif -%}
+          </ul>
+        </div>
+      </div>
+      <div class="cdv-container cdv-footer__bottom">
+        <p>© {{ 'now' | date: '%Y' }} {{ brand_name | escape }}</p>
+        {%- if shop.enabled_payment_types.size > 0 -%}
+          <ul class="cdv-payments__list" role="list" aria-label="Accepted payment methods">
+            {%- for type in shop.enabled_payment_types -%}
+              <li>{{ type | payment_type_svg_tag: class: 'cdv-payment-icon' }}</li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+    </footer>
+  {%- endif -%}
+
+  {%- comment -%} ───────────── Mobile purchase bar ───────────── {%- endcomment -%}
+  {%- if p != blank -%}
+    <div class="cdv-sticky-bar" data-sticky-bar aria-hidden="true">
+      <div class="cdv-sticky-bar__info">
+        <p class="cdv-sticky-bar__title">{{ section.settings.product_title | default: p.title | escape }}</p>
+        <p class="cdv-sticky-bar__meta"><span data-sticky-variant>{{ selected_variant.title | escape }}</span> · <span data-sticky-price>{{ selected_variant.price | money }}</span></p>
+      </div>
+      <button type="button" class="cdv-button cdv-button--small" data-sticky-add tabindex="-1">Add to Bag</button>
+    </div>
+
+    {%- if section.settings.show_size_guide -%}
+      <dialog class="cdv-modal" id="CdvSizeGuide-{{ section.id }}" aria-labelledby="CdvSizeGuideTitle-{{ section.id }}" data-size-guide>
+        <div class="cdv-modal__head">
+          <h2 class="cdv-subheading" id="CdvSizeGuideTitle-{{ section.id }}">{{ section.settings.size_heading | escape }}</h2>
+          <button type="button" class="cdv-icon-button" aria-label="Close size guide" data-size-guide-close>
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+        </div>
+        {%- if section.settings.size_text != blank -%}<p>{{ section.settings.size_text | escape }}</p>{%- endif -%}
+        {{ size_table }}
+        {%- if section.settings.size_footnote != blank -%}<p class="cdv-footnote">{{ section.settings.size_footnote | escape }}</p>{%- endif -%}
+      </dialog>
+    {%- endif -%}
+  {%- endif -%}
+</div>
+
+{%- if section.settings.load_fonts -%}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap">
+{%- endif -%}
+
+<style>
+  .cdv{--cdv-line:color-mix(in srgb,var(--cdv-navy) 16%,transparent);--cdv-line-strong:color-mix(in srgb,var(--cdv-navy) 34%,transparent);--cdv-muted:color-mix(in srgb,var(--cdv-ink) 72%,var(--cdv-ivory));--cdv-serif:"Cormorant Garamond","Cormorant",Georgia,"Times New Roman",serif;--cdv-sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--cdv-gutter:clamp(16px,4vw,48px);--cdv-space:clamp(44px,8vw,104px);--cdv-radius:6px;--cdv-header-h:68px;position:relative;background:var(--cdv-ivory);color:var(--cdv-ink);font-family:var(--cdv-sans);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  .cdv *,.cdv *:before,.cdv *:after{box-sizing:border-box}
+  .cdv img{display:block;max-width:100%;height:auto}
+  .cdv :where(a){color:inherit}
+  .cdv :where(button,input,select){font:inherit;color:inherit}
+  .cdv :where(p){margin:0}
+  .cdv :where(h1,h2,h3){margin:0;font-weight:inherit;letter-spacing:normal;text-transform:none}
+  .cdv :where(svg){width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+  .cdv :focus-visible{outline:2px solid var(--cdv-navy);outline-offset:3px}
+  .cdv [hidden]{display:none!important}
+  .cdv section[id]{scroll-margin-top:calc(var(--cdv-header-h) + 8px)}
+  .cdv-visually-hidden{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .cdv-skip{position:absolute;left:12px;top:-60px;z-index:60;padding:10px 16px;background:var(--cdv-navy);color:#fff!important;border-radius:var(--cdv-radius)}
+  .cdv-skip:focus{top:12px}
+
+  .cdv-container{width:100%;max-width:calc(1320px + 2 * var(--cdv-gutter));margin:0 auto;padding:0 var(--cdv-gutter)}
+  .cdv-container--narrow{max-width:calc(960px + 2 * var(--cdv-gutter))}
+  .cdv-section{padding:var(--cdv-space) 0}
+  .cdv-section--alt{background:var(--cdv-oat)}
+  .cdv-eyebrow{margin-bottom:14px;color:var(--cdv-navy);font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase}
+  .cdv-heading{max-width:16ch;color:var(--cdv-navy);font-family:var(--cdv-serif);font-size:clamp(36px,4.6vw,60px);font-weight:500;line-height:1.04;letter-spacing:-.01em;text-wrap:balance}
+  .cdv-heading--small{font-size:clamp(30px,3.4vw,44px)}
+  .cdv-subheading{color:var(--cdv-navy);font-family:var(--cdv-serif);font-size:clamp(26px,2.6vw,34px);font-weight:500;line-height:1.15}
+  .cdv-lede{max-width:46ch;margin-top:20px;font-size:17px;color:var(--cdv-muted)}
+  .cdv-rte{max-width:56ch}
+  .cdv-rte p,.cdv-rte ul{margin:0}
+  .cdv-rte>*+*{margin-top:14px}
+  .cdv-rte ul{padding-left:20px}
+  .cdv-rte a{text-underline-offset:3px}
+  .cdv-footnote{margin-top:18px;color:var(--cdv-muted);font-size:14px}
+  .cdv-footnote--center{text-align:center}
+  .cdv-section-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px 48px;margin-bottom:clamp(28px,4vw,52px)}
+  .cdv-section-head__text{max-width:42ch;color:var(--cdv-muted)}
+  .cdv-section-head--center{flex-direction:column;align-items:center;text-align:center}
+  .cdv-section-head--center .cdv-heading{margin:0 auto}
+  .cdv-media{position:relative;overflow:hidden;background:color-mix(in srgb,var(--cdv-oat) 70%,#d9cfc1);border-radius:var(--cdv-radius)}
+  .cdv-media img,.cdv-media .cdv-placeholder{width:100%;height:100%;object-fit:cover}
+  .cdv-placeholder{display:block;fill:color-mix(in srgb,var(--cdv-navy) 22%,transparent);stroke:none;background:color-mix(in srgb,var(--cdv-oat) 80%,#d9cfc1)}
+  .cdv-editor-note{margin:16px 0;padding:14px 18px;border:1px dashed var(--cdv-line-strong);border-radius:var(--cdv-radius);font-size:14px;text-align:center}
+
+  .cdv-button{display:inline-flex;min-height:52px;align-items:center;justify-content:center;gap:10px;padding:14px 28px;background:var(--cdv-navy);color:#fff!important;border:1px solid var(--cdv-navy);border-radius:var(--cdv-radius);font-size:15px;font-weight:500;letter-spacing:.02em;text-decoration:none;cursor:pointer;transition:background-color .2s,color .2s,border-color .2s}
+  .cdv-button:hover{background:color-mix(in srgb,var(--cdv-navy) 86%,#000)}
+  .cdv-button svg{width:18px;height:18px}
+  .cdv-button--outline{background:transparent;color:var(--cdv-navy)!important}
+  .cdv-button--outline:hover{background:var(--cdv-navy);color:#fff!important}
+  .cdv-button--small{min-height:44px;padding:10px 18px;font-size:14px}
+  .cdv-button[disabled]{opacity:.5;cursor:not-allowed}
+  .cdv-text-link{display:inline-flex;align-items:center;gap:8px;padding:0;background:none;border:0;color:var(--cdv-navy);font-size:15px;font-weight:500;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:5px;cursor:pointer}
+  .cdv-text-link svg{width:16px;height:16px}
+  .cdv-icon-button{display:inline-flex;width:44px;height:44px;align-items:center;justify-content:center;padding:10px;background:none;border:0;color:var(--cdv-navy);cursor:pointer;position:relative}
+  .cdv-select{min-height:44px;padding:8px 36px 8px 12px;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%23233746' stroke-width='1.4'/%3E%3C/svg%3E") no-repeat right 12px center/11px;border:1px solid var(--cdv-line-strong);border-radius:var(--cdv-radius);font-size:15px;-webkit-appearance:none;appearance:none}
+
+  .cdv-announcement{padding:9px var(--cdv-gutter);background:var(--cdv-navy);color:#fff;font-size:13px;letter-spacing:.04em;text-align:center}
+  .cdv-announcement a{text-decoration:none}
+  .cdv-announcement a:hover{text-decoration:underline}
+
+  .cdv-header{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--cdv-ivory) 94%,transparent);border-bottom:1px solid var(--cdv-line);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+  .cdv-header__inner{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:32px;max-width:calc(1320px + 2 * var(--cdv-gutter));min-height:var(--cdv-header-h);margin:0 auto;padding:0 var(--cdv-gutter)}
+  .cdv-header__menu{display:none;margin-left:-10px}
+  .cdv-logo{color:var(--cdv-navy);font-family:var(--cdv-serif);font-size:28px;font-weight:600;letter-spacing:.02em;line-height:1;text-decoration:none}
+  .cdv-logo img{width:auto;max-height:40px}
+  .cdv-logo--light{color:#fff}
+  .cdv-nav ul{display:flex;justify-content:center;gap:clamp(18px,2.4vw,36px);margin:0;padding:0;list-style:none}
+  .cdv-nav a{position:relative;display:block;padding:8px 0;color:var(--cdv-ink);font-size:14px;letter-spacing:.02em;text-decoration:none}
+  .cdv-nav a:after{content:"";position:absolute;left:0;right:0;bottom:3px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .25s}
+  .cdv-nav a:hover:after{transform:scaleX(1)}
+  .cdv-header__actions{display:flex;gap:2px;margin-right:-10px}
+  .cdv-bag__count{position:absolute;top:5px;right:3px;min-width:18px;height:18px;padding:0 5px;background:var(--cdv-navy);color:#fff;border-radius:9px;font-size:11px;font-weight:600;line-height:18px;text-align:center}
+  .cdv-drawer{width:min(360px,88vw);max-width:none;height:100%;max-height:none;margin:0;padding:20px var(--cdv-gutter);background:var(--cdv-ivory);color:var(--cdv-ink);border:0}
+  .cdv-drawer::backdrop{background:rgba(20,28,35,.4)}
+  .cdv-drawer__top{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
+  .cdv-drawer ul{margin:0;padding:0;list-style:none}
+  .cdv-drawer li{border-bottom:1px solid var(--cdv-line)}
+  .cdv-drawer li a{display:block;padding:16px 0;font-family:var(--cdv-serif);font-size:26px;color:var(--cdv-navy);text-decoration:none}
+
+  /* Product */
+  .cdv-product{padding:clamp(20px,3vw,40px) 0 var(--cdv-space)}
+  .cdv-product__grid{display:grid;grid-template-columns:minmax(0,58fr) minmax(0,42fr);gap:clamp(32px,4.5vw,72px);align-items:start}
+  .cdv-gallery{min-width:0}
+  .cdv-gallery__track{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .cdv-slide{margin:0;aspect-ratio:4/5;overflow:hidden;background:color-mix(in srgb,var(--cdv-oat) 70%,#d9cfc1);border-radius:var(--cdv-radius)}
+  .cdv-slide.is-lead{grid-column:1/-1;order:-1;aspect-ratio:5/4}
+  .cdv-slide.is-wide{grid-column:1/-1;aspect-ratio:16/9}
+  .cdv-slide img,.cdv-slide .cdv-placeholder{width:100%;height:100%;object-fit:cover;transition:opacity .35s}
+  .cdv-slide.is-changing img{opacity:.25}
+  .cdv-gallery__dots,.cdv-gallery__count{display:none}
+  .cdv-info{position:sticky;top:var(--cdv-sticky-top,calc(var(--cdv-header-h) + 24px));min-width:0}
+  .cdv-info__title{color:var(--cdv-navy);font-family:var(--cdv-serif);font-size:clamp(38px,3.6vw,52px);font-weight:500;line-height:1.04;text-wrap:balance}
+  .cdv-info__intro{margin-top:16px;color:var(--cdv-muted)}
+  .cdv-info__intro p{margin:0}
+  .cdv-rating-summary{display:inline-flex;align-items:center;gap:10px;margin-top:14px;font-size:14px;text-decoration:none}
+  .cdv-rating-summary:hover span:last-child{text-decoration:underline}
+  .cdv-stars{display:inline-flex;gap:2px;color:var(--cdv-navy)}
+  .cdv-stars>span{width:16px;height:16px}
+  .cdv-stars svg{fill:none}
+  .cdv-stars .is-on svg{fill:currentColor}
+  .cdv-price{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;margin-top:22px}
+  .cdv-price__current{color:var(--cdv-ink);font-size:24px;font-weight:500}
+  .cdv-price__compare{color:var(--cdv-muted);font-size:17px}
+  .cdv-price__save{padding:3px 10px;background:color-mix(in srgb,var(--cdv-blue) 55%,transparent);color:var(--cdv-navy);border-radius:999px;font-size:13px;font-weight:500}
+  .cdv-price__currency{color:var(--cdv-muted);font-size:12px;letter-spacing:.08em}
+  .cdv-price__note{margin-top:4px;color:var(--cdv-muted);font-size:13px}
+  .cdv-checks{display:grid;gap:10px;margin:22px 0 4px;padding:20px 0 0;border-top:1px solid var(--cdv-line);list-style:none}
+  .cdv-checks li{display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.5}
+  .cdv-checks svg{flex:none;width:20px;height:20px;margin-top:1px;padding:3px;background:color-mix(in srgb,var(--cdv-blue) 55%,transparent);color:var(--cdv-navy);border-radius:50%;stroke-width:2}
+
+  .cdv-option,.cdv-bundles{position:relative;margin:0;padding:22px 0 0;border:0;min-width:0}
+  .cdv-option__legend{display:flex;gap:10px;align-items:baseline;float:left;width:100%;margin-bottom:12px;padding:0;font-size:14px;font-weight:500}
+  .cdv-option__legend~*{clear:both}
+  .cdv-option__guide{clear:none}
+  .cdv-option__value{color:var(--cdv-muted);font-weight:400}
+  .cdv-option__guide{position:absolute;top:22px;right:0;font-size:14px}
+  .cdv-swatches{display:flex;flex-wrap:wrap;gap:6px}
+  .cdv-swatch{display:inline-flex;width:44px;height:44px;align-items:center;justify-content:center;padding:0;background:none;border:1px solid transparent;border-radius:50%;cursor:pointer;transition:border-color .2s}
+  .cdv-swatch__dot{width:34px;height:34px;background:var(--swatch);border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+  .cdv-swatch:hover{border-color:var(--cdv-line-strong)}
+  .cdv-swatch[aria-pressed="true"]{border-color:var(--cdv-navy);box-shadow:0 0 0 1px var(--cdv-navy)}
+  .cdv-swatch.is-unavailable .cdv-swatch__dot{background:linear-gradient(135deg,transparent 47%,rgba(0,0,0,.45) 48%,rgba(0,0,0,.45) 52%,transparent 53%),var(--swatch)}
+  .cdv-chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:8px}
+  .cdv-chip{display:flex;min-height:56px;flex-direction:column;align-items:center;justify-content:center;padding:8px 6px;background:#fff;border:1px solid var(--cdv-line-strong);border-radius:var(--cdv-radius);line-height:1.25;cursor:pointer;transition:border-color .2s,background-color .2s}
+  .cdv-chip:hover{border-color:var(--cdv-navy)}
+  .cdv-chip__name{font-size:15px;font-weight:500}
+  .cdv-chip__detail{margin-top:2px;color:var(--cdv-muted);font-size:12px}
+  .cdv-chip[aria-pressed="true"]{background:color-mix(in srgb,var(--cdv-blue) 32%,#fff);border-color:var(--cdv-navy);box-shadow:inset 0 0 0 1px var(--cdv-navy);color:var(--cdv-navy)}
+  .cdv-chip.is-unavailable{color:var(--cdv-muted);background:repeating-linear-gradient(135deg,transparent 0 7px,rgba(0,0,0,.035) 7px 8px),#fff}
+  .cdv-chip.is-unavailable .cdv-chip__name{text-decoration:line-through}
+
+  .cdv-bundles__options{display:grid;gap:8px}
+  .cdv-bundle{position:relative;display:block;cursor:pointer}
+  .cdv-bundle input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+  .cdv-bundle__body{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:4px 12px;padding:14px 16px 14px 46px;background:#fff;border:1px solid var(--cdv-line-strong);border-radius:var(--cdv-radius);transition:border-color .2s,background-color .2s}
+  .cdv-bundle__body:before{content:"";position:absolute;left:16px;top:50%;width:18px;height:18px;margin-top:-9px;border:1px solid var(--cdv-line-strong);border-radius:50%;background:#fff}
+  .cdv-bundle input:checked+.cdv-bundle__body{background:color-mix(in srgb,var(--cdv-blue) 22%,#fff);border-color:var(--cdv-navy);box-shadow:inset 0 0 0 1px var(--cdv-navy)}
+  .cdv-bundle input:checked+.cdv-bundle__body:before{border:5px solid var(--cdv-navy)}
+  .cdv-bundle input:focus-visible+.cdv-bundle__body{outline:2px solid var(--cdv-navy);outline-offset:3px}
+  .cdv-bundle__title{font-weight:500}
+  .cdv-bundle__badge{justify-self:start;padding:2px 9px;background:var(--cdv-oat);color:var(--cdv-navy);border-radius:999px;font-size:12px}
+  .cdv-bundle__total{grid-column:3;grid-row:1;font-weight:500;text-align:right}
+  .cdv-bundle__save{grid-column:1/-1;color:var(--cdv-navy);font-size:13px}
+  .cdv-bundle-rows{display:grid;gap:10px;margin-top:12px;padding:16px;background:color-mix(in srgb,var(--cdv-oat) 55%,#fff);border-radius:var(--cdv-radius)}
+  .cdv-bundle-row{display:grid;gap:8px;font-size:14px}
+  .cdv-bundle-row--main{display:flex;flex-wrap:wrap;gap:4px 12px;color:var(--cdv-muted)}
+  .cdv-bundle-row__label{color:var(--cdv-ink);font-weight:500}
+  .cdv-bundle-row__selects{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .cdv-bundle-row__selects .cdv-select{width:100%;min-width:0;font-size:14px}
+  .cdv-bundle-row__status{color:#8a2d22;font-size:13px}
+  .cdv-bundle-row__status:empty{display:none}
+  .cdv-bundle-rows__note{color:var(--cdv-muted);font-size:13px}
+
+  .cdv-buy{display:grid;grid-template-columns:auto 1fr;gap:10px;margin-top:24px}
+  .cdv-quantity{display:inline-grid;grid-template-columns:44px 48px 44px;align-items:center;height:56px;background:#fff;border:1px solid var(--cdv-line-strong);border-radius:var(--cdv-radius)}
+  .cdv-quantity button{height:100%;padding:0;background:none;border:0;font-size:20px;cursor:pointer;color:var(--cdv-navy)}
+  .cdv-quantity input{width:100%;height:100%;padding:0;background:none;border:0;text-align:center;font-size:16px;-moz-appearance:textfield;appearance:textfield}
+  .cdv-quantity input::-webkit-outer-spin-button,.cdv-quantity input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  .cdv-buy.is-bundle{grid-template-columns:1fr}
+  .cdv-button--add{width:100%;min-height:56px;justify-content:space-between;padding:14px 22px;font-size:16px}
+  .cdv-button__price{font-weight:400;opacity:.9}
+  .cdv-form__message{margin-top:12px;padding:14px 16px;background:#fff;border:1px solid var(--cdv-line-strong);border-radius:var(--cdv-radius);font-size:14px}
+  .cdv-form__message a{font-weight:500}
+  .cdv-form__message.is-error{border-color:#b4473a;color:#7c271d}
+  .cdv-form__message.is-demo{background:color-mix(in srgb,var(--cdv-blue) 25%,#fff);border-color:var(--cdv-navy)}
+  .cdv-assurance{display:grid;gap:14px;margin:26px 0 0;padding:22px 0 0;border-top:1px solid var(--cdv-line);list-style:none}
+  .cdv-assurance li{display:flex;gap:14px;align-items:flex-start;font-size:14px;line-height:1.5}
+  .cdv-assurance svg{flex:none;width:26px;height:26px;color:var(--cdv-navy)}
+  .cdv-assurance strong{display:block;font-weight:500}
+  .cdv-assurance span{color:var(--cdv-muted)}
+  .cdv-assurance a{color:var(--cdv-navy)}
+  .cdv-payments{margin-top:22px}
+  .cdv-payments__label{display:flex;align-items:center;gap:8px;margin-bottom:10px;color:var(--cdv-muted);font-size:13px}
+  .cdv-payments__label svg{width:16px;height:16px}
+  .cdv-payments__list{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
+  .cdv-payment-icon{width:38px;height:24px}
+  .cdv-setup{max-width:720px;padding-top:40px;padding-bottom:40px}
+  .cdv-setup .cdv-heading{margin-bottom:16px}
+
+  /* Benefits */
+  .cdv-benefits{padding:clamp(36px,5vw,64px) 0;border-top:1px solid var(--cdv-line);border-bottom:1px solid var(--cdv-line)}
+  .cdv-benefits__list{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px clamp(24px,3vw,48px);list-style:none}
+  .cdv-benefit{text-align:center}
+  .cdv-benefit__icon{display:inline-flex;width:40px;height:40px;margin-bottom:14px;color:var(--cdv-navy)}
+  .cdv-benefit__icon svg{stroke-width:1.2}
+  .cdv-benefit__title{margin-bottom:6px;color:var(--cdv-navy);font-family:var(--cdv-serif);font-size:24px;font-weight:500;line-height:1.2}
+  .cdv-benefit p{max-width:30ch;margin:0 auto;color:var(--cdv-muted);font-size:15px}
+
+  /* Story */
+  .cdv-story__grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(32px,6vw,96px);align-items:center}
+  .cdv-story__media{aspect-ratio:4/5}
+  .cdv-story__copy .cdv-heading{margin-bottom:24px}
+  .cdv-story__copy .cdv-rte{color:var(--cdv-muted);font-size:17px}
+  .cdv-story__copy .cdv-text-link{margin-top:28px}
+
+  /* Demo */
+  .cdv-video{position:relative;max-width:1240px;margin:0 auto}
+  .cdv-video__poster{aspect-ratio:16/9}
+  .cdv-video video,.cdv-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0;border-radius:var(--cdv-radius);background:#000}
+  .cdv-video__play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;width:100%;padding:0;background:linear-gradient(0deg,rgba(18,28,36,.28),rgba(18,28,36,.04));border:0;border-radius:var(--cdv-radius);cursor:pointer}
+  .cdv-video__play span{display:flex;width:clamp(68px,8vw,92px);height:clamp(68px,8vw,92px);padding:24px 22px 24px 27px;background:var(--cdv-ivory);color:var(--cdv-navy);border-radius:50%;box-shadow:0 8px 30px rgba(18,28,36,.18);transition:transform .25s}
+  .cdv-video__play span svg{fill:currentColor;stroke:none}
+  .cdv-video__play:hover span{transform:scale(1.06)}
+  .cdv-video__play--small span{width:56px;height:56px;padding:16px 14px 16px 18px}
+  .cdv-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,2.5vw,32px);margin:clamp(32px,4vw,56px) auto 0;padding:0;max-width:1240px;list-style:none}
+  .cdv-step__media{aspect-ratio:4/3;margin-bottom:18px}
+  .cdv-step__number{color:var(--cdv-navy);font-size:12px;font-weight:500;letter-spacing:.16em}
+  .cdv-step__title{margin:4px 0 6px;color:var(--cdv-navy);font-family:var(--cdv-serif);font-size:28px;font-weight:500;line-height:1.15}
+  .cdv-step p:last-child{color:var(--cdv-muted);font-size:15px}
+
+  /* Details */
+  .cdv-details__grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(32px,6vw,96px);align-items:center}
+  .cdv-details__images{display:grid;grid-template-columns:1.6fr 1fr;grid-template-rows:1fr 1fr;gap:12px;aspect-ratio:1.08/1}
+  .cdv-details__image--1{grid-row:1/3}
+  .cdv-spec-list{margin:32px 0 0;border-top:1px solid var(--cdv-line)}
+  .cdv-spec{display:grid;grid-template-columns:minmax(120px,.38fr) 1fr;gap:16px;padding:18px 0;border-bottom:1px solid var(--cdv-line)}
+  .cdv-spec dt{color:var(--cdv-navy);font-weight:500}
+  .cdv-spec dd{margin:0;color:var(--cdv-muted);font-size:15px}
+
+  /* Colors */
+  .cdv-colors{overflow:hidden}
+  .cdv-colors__track{display:flex;gap:16px;margin:0;padding:4px var(--cdv-gutter) 12px max(var(--cdv-gutter),calc((100% - 1320px) / 2));overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:max(var(--cdv-gutter),calc((100% - 1320px) / 2));list-style:none;scrollbar-width:thin;scrollbar-color:var(--cdv-line-strong) transparent}
+  .cdv-color-tile{flex:0 0 clamp(220px,24vw,300px);scroll-snap-align:start}
+  .cdv-color-tile__button{display:block;width:100%;padding:0;background:none;border:0;text-align:left;cursor:pointer}
+  .cdv-color-tile__media{display:block;aspect-ratio:4/5;outline:1px solid transparent;outline-offset:4px;transition:outline-color .2s}
+  .cdv-color-tile__media img{transition:transform .6s}
+  .cdv-color-tile__button:hover img{transform:scale(1.025)}
+  .cdv-color-tile__name{display:block;margin-top:12px;color:var(--cdv-navy);font-family:var(--cdv-serif);font-size:22px;font-weight:500}
+  .cdv-color-tile__state{display:inline-block;margin-top:2px;color:var(--cdv-muted);font-size:13px;visibility:hidden}
+  .cdv-color-tile__button[aria-pressed="true"] .cdv-color-tile__media{outline-color:var(--cdv-navy)}
+  .cdv-color-tile__button[aria-pressed="true"] .cdv-color-tile__state{visibility:visible}
+  .cdv-colors__footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;margin-top:24px}
+  .cdv-colors__selected strong{color:var(--cdv-navy);font-weight:500}
+
+  /* Care */
+  .cdv-care__grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,3vw,40px)}
+  .cdv-care__panel{padding:clamp(24px,3.5vw,48px);background:#fff;border:1px solid var(--cdv-line);border-radius:var(--cdv-radius)}
+  .cdv-care__panel .cdv-subheading{margin-bottom:14px}
+  .cdv-care__panel>p,.cdv-care__panel .cdv-rte{color:var(--cdv-muted)}
+  .cdv-care__list{margin:24px 0 0}
+  .cdv-care__list div{display:grid;grid-template-columns:minmax(150px,.45fr) 1fr;gap:16px;padding:16px 0;border-top:1px solid var(--cdv-line)}
+  .cdv-care__list dt{display:flex;align-items:center;gap:10px;color:var(--cdv-navy);font-weight:500}
+  .cdv-care__list dt svg{flex:none;width:24px;height:24px}
+  .cdv-care__list dd{margin:0;font-size:15px}
+  .cdv-table-wrap{margin-top:20px;overflow-x:auto}
+  .cdv-table{width:100%;border-collapse:collapse;font-size:15px}
+  .cdv-table th,.cdv-table td{padding:14px 12px;border-bottom:1px solid var(--cdv-line);text-align:left;vertical-align:top}
+  .cdv-table thead th{padding-top:0;color:var(--cdv-muted);font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase}
+  .cdv-table tbody th{color:var(--cdv-navy);font-weight:500}
+  .cdv-table th:first-child,.cdv-table td:first-child{padding-left:0}
+  .cdv-table td{font-variant-numeric:tabular-nums}
+
+  /* Compare */
+  .cdv-compare__table{width:100%;border-collapse:separate;border-spacing:0;font-size:15px}
+  .cdv-compare__table th,.cdv-compare__table td{padding:20px 22px;border-bottom:1px solid var(--cdv-line);text-align:left;vertical-align:top}
+  .cdv-compare__table thead th{color:var(--cdv-navy);font-family:var(--cdv-serif);font-size:24px;font-weight:500;line-height:1.2;border-bottom-color:var(--cdv-line-strong)}
+  .cdv-compare__table tbody th{width:26%;padding-left:0;color:var(--cdv-navy);font-weight:500}
+  .cdv-compare__table td{color:var(--cdv-muted)}
+  .cdv-compare__table .is-ours{background:color-mix(in srgb,var(--cdv-ivory) 85%,transparent);color:var(--cdv-ink)}
+  .cdv-compare__table thead .is-ours{border-radius:var(--cdv-radius) var(--cdv-radius) 0 0;color:var(--cdv-navy)}
+  .cdv-compare__table tbody tr:last-child .is-ours{border-radius:0 0 var(--cdv-radius) var(--cdv-radius)}
+
+  /* Reviews */
+  .cdv-reviews__summary{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:24px clamp(24px,5vw,72px);align-items:center;margin-bottom:36px;padding-bottom:32px;border-bottom:1px solid var(--cdv-line)}
+  .cdv-reviews__average{color:var(--cdv-navy);font-family:var(--cdv-serif);font-size:64px;font-weight:500;line-height:1}
+  .cdv-reviews__score p:last-child{margin-top:6px;color:var(--cdv-muted);font-size:14px}
+  .cdv-reviews__bars{display:grid;gap:6px;max-width:420px;margin:0;padding:0;list-style:none;font-size:13px}
+  .cdv-reviews__bars li{display:grid;grid-template-columns:52px 1fr 28px;gap:12px;align-items:center}
+  .cdv-reviews__bars li span:last-child{text-align:right;color:var(--cdv-muted)}
+  .cdv-bar{display:block;height:4px;background:var(--cdv-line);border-radius:2px;overflow:hidden}
+  .cdv-bar span{display:block;height:100%;background:var(--cdv-navy)}
+  .cdv-reviews__sort{display:flex;align-items:center;gap:10px;font-size:14px}
+  .cdv-reviews__track{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin:0;padding:0;list-style:none}
+  .cdv-review{display:flex;flex-direction:column;background:#fff;border:1px solid var(--cdv-line);border-radius:var(--cdv-radius);overflow:hidden}
+  .cdv-review__media{aspect-ratio:4/3;border-radius:0}
+  .cdv-review__body{display:flex;flex:1;flex-direction:column;gap:10px;padding:24px}
+  .cdv-review__title{color:var(--cdv-navy);font-family:var(--cdv-serif);font-size:22px;font-weight:500;line-height:1.2}
+  .cdv-review__body>p{font-size:15px}
+  .cdv-review__meta{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:auto!important;padding-top:8px;color:var(--cdv-muted);font-size:13px}
+  .cdv-review__author{color:var(--cdv-ink);font-weight:500}
+  .cdv-review__verified{display:flex;align-items:center;gap:6px;color:var(--cdv-navy);font-size:13px}
+  .cdv-review__verified svg{width:14px;height:14px;stroke-width:2}
+  .cdv-reviews__app{margin-top:32px}
+
+  /* Returns */
+  .cdv-returns__inner{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .cdv-returns__icon{display:inline-flex;width:48px;height:48px;margin-bottom:18px;color:var(--cdv-navy)}
+  .cdv-returns__icon svg{stroke-width:1.1}
+  .cdv-returns .cdv-heading{margin:0 auto 16px}
+  .cdv-returns .cdv-rte{margin:0 auto;color:var(--cdv-muted);font-size:17px}
+  .cdv-returns .cdv-text-link{margin-top:24px}
+
+  /* FAQ */
+  .cdv-faq__grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(32px,6vw,96px);align-items:start}
+  .cdv-faq__head{position:sticky;top:calc(var(--cdv-header-h) + 32px)}
+  .cdv-faq__head .cdv-rte{margin-top:20px;color:var(--cdv-muted)}
+  .cdv-faq__list{border-top:1px solid var(--cdv-line)}
+  .cdv-faq__item{border-bottom:1px solid var(--cdv-line)}
+  .cdv-faq__item summary{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px 0;color:var(--cdv-navy);font-family:var(--cdv-serif);font-size:clamp(21px,2vw,25px);font-weight:500;line-height:1.3;list-style:none;cursor:pointer}
+  .cdv-faq__item summary::-webkit-details-marker{display:none}
+  .cdv-faq__icon{position:relative;flex:none;width:18px;height:18px}
+  .cdv-faq__icon:before,.cdv-faq__icon:after{content:"";position:absolute;left:0;right:0;top:50%;height:1.4px;margin-top:-.7px;background:currentColor;transition:transform .25s}
+  .cdv-faq__icon:after{transform:rotate(90deg)}
+  .cdv-faq__item[open] .cdv-faq__icon:after{transform:rotate(0)}
+  .cdv-faq__item .cdv-rte{padding:0 40px 26px 0;color:var(--cdv-muted)}
+
+  /* Final */
+  .cdv-final{position:relative;padding-bottom:var(--cdv-space)}
+  .cdv-final__media{height:clamp(380px,52vw,680px);border-radius:0}
+  .cdv-final__card{position:relative;max-width:560px;margin-top:-140px;padding:clamp(28px,4vw,52px);background:var(--cdv-ivory);border-radius:var(--cdv-radius);box-shadow:0 10px 40px rgba(35,55,70,.08)}
+  .cdv-final__card .cdv-heading{margin-bottom:14px}
+  .cdv-final__card p{margin-bottom:26px;color:var(--cdv-muted)}
+
+  /* Footer */
+  .cdv-footer{padding:clamp(48px,7vw,88px) 0 28px;background:var(--cdv-navy);color:rgba(255,255,255,.82);font-size:15px}
+  .cdv-footer a{color:#fff;text-decoration:none}
+  .cdv-footer a:hover{text-decoration:underline;text-underline-offset:4px}
+  .cdv-footer__grid{display:grid;grid-template-columns:minmax(0,1.6fr) repeat(3,minmax(0,1fr));gap:40px}
+  .cdv-footer__brand>p:not(.cdv-logo){max-width:38ch;margin-top:16px}
+  .cdv-footer h2{margin-bottom:16px;color:#fff;font-size:13px;font-weight:500;letter-spacing:.14em;text-transform:uppercase}
+  .cdv-footer ul{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+  .cdv-newsletter{margin-top:28px;max-width:420px}
+  .cdv-newsletter label{display:block;margin-bottom:10px;color:#fff;font-size:14px}
+  .cdv-newsletter__row{display:flex;border-bottom:1px solid rgba(255,255,255,.5)}
+  .cdv-newsletter input{flex:1;min-width:0;min-height:48px;padding:0;background:none;border:0;color:#fff}
+  .cdv-newsletter input::placeholder{color:rgba(255,255,255,.55)}
+  .cdv-newsletter button{padding:0 0 0 16px;background:none;border:0;color:#fff;font-weight:500;cursor:pointer}
+  .cdv-footer :focus-visible{outline-color:#fff}
+  .cdv-footer__bottom{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;position:relative;margin-top:56px;padding-top:24px;font-size:13px}
+  .cdv-footer__bottom:before{content:"";position:absolute;top:0;left:var(--cdv-gutter);right:var(--cdv-gutter);border-top:1px solid rgba(255,255,255,.18)}
+
+  /* Sticky purchase bar */
+  .cdv-sticky-bar{position:fixed;left:0;right:0;bottom:0;z-index:45;display:none;align-items:center;gap:12px;padding:10px var(--cdv-gutter) calc(10px + env(safe-area-inset-bottom));background:var(--cdv-ivory);border-top:1px solid var(--cdv-line);box-shadow:0 -6px 24px rgba(35,55,70,.08);transform:translateY(110%);transition:transform .3s}
+  .cdv-sticky-bar.is-visible{transform:none}
+  .cdv-sticky-bar__info{flex:1;min-width:0}
+  .cdv-sticky-bar__title{overflow:hidden;color:var(--cdv-navy);font-family:var(--cdv-serif);font-size:18px;font-weight:500;line-height:1.2;white-space:nowrap;text-overflow:ellipsis}
+  .cdv-sticky-bar__meta{overflow:hidden;color:var(--cdv-muted);font-size:13px;white-space:nowrap;text-overflow:ellipsis}
+
+  /* Size guide modal */
+  .cdv-modal{width:min(640px,calc(100vw - 32px));max-height:calc(100vh - 48px);padding:clamp(24px,4vw,40px);background:var(--cdv-ivory);color:var(--cdv-ink);border:0;border-radius:var(--cdv-radius);box-shadow:0 20px 60px rgba(20,28,35,.25)}
+  .cdv-modal::backdrop{background:rgba(20,28,35,.45)}
+  .cdv-modal__head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:12px}
+  .cdv-modal>p{color:var(--cdv-muted)}
+
+  @media (max-width:989px){
+    .cdv{--cdv-header-h:60px}
+    .cdv-header__inner{grid-template-columns:1fr auto 1fr;gap:8px}
+    .cdv-header__menu{display:inline-flex;justify-self:start}
+    .cdv-logo{font-size:24px;text-align:center}
+    .cdv-nav{display:none}
+    .cdv-header__actions{justify-self:end}
+    .cdv-header__search{display:none}
+    .cdv-product{padding-top:0}
+    .cdv-product__grid{grid-template-columns:1fr;gap:28px;padding:0}
+    .cdv-gallery__track{display:flex;gap:0;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
+    .cdv-gallery__track::-webkit-scrollbar{display:none}
+    .cdv-slide,.cdv-slide.is-lead,.cdv-slide.is-wide{flex:0 0 100%;aspect-ratio:1/1;border-radius:0;scroll-snap-align:start}
+    .cdv-gallery__dots{display:flex;justify-content:center;gap:6px;margin-top:14px}
+    .cdv-gallery__dots span{width:6px;height:6px;background:var(--cdv-line-strong);border-radius:50%;transition:background-color .2s,width .2s}
+    .cdv-gallery__dots span.is-active{width:18px;background:var(--cdv-navy);border-radius:3px}
+    .cdv-gallery__count{display:block;position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+    .cdv-info{position:static;padding:0 var(--cdv-gutter)}
+    .cdv-sticky-bar{display:flex}
+    .cdv-story__grid,.cdv-details__grid,.cdv-care__grid,.cdv-faq__grid{grid-template-columns:1fr}
+    .cdv-story__media{aspect-ratio:4/3}
+    .cdv-faq__head{position:static}
+    .cdv-reviews__summary{grid-template-columns:auto 1fr}
+    .cdv-reviews__sort{grid-column:1/-1}
+    .cdv-reviews__track{display:flex;gap:14px;margin:0 calc(-1 * var(--cdv-gutter));padding:0 var(--cdv-gutter) 8px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 var(--cdv-gutter)}
+    .cdv-review{flex:0 0 min(82vw,360px);scroll-snap-align:start}
+    .cdv-footer__grid{grid-template-columns:1fr 1fr}
+    .cdv-footer__brand{grid-column:1/-1}
+  }
+  @media (max-width:749px){
+    .cdv-benefits__list{grid-template-columns:1fr 1fr;gap:28px 16px}
+    .cdv-benefit__title{font-size:21px}
+    .cdv-benefit p{font-size:14px}
+    .cdv-steps{grid-template-columns:1fr;gap:28px}
+    .cdv-step{display:grid;grid-template-columns:38% 1fr;gap:4px 16px;align-items:start}
+    .cdv-step__media{grid-row:1/4;margin:0}
+    .cdv-step__title{font-size:24px}
+    .cdv-details__images{aspect-ratio:auto;grid-template-rows:auto auto}
+    .cdv-details__image--1{grid-row:auto;grid-column:1/-1;aspect-ratio:4/3}
+    .cdv-details__image--2,.cdv-details__image--3{aspect-ratio:1/1}
+    .cdv-details__images{grid-template-columns:1fr 1fr}
+    .cdv-spec{grid-template-columns:1fr;gap:4px}
+    .cdv-care__list div{grid-template-columns:1fr;gap:4px}
+    .cdv-colors__footer{flex-direction:column;align-items:stretch;text-align:center}
+    .cdv-compare__table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+    .cdv-compare__table,.cdv-compare__table tbody,.cdv-compare__table tr,.cdv-compare__table th,.cdv-compare__table td{display:block;width:100%}
+    .cdv-compare__table tr{padding:18px 0;border-bottom:1px solid var(--cdv-line)}
+    .cdv-compare__table tbody th{width:100%;padding:0 0 10px;border:0;font-size:16px}
+    .cdv-compare__table td{padding:12px 14px;border:0;border-radius:var(--cdv-radius)}
+    .cdv-compare__table td:before{content:attr(data-label);display:block;margin-bottom:2px;color:var(--cdv-navy);font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
+    .cdv-compare__table td.is-ours,.cdv-compare__table tbody tr:last-child .is-ours{margin-top:6px;border-radius:var(--cdv-radius)}
+    .cdv-reviews__summary{grid-template-columns:1fr}
+    .cdv-final__media{height:auto;aspect-ratio:4/3}
+    .cdv-final__card{margin:-48px 0 0;box-shadow:none;border:1px solid var(--cdv-line)}
+    .cdv-footer__grid{grid-template-columns:1fr;gap:32px}
+    .cdv-faq__item .cdv-rte{padding-right:0}
+    .cdv-buy{grid-template-columns:1fr}
+    .cdv-quantity{justify-self:start}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .cdv *,.cdv *:before,.cdv *:after{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+  }
+  @media (prefers-reduced-motion:no-preference){
+    html:has(.cdv){scroll-behavior:smooth}
+  }
+</style>
+
+<script>
+  (function () {
+    var root = document.getElementById('CoverlessDuvet-{{ section.id }}');
+    if (!root || root.dataset.ready) return;
+    root.dataset.ready = 'true';
+
+    var $ = function (sel, ctx) { return (ctx || root).querySelector(sel); };
+    var $$ = function (sel, ctx) { return Array.prototype.slice.call((ctx || root).querySelectorAll(sel)); };
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var isDemo = root.dataset.demo === 'true';
+    var handleize = function (s) { return String(s).toLowerCase().replace(/['"]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''); };
+
+    function formatMoney(cents, format) {
+      if (typeof cents === 'string') cents = cents.replace('.', '');
+      format = format || root.dataset.moneyFormat || '$' + '{' + '{amount}}';
+      var match = format.match(/\{\{\s*(\w+)\s*\}\}/);
+      var fmt = function (n, decimals, thousands, decimal) {
+        n = (Number(n) / 100).toFixed(decimals);
+        var parts = n.split('.');
+        parts[0] = parts[0].replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1' + thousands);
+        return parts[1] ? parts[0] + decimal + parts[1] : parts[0];
+      };
+      var value = '';
+      switch (match ? match[1] : 'amount') {
+        case 'amount_no_decimals': value = fmt(cents, 0, ',', '.'); break;
+        case 'amount_with_comma_separator': value = fmt(cents, 2, '.', ','); break;
+        case 'amount_no_decimals_with_comma_separator': value = fmt(cents, 0, '.', ','); break;
+        case 'amount_with_apostrophe_separator': value = fmt(cents, 2, "'", '.'); break;
+        default: value = fmt(cents, 2, ',', '.');
+      }
+      return format.replace(/\{\{\s*\w+\s*\}\}/, value);
+    }
+
+    /* ── Header & menu ── */
+    var header = $('[data-header]');
+    function setHeaderHeight() {
+      if (header) root.style.setProperty('--cdv-header-h', header.offsetHeight + 'px');
+    }
+    setHeaderHeight();
+
+    var menu = $('[data-menu]');
+    var menuOpen = $('[data-menu-open]');
+    if (menu && menuOpen && menu.showModal) {
+      menuOpen.addEventListener('click', function () { menu.showModal(); menuOpen.setAttribute('aria-expanded', 'true'); });
+      $$('[data-menu-close], [data-menu-link]', menu).forEach(function (el) {
+        el.addEventListener('click', function () { menu.close(); });
+      });
+      menu.addEventListener('close', function () { menuOpen.setAttribute('aria-expanded', 'false'); });
+      menu.addEventListener('click', function (e) { if (e.target === menu) menu.close(); });
+    }
+
+    /* ── Size guide ── */
+    var sizeGuide = $('[data-size-guide]');
+    if (sizeGuide && sizeGuide.showModal) {
+      $$('[data-size-guide-open]').forEach(function (btn) {
+        btn.addEventListener('click', function () { sizeGuide.showModal(); });
+      });
+      $('[data-size-guide-close]', sizeGuide).addEventListener('click', function () { sizeGuide.close(); });
+      sizeGuide.addEventListener('click', function (e) { if (e.target === sizeGuide) sizeGuide.close(); });
+    }
+
+    /* ── Videos (lazy, never autoplay with sound) ── */
+    $$('[data-video]').forEach(function (wrap) {
+      var play = $('[data-video-play]', wrap);
+      var tpl = $('[data-video-template]', wrap);
+      if (!play || !tpl) return;
+      play.addEventListener('click', function () {
+        var node = tpl.content.firstElementChild.cloneNode(true);
+        wrap.appendChild(node);
+        play.remove();
+        if (node.tagName === 'VIDEO') { node.play().catch(function () {}); node.focus(); }
+      });
+    });
+
+    /* ── Review sorting ── */
+    var sort = $('[data-review-sort]');
+    var reviewTrack = $('[data-review-track]');
+    if (sort && reviewTrack) {
+      var sortReviews = function () {
+        var items = $$('[data-review]', reviewTrack);
+        items.sort(function (a, b) {
+          if (sort.value === 'highest') return b.dataset.rating - a.dataset.rating;
+          if (sort.value === 'lowest') return a.dataset.rating - b.dataset.rating;
+          return (Date.parse(b.dataset.date) || 0) - (Date.parse(a.dataset.date) || 0);
+        });
+        items.forEach(function (el) { reviewTrack.appendChild(el); });
+      };
+      sort.addEventListener('change', sortReviews);
+      sortReviews();
+    }
+
+    /* ── Product ── */
+    var variantsEl = $('[data-variants-json]');
+    if (!variantsEl) return;
+    var variants = JSON.parse(variantsEl.textContent);
+    var form = $('[data-product-form]');
+    var idInput = $('[data-variant-id]');
+    var optionSets = $$('[data-option]');
+    var addButton = $('[data-add-button]');
+    var addLabel = $('[data-add-label]');
+    var addPrice = $('[data-add-price]');
+    var qtyInput = $('[data-qty]');
+    var message = $('[data-form-message]');
+    var colorIndex = {{ color_index }};
+
+    var current = variants.find(function (v) { return String(v.id) === idInput.value; }) || variants[0];
+    var selected = current.options.slice();
+
+    function findVariant(options) {
+      return variants.find(function (v) {
+        return v.options.every(function (o, i) { return o === options[i]; });
+      });
+    }
+
+    /* Gallery */
+    var track = $('[data-gallery-track]');
+    var dots = $('[data-gallery-dots]');
+    var count = $('[data-gallery-count]');
+    function visibleSlides() { return $$('[data-slide]', track).filter(function (s) { return !s.hidden; }); }
+    function layoutGallery(leadMediaId) {
+      if (!track) return;
+      var colorHandle = colorIndex >= 0 ? handleize(selected[colorIndex]) : '';
+      var slides = $$('[data-slide]', track);
+      var lead = null;
+      slides.forEach(function (s) {
+        var c = s.dataset.color;
+        s.hidden = !!(c && c !== colorHandle);
+        s.classList.remove('is-lead', 'is-wide');
+        if (leadMediaId && s.dataset.mediaId === String(leadMediaId)) lead = s;
+      });
+      if (!lead || lead.hidden) {
+        lead = slides.find(function (s) { return !s.hidden && s.dataset.color && s.dataset.color === colorHandle; }) || visibleSlides()[0];
+      }
+      if (lead) {
+        lead.classList.add('is-lead');
+        track.insertBefore(lead, track.firstChild);
+      }
+      var rest = visibleSlides().slice(1);
+      if (rest.length % 2 === 1) rest[rest.length - 1].classList.add('is-wide');
+      buildDots();
+      track.scrollTo({ left: 0, behavior: 'auto' });
+    }
+    function buildDots() {
+      if (!dots) return;
+      var n = visibleSlides().length;
+      dots.innerHTML = n > 1 ? new Array(n + 1).join('<span></span>') : '';
+      updateDots();
+    }
+    function updateDots() {
+      if (!dots || !track) return;
+      var w = track.clientWidth || 1;
+      var i = Math.round(track.scrollLeft / w);
+      $$('span', dots).forEach(function (d, j) { d.classList.toggle('is-active', i === j); });
+      var n = visibleSlides().length;
+      if (count && n > 1) count.textContent = 'Image ' + (i + 1) + ' of ' + n;
+    }
+    if (track) {
+      var raf;
+      track.addEventListener('scroll', function () { cancelAnimationFrame(raf); raf = requestAnimationFrame(updateDots); }, { passive: true });
+      layoutGallery(current.featured_media && current.featured_media.id);
+    }
+
+    /* Option availability */
+    function markAvailability() {
+      optionSets.forEach(function (set) {
+        var idx = Number(set.dataset.optionIndex);
+        $$('[data-option-button]', set).forEach(function (btn) {
+          var opts = selected.slice();
+          opts[idx] = btn.dataset.value;
+          var v = findVariant(opts);
+          var available = !!(v && v.available);
+          btn.classList.toggle('is-unavailable', !available);
+          var label = btn.dataset.value + (available ? '' : ' (sold out)');
+          if (btn.classList.contains('cdv-swatch')) { btn.setAttribute('aria-label', label); btn.title = label; }
+        });
+      });
+    }
+
+    function render(changedIndex) {
+      var v = findVariant(selected);
+      optionSets.forEach(function (set) {
+        var idx = Number(set.dataset.optionIndex);
+        $('[data-option-value]', set).textContent = String(selected[idx]).split(' (')[0];
+        $$('[data-option-button]', set).forEach(function (btn) {
+          btn.setAttribute('aria-pressed', btn.dataset.value === selected[idx] ? 'true' : 'false');
+        });
+      });
+      markAvailability();
+
+      $$('[data-color-tile]').forEach(function (tile) {
+        tile.setAttribute('aria-pressed', colorIndex >= 0 && tile.dataset.value === selected[colorIndex] ? 'true' : 'false');
+      });
+      var colorSelected = $('[data-color-selected]');
+      if (colorSelected && colorIndex >= 0) colorSelected.textContent = selected[colorIndex];
+
+      if (!v) {
+        addButton.disabled = true;
+        addLabel.textContent = 'Unavailable';
+        addPrice.textContent = '';
+        updateSticky(null);
+        updateBundles();
+        return;
+      }
+      current = v;
+      idInput.value = v.id;
+      $('[data-price]').textContent = formatMoney(v.price);
+      var compare = $('[data-compare-price]');
+      var saveBadge = $('[data-save-badge]');
+      var onSale = v.compare_at_price && v.compare_at_price > v.price;
+      compare.hidden = !onSale;
+      saveBadge.hidden = !onSale;
+      if (onSale) {
+        compare.textContent = formatMoney(v.compare_at_price);
+        $('[data-save-amount]').textContent = formatMoney(v.compare_at_price - v.price);
+      }
+      addButton.disabled = !v.available;
+      addLabel.textContent = v.available ? 'Add to Bag' : 'Sold out';
+
+      if (changedIndex === colorIndex || changedIndex === undefined) {
+        if (track) {
+          $$('[data-slide]', track).forEach(function (s) { s.classList.add('is-changing'); });
+          setTimeout(function () {
+            layoutGallery(v.featured_media && v.featured_media.id);
+            $$('[data-slide]', track).forEach(function (s) { s.classList.remove('is-changing'); });
+          }, reduceMotion ? 0 : 160);
+        }
+      }
+
+      if (!isDemo && window.history.replaceState) {
+        var url = new URL(window.location.href);
+        url.searchParams.set('variant', v.id);
+        window.history.replaceState({}, '', url.toString());
+      }
+      updateBundles();
+      updateSticky(v);
+    }
+
+    optionSets.forEach(function (set) {
+      var idx = Number(set.dataset.optionIndex);
+      $$('[data-option-button]', set).forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          selected[idx] = btn.dataset.value;
+          render(idx);
+        });
+      });
+    });
+
+    /* Color collection tiles */
+    $$('[data-color-tile]').forEach(function (tile) {
+      tile.addEventListener('click', function () {
+        if (colorIndex < 0) return;
+        selected[colorIndex] = tile.dataset.value;
+        render(colorIndex);
+      });
+    });
+
+    /* Quantity */
+    $$('[data-qty-step]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var n = Math.max(1, Math.min(20, (parseInt(qtyInput.value, 10) || 1) + Number(btn.dataset.qtyStep)));
+        qtyInput.value = n;
+        updatePrices();
+      });
+    });
+    qtyInput.addEventListener('change', function () {
+      qtyInput.value = Math.max(1, Math.min(20, parseInt(qtyInput.value, 10) || 1));
+      updatePrices();
+    });
+
+    /* Bundles */
+    var bundleWrap = $('[data-bundles]');
+    var bundleRows = $('[data-bundle-rows]');
+    function bundleQty() {
+      var checked = bundleWrap && $('[data-bundle-option]:checked', bundleWrap);
+      return checked ? Number(checked.value) : 1;
+    }
+    function rowVariant(row) {
+      var opts = $$('[data-bundle-select]', row).map(function (s) { return s.value; });
+      return findVariant(opts);
+    }
+    function bundleItems(q) {
+      var items = [current];
+      for (var n = 2; n <= q; n++) {
+        var row = $('[data-bundle-row="' + n + '"]', bundleRows);
+        items.push(row ? rowVariant(row) : null);
+      }
+      return items;
+    }
+    function updateBundles() {
+      if (!bundleWrap) { updatePrices(); return; }
+      var q = bundleQty();
+      bundleRows.hidden = q < 2;
+      $('[data-quantity-wrap]').hidden = q > 1;
+      $('.cdv-buy').classList.toggle('is-bundle', q > 1);
+      $('[data-bundle-main-summary]').textContent = current ? current.title : '';
+      $$('[data-bundle-row]', bundleRows).forEach(function (row) {
+        var n = Number(row.dataset.bundleRow);
+        row.hidden = n > q;
+        var v = rowVariant(row);
+        $('[data-bundle-row-status]', row).textContent = !v ? 'This combination is unavailable.' : (v.available ? '' : 'This option is sold out.');
+      });
+      $$('[data-bundle-option]', bundleWrap).forEach(function (input) {
+        var label = input.closest('.cdv-bundle');
+        var items = bundleItems(Number(input.value));
+        var valid = items.every(function (v) { return v; });
+        var total = valid ? items.reduce(function (sum, v) { return sum + v.price; }, 0) : 0;
+        var pct = Number(input.dataset.savings) || 0;
+        $('[data-bundle-total]', label).textContent = valid ? formatMoney(total) : '—';
+        var save = $('[data-bundle-save]', label);
+        save.hidden = !(pct > 0 && valid);
+        if (pct > 0 && valid) save.textContent = 'Save ' + formatMoney(Math.round(total * pct / 100)) + ' (' + pct + '%) — applied at checkout';
+      });
+      var note = $('[data-bundle-note]');
+      if (note) note.hidden = !(q > 1 && note.textContent.trim());
+      updatePrices();
+    }
+    if (bundleWrap) {
+      $$('[data-bundle-option]', bundleWrap).forEach(function (input) { input.addEventListener('change', updateBundles); });
+      $$('[data-bundle-select]', bundleRows).forEach(function (sel) { sel.addEventListener('change', updateBundles); });
+    }
+
+    function cartItems() {
+      var q = bundleQty();
+      if (q < 2) return current ? [{ id: current.id, quantity: parseInt(qtyInput.value, 10) || 1 }] : [];
+      var merged = {};
+      var items = bundleItems(q);
+      if (!items.every(function (v) { return v && v.available; })) return null;
+      items.forEach(function (v) { merged[v.id] = (merged[v.id] || 0) + 1; });
+      return Object.keys(merged).map(function (id) { return { id: Number(id), quantity: merged[id] }; });
+    }
+    function updatePrices() {
+      if (!current) return;
+      var q = bundleQty();
+      var total;
+      if (q < 2) {
+        total = current.price * (parseInt(qtyInput.value, 10) || 1);
+        addButton.disabled = !current.available;
+      } else {
+        var items = bundleItems(q);
+        var valid = items.every(function (v) { return v && v.available; });
+        total = valid ? items.reduce(function (s, v) { return s + v.price; }, 0) : 0;
+        addButton.disabled = !valid;
+        addLabel.textContent = valid ? 'Add ' + q + ' to Bag' : 'Check your selections';
+      }
+      if (q < 2) addLabel.textContent = current.available ? 'Add to Bag' : 'Sold out';
+      addPrice.textContent = total ? formatMoney(total) : '';
+      var stickyPrice = $('[data-sticky-price]');
+      if (stickyPrice) stickyPrice.textContent = formatMoney(total || current.price);
+    }
+
+    /* Add to bag */
+    function showMessage(html, type) {
+      message.hidden = false;
+      message.className = 'cdv-form__message' + (type ? ' is-' + type : '');
+      message.innerHTML = html;
+    }
+    function updateBagCount(n) {
+      var el = $('[data-bag-count]');
+      var link = $('[data-bag-link]');
+      if (el) { el.textContent = n; el.hidden = n === 0; }
+      if (link) link.setAttribute('aria-label', 'Shopping bag, ' + n + ' items');
+    }
+    if (form) {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var items = cartItems();
+        if (!items || !items.length) { showMessage('Please check your selections — one of the options is unavailable.', 'error'); return; }
+        if (isDemo) {
+          showMessage('<strong>Demo preview:</strong> checkout is not connected here, so nothing was added. On your Shopify store this button adds the selected duvet(s) to the real cart.', 'demo');
+          return;
+        }
+        addButton.disabled = true;
+        addButton.setAttribute('aria-busy', 'true');
+        fetch(root.dataset.cartAddUrl + '.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ items: items })
+        })
+          .then(function (res) { return res.json().then(function (data) { if (!res.ok) throw data; return data; }); })
+          .then(function () { return fetch(root.dataset.cartUrl + '.js').then(function (r) { return r.json(); }); })
+          .then(function (cart) {
+            updateBagCount(cart.item_count);
+            document.dispatchEvent(new CustomEvent('cart:refresh', { bubbles: true }));
+            showMessage('Added to your bag. <a href="' + root.dataset.cartUrl + '">View bag &amp; check out</a>');
+          })
+          .catch(function (err) {
+            showMessage((err && (err.description || err.message)) || 'Sorry, we couldn’t add that to your bag. Please try again.', 'error');
+          })
+          .finally(function () {
+            addButton.removeAttribute('aria-busy');
+            updatePrices();
+          });
+      });
+    }
+
+    /* Sticky info column: stays in view without trapping scroll */
+    var info = $('[data-info]');
+    function setStickyTop() {
+      if (!info) return;
+      var headerH = header ? header.offsetHeight : 0;
+      var top = headerH + 24;
+      var overflow = info.offsetHeight + top + 24 - window.innerHeight;
+      root.style.setProperty('--cdv-sticky-top', (overflow > 0 ? top - overflow : top) + 'px');
+    }
+    setStickyTop();
+    window.addEventListener('resize', function () { setHeaderHeight(); setStickyTop(); updateDots(); });
+    if (window.ResizeObserver && info) new ResizeObserver(setStickyTop).observe(info);
+
+    /* Mobile purchase bar */
+    var bar = $('[data-sticky-bar]');
+    function updateSticky(v) {
+      if (!bar) return;
+      $('[data-sticky-variant]', bar).textContent = v ? v.title : 'Unavailable';
+      var btn = $('[data-sticky-add]', bar);
+      btn.disabled = !v || !v.available;
+      btn.textContent = v && v.available ? 'Add to Bag' : 'Sold out';
+    }
+    if (bar && addButton && 'IntersectionObserver' in window) {
+      var stickyBtn = $('[data-sticky-add]', bar);
+      var finalSection = $('.cdv-final');
+      var addVisible = true;
+      var finalVisible = false;
+      var toggleBar = function () {
+        var show = !addVisible && !finalVisible && addButton.getBoundingClientRect().top < 0;
+        bar.classList.toggle('is-visible', show);
+        bar.setAttribute('aria-hidden', show ? 'false' : 'true');
+        stickyBtn.tabIndex = show ? 0 : -1;
+      };
+      new IntersectionObserver(function (entries) { addVisible = entries[0].isIntersecting; toggleBar(); }).observe(addButton);
+      if (finalSection) new IntersectionObserver(function (entries) { finalVisible = entries[0].isIntersecting; toggleBar(); }).observe(finalSection);
+      stickyBtn.addEventListener('click', function () {
+        if (bundleQty() > 1) { $('#cdv-product').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' }); return; }
+        if (form.requestSubmit) form.requestSubmit(); else form.dispatchEvent(new Event('submit', { cancelable: true }));
+        setTimeout(function () { message.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' }); }, 60);
+      });
+    }
+
+    render();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Coverless Duvet Page",
+  "tag": "div",
+  "class": "coverless-duvet-section",
+  "max_blocks": 50,
+  "settings": [
+    {"type":"header","content":"Brand & colors"},
+    {"type":"text","id":"brand_name","label":"Brand name","info":"Leave blank to use your store name."},
+    {"type":"image_picker","id":"logo","label":"Logo image"},
+    {"type":"color","id":"color_ivory","label":"Background (warm ivory)","default":"#FAF8F4"},
+    {"type":"color","id":"color_oat","label":"Alternate sections (soft oatmeal)","default":"#EEE7DD"},
+    {"type":"color","id":"color_navy","label":"Headings, buttons & footer (midnight blue)","default":"#233746"},
+    {"type":"color","id":"color_blue","label":"Accents & selected states (coastal blue)","default":"#ADC5D4"},
+    {"type":"color","id":"color_ink","label":"Body text (charcoal)","default":"#292929"},
+    {"type":"checkbox","id":"load_fonts","label":"Load Cormorant Garamond & Inter from Google Fonts","default":true},
+
+    {"type":"header","content":"Announcement bar"},
+    {"type":"checkbox","id":"show_announcement","label":"Show announcement bar","default":true},
+    {"type":"text","id":"announcement_text","label":"Message","default":"Tracked delivery on every order","info":"Use one genuine offer or shipping benefit."},
+    {"type":"url","id":"announcement_link","label":"Link"},
+
+    {"type":"header","content":"Header"},
+    {"type":"checkbox","id":"show_header","label":"Show built-in header","default":true,"info":"Turn off if your theme's own header is shown on this page."},
+    {"type":"text","id":"nav_label_1","label":"Link 1 label","default":"Shop Duvets"},
+    {"type":"text","id":"nav_href_1","label":"Link 1 destination","default":"#cdv-product"},
+    {"type":"text","id":"nav_label_2","label":"Link 2 label","default":"Our Difference"},
+    {"type":"text","id":"nav_href_2","label":"Link 2 destination","default":"#cdv-difference"},
+    {"type":"text","id":"nav_label_3","label":"Link 3 label","default":"Care Guide"},
+    {"type":"text","id":"nav_href_3","label":"Link 3 destination","default":"#cdv-care"},
+    {"type":"text","id":"nav_label_4","label":"Link 4 label","default":"Reviews"},
+    {"type":"text","id":"nav_href_4","label":"Link 4 destination","default":"#cdv-reviews","info":"Hidden automatically while there are no reviews."},
+    {"type":"text","id":"nav_label_5","label":"Link 5 label","default":"Contact"},
+    {"type":"text","id":"nav_href_5","label":"Link 5 destination","default":"/pages/contact"},
+
+    {"type":"header","content":"Product"},
+    {"type":"product","id":"featured_product","label":"Product","info":"Leave blank on a product template to use that product."},
+    {"type":"text","id":"product_eyebrow","label":"Eyebrow","default":"Everyday comfort, beautifully simplified."},
+    {"type":"text","id":"product_title","label":"Display title","info":"Leave blank to use the product title."},
+    {"type":"richtext","id":"product_intro","label":"Short description","default":"<p>The outer fabric is part of the duvet itself, so there is no separate cover to fit. Unfold it, spread it over the bed, and when it’s time to wash, the whole duvet goes in as one piece.</p>"},
+    {"type":"text","id":"price_note","label":"Price note","default":"Taxes and shipping calculated at checkout."},
+    {"type":"text","id":"product_benefit_1","label":"Benefit 1","default":"No separate duvet cover to fit"},
+    {"type":"text","id":"product_benefit_2","label":"Benefit 2","default":"Machine washable as one piece"},
+    {"type":"text","id":"product_benefit_3","label":"Benefit 3","default":"Available in 10 colors and 5 sizes"},
+    {"type":"textarea","id":"swatch_map","label":"Color swatches","info":"One color per line as Name: #hex. Names must match your Color option values.","default":"Coastal Blue: #9DB7C9\nHearth Red: #9A3E36\nSunset Glow: #E3A47C\nSoft Mint Green: #BFD8C8\nCream Beige: #E6D9C3\nMidnight Black: #22262B\nMoonstone Gray: #A8ACB0\nCloud White: #F5F3EE\nCocoa Brown: #6A4B3C\nLavender Mist: #C8BEDB"},
+    {"type":"range","id":"gallery_limit","label":"Shared gallery images","info":"Images not linked to a color variant. The selected color's image is always shown first.","min":1,"max":12,"step":1,"default":7},
+    {"type":"checkbox","id":"show_size_guide","label":"Show size guide link","default":true},
+    {"type":"checkbox","id":"show_bundles","label":"Show bundle selector","default":true,"info":"Requires at least two Bundle blocks."},
+    {"type":"text","id":"bundle_heading","label":"Bundle heading","default":"Choose your set"},
+    {"type":"text","id":"bundle_note","label":"Bundle note","default":"Choose a color and size for each duvet."},
+    {"type":"text","id":"delivery_heading","label":"Delivery heading","default":"Delivery"},
+    {"type":"text","id":"delivery_text","label":"Delivery information","default":"Ships in 1–3 business days. Tracked delivery in 5–10 business days within the US."},
+    {"type":"text","id":"returns_short_heading","label":"Returns heading","default":"Returns"},
+    {"type":"text","id":"returns_short","label":"Returns summary","default":"[Your return window and conditions]."},
+    {"type":"checkbox","id":"show_payment_icons","label":"Show payment icons","default":true,"info":"Shows the payment methods enabled in your Shopify payment settings."},
+
+    {"type":"header","content":"Benefit strip"},
+    {"type":"select","id":"benefit_icon_1","label":"Benefit 1 icon","default":"duvet","options":[{"value":"duvet","label":"Duvet"},{"value":"wash","label":"Washing"},{"value":"feather","label":"Soft"},{"value":"palette","label":"Colors"},{"value":"truck","label":"Delivery"},{"value":"return","label":"Returns"}]},
+    {"type":"text","id":"benefit_title_1","label":"Benefit 1 title","default":"No separate cover"},
+    {"type":"text","id":"benefit_text_1","label":"Benefit 1 text","default":"The outer fabric is built in, so there’s nothing to button or zip."},
+    {"type":"select","id":"benefit_icon_2","label":"Benefit 2 icon","default":"wash","options":[{"value":"duvet","label":"Duvet"},{"value":"wash","label":"Washing"},{"value":"feather","label":"Soft"},{"value":"palette","label":"Colors"},{"value":"truck","label":"Delivery"},{"value":"return","label":"Returns"}]},
+    {"type":"text","id":"benefit_title_2","label":"Benefit 2 title","default":"Easy everyday care"},
+    {"type":"text","id":"benefit_text_2","label":"Benefit 2 text","default":"Machine washable as a single piece — see the care guide for details."},
+    {"type":"select","id":"benefit_icon_3","label":"Benefit 3 icon","default":"feather","options":[{"value":"duvet","label":"Duvet"},{"value":"wash","label":"Washing"},{"value":"feather","label":"Soft"},{"value":"palette","label":"Colors"},{"value":"truck","label":"Delivery"},{"value":"return","label":"Returns"}]},
+    {"type":"text","id":"benefit_title_3","label":"Benefit 3 title","default":"Soft to the touch"},
+    {"type":"text","id":"benefit_text_3","label":"Benefit 3 text","default":"A smooth outer fabric made to be slept under directly."},
+    {"type":"select","id":"benefit_icon_4","label":"Benefit 4 icon","default":"palette","options":[{"value":"duvet","label":"Duvet"},{"value":"wash","label":"Washing"},{"value":"feather","label":"Soft"},{"value":"palette","label":"Colors"},{"value":"truck","label":"Delivery"},{"value":"return","label":"Returns"}]},
+    {"type":"text","id":"benefit_title_4","label":"Benefit 4 title","default":"Colors for your bedroom"},
+    {"type":"text","id":"benefit_text_4","label":"Benefit 4 text","default":"Ten shades, from Cloud White to Midnight Black."},
+
+    {"type":"header","content":"Editorial story"},
+    {"type":"image_picker","id":"story_image","label":"Image","info":"Photography: a made bed in a sunlit bedroom — linen curtains, warm wood, natural light."},
+    {"type":"text","id":"story_eyebrow","label":"Eyebrow","default":"The coverless difference"},
+    {"type":"text","id":"story_heading","label":"Heading","default":"A beautiful bed. A simpler routine."},
+    {"type":"richtext","id":"story_text","label":"Text","default":"<p>With a traditional duvet, making the bed means turning a cover inside out, finding the corners and working the insert back in. Here, the outer fabric and the filling are one piece — so that step simply isn’t there.</p><p>Lay it on the bed, smooth it out, and the room looks finished. On laundry day, the whole duvet is washed together and goes straight back on.</p>"},
+    {"type":"text","id":"story_link_label","label":"Link label","default":"Explore the details"},
+
+    {"type":"header","content":"Demonstration video"},
+    {"type":"text","id":"video_eyebrow","label":"Eyebrow","default":"In motion"},
+    {"type":"text","id":"video_heading","label":"Heading","default":"See how simple bedding can be."},
+    {"type":"video","id":"video","label":"Video (uploaded to Shopify)","info":"Show the duvet being unfolded, spread and smoothed. Never autoplays with sound."},
+    {"type":"video_url","id":"video_url","label":"Or YouTube / Vimeo URL","accept":["youtube","vimeo"]},
+    {"type":"image_picker","id":"video_poster","label":"Poster image"},
+    {"type":"text","id":"video_captions","label":"Captions file URL (.vtt)","info":"Upload a WebVTT file in Content → Files and paste its URL. Used for uploaded videos."},
+    {"type":"image_picker","id":"step_image_1","label":"Step 1 image"},
+    {"type":"text","id":"step_title_1","label":"Step 1 title","default":"Unfold."},
+    {"type":"text","id":"step_text_1","label":"Step 1 text","default":"Take the duvet out and open it across the foot of the bed."},
+    {"type":"image_picker","id":"step_image_2","label":"Step 2 image"},
+    {"type":"text","id":"step_title_2","label":"Step 2 title","default":"Spread."},
+    {"type":"text","id":"step_text_2","label":"Step 2 text","default":"Draw it up toward the pillows so it hangs evenly on both sides."},
+    {"type":"image_picker","id":"step_image_3","label":"Step 3 image"},
+    {"type":"text","id":"step_title_3","label":"Step 3 title","default":"Settle in."},
+    {"type":"text","id":"step_text_3","label":"Step 3 text","default":"Smooth it flat with your hands. That’s the whole routine."},
+
+    {"type":"header","content":"Comfort & construction"},
+    {"type":"image_picker","id":"detail_image_1","label":"Large image","info":"Photography: close-up of the fabric and quilting."},
+    {"type":"image_picker","id":"detail_image_2","label":"Small image 1","info":"Photography: folded duvet showing thickness."},
+    {"type":"image_picker","id":"detail_image_3","label":"Small image 2","info":"Photography: stitching or edge finish."},
+    {"type":"text","id":"details_eyebrow","label":"Eyebrow","default":"Materials & make"},
+    {"type":"text","id":"details_heading","label":"Heading","default":"The details you’ll feel."},
+    {"type":"textarea","id":"details_intro","label":"Intro","default":"Each element is chosen for how the duvet looks and feels on the bed every day. Add Detail blocks with your verified specifications."},
+
+    {"type":"header","content":"Color collection"},
+    {"type":"text","id":"colors_eyebrow","label":"Eyebrow","default":"The collection"},
+    {"type":"text","id":"colors_heading","label":"Heading","default":"Find your bedroom’s perfect shade."},
+    {"type":"text","id":"colors_text","label":"Text","default":"Every shade photographed in the same room and light, so you can compare them honestly."},
+    {"type":"text","id":"colors_button","label":"Button label","default":"Continue to size & bag"},
+
+    {"type":"header","content":"Care & size guidance"},
+    {"type":"text","id":"care_eyebrow","label":"Eyebrow","default":"Care & sizing"},
+    {"type":"text","id":"care_heading","label":"Heading","default":"Simple care. The right fit."},
+    {"type":"text","id":"care_wash_heading","label":"Care heading","default":"Washing & drying"},
+    {"type":"richtext","id":"care_text","label":"Care introduction","default":"<p>The duvet is machine washable as one piece. Always follow the care label sewn into your duvet.</p>"},
+    {"type":"text","id":"care_wash_temp","label":"Wash temperature & cycle","default":"[Wash temperature and cycle from the care label]"},
+    {"type":"text","id":"care_capacity","label":"Machine capacity","default":"[Recommended drum capacity for each size]"},
+    {"type":"text","id":"care_drying","label":"Drying","default":"[Drying instructions from the care label]"},
+    {"type":"text","id":"care_footnote","label":"Care footnote","default":"Larger sizes may need a large-capacity machine. Check your drum capacity before washing."},
+    {"type":"text","id":"size_heading","label":"Size guide heading","default":"Choosing your size"},
+    {"type":"text","id":"size_text","label":"Size guide text","default":"Match the duvet to your bed. For more overhang, consider the next size up."},
+    {"type":"text","id":"size_footnote","label":"Size footnote","default":"Measurements are approximate."},
+
+    {"type":"header","content":"Comparison"},
+    {"type":"text","id":"compare_eyebrow","label":"Eyebrow","default":"Our difference"},
+    {"type":"text","id":"compare_heading","label":"Heading","default":"A different way to make your bed."},
+    {"type":"text","id":"compare_col_traditional","label":"Traditional column","default":"Duvet + separate cover"},
+    {"type":"text","id":"compare_col_ours","label":"Coverless column","default":"Coverless duvet"},
+    {"type":"text","id":"compare_footnote","label":"Footnote","default":"A coverless duvet suits people who value an easier routine; a separate cover suits people who like to change their look often."},
+
+    {"type":"header","content":"Reviews"},
+    {"type":"paragraph","content":"Only add authentic reviews from real customers, or add your review app's block. This section is hidden when there are no reviews."},
+    {"type":"text","id":"reviews_eyebrow","label":"Eyebrow","default":"From our customers"},
+    {"type":"text","id":"reviews_heading","label":"Heading","default":"Real bedrooms, real routines."},
+
+    {"type":"header","content":"Returns & reassurance"},
+    {"type":"text","id":"returns_heading","label":"Heading","default":"Shop with confidence."},
+    {"type":"richtext","id":"returns_text","label":"Text","default":"<p>[Describe your actual return policy or trial period — the time window, the condition items must be in, and how refunds are issued.]</p>"},
+    {"type":"text","id":"returns_link_label","label":"Link label","default":"Read the full return policy"},
+    {"type":"url","id":"returns_link","label":"Link","info":"Defaults to your store's refund policy."},
+
+    {"type":"header","content":"FAQ"},
+    {"type":"text","id":"faq_eyebrow","label":"Eyebrow","default":"Questions"},
+    {"type":"text","id":"faq_heading","label":"Heading","default":"Good to know."},
+    {"type":"richtext","id":"faq_text","label":"Text","default":"<p>Can’t find your answer? <a href=\"/pages/contact\">Contact us</a> — we’re happy to help.</p>"},
+
+    {"type":"header","content":"Final shopping section"},
+    {"type":"image_picker","id":"final_image","label":"Wide bedroom image"},
+    {"type":"text","id":"final_heading","label":"Heading","default":"Make room for everyday comfort."},
+    {"type":"text","id":"final_text","label":"Text","default":"Your color and size selections are saved above."},
+    {"type":"text","id":"final_button","label":"Button label","default":"Choose Your Duvet"},
+
+    {"type":"header","content":"Footer"},
+    {"type":"checkbox","id":"show_footer","label":"Show built-in footer","default":true,"info":"Turn off if your theme's own footer is shown on this page."},
+    {"type":"text","id":"footer_statement","label":"Brand statement","default":"Bedding designed to make a beautiful bed the easy part of the day."},
+    {"type":"link_list","id":"footer_menu","label":"Shop links menu","default":"footer"},
+    {"type":"text","id":"contact_email","label":"Contact email","default":"support@blkmajesty.com"},
+    {"type":"text","id":"contact_phone","label":"Contact phone"},
+    {"type":"text","id":"contact_hours","label":"Support hours","default":"[Support hours]"},
+    {"type":"checkbox","id":"show_newsletter","label":"Show newsletter signup","default":true},
+    {"type":"text","id":"newsletter_label","label":"Newsletter label","default":"News, care tips and new colors — no spam."}
+  ],
+  "blocks": [
+    {"type":"@app"},
+    {
+      "type":"bundle","name":"Bundle option",
+      "settings":[
+        {"type":"text","id":"title","label":"Title","default":"One Duvet"},
+        {"type":"range","id":"quantity","label":"Number of duvets","min":1,"max":5,"step":1,"default":1},
+        {"type":"text","id":"badge","label":"Badge"},
+        {"type":"range","id":"savings_percent","label":"Savings shown (%)","min":0,"max":50,"step":1,"unit":"%","default":0,"info":"Display only. Create a matching automatic discount in Shopify so checkout applies it. Leave at 0 when there is no real offer."}
+      ]
+    },
+    {
+      "type":"detail","name":"Detail",
+      "settings":[
+        {"type":"text","id":"title","label":"Title","default":"Outer fabric"},
+        {"type":"textarea","id":"text","label":"Description","default":"[Fabric composition and finish, and what it means day to day]"}
+      ]
+    },
+    {
+      "type":"color_image","name":"Color room photo",
+      "settings":[
+        {"type":"text","id":"color","label":"Color name","info":"Must match the Color option value exactly, e.g. Coastal Blue."},
+        {"type":"image_picker","id":"image","label":"Image","info":"Same bedroom, camera angle and light for every color."}
+      ]
+    },
+    {
+      "type":"size_row","name":"Size row",
+      "settings":[
+        {"type":"text","id":"size","label":"Size","default":"Queen"},
+        {"type":"text","id":"dimensions","label":"Dimensions","default":"91 × 91 in"},
+        {"type":"text","id":"bed","label":"Suitable for","default":"Queen beds"}
+      ]
+    },
+    {
+      "type":"compare_row","name":"Comparison row",
+      "settings":[
+        {"type":"text","id":"feature","label":"Feature"},
+        {"type":"textarea","id":"traditional","label":"Duvet + separate cover"},
+        {"type":"textarea","id":"coverless","label":"Coverless duvet"}
+      ]
+    },
+    {
+      "type":"review","name":"Review",
+      "settings":[
+        {"type":"paragraph","content":"Only add genuine reviews from real customers."},
+        {"type":"text","id":"author","label":"Reviewer name"},
+        {"type":"text","id":"date","label":"Date","info":"Format: YYYY-MM-DD"},
+        {"type":"range","id":"rating","label":"Rating","min":1,"max":5,"step":1,"default":5},
+        {"type":"text","id":"title","label":"Title"},
+        {"type":"textarea","id":"body","label":"Review text"},
+        {"type":"image_picker","id":"image","label":"Customer photo"},
+        {"type":"video_url","id":"video_url","label":"Video testimonial","accept":["youtube","vimeo"]},
+        {"type":"checkbox","id":"verified","label":"Verified purchase","default":false,"info":"Only tick when the purchase has been verified."}
+      ]
+    },
+    {
+      "type":"faq","name":"FAQ",
+      "settings":[
+        {"type":"text","id":"question","label":"Question","default":"Question"},
+        {"type":"richtext","id":"answer","label":"Answer","default":"<p>Answer</p>"}
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name":"Coverless Duvet Page",
+      "blocks":[
+        {"type":"bundle","settings":{"title":"One Duvet","quantity":1}},
+        {"type":"bundle","settings":{"title":"Two Duvets","quantity":2}},
+        {"type":"bundle","settings":{"title":"Three Duvets","quantity":3}},
+        {"type":"detail","settings":{"title":"Outer fabric","text":"[Outer fabric composition and weave] — the surface you sleep under, so no separate cover is needed."}},
+        {"type":"detail","settings":{"title":"Filling","text":"[Filling type and fill weight] — sets the warmth and loft of the duvet."}},
+        {"type":"detail","settings":{"title":"Stitching","text":"[Quilting pattern] — keeps the filling evenly in place, wash after wash."}},
+        {"type":"detail","settings":{"title":"Weight","text":"[Weight per size] — so you can choose how heavy the duvet feels."}},
+        {"type":"detail","settings":{"title":"Finish","text":"[Edge and seam finish] — for a neat look on a made bed."}},
+        {"type":"size_row","settings":{"size":"Single","dimensions":"55 × 79 in","bed":"Single beds"}},
+        {"type":"size_row","settings":{"size":"Twin","dimensions":"63 × 83 in","bed":"Twin & twin XL beds"}},
+        {"type":"size_row","settings":{"size":"Full","dimensions":"79 × 79 in","bed":"Full / double beds"}},
+        {"type":"size_row","settings":{"size":"Queen","dimensions":"91 × 91 in","bed":"Queen beds"}},
+        {"type":"size_row","settings":{"size":"King","dimensions":"102 × 86 in","bed":"King beds"}},
+        {"type":"compare_row","settings":{"feature":"Separate cover required","traditional":"Yes — the insert and cover are bought and fitted separately.","coverless":"No — the outer fabric is part of the duvet."}},
+        {"type":"compare_row","settings":{"feature":"Making the bed","traditional":"Turn the cover inside out, match the corners, work the insert in and close the fastening.","coverless":"Unfold, spread over the bed and smooth into place."}},
+        {"type":"compare_row","settings":{"feature":"What gets washed","traditional":"Usually the cover; the insert less often, sometimes needing a large machine or specialist cleaning.","coverless":"The whole duvet, as one piece. Check your machine’s capacity for larger sizes."}},
+        {"type":"compare_row","settings":{"feature":"Sizes & styling","traditional":"Change the look anytime by swapping covers.","coverless":"Five sizes and ten colors. Changing the look means choosing another duvet."}},
+        {"type":"faq","settings":{"question":"What is a coverless duvet?","answer":"<p>It’s a duvet whose outer fabric is part of the duvet itself. Instead of putting an insert into a separate cover, you use and wash it as one piece.</p>"}},
+        {"type":"faq","settings":{"question":"Do I need a separate cover?","answer":"<p>No. The duvet is designed to be used without a cover — just lay it on the bed over your fitted sheet.</p>"}},
+        {"type":"faq","settings":{"question":"What materials are used?","answer":"<p>[Outer fabric composition] outside, with [filling type] inside. See “The details you’ll feel” above for more.</p>"}},
+        {"type":"faq","settings":{"question":"How do I wash and dry it?","answer":"<p>It’s machine washable as one piece. [Wash temperature and cycle]. [Drying instructions]. Always follow the care label sewn into your duvet.</p>"}},
+        {"type":"faq","settings":{"question":"Will my chosen size fit my washing machine?","answer":"<p>[Recommended drum capacity for each size]. Larger sizes may need a large-capacity machine — check your machine’s capacity before washing.</p>"}},
+        {"type":"faq","settings":{"question":"Which size should I choose?","answer":"<p>Choose the size that matches your bed: Single, Twin, Full, Queen or King. The size guide above lists the exact dimensions. For more overhang, consider the next size up.</p>"}},
+        {"type":"faq","settings":{"question":"Are pillowcases included?","answer":"<p>[State what’s in the box — for example, whether pillowcases are included or sold separately.]</p>"}},
+        {"type":"faq","settings":{"question":"What are the delivery and return terms?","answer":"<p>Orders ship in 1–3 business days, with tracked delivery in 5–10 business days within the US. [Your return window and conditions.] See our full shipping and return policies for details.</p>"}}
+      ]
+    }
+  ]
+}
+{% endschema %}

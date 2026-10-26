@@ -1,0 +1,11 @@
+{
+  "name": "coverless-duvet-preview",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node render.mjs"
+  },
+  "devDependencies": {
+    "liquidjs": "10.30.0"
+  }
+}
