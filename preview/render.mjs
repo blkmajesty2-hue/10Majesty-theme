@@ -1,10 +1,12 @@
 // Renders sections/coverless-duvet.liquid into a static preview page (preview/index.html)
+// and a standalone website (site/index.html)
 // using the schema defaults and the store's "Majesty EasyRest™ Duvet" product data.
-// Checkout is disabled in the preview (data-demo="true").
+// Checkout is disabled in the preview (data-demo="true"); the standalone site sends
+// Add to Bag to the store's cart permalink.
 //
 //   cd preview && npm install && npm run build
 
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { Liquid, Hash } from 'liquidjs';
@@ -197,32 +199,45 @@ engine.registerTag('form', {
   }
 });
 
-const context = {
-  section: { id: 'preview', settings, blocks },
-  product,
-  shop: {
-    name: 'BLK_Majesty',
-    customer_accounts_enabled: true,
-    currency: 'USD',
-    money_format: '${{amount}}',
-    enabled_payment_types: [],
-    refund_policy: { url: '/policies/refund-policy' },
-    shipping_policy: { url: '/policies/shipping-policy' },
-    privacy_policy: { url: '/policies/privacy-policy' },
-    terms_of_service: { url: '/policies/terms-of-service' }
-  },
-  cart: { item_count: 0, currency: { iso_code: 'USD' } },
-  routes: {
-    root_url: '#', cart_url: '#', cart_add_url: '#', search_url: '#', all_products_collection_url: '#'
-  },
-  request: { design_mode: false, locale: { iso_code: 'en' } },
-  linklists: {}
-};
+const STORE = 'https://blkmajesty.shop';
 
-let html = await engine.parseAndRender(source, context);
-html = html.replace('class="cdv"', 'class="cdv" data-demo="true"');
+function contextFor(mode) {
+  const site = mode === 'site';
+  const abs = (path) => (site ? STORE + path : path);
+  return {
+    section: {
+      id: mode,
+      settings: site
+        ? { ...settings, nav_href_1: STORE + '/', nav_href_5: STORE + '/pages/contact' }
+        : settings,
+      blocks
+    },
+    product,
+    shop: {
+      name: 'BLK_Majesty',
+      customer_accounts_enabled: true,
+      currency: 'USD',
+      money_format: '${{amount}}',
+      enabled_payment_types: [],
+      refund_policy: { url: abs('/policies/refund-policy') },
+      shipping_policy: { url: abs('/policies/shipping-policy') },
+      privacy_policy: { url: abs('/policies/privacy-policy') },
+      terms_of_service: { url: abs('/policies/terms-of-service') }
+    },
+    cart: { item_count: 0, currency: { iso_code: 'USD' } },
+    routes: site
+      ? { root_url: STORE + '/', cart_url: STORE + '/cart', cart_add_url: STORE + '/cart/add', search_url: STORE + '/search', account_url: STORE + '/account', all_products_collection_url: STORE + '/collections/all' }
+      : { root_url: '#', cart_url: '#', cart_add_url: '#', search_url: '#', account_url: '#', all_products_collection_url: '#' },
+    request: { design_mode: false, locale: { iso_code: 'en' } },
+    linklists: {}
+  };
+}
 
-const page = `<!doctype html>
+// preview/index.html — design preview, checkout disabled
+{
+  let html = await engine.parseAndRender(source, contextFor('preview'));
+  html = html.replace('class="cdv"', 'class="cdv" data-demo="true"');
+  const page = `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -240,5 +255,33 @@ ${html}
 </body>
 </html>
 `;
-writeFileSync(join(here, 'index.html'), page);
-console.log(`Wrote preview/index.html (${(page.length / 1024).toFixed(0)} KB)`);
+  writeFileSync(join(here, 'index.html'), page);
+  console.log(`Wrote preview/index.html (${(page.length / 1024).toFixed(0)} KB)`);
+}
+
+// site/index.html — standalone website; Add to Bag opens the store's cart permalink
+{
+  let html = await engine.parseAndRender(source, contextFor('site'));
+  html = html.replace('class="cdv"', `class="cdv" data-checkout-base="${STORE}"`);
+  const page = `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2-in-1 Coverless Duvet — BLK_Majesty</title>
+<meta name="description" content="The coverless, machine-washable duvet: no cover to fit, quick-drying, 10 colors and 5 sizes, with a 90-day comfort guarantee.">
+<meta property="og:title" content="2-in-1 Coverless Duvet — BLK_Majesty">
+<meta property="og:description" content="No duvet cover to wrestle on. Machine washable as one piece, quick-drying, 10 colors and 5 sizes.">
+<meta property="og:image" content="${media[0].preview_image.src}">
+<link rel="canonical" href="${STORE}${product.url}">
+<style>body{margin:0;background:#fff}</style>
+</head>
+<body>
+${html}
+</body>
+</html>
+`;
+  mkdirSync(join(here, '..', 'site'), { recursive: true });
+  writeFileSync(join(here, '..', 'site', 'index.html'), page);
+  console.log(`Wrote site/index.html (${(page.length / 1024).toFixed(0)} KB)`);
+}

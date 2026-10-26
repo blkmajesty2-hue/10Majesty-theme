@@ -1617,6 +1617,11 @@
           showMessage('<strong>Demo preview:</strong> checkout is not connected here, so nothing was added. On your Shopify store this button adds the selected duvet(s) to the real cart.', 'demo');
           return;
         }
+        if (root.dataset.checkoutBase) {
+          /* standalone build: hand the selection to the store's cart permalink */
+          window.location.href = root.dataset.checkoutBase + '/cart/' + items.map(function (i) { return i.id + ':' + i.quantity; }).join(',');
+          return;
+        }
         addButton.disabled = true;
         addButton.setAttribute('aria-busy', 'true');
         fetch(root.dataset.cartAddUrl + '.js', {

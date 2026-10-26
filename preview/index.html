@@ -33,7 +33,7 @@
         <div class="cdv-header__actions">
           <a class="cdv-icon-button cdv-header__desktop-only" href="#" aria-label="Search">
             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg>
-          </a><a class="cdv-icon-button cdv-header__desktop-only" href="" aria-label="Account">
+          </a><a class="cdv-icon-button cdv-header__desktop-only" href="#" aria-label="Account">
               <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="10" r="3.2"/><path d="M6.2 18.4c1.3-2 3.4-3.1 5.8-3.1s4.5 1.1 5.8 3.1"/></svg>
             </a><a class="cdv-icon-button cdv-bag" href="#" aria-label="Shopping bag, 0 items" data-bag-link>
             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 8h14l-1 13H6z"/><path d="M9 10V7a3 3 0 016 0v3"/></svg>
@@ -1371,6 +1371,11 @@ Done.</span><span class="cdv-routine__text">One piece, straight from the laundry
         if (!items || !items.length) { showMessage('Please check your selections — one of the options is unavailable.', 'error'); return; }
         if (isDemo) {
           showMessage('<strong>Demo preview:</strong> checkout is not connected here, so nothing was added. On your Shopify store this button adds the selected duvet(s) to the real cart.', 'demo');
+          return;
+        }
+        if (root.dataset.checkoutBase) {
+          /* standalone build: hand the selection to the store's cart permalink */
+          window.location.href = root.dataset.checkoutBase + '/cart/' + items.map(function (i) { return i.id + ':' + i.quantity; }).join(',');
           return;
         }
         addButton.disabled = true;
