@@ -101,6 +101,22 @@ const blocks = schema.presets[0].blocks.map((b, i) => ({
   settings: { ...blockDefaults[b.type], ...b.settings }
 }));
 
+/* Clearly labeled sample content so every section can be previewed.
+   These are not reviews — replace them with real customer content on the store. */
+const sampleText = 'Sample review — a real customer’s words about how it washes, feels and looks on their bed appear here.';
+const sample = (type, settings) => blocks.push({
+  id: `sample-${blocks.length}`, type, shopify_attributes: '', settings: { ...blockDefaults[type], ...settings }
+});
+[7, 8, 9, 10, 11, 12, 13, 14].forEach((m, i) => sample('review', {
+  style: 'photo', author: `Sample ${i + 1}`, rating: 5, date: `2026-10-${String(20 - i).padStart(2, '0')}`,
+  body: sampleText, image: media[m].preview_image
+}));
+[1, 2, 3, 4].forEach((m, i) => sample('review', {
+  style: 'portrait', author: `Sample ${i + 9}`, rating: 5, date: `2026-09-${String(28 - i).padStart(2, '0')}`,
+  body: sampleText, image: media[m].preview_image
+}));
+[0, 2, 3, 4, 5, 6, 16].forEach((m, i) => sample('ugc_video', { poster: media[m].preview_image, caption: `Sample customer video ${i + 1}` }));
+
 /* ── Liquid engine with the Shopify pieces this section uses ── */
 const engine = new Liquid({ strictFilters: true, ownPropertyOnly: false });
 
@@ -186,6 +202,7 @@ const context = {
   product,
   shop: {
     name: 'BLK_Majesty',
+    customer_accounts_enabled: true,
     currency: 'USD',
     money_format: '${{amount}}',
     enabled_payment_types: [],
@@ -218,7 +235,7 @@ const page = `<!doctype html>
 </style>
 </head>
 <body>
-<p class="cdv-preview-flag">Design preview with your store’s product data — checkout is a demo and nothing can be purchased here.</p>
+<p class="cdv-preview-flag">Design preview with your store’s product data. Reviews and videos marked “Sample” are placeholders, and checkout is a demo.</p>
 ${html}
 </body>
 </html>
