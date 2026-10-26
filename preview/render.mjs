@@ -213,7 +213,7 @@ const page = `<!doctype html>
 <title>Coverless Duvet — Preview</title>
 <meta name="robots" content="noindex">
 <style>
-  body{margin:0;background:#FAF8F4}
+  body{margin:0;background:#fff}
   .cdv-preview-flag{margin:0;padding:8px 16px;background:#292929;color:#fff;font:500 13px/1.4 system-ui,sans-serif;text-align:center}
 </style>
 </head>
