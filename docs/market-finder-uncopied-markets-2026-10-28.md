@@ -61,3 +61,23 @@ Why:
 - Data covers Meta ads in the EU/UK only. TikTok, Google and local marketplaces (OLX, Allegro, eMAG, Skroutz) were not checked.
 - The search relies on how copies are named. A copy with a totally different name and wording could be missed.
 - The blockers from the first report still apply (the Pleene name on your products, compare-at prices, unknown landed cost).
+
+## English-speaking markets and Switzerland (added 28 Oct)
+
+Brandsearch has ad reach data only for the EU and UK. For CH, AU, NZ, CA and US it can still find **stores** (by currency,
+where they ship and ad text), but not how much they spend or how many people they reach there. These rows are therefore lower confidence.
+
+| Market | Copies found | Status |
+|---|---|---|
+| **New Zealand** | No NZD store and no NZ-specific ad found. Pleene and dovanne.com list NZ in their shipping countries, but there is no sign of ads aimed at NZ. | **Not copied (as far as the tool can see)** |
+| **Ireland** | No Irish store. UK copy ads spill over: Cozily's top UK ad (about €6K spend across GB+IE), plus nymalia.com (16 IE ads). 25 "EasySleep" ads reached IE. | **Lightly copied (spill-over only)** |
+| **Canada** | celidrasleep.com (CAD 94.99, 8 ads, July, about CAD 2–3K/month estimate). Pleene and Nuvex also ship to CA. | Lightly copied |
+| **Switzerland** | Local Swiss copies: evaur.ch "Frischwohl" (German, CHF, 6–14 Oct), awello.ch "SmartSleep" (June), blumiya.ch (French, Twint, 6 Oct), shop-nova.ch (16 ads, now stopped). | Copied (small stores) |
+| **Australia** | Pleene.com ships to AU and has a "Doona" version (brand: 191 active ads, about $120–167K/month estimate). dovanne.com is a brand-new AUD store (about 23 Oct), "Easybed Quilt … no wrestling a doona cover", 11 active ads since 27 Oct. Nuvex ships to AU. | **Being copied right now** |
+| **United States** | Pleene.com (USD). Nuvex "CloudWrap" market: 7 stores, 147 active ads, stage scaling, all started Sep–Oct. | Copied |
+| **United Kingdom** | Pleene, Dolcenida, Cozily and others. | Heavily copied |
+
+**English pick:**
+- **Ireland** is the practical choice. It uses English, so you can reuse UK-style copy. It is EUR, already in your Shopify Europe market and under EU VAT/IOSS. It has a cold, damp climate, and UK proof carries over because Irish people see the same ads.
+- The downside: UK copy ads already reach some Irish users, and the market is small (about 5M people).
+- **New Zealand** is the only English market where no copy was found at all. But the tool is blind there (no reach data), delivery from a typical supplier is long and costly, and the market is small. Test it only with a tiny budget.
