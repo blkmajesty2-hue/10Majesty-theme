@@ -1,5 +1,7 @@
 # Market Finder run: coverless duvet (28 Oct 2026)
 
+> **Update:** the goal is a country where the product is not copied yet. See `market-finder-uncopied-markets-2026-10-28.md`. It also corrects Germany: Germany is heavily copied, not "unproven".
+
 The Market Finder prompt, run on BLK_MAJESTY's coverless 2-in-1 duvet.
 Sources: Shopify Admin (blkmajesty.shop) and the Brandsearch ad-spy tool (EU/UK ad transparency data).
 All revenue and spend numbers are **estimates** from Brandsearch. Exchange rates are the tool's own conversions
