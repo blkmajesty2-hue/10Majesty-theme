@@ -1,27 +1,27 @@
 <title>DERMAGLOW V-Sculpt Mask</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap">
 <style>
 /* Layout: single-product storefront. Two-column buy box, then full-width bands alternating white and sage. Light brand look by choice. */
 :root {
   color-scheme: light;
-  --bg: #FAFAF7;
+  --bg: #F1F1EE;          /* BLK paper */
   --surface: #FFFFFF;
-  --sage: #EEF4DC;
-  --lime: #B5D33D;
-  --lime-deep: #8FAE1B;
-  --ink: #1A1A1A;
-  --muted: #5E6356;
-  --line: #E3E7D8;
-  --sale: #FF3B5C;
-  --teal: #0F7A6E;
-  --star: #F5B301;
-  --serif: "Playfair Display", Georgia, "Times New Roman", serif;
-  --sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --radius: 18px;
-  --shadow: 0 10px 30px rgba(60, 80, 20, .08);
+  --sage: #ECEAE5;        /* BLK product tone */
+  --lime: #D8FF36;        /* BLK accent */
+  --lime-deep: #090909;
+  --ink: #090909;         /* BLK ink */
+  --muted: #6B6B66;
+  --line: rgba(8,8,8,.18);
+  --sale: #CE2027;
+  --neon: #FF3038;
+  --teal: #090909;
+  --star: #090909;
+  --stone: #DEDED8;
+  --serif: Arial, Helvetica, sans-serif;
+  --sans: Arial, Helvetica, sans-serif;
+  --hand: "Bradley Hand", "Segoe Print", "Comic Sans MS", cursive;
+  --radius: 0px;
+  --shadow: none;
 }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.55; }
@@ -376,13 +376,137 @@ tbody tr:last-child td { border-bottom: 0; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
 }
+
+/* ===== BLK Majesty look: monochrome, heavy uppercase type, square edges, neon lime ===== */
+body { font-family: var(--sans); }
+h1, h2, h3 { font-family: var(--sans); font-weight: 900; text-transform: uppercase; letter-spacing: -.06em; line-height: .88; }
+h2 { font-size: clamp(2.4rem, 6vw, 4.6rem); }
+.buy h1 { font-size: clamp(2.6rem, 5.4vw, 4.6rem); letter-spacing: -.07em; line-height: .84; }
+.hero h1 { font-size: clamp(3.6rem, 11vw, 8.6rem); letter-spacing: -.09em; line-height: .8; font-weight: 900; }
+.hero h1 em { font-style: normal; color: var(--lime); }
+.card h3, .step h3 { font-size: 1.35rem; letter-spacing: -.04em; }
+.review h3 { text-transform: none; letter-spacing: 0; line-height: 1.3; }
+.eyebrow, .ba-label, .timeline b, .bundle-tag, .pill-sale, .pay, .service strong, .footer h4, .editorial-gallery figcaption, .limited { font-size: .68rem; font-weight: 900; letter-spacing: .2em; text-transform: uppercase; }
+.eyebrow { color: var(--ink); }
+.btn { border-radius: 0; font-size: .74rem; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; min-height: 56px; border: 1px solid var(--ink); }
+.btn-primary { background: var(--ink); color: #fff; box-shadow: 0 5px 0 rgba(0,0,0,.25); }
+.btn-primary:hover { background: #2a2a2a; }
+.btn-dark { background: #fff; color: var(--ink); }
+.btn-dark:hover { background: var(--ink); color: #fff; }
+.btn-light { background: #fff; color: var(--ink); border-color: #fff; }
+.btn-light:hover { background: var(--lime); border-color: var(--lime); }
+.final .btn-primary, .join .btn-dark { background: var(--lime); color: var(--ink); border-color: var(--lime); box-shadow: none; }
+.join .btn-dark { background: var(--ink); color: #fff; border-color: var(--ink); }
+.announce { font-size: .72rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+.timer { border-radius: 0; background: var(--lime); color: var(--ink); }
+.logo { font-family: var(--sans); font-weight: 900; letter-spacing: -.06em; font-size: 1.5rem; }
+.logo span { color: var(--ink); }
+.nav a { font-size: .72rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--ink); }
+.cart-count { border-radius: 0; background: var(--lime); color: var(--ink); }
+.icon-btn { border-radius: 0; }
+.limited { font-family: var(--hand); font-size: clamp(1.4rem, 2.6vw, 2.2rem); font-weight: 900; letter-spacing: 0; color: var(--neon); border: 0; padding: 0; border-radius: 0; transform: rotate(-4deg); text-shadow: 0 0 9px rgba(255,35,45,.9), 0 0 24px rgba(255,35,45,.5); }
+.pill-sale { border-radius: 0; background: var(--lime); color: var(--ink); }
+.price { color: var(--sale); font-weight: 900; }
+.save { border-radius: 0; background: var(--lime); color: var(--ink); font-size: .68rem; font-weight: 900; letter-spacing: .1em; }
+.badge-ship { border-radius: 0; background: var(--ink); font-family: var(--sans); font-size: .68rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; padding: 10px 12px; }
+.check { border-radius: 0; background: var(--lime); }
+.bundle, .thumb, .gallery-main, .qty-field, .trust div, .card, .card-icon, .ing, .step-art, .ba, .split-art, .table-wrap, .ugc-card, .reviews-top, .chip, .review, .review-photo, .guarantee, .final, .join, .service, .signup input, .upsell, .upsell button, .line-thumb, .qty, .editorial-gallery .frame, .hero-art, .sticky-thumb, .stock-bar, .ship-track, .bar, .ing-dot, .step-num, .ugc-play, .toast, .sale-chip { border-radius: 0 !important; }
+.bundle { border: 1px solid rgba(100,100,100,.45); }
+.bundle:has(input:checked) { background: #fff; border: 2px solid var(--ink); }
+.bundle .dot { border-radius: 0; }
+.bundle:has(input:checked) .dot::after { border-radius: 0; background: var(--lime); outline: 2px solid var(--ink); }
+.bundle-title { text-transform: uppercase; letter-spacing: .06em; font-weight: 900; }
+.bundle-tag { background: var(--lime); border-radius: 0; border: 1px solid var(--ink); }
+.bundle-tag--dark { background: var(--ink); color: var(--lime); }
+.gift { color: var(--ink); background: var(--lime); padding: 0 4px; }
+.stock { color: var(--ink); font-size: .68rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
+.stock::before { content: "●"; color: #5E912F; }
+.stock-bar { background: var(--stone); } .stock-bar i { background: var(--ink); }
+.trust div { background: transparent; border: 1px solid var(--line); font-size: .62rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; color: var(--ink); }
+.trust svg { stroke: var(--ink); }
+.accordion summary { font-size: .72rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
+.accordion { border-top: 1px solid var(--ink); }
+.seen { background: #fff; }
+.seen span { font-family: var(--sans); font-weight: 900; text-transform: uppercase; letter-spacing: -.03em; color: var(--ink); opacity: .45; }
+.band--sage { background: var(--sage); }
+.card, .ing, .review, .service { border: 1px solid var(--line); box-shadow: none; }
+.card-icon { background: var(--lime); }
+.card-icon svg, .card-icon svg * { stroke: var(--ink); }
+.ing-dot { font-family: var(--sans); font-weight: 900; }
+.step-num { background: var(--lime); color: var(--ink); }
+.step-art { border: 1px solid var(--line); }
+.timeline { border-left-color: var(--ink); }
+.timeline li::before { border-radius: 0; background: var(--lime); border: 2px solid var(--ink); }
+.stat b { font-family: var(--sans); font-weight: 900; letter-spacing: -.06em; color: var(--ink); }
+.stat b::after { content: ""; display: block; width: 40px; height: 6px; background: var(--lime); margin: 8px auto 0; }
+thead th { font-size: .66rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; color: var(--ink); }
+thead th.us { background: var(--ink); color: var(--lime); font-family: var(--sans); font-size: .8rem; }
+td.us { background: #F7FFD6; }
+.yes { color: var(--ink); }
+.table-wrap { border: 1px solid var(--line); }
+.ugc-card p { text-transform: uppercase; font-weight: 900; letter-spacing: .04em; font-size: .8rem; }
+.big-score { font-family: var(--sans); font-weight: 900; letter-spacing: -.06em; }
+.chip { font-size: .68rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+.verified { color: #5E912F; }
+.guarantee { border: 2px solid var(--ink); }
+.guarantee svg path:first-child { fill: var(--lime); }
+.final { background: var(--ink); }
+.final-copy .eyebrow { color: var(--lime); }
+.final-art { background: var(--lime); }
+.hero { background: #111; }
+.hero-copy .eyebrow { color: #fff; }
+.hero-copy p { font-size: .9rem; letter-spacing: .05em; color: #fff; }
+.hero-art { border: 0; }
+.hero-drop { color: #fff; font-weight: 800; }
+.marquee { background: #fff; border-bottom: 1px solid var(--line); }
+.marquee span { font-size: .66rem; font-weight: 900; letter-spacing: .16em; }
+.marquee span::after { content: "◆"; font-size: .5rem; }
+.editorial-wrap { background: var(--ink); color: #fff; }
+.editorial-wrap .eyebrow { color: #fff; }
+.editorial-wrap .editorial-copy p { color: #B8B8B3; }
+.editorial-wrap .editorial-copy a { color: #fff; border-bottom: 1px solid #777; font-size: .72rem; font-weight: 900; letter-spacing: .14em; }
+.editorial-gallery { gap: 1px; background: #555; }
+.editorial-gallery figure { position: relative; background: var(--ink); }
+.editorial-gallery figure:nth-child(2) { margin-top: 0; }
+.editorial-gallery figcaption { position: absolute; left: 12px; bottom: 12px; background: #fff; color: var(--ink); padding: 8px 10px; font-size: .6rem; }
+.story { background: var(--stone); color: var(--ink); }
+.story .eyebrow { color: var(--ink); }
+.story-copy { color: var(--ink); }
+.crown { border: 2px solid var(--ink); transform: rotate(-8deg); width: 170px; }
+.crown b { font-family: var(--sans); font-weight: 900; color: var(--ink); letter-spacing: -.06em; }
+.crown span { font-size: .55rem; font-weight: 900; }
+.services { gap: 0; }
+.service { background: #fff; border: 0; border-right: 1px solid var(--line); text-align: left; padding: 30px 4vw; }
+.service:last-child { border-right: 0; }
+.services-band { background: #fff; border-block: 1px solid var(--line); padding-block: 0; }
+.services-band .wrap { padding-left: 0; padding-right: 0; }
+.join { background: var(--ink); color: #fff; }
+.join p { color: #999; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; }
+.join label { color: #888; }
+.join input { background: transparent; color: #fff; border: 0; border-bottom: 1px solid #fff; }
+.join .btn-dark { background: transparent; border: 0; color: #fff; }
+.join .btn-dark:hover { color: var(--lime); background: transparent; }
+.join .signup-msg { color: var(--lime) !important; }
+.footer { background: #fff; }
+.footer a { color: var(--ink); opacity: .7; }
+.footer-bottom { font-size: .64rem; letter-spacing: .12em; text-transform: uppercase; }
+.signup-msg { color: var(--ink); }
+.drawer-head h2 { font-size: 1.6rem; }
+.ship-progress { background: var(--lime); font-weight: 800; text-transform: uppercase; font-size: .68rem; letter-spacing: .1em; }
+.ship-track i { background: var(--ink); }
+.upsell { border: 1px dashed var(--ink); }
+.placeholder-note { font-style: normal; font-size: .7rem; letter-spacing: .04em; }
+@media (max-width: 640px) {
+  .service { border-right: 0; border-bottom: 1px solid var(--line); }
+  .hero h1 { font-size: clamp(3.2rem, 17vw, 5rem); }
+}
 </style>
 
 <!-- Reusable illustrations -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F7D9C4"/><stop offset="1" stop-color="#E9BFA3"/></linearGradient>
-    <linearGradient id="gel" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#C8E25A"/><stop offset="1" stop-color="#A3C230"/></linearGradient>
+    <linearGradient id="gel" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E2FF6A"/><stop offset="1" stop-color="#B8E01A"/></linearGradient>
     <symbol id="profile" viewBox="0 0 400 400">
       <rect width="400" height="400" fill="#F1F2EC"/>
       <path d="M150 400 L160 320 Q130 300 128 260 L120 250 Q112 240 124 232 L122 214 Q108 206 118 196 L132 172 Q120 120 160 80 Q210 40 270 60 Q330 85 335 160 Q338 220 300 260 L296 330 L310 400 Z" fill="url(#skin)"/>
@@ -400,10 +524,10 @@ tbody tr:last-child td { border-bottom: 0; }
       <rect x="70" y="70" width="230" height="270" rx="10" fill="#fff" stroke="#E2E4DA" stroke-width="2"/>
       <rect x="70" y="70" width="230" height="130" rx="10" fill="#EEF4DC"/>
       <path d="M110 150 Q150 196 200 186 Q240 176 258 140 L268 160 Q250 206 200 214 Q140 220 104 172Z" fill="url(#gel)"/>
-      <text x="90" y="240" font-family="Playfair Display, Georgia, serif" font-weight="700" font-size="22" fill="#1A1A1A">V-SCULPT</text>
-      <text x="90" y="262" font-family="Inter, sans-serif" font-size="10" letter-spacing="1.5" fill="#5E6356">LIFTING CHIN MASK</text>
-      <text x="90" y="318" font-family="Playfair Display, Georgia, serif" font-weight="700" font-size="16" fill="#1A1A1A">DERMAGLOW</text>
-      <text x="236" y="318" font-family="Inter, sans-serif" font-weight="700" font-size="14" fill="#1A1A1A">4 ea</text>
+      <text x="90" y="240" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="22" fill="#1A1A1A">V-SCULPT</text>
+      <text x="90" y="262" font-family="Arial, Helvetica, sans-serif" font-size="10" letter-spacing="1.5" fill="#5E6356">LIFTING CHIN MASK</text>
+      <text x="90" y="318" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="16" fill="#1A1A1A">DERMAGLOW</text>
+      <text x="236" y="318" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="14" fill="#1A1A1A">4 ea</text>
       <rect x="250" y="120" width="88" height="200" rx="44" fill="url(#gel)" transform="rotate(8 294 220)"/>
       <ellipse cx="288" cy="150" rx="16" ry="12" fill="#F3F3EF" transform="rotate(8 294 220)"/>
       <ellipse cx="300" cy="290" rx="16" ry="12" fill="#F3F3EF" transform="rotate(8 294 220)"/>
@@ -414,13 +538,13 @@ tbody tr:last-child td { border-bottom: 0; }
       <ellipse cx="100" cy="200" rx="18" ry="24" fill="#EEF4DC"/>
       <ellipse cx="300" cy="200" rx="18" ry="24" fill="#EEF4DC"/>
       <path d="M150 190 Q200 220 250 190" stroke="#fff" stroke-width="2" fill="none" opacity=".7"/>
-      <text x="200" y="300" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" letter-spacing="2" fill="#5E6356">CHIN-TO-EAR WRAP</text>
+      <text x="200" y="300" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" letter-spacing="2" fill="#5E6356">CHIN-TO-EAR WRAP</text>
     </symbol>
     <symbol id="texture" viewBox="0 0 400 400">
-      <rect width="400" height="400" fill="#B9D640"/>
+      <rect width="400" height="400" fill="#D8FF36"/>
       <g fill="#fff" opacity=".35"><circle cx="80" cy="90" r="14"/><circle cx="160" cy="60" r="8"/><circle cx="300" cy="120" r="18"/><circle cx="230" cy="210" r="10"/><circle cx="110" cy="260" r="20"/><circle cx="320" cy="300" r="12"/><circle cx="190" cy="330" r="7"/></g>
-      <path d="M0 260 Q100 220 200 250 T400 240 V400 H0Z" fill="#A3C230"/>
-      <text x="200" y="350" text-anchor="middle" font-family="Playfair Display, Georgia, serif" font-style="italic" font-size="22" fill="#1A1A1A">Cooling hydrogel</text>
+      <path d="M0 260 Q100 220 200 250 T400 240 V400 H0Z" fill="#B8E01A"/>
+      <text x="200" y="350" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-style="italic" font-size="22" fill="#1A1A1A">Cooling hydrogel</text>
     </symbol>
     <symbol id="jaw-before" viewBox="0 0 400 400">
       <rect width="400" height="400" fill="#EAE6E0"/>
@@ -463,7 +587,7 @@ tbody tr:last-child td { border-bottom: 0; }
     <div class="wrap hero-inner">
       <div class="hero-copy">
         <span class="eyebrow">The V-line drop / 01</span>
-        <span class="limited">LIMITED BLACK FRIDAY STOCK</span>
+        <span class="limited">Limited edition</span>
         <h1 id="hero-title">Own your<br><em>side profile.</em></h1>
         <p>A cooling chin-to-ear mask that visibly lifts and de-puffs in 30 minutes.</p>
         <a class="btn btn-light" href="#shop">SHOP THE MASK</a>
@@ -495,7 +619,7 @@ tbody tr:last-child td { border-bottom: 0; }
     </div>
 
     <div class="buy">
-      <div><span class="pill-sale">BLACK FRIDAY</span></div>
+      <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap"><span class="pill-sale">BLACK FRIDAY</span><span class="limited" style="font-size:1.4rem">Limited drop</span></div>
       <h1 id="ptitle">V-Sculpt Lifting Chin Mask</h1>
       <div class="rating"><span class="stars" aria-hidden="true">★★★★★</span><b>4.8</b><a href="#reviews">(2,400+ reviews)</a><span>· 2.4K sold this month</span></div>
       <div class="price-row">
@@ -664,7 +788,7 @@ tbody tr:last-child td { border-bottom: 0; }
     </div>
   </section>
 
-  <section class="band band--white">
+  <section class="band editorial-wrap">
     <div class="wrap editorial">
       <div class="editorial-copy">
         <span class="eyebrow">DERMAGLOW Editorial 001</span>
@@ -693,7 +817,7 @@ tbody tr:last-child td { border-bottom: 0; }
     </div>
   </section>
 
-  <section class="band band--sage" aria-label="Store promises">
+  <section class="band services-band" aria-label="Store promises">
     <div class="wrap services">
       <article class="service"><strong>FREE US SHIPPING</strong><span>TRACKED ON EVERY ORDER</span></article>
       <article class="service"><strong>30-DAY RETURNS</strong><span>SHOP WITH CONFIDENCE</span></article>
@@ -773,7 +897,7 @@ tbody tr:last-child td { border-bottom: 0; }
     <div class="wrap">
       <div class="final">
         <div class="final-copy">
-          <span class="eyebrow" style="color:var(--lime)">Black Friday pricing</span>
+          <span class="eyebrow">Black Friday pricing</span>
           <h2>Sculpt your jawline tonight</h2>
           <p>Free shipping, a 30-day guarantee and up to 50% off while the sale lasts.</p>
           <a class="btn btn-primary" href="#shop" style="width:auto;justify-self:start">Shop V-Sculpt</a>
@@ -786,11 +910,11 @@ tbody tr:last-child td { border-bottom: 0; }
   <section class="band band--white" aria-labelledby="join-title">
     <div class="wrap">
       <div class="join">
-        <div><h2 id="join-title">Join the<br>glow circle.</h2><p>Early access to drops, skincare tips, no spam.</p></div>
+        <div><p style="font-weight:900;letter-spacing:-.06em;font-size:1.3rem;color:#fff;text-transform:none;margin:0 0 28px">DERMAGLOW</p><h2 id="join-title">Join the<br>inner circle.</h2><p>Early access to drops, skincare tips, no spam.</p></div>
         <form id="join-form" novalidate>
           <label for="join-email">EMAIL ADDRESS</label>
           <div class="signup"><input type="email" id="join-email" placeholder="you@email.com" autocomplete="email"><button class="btn btn-dark" type="submit">JOIN</button></div>
-          <p class="signup-msg" data-join-msg aria-live="polite" style="color:var(--ink)"></p>
+          <p class="signup-msg" data-join-msg aria-live="polite"></p>
         </form>
       </div>
     </div>
