@@ -39,7 +39,7 @@
   .header { background: var(--white); }
   .header .wrap { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding-block: 10px; }
   .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--navy); font-family: var(--head); }
-  .logo .crown { width: 34px; height: auto; color: #b07a3c; }
+  .logo .crown { width: 54px; height: auto; color: var(--navy); }
   .logo .lw { display: grid; line-height: .95; text-align: left; }
   .logo .lw b { font-weight: 800; font-size: 22px; letter-spacing: .08em; }
   .logo .lw span { font-weight: 600; font-size: 12px; letter-spacing: .32em; }
@@ -48,7 +48,7 @@
   .icons { justify-self: end; display: flex; gap: 8px; }
   .bubble { position: absolute; top: -2px; right: -4px; background: var(--navy); color: #fff; font-size: 10px; border-radius: 99px; min-width: 18px; height: 18px; display: grid; place-items: center; }
   .bubble:empty { display: none; }
-  @media (max-width: 749px) { .logo .crown { width: 26px; } .logo .lw b { font-size: 18px; } .logo .lw span { font-size: 10px; } .acct { display: none; } }
+  @media (max-width: 749px) { .logo .crown { width: 34px; } .logo .lw b { font-size: 18px; } .logo .lw span { font-size: 10px; } .acct { display: none; } }
   .drawer { position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 60; }
   .drawer nav { background: var(--white); width: min(86vw, 360px); height: 100%; padding: calc(28px + env(safe-area-inset-top, 0px)) 24px 24px max(24px, env(safe-area-inset-left, 0px)); display: grid; align-content: start; gap: 16px; font-family: var(--head); font-weight: 700; font-size: 20px; }
   .drawer a { text-decoration: none; }
@@ -320,7 +320,7 @@
   .foot-mid { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; align-items: center; font-size: 13px; }
   .pays { display: flex; flex-wrap: wrap; gap: 6px; }
   .pays span { background: #fff; color: var(--navy); border-radius: 3px; font-size: 10px; font-weight: 700; padding: 3px 6px; }
-  .giant .crown { display: block; width: clamp(48px, 7vw, 96px); height: auto; margin: 0 auto 8px; color: #e7c08a; }
+  .giant .crown { display: block; width: clamp(70px, 9vw, 130px); height: auto; margin: 0 auto 10px; color: #fff; }
   .giant { text-align: center; font-family: var(--head); font-weight: 800; letter-spacing: -0.05em; font-size: clamp(48px, 10vw, 140px); line-height: 1; padding-bottom: 24px; overflow: hidden; }
 
   /* Sticky add to cart */
@@ -359,7 +359,7 @@
 <header class="header">
   <div class="wrap">
     <button class="icon-btn" id="menu-open" aria-label="Open menu" style="justify-self:start"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
-    <a href="#" class="logo" aria-label="BLK Majesty home"><svg class="crown" viewBox="0 0 48 30" aria-hidden="true"><path d="M3 9l10 8 11-15 11 15 10-8-4 19H7z" fill="currentColor"/><circle cx="3" cy="8" r="3" fill="currentColor"/><circle cx="24" cy="3" r="3" fill="currentColor"/><circle cx="45" cy="8" r="3" fill="currentColor"/></svg><span class="lw"><b>BLK</b><span>MAJESTY</span></span></a>
+    <a href="#" class="logo" aria-label="BLK Majesty home"><svg class="crown" viewBox="170 20 680 840" aria-hidden="true"><g id="crown" fill="#b07a3c"> <path d="M383 112C427 162 479 137 497 56C518 127 565 155 613 105L594 165C535 142 467 143 412 174Z" /> <circle cx="379" cy="105" r="18" /> <circle cx="498" cy="42" r="21" /> <circle cx="624" cy="92" r="18" /> </g><g id="hound" fill="none" stroke="currentColor" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"> <path d="M450 241C418 267 437 333 465 398C492 459 494 514 457 549C432 574 410 565 379 539C347 511 320 496 286 483C252 470 231 451 233 421C235 384 273 347 315 303L380 231C417 194 463 183 508 184C563 184 606 201 637 232C656 251 682 251 718 251L787 252C816 252 835 256 836 269C838 283 826 294 827 310C839 361 826 412 795 430C776 441 749 436 725 437C682 437 650 456 635 489C615 532 624 581 653 617C679 651 717 672 743 710C771 749 783 791 783 836H182C192 792 228 765 274 738L453 650C525 614 562 583 588 533C614 482 640 450 687 438" /> <path d="M305 499C289 570 240 647 256 728" /> </g><g id="facial-landmarks" fill="currentColor"> <path d="M526 264C554 243 591 241 616 252L632 275C590 275 560 260 526 264Z" /> <path d="M774 255L815 256Q837 257 835 271L826 301C799 300 781 286 774 270Z" /> </g></svg><span class="lw"><b>BLK</b><span>MAJESTY</span></span></a>
     <div class="icons">
       <button class="icon-btn acct" aria-label="Account"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M4 21c1-4.5 4.4-6.5 8-6.5s7 2 8 6.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
       <button class="icon-btn" aria-label="Cart"><svg viewBox="0 0 24 24"><path d="M2 3h3l2.4 12h11.2L21 7H6.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="9" cy="19.5" r="1.5" fill="currentColor"/><circle cx="17" cy="19.5" r="1.5" fill="currentColor"/></svg><span class="bubble" id="cart-count"></span></button>
@@ -673,7 +673,7 @@
   <div class="wrap">
     <div class="foot-top"><span>BLK Majesty Ltd · Company number 00000000</span><span><b>Address</b> · Unit 1, Example Business Park, United Kingdom</span></div>
     <div class="foot-mid"><span>© 2026 BLK Majesty</span><div class="pays" aria-label="Accepted payments"><span>AMEX</span><span>Apple Pay</span><span>Google Pay</span><span>Klarna</span><span>Maestro</span><span>Mastercard</span><span>PayPal</span><span>Shop Pay</span><span>VISA</span></div></div>
-    <div class="giant" aria-hidden="true"><svg class="crown" viewBox="0 0 48 30" aria-hidden="true"><path d="M3 9l10 8 11-15 11 15 10-8-4 19H7z" fill="currentColor"/><circle cx="3" cy="8" r="3" fill="currentColor"/><circle cx="24" cy="3" r="3" fill="currentColor"/><circle cx="45" cy="8" r="3" fill="currentColor"/></svg><span>BLK MAJESTY</span></div>
+    <div class="giant" aria-hidden="true"><svg class="crown" viewBox="170 20 680 840" aria-hidden="true"><g id="crown" fill="#b07a3c"> <path d="M383 112C427 162 479 137 497 56C518 127 565 155 613 105L594 165C535 142 467 143 412 174Z" /> <circle cx="379" cy="105" r="18" /> <circle cx="498" cy="42" r="21" /> <circle cx="624" cy="92" r="18" /> </g><g id="hound" fill="none" stroke="currentColor" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"> <path d="M450 241C418 267 437 333 465 398C492 459 494 514 457 549C432 574 410 565 379 539C347 511 320 496 286 483C252 470 231 451 233 421C235 384 273 347 315 303L380 231C417 194 463 183 508 184C563 184 606 201 637 232C656 251 682 251 718 251L787 252C816 252 835 256 836 269C838 283 826 294 827 310C839 361 826 412 795 430C776 441 749 436 725 437C682 437 650 456 635 489C615 532 624 581 653 617C679 651 717 672 743 710C771 749 783 791 783 836H182C192 792 228 765 274 738L453 650C525 614 562 583 588 533C614 482 640 450 687 438" /> <path d="M305 499C289 570 240 647 256 728" /> </g><g id="facial-landmarks" fill="currentColor"> <path d="M526 264C554 243 591 241 616 252L632 275C590 275 560 260 526 264Z" /> <path d="M774 255L815 256Q837 257 835 271L826 301C799 300 781 286 774 270Z" /> </g></svg><span>BLK MAJESTY</span></div>
   </div>
 </footer>
 
