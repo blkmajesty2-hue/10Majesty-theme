@@ -1,0 +1,53 @@
+{%- comment -%} Countdown bar above the header. Hides itself once the end date has passed. {%- endcomment -%}
+{%- if section.settings.show and section.settings.end != blank -%}
+<div class="cdown" id="blk-cdown" data-end="{{ section.settings.end | escape }}" role="timer" aria-live="off" style="--cd-bg:{{ section.settings.bg }};--cd-fg:{{ section.settings.fg }}">
+  <style>
+    .cdown { background: var(--cd-bg); color: var(--cd-fg); font-family: "Inter", Arial, sans-serif; }
+    .cdown-in { max-width: 1400px; margin: 0 auto; padding: 8px 16px; display: flex; align-items: center; justify-content: center; gap: 10px 22px; flex-wrap: wrap; }
+    .cdown-t { font-weight: 700; font-size: clamp(15px, 2.2vw, 28px); letter-spacing: -0.01em; text-transform: uppercase; margin: 0; text-align: center; }
+    .cdown-clock { display: flex; align-items: flex-start; gap: clamp(8px, 1.6vw, 22px); }
+    .cdown-u { display: grid; justify-items: center; min-width: 2.2em; }
+    .cdown-u b { font-family: "Poppins", Arial, sans-serif; font-weight: 700; font-size: clamp(24px, 3.4vw, 48px); line-height: 1; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+    .cdown-u small { font-size: clamp(11px, 1.2vw, 18px); line-height: 1.2; }
+    .cdown-sep { font-size: clamp(16px, 2vw, 26px); line-height: 1.6; opacity: .9; }
+  </style>
+  <div class="cdown-in">
+    <p class="cdown-t">{{ section.settings.text | escape }}</p>
+    <div class="cdown-clock">
+      <span class="cdown-u"><b data-u="d">00</b><small>days</small></span><span class="cdown-sep" aria-hidden="true">:</span>
+      <span class="cdown-u"><b data-u="h">00</b><small>hours</small></span><span class="cdown-sep" aria-hidden="true">:</span>
+      <span class="cdown-u"><b data-u="m">00</b><small>mins</small></span><span class="cdown-sep" aria-hidden="true">:</span>
+      <span class="cdown-u"><b data-u="s">00</b><small>secs</small></span>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var el = document.getElementById('blk-cdown'); if (!el) return;
+      var end = Date.parse(el.dataset.end);
+      if (isNaN(end)) { el.hidden = true; return; }
+      var u = {}; el.querySelectorAll('[data-u]').forEach(function (n) { u[n.dataset.u] = n; });
+      var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+      function tick() {
+        var t = Math.floor((end - Date.now()) / 1000);
+        if (t <= 0) { el.hidden = true; clearInterval(iv); return; }
+        u.d.textContent = pad(Math.floor(t / 86400)); u.h.textContent = pad(Math.floor(t % 86400 / 3600));
+        u.m.textContent = pad(Math.floor(t % 3600 / 60)); u.s.textContent = pad(t % 60);
+      }
+      var iv = setInterval(tick, 1000); tick();
+    })();
+  </script>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Countdown bar",
+  "settings": [
+    { "type": "checkbox", "id": "show", "label": "Show countdown bar", "default": true },
+    { "type": "text", "id": "text", "label": "Text", "default": "50% OFF BLACK FRIDAY SALE" },
+    { "type": "text", "id": "end", "label": "Sale ends", "default": "2026-11-28T23:59:00-05:00", "info": "Format: YYYY-MM-DDTHH:MM:SS-05:00 (the last part is your time zone; -05:00 is US Eastern). The bar hides itself when the time runs out." },
+    { "type": "color", "id": "bg", "label": "Background", "default": "#000000" },
+    { "type": "color", "id": "fg", "label": "Text colour", "default": "#ffffff" }
+  ]
+}
+{% endschema %}

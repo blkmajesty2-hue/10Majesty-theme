@@ -10,6 +10,7 @@
   {{ content_for_header }}
 </head>
 <body class="blk-body">
+  {% section 'blk-countdown' %}
   {%- render 'blk-header' -%}
   <main id="MainContent">{{ content_for_layout }}</main>
   {%- render 'blk-footer' -%}
