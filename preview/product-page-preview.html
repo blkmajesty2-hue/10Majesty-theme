@@ -162,6 +162,24 @@
   .video.playing .playbtn, .video.playing .cap { display: none; }
   .video video { cursor: pointer; }
 
+  /* Review carousel on the ocean band */
+  .rc { position: relative; }
+  .rc-track { display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 3 * 18px) / 4); gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 4px 2px 10px; }
+  .rc-track::-webkit-scrollbar { display: none; }
+  @media (max-width: 989px) { .rc-track { grid-auto-columns: calc((100% - 18px) / 2); } }
+  @media (max-width: 560px) { .rc-track { grid-auto-columns: 82%; } }
+  .rc-card { scroll-snap-align: start; background: #fff; color: #111; border-radius: 8px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; font-family: "Poppins", var(--body); }
+  .rc-card .ph { position: relative; aspect-ratio: 1.4; }
+  .rc-card .ph img { width: 100%; height: 100%; object-fit: cover; }
+  .rc-card .pill { position: absolute; left: 50%; bottom: -20px; transform: translateX(-50%); background: #fff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,.12); padding: 4px 14px; color: #16a34a; font-size: 22px; letter-spacing: 1px; white-space: nowrap; line-height: 1.4; }
+  .rc-card .bd { padding: 34px 18px 26px; text-align: center; display: grid; gap: 10px; align-content: start; }
+  .rc-card .nm { font-size: 19px; display: flex; gap: 6px; justify-content: center; align-items: center; }
+  .rc-card .nm svg { width: 15px; height: 15px; }
+  .rc-card p { font-size: 15.5px; line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+  .rc-nav { position: absolute; top: 42%; z-index: 2; width: 48px; height: 48px; border-radius: 50%; border: 0; background: #fff; color: #333; font-size: 30px; line-height: 1; box-shadow: 0 2px 12px rgba(0,0,0,.2); display: grid; place-items: center; padding-bottom: 4px; }
+  .rc-nav.prev { left: -12px; } .rc-nav.next { right: -12px; }
+  .rc-nav[disabled] { opacity: 0; pointer-events: none; }
+  @media (max-width: 560px) { .rc-nav.prev { left: -6px; } .rc-nav.next { right: -6px; } }
   .center-title { text-align: center; font-size: clamp(28px, 3vw, 40px); }
   .sale-cards { display: flex; gap: 28px; margin-top: 30px; flex-wrap: wrap; }
   .sale-card { width: 230px; max-width: calc(50% - 14px); text-align: center; text-decoration: none; display: grid; gap: 10px; }
@@ -216,12 +234,81 @@
   .reviews-head h2 { font-size: clamp(26px, 2.6vw, 34px); }
   .overall { font-size: 15px; }
   .overall b { font-family: var(--head); font-size: 22px; }
-  .review-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 24px; padding-bottom: 60px; }
-  @media (max-width: 989px) { .review-list { grid-template-columns: minmax(0, 1fr); } }
-  .review { border: 2px solid var(--navy); border-radius: 20px; padding: 18px; display: grid; gap: 8px; align-content: start; font-size: 14px; }
-  .review .stars { color: var(--ocean); letter-spacing: 2px; }
-  .review .meta { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; font-size: 13px; color: #4e6573; }
-  .review .verified { color: var(--ok); font-weight: 600; }
+  /* Reviews (photo-review widget style) */
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  #reviews .wrap { max-width: 1200px; padding-block: 30px 70px; font-family: "Poppins", var(--body); color: #111; }
+  .rv-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .rv-count { position: relative; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .rv-stars { color: #16a34a; letter-spacing: 1px; }
+  .rv-stars.big { font-size: 30px; letter-spacing: 0; line-height: 1; }
+  .rv-toggle { background: none; border: 0; padding: 0; font-size: 21px; display: flex; align-items: center; gap: 12px; color: #111; }
+  .rv-toggle .chev { width: 9px; height: 9px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg) translateY(-3px); transition: transform .2s; }
+  .rv-toggle[aria-expanded="true"] .chev { transform: rotate(-135deg); }
+  .rv-bars { position: absolute; top: calc(100% + 10px); left: 0; z-index: 5; width: 300px; max-width: calc(100vw - 32px); background: #fff; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,.15); padding: 14px 16px; list-style: none; margin: 0; display: grid; gap: 7px; font-size: 13px; font-variant-numeric: tabular-nums; }
+  .rv-bars li { display: grid; grid-template-columns: 34px 1fr 44px; align-items: center; gap: 10px; }
+  .rv-bars li.avg { display: block; border-top: 1px solid #eee; padding-top: 8px; }
+  .rv-bars i { height: 8px; background: #edf0f2; border-radius: 99px; overflow: hidden; }
+  .rv-bars em { display: block; height: 100%; background: #16a34a; border-radius: 99px; }
+  .rv-write { background: #fff; color: #111; border: 1.5px solid #dadada; border-radius: 10px; padding: 10px 20px; font-size: 17px; }
+  .rv-write:hover { border-color: #111; }
+  .rv-tabs { display: flex; gap: 8px; margin-top: 22px; flex-wrap: wrap; }
+  .rv-tabs button { border: 0; background: none; border-radius: 10px; padding: 7px 12px; font-size: 15px; display: flex; align-items: center; gap: 10px; color: #111; }
+  .rv-tabs button span { background: #e9e9e9; border-radius: 99px; padding: 1px 9px; font-size: 14px; }
+  .rv-tabs button[aria-selected="true"] { background: #f1f1f1; }
+  .rv-tabs button[aria-selected="true"] span { background: #dcdcdc; }
+  .rv-summary { margin-top: 16px; background: #f7f7f7; border: 1px solid #ececec; border-radius: 12px; padding: 18px 22px; display: grid; gap: 10px; }
+  .rv-summary h3 { font-family: inherit; font-weight: 500; letter-spacing: 0; font-size: 19px; }
+  .rv-summary p { font-size: 16px; line-height: 1.6; max-width: 110ch; }
+  .rv-ai { display: flex; align-items: center; gap: 10px; font-size: 14px; }
+  .rv-ai .faces { display: flex; }
+  .rv-ai .faces img, .rv-ai .faces i { width: 30px; height: 30px; border-radius: 50%; border: 2px solid #fff; object-fit: cover; margin-left: -8px; background: #eee; display: grid; place-items: center; font-style: normal; font-size: 13px; }
+  .rv-ai .faces img:first-child { margin-left: 0; }
+  .rv-form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 20px; padding: 20px; border: 2px solid var(--navy); border-radius: 20px; }
+  @media (max-width: 649px) { .rv-form { grid-template-columns: 1fr; } }
+  .rv-form label { display: grid; gap: 6px; font-size: 14px; font-weight: 600; }
+  .rv-form input, .rv-form textarea { font: inherit; font-weight: 400; border: 1.5px solid #b9c7cf; border-radius: 10px; padding: 9px 12px; color: var(--ink); background: #fff; }
+  .rv-form .wide { grid-column: 1 / -1; }
+  .rv-rate { border: 0; padding: 0; margin: 0; }
+  .rv-rate legend { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .rv-pick { display: flex; gap: 2px; }
+  .rv-pick button { background: none; border: 0; font-size: 28px; color: #f5a623; padding: 0 2px; line-height: 1; }
+  .rv-pick button.off { color: #d6dde1; }
+  .rv-form-foot { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+  .rv-submit { background: var(--ink); color: #fff; border: 0; border-radius: 99px; padding: 10px 24px; font-weight: 600; }
+  #rv-msg { font-size: 14px; font-weight: 600; }
+  .rv-tools { display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; margin: 22px 0 18px; }
+  .rv-filter { display: flex; gap: 8px; }
+  .rv-filter button { border: 1.5px solid #dadada; background: #fff; border-radius: 99px; padding: 6px 16px; font-size: 14px; color: #111; }
+  .rv-filter button[aria-pressed="true"] { background: #111; border-color: #111; color: #fff; }
+  .rv-card .rv-count-badge { position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,.92); border-radius: 99px; padding: 2px 10px; font-size: 14px; display: flex; gap: 4px; align-items: center; }
+  .rv-card .rv-photo { position: relative; }
+  .rv-sort { font-size: 14px; display: flex; align-items: center; gap: 8px; }
+  .rv-sort select { font: inherit; border: 1.5px solid var(--navy); border-radius: 8px; padding: 5px 8px; background: #fff; color: var(--ink); }
+  .rv-grid { columns: 3 260px; column-gap: 16px; }
+  .rv-card { break-inside: avoid; margin-bottom: 16px; background: #fff; border-radius: 14px; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 4px 14px rgba(28,59,75,.08); overflow: hidden; display: block; }
+  .rv-card button.rv-photo { display: block; width: 100%; padding: 0; border: 0; background: #eef2f4; }
+  .rv-card .rv-photo img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+  .rv-body { padding: 14px 16px 16px; display: grid; gap: 8px; font-size: 14px; }
+  .rv-who { display: flex; align-items: center; gap: 8px; font-weight: 600; color: var(--ink); }
+  .rv-who .av { width: 30px; height: 30px; border-radius: 50%; background: var(--sky); color: var(--navy); display: grid; place-items: center; font-size: 12px; font-weight: 700; flex: none; }
+  .rv-ver { display: inline-flex; align-items: center; gap: 4px; color: var(--ok); font-size: 12px; font-weight: 600; }
+  .rv-ver svg { width: 13px; height: 13px; }
+  .rv-card .rv-stars { font-size: 15px; }
+  .rv-card .rv-stars .dim { color: #d6dde1; }
+  .rv-body p { color: #24323a; line-height: 1.5; }
+  .rv-meta { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; font-size: 12px; color: #6b7a83; border-top: 1px solid #eef2f4; padding-top: 8px; }
+  .rv-help { background: none; border: 0; padding: 0; font-size: 12px; color: #6b7a83; }
+  .rv-help[aria-pressed="true"] { color: var(--navy); font-weight: 700; }
+  .rv-more-wrap { text-align: center; margin-top: 10px; }
+  .rv-more { border: 2px solid var(--navy); background: #fff; border-radius: 99px; padding: 10px 30px; font-family: var(--head); font-weight: 700; }
+  .rv-more:hover { background: var(--navy); color: #fff; }
+  .rv-box { position: fixed; inset: 0; z-index: 80; background: rgba(10,20,26,.75); display: grid; place-items: center; padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+  .rv-box-in { position: relative; background: #fff; border-radius: 16px; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); max-width: 880px; width: 100%; max-height: 90vh; }
+  @media (max-width: 649px) { .rv-box-in { grid-template-columns: 1fr; overflow-y: auto; } }
+  .rv-box-in img { width: 100%; height: 100%; max-height: 90vh; object-fit: cover; }
+  @media (max-width: 649px) { .rv-box-in img { max-height: 55vh; } }
+  .rv-box-text { padding: 22px; display: grid; gap: 10px; align-content: start; font-size: 15px; overflow-y: auto; }
+  .rv-close { position: absolute; top: 8px; right: 8px; width: 36px; height: 36px; border-radius: 50%; border: 0; background: #fff; font-size: 24px; line-height: 1; box-shadow: 0 2px 8px rgba(0,0,0,.2); z-index: 1; }
 
   .footer { background: var(--ocean); color: #fff; }
   .footer .wrap { padding-block: 40px 0; display: grid; gap: 30px; }
@@ -412,6 +499,13 @@
   <section class="band ocean">
     <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" style="--wave:var(--sky)" aria-hidden="true"><path d="M0 0h1440v34C1200 0 960 0 720 18S240 60 0 40z"/></svg>
     <div class="wrap band-inner">
+      <div class="rc" aria-label="Customer photo reviews">
+        <button class="rc-nav prev" id="rc-prev" aria-label="Previous reviews">‹</button>
+        <div class="rc-track" id="rc-track"></div>
+        <button class="rc-nav next" id="rc-next" aria-label="Next reviews">›</button>
+      </div>
+    </div>
+    <div class="wrap band-inner">
       <h2 class="center-title">Leads &amp; Harness</h2>
       <div class="sale-cards">
         <a class="sale-card" href="#"><div class="media"><img src="img/harness.jpg" alt="Australian Shepherd wearing the PawVoyage Adjustable Harness"><span class="scallop"><svg><use href="#scallop" fill="#fff"/></svg><b>On Sale</b></span></div><span class="t">PawVoyage Adjustable Harness</span><span class="p"><s>£70.00</s>£40.00</span></a>
@@ -507,14 +601,62 @@
 
   <section class="band white" id="reviews">
     <div class="wrap">
-      <div class="reviews-head">
-        <h2>Customer Reviews</h2>
-        <p class="overall"><b>4.7</b> / 5 from 1,351 reviews</p>
+      <h2 class="sr-only">Customer reviews</h2>
+      <div class="rv-head">
+        <div class="rv-count">
+          <span class="rv-stars big" aria-hidden="true">★★★★★</span>
+          <button class="rv-toggle" id="rv-toggle" aria-expanded="false" aria-controls="rv-bars">1,352 Reviews <span class="chev"></span></button>
+          <ul class="rv-bars" id="rv-bars" hidden aria-label="Rating breakdown">
+            <li><span>5 ★</span><i><em style="width:84%"></em></i><span>1,136</span></li>
+            <li><span>4 ★</span><i><em style="width:10%"></em></i><span>135</span></li>
+            <li><span>3 ★</span><i><em style="width:3%"></em></i><span>41</span></li>
+            <li><span>2 ★</span><i><em style="width:2%"></em></i><span>27</span></li>
+            <li><span>1 ★</span><i><em style="width:1%"></em></i><span>13</span></li>
+            <li class="avg">Average <b>4.7</b> out of 5</li>
+          </ul>
+        </div>
+        <button class="rv-write" id="rv-write" aria-expanded="false">Write a review</button>
       </div>
-      <div class="review-list">
-        <article class="review"><span class="stars" aria-label="5 out of 5">★★★★★</span><p>Bought as a present for my son's dog and she loves it.</p><div class="meta"><span>Mark D. · <span class="verified">Verified</span></span><span>24 Nov 2026</span></div></article>
-        <article class="review"><span class="stars" aria-label="5 out of 5">★★★★★</span><p>Really smart piece of equipment. Great quality and easy to fit with the ISOFIX clips.</p><div class="meta"><span>Sara S. · <span class="verified">Verified</span></span><span>24 Nov 2026</span></div></article>
-        <article class="review"><span class="stars" aria-label="5 out of 5">★★★★★</span><p>Our pup used to whine every car trip. Now he falls asleep before we leave the street.</p><div class="meta"><span>Cora O. · <span class="verified">Verified</span></span><span>23 Nov 2026</span></div></article>
+      <div class="rv-tabs" role="tablist">
+        <button role="tab" aria-selected="true" data-tab="product">Product reviews <span>1.4k</span></button>
+        <button role="tab" aria-selected="false" data-tab="store">Store reviews <span>378</span></button>
+      </div>
+      <div class="rv-summary">
+        <h3>Review summary</h3>
+        <p>Reviewers value the secure ISOFIX anchoring that calms travel anxiety. Some report snug sizing, stiff zips and slow delivery. Many say restless dogs now sleep during car rides.</p>
+        <div class="rv-ai"><span class="faces"><img src="img/rv-1.jpg" alt=""><img src="img/rv-3.jpg" alt=""><img src="img/rv-5.jpg" alt=""><i>✦</i></span>Summarized by AI</div>
+      </div>
+
+      <form class="rv-form" id="rv-form" hidden novalidate>
+        <fieldset class="rv-rate"><legend>Your rating</legend>
+          <div class="rv-pick" id="rv-pick" role="radiogroup" aria-label="Rating">
+            <button type="button" role="radio" aria-checked="false" data-v="1" aria-label="1 star">★</button><button type="button" role="radio" aria-checked="false" data-v="2" aria-label="2 stars">★</button><button type="button" role="radio" aria-checked="false" data-v="3" aria-label="3 stars">★</button><button type="button" role="radio" aria-checked="false" data-v="4" aria-label="4 stars">★</button><button type="button" role="radio" aria-checked="true" data-v="5" aria-label="5 stars">★</button>
+          </div>
+        </fieldset>
+        <label for="rv-name">Your name<input id="rv-name" type="text" placeholder="e.g. Jess T." autocomplete="name"></label>
+        <label for="rv-text" class="wide">Your review<textarea id="rv-text" rows="3" placeholder="How does your dog like the Dog Dock?"></textarea></label>
+        <div class="wide rv-form-foot"><button type="submit" class="rv-submit">Post review</button><span id="rv-msg" role="status"></span></div>
+      </form>
+
+      <div class="rv-tools">
+        <div class="rv-filter" role="group" aria-label="Filter reviews">
+          <button aria-pressed="true" data-f="all">All reviews</button>
+          <button aria-pressed="false" data-f="photos">With photos</button>
+        </div>
+        <label class="rv-sort" for="rv-sort">Sort by
+          <select id="rv-sort"><option value="recent">Most recent</option><option value="high">Highest rating</option><option value="low">Lowest rating</option><option value="photos">Photos first</option></select>
+        </label>
+      </div>
+
+      <div class="rv-grid" id="rv-grid"></div>
+      <div class="rv-more-wrap"><button class="rv-more" id="rv-more">Show more reviews</button></div>
+
+      <div class="rv-box" id="rv-box" hidden role="dialog" aria-modal="true" aria-label="Review photo">
+        <div class="rv-box-in">
+          <button class="rv-close" id="rv-close" aria-label="Close">×</button>
+          <img id="rv-box-img" src="" alt="">
+          <div class="rv-box-text" id="rv-box-text"></div>
+        </div>
       </div>
     </div>
   </section>
@@ -614,6 +756,158 @@
       v.addEventListener('play', function () { box.classList.add('playing'); });
       v.addEventListener('pause', function () { box.classList.remove('playing'); });
     });
+
+    // Reviews widget (example reviews for this test page)
+    var reviews = [
+      { n: 'Mrs J.', r: 5, d: '2026-11-25', img: 'img/rv-4.jpg', more: 1, t: 'This is really well made and very comfortable for my border terrier. We had trouble getting her out of it once she discovered it, so now it lives in the living room between trips!', h: 19 },
+      { n: 'Mr D.', r: 5, d: '2026-11-24', img: 'img/rv-2.jpg', t: 'Bought as a present for my son’s dog and she loves it.', h: 12 },
+      { n: 'Sarah S.', r: 5, d: '2026-11-24', img: 'img/rv-5.jpg', t: 'Fits our springer spaniel really well. Super strong and comfortable for the dog.', h: 9 },
+      { n: 'Mark D.', r: 5, d: '2026-11-24', img: 'img/rv-1.jpg', more: 2, t: 'We bought the XL for our wire haired fox terrier Bert in our new camper van. It clips to the ISOFIX on the rear bench and he settled in straight away.', h: 14 },
+      { n: 'Rachel A.', r: 5, d: '2026-11-22', img: 'img/rv-3.jpg', t: 'Our cockapoo used to pace the back seat the whole journey. With the clip attached to her harness she just lies down. Game changer for long drives to Cornwall.', h: 16 },
+      { n: 'Ian F.', r: 4, d: '2026-11-21', t: 'Very sturdy. The zips are a bit stiff at first but loosen up after a few uses.', h: 5 },
+      { n: 'Megan C.', r: 5, d: '2026-11-21', img: 'img/rv-6.jpg', t: 'Our chihuahua finally stays put in the car. Love that it lifts her up so she can see out.', h: 8 },
+      { n: 'Paul S.', r: 5, d: '2026-11-20', t: 'Bought the black one to match our interior. Looks premium and wipes clean easily after muddy walks.', h: 6 },
+      { n: 'Zoe W.', r: 3, d: '2026-11-19', t: 'Nice quality, but Medium was a bit snug for our 14 kg cocker. Swapping for an XL was easy though.', h: 11 },
+      { n: 'Kevin T.', r: 5, d: '2026-11-18', img: 'img/bed-carry.jpg', t: 'Easy to carry from the house to the car with the handles. Feels like a big weekend bag when it is zipped up.', h: 4 },
+      { n: 'Laura B.', r: 5, d: '2026-11-17', t: 'Third order from this shop. Each bed arrived well packaged and expanded fully within a day.', h: 3 },
+      { n: 'Jo K.', r: 5, d: '2026-11-24', t: 'Really smart piece of equipment. Great quality and easy to fit with the ISOFIX clips.', h: 6 },
+      { n: 'Cora O.', r: 5, d: '2026-11-23', t: 'Amazing product. I let it expand for 48 hours first and the cover is lovely and soft. Our pup used to bark and cry in the car. Now he travels calmly and feels secure. Wish I had found it a year ago!', h: 31 },
+      { n: 'Selina H.', r: 5, d: '2026-11-23', t: 'Cody always hated driving. Now he falls asleep and actually likes going for drives 🥹', h: 22 },
+      { n: 'Tom B.', r: 4, d: '2026-11-22', t: 'Solid bed and looks great in the car. Took a minute to work out the straps, but once it was in it did not move at all. Would like a size between Medium and XL.', h: 9 },
+      { n: 'Priya K.', r: 5, d: '2026-11-21', t: 'Ordered the burgundy one. She uses it in the living room on weekdays and in the car at weekends. The liner washes really well.', h: 12 },
+      { n: 'James W.', r: 5, d: '2026-11-20', t: 'Our springer is a big lad and the XL fits him perfectly. The safety clip means he can’t jump into the front any more.', h: 18 },
+      { n: 'Lucy M.', r: 5, d: '2026-11-19', t: 'Arrived in 3 days. Beautiful quality, and the side pocket is perfect for poo bags and treats.', h: 4 },
+      { n: 'Anna P.', r: 5, d: '2026-11-18', t: 'Perfect for our tiny chihuahua. She feels safe with the high sides and can still see out of the window.', h: 15 },
+      { n: 'Dave R.', r: 3, d: '2026-11-17', t: 'Good bed, but our car has no ISOFIX in the middle seat so we only use the straps. Still stable, just not as tight.', h: 7 },
+      { n: 'Hannah L.', r: 5, d: '2026-11-16', img: 'img/ugc-puppy.jpg', t: 'Already her favourite spot. She drags her toys into it even when we are not going anywhere.', h: 10 },
+      { n: 'Chris N.', r: 5, d: '2026-11-15', img: 'img/lifestyle-car.jpg', t: 'Our cocker spaniel sits up and watches the world go by. No more sliding around on the leather seats.', h: 8 },
+      { n: 'Emma G.', r: 4, d: '2026-11-14', img: 'img/ugc-grey.jpg', t: 'Love the grey colour, it matches our living room. Lost one star because it smelled a bit new for the first day.', h: 5 },
+      { n: 'Olivia F.', r: 5, d: '2026-11-13', t: 'Bought a second one for my mum’s dog. Customer service sorted the 20% off for the second bed quickly.', h: 3 },
+      { n: 'Sam T.', r: 5, d: '2026-11-12', img: 'img/ugc-sage.jpg', t: 'Our dachshund curls up and is asleep before we leave the street.', h: 11 },
+      { n: 'Ben H.', r: 2, d: '2026-11-11', t: 'Took longer to arrive than I hoped. The bed itself is good, but I wanted it for a trip that weekend.', h: 2 },
+      { n: 'Grace V.', r: 5, d: '2026-11-10', t: 'Easy to carry with the handles when it is zipped up. I take it in and out of the car all the time.', h: 6 },
+      { n: 'Nick J.', r: 5, d: '2026-11-09', t: 'Third dog bed we have tried for the car, and the only one that does not slide forward when braking.', h: 13 }
+    ];
+    var storeReviews = [
+      { n: 'Helen R.', r: 5, d: '2026-11-24', t: 'Fast delivery with tracking the whole way. Customer service answered my sizing question within an hour.', h: 7 },
+      { n: 'Mo A.', r: 5, d: '2026-11-22', t: 'Exchanged a Medium for an XL with no fuss. Free returns made it easy.', h: 5 },
+      { n: 'Claire P.', r: 4, d: '2026-11-20', t: 'Lovely products. Delivery took a week, a little longer than I expected, but kept updated by email.', h: 4 },
+      { n: 'George H.', r: 5, d: '2026-11-18', t: 'Love that part of every order goes to animal shelters. Will shop here again.', h: 9 },
+      { n: 'Natalie K.', r: 5, d: '2026-11-15', t: 'The free portable bowl was a nice surprise in the box. Great company to deal with.', h: 3 },
+      { n: 'Steve L.', r: 2, d: '2026-11-12', t: 'Parcel was delayed by the courier. The shop refunded shipping when I asked.', h: 2 }
+    ];
+    var rvState = { f: 'all', sort: 'recent', shown: 9, tab: 'product' };
+    var check = '<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="currentColor"/><path d="M4.5 8.3l2.2 2.2 4.8-4.8" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    function esc(s) { return s.replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+    function starStr(r) { return '★★★★★'.slice(0, r) + '<span class="dim">' + '★★★★★'.slice(r) + '</span>'; }
+    function fmtDate(d) { return new Date(d + 'T12:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }); }
+    function rvList() {
+      var l = (rvState.tab === 'store' ? storeReviews : reviews).filter(function (x) { return rvState.f === 'all' || x.img; }).slice();
+      l.sort(function (a, b) {
+        if (rvState.sort === 'high') return b.r - a.r || (b.d > a.d ? 1 : -1);
+        if (rvState.sort === 'low') return a.r - b.r || (b.d > a.d ? 1 : -1);
+        if (rvState.sort === 'photos') return (b.img ? 1 : 0) - (a.img ? 1 : 0) || (b.d > a.d ? 1 : -1);
+        return b.d > a.d ? 1 : -1;
+      });
+      return l;
+    }
+    function cardHtml(x, i) {
+      var initials = x.n.split(' ').map(function (p) { return p[0]; }).join('');
+      return '<article class="rv-card">' +
+        (x.img ? '<button class="rv-photo" data-i="' + i + '" aria-label="Open photo from ' + esc(x.n) + '"><img src="' + x.img + '" alt="Customer photo from ' + esc(x.n) + '" loading="lazy">' + (x.more ? '<span class="rv-count-badge">🖼 +' + x.more + '</span>' : '') + '</button>' : '') +
+        '<div class="rv-body"><div class="rv-who"><span class="av">' + esc(initials) + '</span>' + esc(x.n) + '<span class="rv-ver">' + check + 'Verified</span></div>' +
+        '<span class="rv-stars" aria-label="' + x.r + ' out of 5">' + starStr(x.r) + '</span>' +
+        '<p>' + esc(x.t) + '</p>' +
+        '<div class="rv-meta"><time datetime="' + x.d + '">' + fmtDate(x.d) + '</time><button class="rv-help" aria-pressed="false" data-h="' + x.h + '">Helpful (' + x.h + ')</button></div></div></article>';
+    }
+    var current = [];
+    function renderReviews() {
+      current = rvList();
+      $('#rv-grid').innerHTML = current.slice(0, rvState.shown).map(cardHtml).join('');
+      $('#rv-more').hidden = rvState.shown >= current.length;
+    }
+    $('#rv-grid').addEventListener('click', function (e) {
+      var help = e.target.closest('.rv-help');
+      if (help) { var on = help.getAttribute('aria-pressed') !== 'true'; help.setAttribute('aria-pressed', on); help.textContent = 'Helpful (' + (+help.dataset.h + (on ? 1 : 0)) + ')'; return; }
+      var ph = e.target.closest('.rv-photo');
+      if (ph) {
+        var x = current[+ph.dataset.i];
+        $('#rv-box-img').src = x.img; $('#rv-box-img').alt = 'Customer photo from ' + x.n;
+        $('#rv-box-text').innerHTML = '<div class="rv-who"><strong>' + esc(x.n) + '</strong><span class="rv-ver">' + check + 'Verified buyer</span></div><span class="rv-stars">' + starStr(x.r) + '</span><p>' + esc(x.t) + '</p><small>' + fmtDate(x.d) + ' · Dog Dock V2 New &amp; Improved ISO Fix</small>';
+        $('#rv-box').hidden = false; $('#rv-close').focus();
+      }
+    });
+    function closeBox() { $('#rv-box').hidden = true; }
+    $('#rv-close').addEventListener('click', closeBox);
+    $('#rv-box').addEventListener('click', function (e) { if (e.target.id === 'rv-box') closeBox(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeBox(); });
+    $$('.rv-filter button').forEach(function (b) {
+      b.addEventListener('click', function () {
+        rvState.f = b.dataset.f; rvState.shown = 9;
+        $$('.rv-filter button').forEach(function (o) { o.setAttribute('aria-pressed', o === b); });
+        renderReviews();
+      });
+    });
+    $('#rv-sort').addEventListener('change', function () { rvState.sort = this.value; rvState.shown = 9; renderReviews(); });
+    $('#rv-more').addEventListener('click', function () { rvState.shown += 9; renderReviews(); });
+
+    // Write a review (preview only: added to this page, not saved)
+    var pick = 5;
+    function paintPick() { $$('#rv-pick button').forEach(function (b) { var v = +b.dataset.v; b.classList.toggle('off', v > pick); b.setAttribute('aria-checked', v === pick); }); }
+    $$('#rv-pick button').forEach(function (b) { b.addEventListener('click', function () { pick = +b.dataset.v; paintPick(); }); });
+    paintPick();
+    $('#rv-write').addEventListener('click', function () {
+      var f = $('#rv-form'), open = f.hidden; f.hidden = !open; this.setAttribute('aria-expanded', open);
+      if (open) $('#rv-name').focus();
+    });
+    $('#rv-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = $('#rv-name').value.trim(), text = $('#rv-text').value.trim(), msg = $('#rv-msg');
+      if (!name || !text) { msg.textContent = 'Add your name and a few words about the bed.'; return; }
+      reviews.unshift({ n: name, r: pick, d: new Date().toISOString().slice(0, 10), t: text, h: 0 });
+      rvState.f = 'all'; rvState.sort = 'recent'; $('#rv-sort').value = 'recent';
+      $$('.rv-filter button').forEach(function (o) { o.setAttribute('aria-pressed', o.dataset.f === 'all'); });
+      renderReviews();
+      msg.textContent = 'Thanks! Your review is at the top (preview only, not saved).';
+      $('#rv-name').value = ''; $('#rv-text').value = '';
+    });
+    renderReviews();
+
+    // Rating breakdown dropdown
+    $('#rv-toggle').addEventListener('click', function () {
+      var open = this.getAttribute('aria-expanded') === 'true';
+      this.setAttribute('aria-expanded', !open); $('#rv-bars').hidden = open;
+    });
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.rv-count')) { $('#rv-toggle').setAttribute('aria-expanded', 'false'); $('#rv-bars').hidden = true; }
+    });
+
+    // Product / store tabs
+    $$('.rv-tabs button').forEach(function (b) {
+      b.addEventListener('click', function () {
+        rvState.tab = b.dataset.tab; rvState.shown = 9; rvState.f = 'all';
+        $$('.rv-tabs button').forEach(function (o) { o.setAttribute('aria-selected', o === b); });
+        $$('.rv-filter button').forEach(function (o) { o.setAttribute('aria-pressed', o.dataset.f === 'all'); });
+        $('.rv-summary').hidden = rvState.tab === 'store';
+        renderReviews();
+      });
+    });
+
+    // Photo review carousel on the blue band
+    var rcTrack = $('#rc-track');
+    rcTrack.innerHTML = reviews.filter(function (x) { return x.img && x.r === 5; }).slice(0, 10).map(function (x) {
+      return '<article class="rc-card"><div class="ph"><img src="' + x.img + '" alt="Photo from ' + esc(x.n) + '" loading="lazy"><span class="pill" aria-label="5 out of 5">★★★★★</span></div>' +
+        '<div class="bd"><div class="nm">' + esc(x.n) + '<svg viewBox="0 0 16 16" aria-label="Verified"><circle cx="8" cy="8" r="8" fill="#111"/><path d="M4.5 8.3l2.2 2.2 4.8-4.8" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>' + esc(x.t) + '</p></div></article>';
+    }).join('');
+    function rcStep() { var c = rcTrack.querySelector('.rc-card'); return c ? c.offsetWidth + 18 : 300; }
+    function rcUpdate() {
+      $('#rc-prev').disabled = rcTrack.scrollLeft < 5;
+      $('#rc-next').disabled = rcTrack.scrollLeft + rcTrack.clientWidth >= rcTrack.scrollWidth - 5;
+    }
+    $('#rc-prev').addEventListener('click', function () { rcTrack.scrollBy({ left: -rcStep(), behavior: 'smooth' }); });
+    $('#rc-next').addEventListener('click', function () { rcTrack.scrollBy({ left: rcStep(), behavior: 'smooth' }); });
+    rcTrack.addEventListener('scroll', rcUpdate, { passive: true });
+    window.addEventListener('resize', rcUpdate); rcUpdate();
 
     var sticky = $('#sticky');
     if ('IntersectionObserver' in window) {
