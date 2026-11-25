@@ -1,0 +1,398 @@
+{
+ "layout": "blk",
+ "sections": {
+  "main": {
+   "type": "blk-dog-dock",
+   "blocks": {
+    "gallery_0": {
+     "type": "gallery",
+     "settings": {
+      "image": "shopify://shop_images/blkdd-bed-navy.png",
+      "colour": "Navy"
+     }
+    },
+    "gallery_1": {
+     "type": "gallery",
+     "settings": {
+      "image": "shopify://shop_images/blkdd-bed-black.png",
+      "colour": "Black"
+     }
+    },
+    "gallery_2": {
+     "type": "gallery",
+     "settings": {
+      "image": "shopify://shop_images/blkdd-bed-green.png",
+      "colour": "Green"
+     }
+    },
+    "gallery_3": {
+     "type": "gallery",
+     "settings": {
+      "image": "shopify://shop_images/blkdd-bed-grey.png",
+      "colour": "Grey"
+     }
+    },
+    "gallery_4": {
+     "type": "gallery",
+     "settings": {
+      "image": "shopify://shop_images/blkdd-bed-burgundy.png",
+      "colour": "Burgundy"
+     }
+    },
+    "gallery_5": {
+     "type": "gallery",
+     "settings": {
+      "image": "shopify://shop_images/blkdd-bed-xl.png",
+      "colour": ""
+     }
+    },
+    "gallery_6": {
+     "type": "gallery",
+     "settings": {
+      "image": "shopify://shop_images/blkdd-bed-front.png",
+      "colour": ""
+     }
+    },
+    "gallery_7": {
+     "type": "gallery",
+     "settings": {
+      "image": "shopify://shop_images/blkdd-bed-carry.png",
+      "colour": ""
+     }
+    },
+    "gallery_8": {
+     "type": "gallery",
+     "settings": {
+      "image": "shopify://shop_images/blkdd-bed-patch.png",
+      "colour": ""
+     }
+    },
+    "gallery_9": {
+     "type": "gallery",
+     "settings": {
+      "image": "shopify://shop_images/blkdd-lifestyle-car.png",
+      "colour": ""
+     }
+    },
+    "addon_10": {
+     "type": "addon",
+     "settings": {
+      "image": "shopify://shop_images/blkdd-harness.png",
+      "name": "BLK Majesty Adjustable Harness",
+      "price": "$40.00",
+      "compare": "$70.00",
+      "link": "/products/adjustable-dog-harness"
+     }
+    },
+    "addon_11": {
+     "type": "addon",
+     "settings": {
+      "image": "shopify://shop_images/blkdd-lead.png",
+      "name": "BLK Majesty Lead",
+      "price": "$25.00",
+      "compare": "$40.00",
+      "link": "/products/dog-lead"
+     }
+    },
+    "info_tab_12": {
+     "type": "info_tab",
+     "settings": {
+      "title": "Sizes & dog sizes",
+      "text": "<p><strong>Medium:</strong> 53 × 47 × 44 cm. For small and medium breeds (Dachshund, Cockapoo, Cocker Spaniel).</p><p><strong>Extra Large:</strong> 100 × 52 × 44 cm. For large breeds or two small dogs.</p>"
+     }
+    },
+    "info_tab_13": {
+     "type": "info_tab",
+     "settings": {
+      "title": "Lifetime Warranty",
+      "text": "<p>If a strap, clip or seam fails under normal use, we replace your Dog Dock for free, for life.</p>"
+     }
+    },
+    "info_tab_14": {
+     "type": "info_tab",
+     "settings": {
+      "title": "Safe & legal travel",
+      "text": "<p>The ISOFIX anchoring and built-in safety clip keep your dog secured, so they can't distract you or jump into the front.</p>"
+     }
+    },
+    "feature_15": {
+     "type": "feature",
+     "settings": {
+      "image": "shopify://shop_images/blkdd-feat-pocket.png",
+      "title": "Convenient Side-Pocket Storage",
+      "text": "Keep essentials close at hand, from leads and treats to travel toys."
+     }
+    },
+    "feature_16": {
+     "type": "feature",
+     "settings": {
+      "image": "shopify://shop_images/blkdd-feat-straps.png",
+      "title": "Adjustable Car Seat Belts",
+      "text": "Secure the bed to any car seat with adjustable straps that keep it anchored during sudden stops."
+     }
+    },
+    "feature_17": {
+     "type": "feature",
+     "settings": {
+      "image": "shopify://shop_images/blkdd-feat-base.png",
+      "title": "Non-Slip Safety Base",
+      "text": "The anti-slip bottom keeps the bed steady on car seats and smooth floors."
+     }
+    },
+    "feature_18": {
+     "type": "feature",
+     "settings": {
+      "image": "shopify://shop_images/blkdd-feat-isofix.png",
+      "title": "Metal ISO Fix Clasps",
+      "text": "Metal ISOFIX clasps lock into your car's anchors, like a child seat."
+     }
+    },
+    "feature_19": {
+     "type": "feature",
+     "settings": {
+      "image": "shopify://shop_images/blkdd-feat-liner.png",
+      "title": "Removable, Plush Inner Liner",
+      "text": "Soft, removable and washable, with a waterproof side."
+     }
+    },
+    "feature_20": {
+     "type": "feature",
+     "settings": {
+      "image": "shopify://shop_images/blkdd-feat-clip.png",
+      "title": "Built in Safety Clip",
+      "text": "Attach your dog's harness so they can't jump out or into the front."
+     }
+    },
+    "ugc_21": {
+     "type": "ugc",
+     "settings": {
+      "image": "shopify://shop_images/blkdd-ugc-puppy.png",
+      "caption": "Already her favourite spot"
+     }
+    },
+    "ugc_22": {
+     "type": "ugc",
+     "settings": {
+      "image": "shopify://shop_images/blkdd-ugc-grey.png",
+      "caption": "Set up in two minutes"
+     }
+    },
+    "ugc_23": {
+     "type": "ugc",
+     "settings": {
+      "image": "shopify://shop_images/blkdd-ugc-dachshund.png",
+      "caption": "Asleep before we left the street"
+     }
+    },
+    "ugc_24": {
+     "type": "ugc",
+     "settings": {
+      "image": "shopify://shop_images/blkdd-rv-terrier.png",
+      "caption": "Living-room bed on weekdays"
+     }
+    },
+    "ugc_25": {
+     "type": "ugc",
+     "settings": {
+      "image": "shopify://shop_images/blkdd-rv-springer.png",
+      "caption": "Big lad, perfect fit"
+     }
+    },
+    "ugc_26": {
+     "type": "ugc",
+     "settings": {
+      "image": "shopify://shop_images/blkdd-rv-chihuahua.png",
+      "caption": "Tiny dog, big view"
+     }
+    },
+    "faq_27": {
+     "type": "faq",
+     "settings": {
+      "question": "How will I track my delivery?",
+      "answer": "<p>Once your order ships we email you a tracking link.</p>"
+     }
+    },
+    "faq_28": {
+     "type": "faq",
+     "settings": {
+      "question": "What makes BLK Majesty beds different?",
+      "answer": "<p>ISOFIX clips plus securing straps, vegan leather, raised sides and a built-in safety clip.</p>"
+     }
+    },
+    "faq_29": {
+     "type": "faq",
+     "settings": {
+      "question": "Are the beds suitable for all breeds?",
+      "answer": "<p>Medium fits small and medium breeds. Extra Large fits large breeds or two small dogs.</p>"
+     }
+    },
+    "faq_30": {
+     "type": "faq",
+     "settings": {
+      "question": "Are the beds machine washable?",
+      "answer": "<p>The inner liner is removable and washable at 30°C. Wipe the shell clean.</p>"
+     }
+    },
+    "faq_31": {
+     "type": "faq",
+     "settings": {
+      "question": "Do you ship internationally?",
+      "answer": "<p>Yes, with tracking on every order.</p>"
+     }
+    },
+    "faq_32": {
+     "type": "faq",
+     "settings": {
+      "question": "What if my dog doesn't like the bed?",
+      "answer": "<p>Returns are free within 30 days.</p>"
+     }
+    },
+    "faq_33": {
+     "type": "faq",
+     "settings": {
+      "question": "Do the beds come with a warranty?",
+      "answer": "<p>Yes, a lifetime warranty on straps, clips and seams.</p>"
+     }
+    },
+    "faq_34": {
+     "type": "faq",
+     "settings": {
+      "question": "How can I contact support?",
+      "answer": "<p>Email support@blkmajesty.com and we reply within one business day.</p>"
+     }
+    },
+    "review_35": {
+     "type": "review",
+     "settings": {
+      "image": "shopify://shop_images/blkdd-rv-terrier.png",
+      "name": "Mrs J.",
+      "rating": 5,
+      "text": "This is really well made and very comfortable for my border terrier. Now it lives in the living room between trips!",
+      "date": "Nov 25, 2026"
+     }
+    },
+    "review_36": {
+     "type": "review",
+     "settings": {
+      "image": "shopify://shop_images/blkdd-rv-puppy.png",
+      "name": "Mr D.",
+      "rating": 5,
+      "text": "Bought as a present for my son's dog and she loves it.",
+      "date": "Nov 24, 2026"
+     }
+    },
+    "review_37": {
+     "type": "review",
+     "settings": {
+      "image": "shopify://shop_images/blkdd-rv-springer.png",
+      "name": "Sarah S.",
+      "rating": 5,
+      "text": "Fits our springer spaniel really well. Super strong and comfortable.",
+      "date": "Nov 24, 2026"
+     }
+    },
+    "review_38": {
+     "type": "review",
+     "settings": {
+      "image": "shopify://shop_images/blkdd-rv-foxterrier.png",
+      "name": "Mark D.",
+      "rating": 5,
+      "text": "We bought the XL for our fox terrier in our camper van. He settled in straight away.",
+      "date": "Nov 24, 2026"
+     }
+    },
+    "review_39": {
+     "type": "review",
+     "settings": {
+      "image": "shopify://shop_images/blkdd-rv-cockapoo.png",
+      "name": "Rachel A.",
+      "rating": 5,
+      "text": "Our cockapoo used to pace the back seat. With the clip on her harness she just lies down.",
+      "date": "Nov 22, 2026"
+     }
+    },
+    "review_40": {
+     "type": "review",
+     "settings": {
+      "image": "shopify://shop_images/blkdd-rv-chihuahua.png",
+      "name": "Megan C.",
+      "rating": 5,
+      "text": "Our chihuahua finally stays put in the car and can still see out.",
+      "date": "Nov 21, 2026"
+     }
+    },
+    "review_41": {
+     "type": "review",
+     "settings": {
+      "name": "Tom B.",
+      "rating": 4,
+      "text": "Solid bed and looks great. Took a minute to work out the straps, but once in it didn't move.",
+      "date": "Nov 22, 2026"
+     }
+    }
+   },
+   "block_order": [
+    "gallery_0",
+    "gallery_1",
+    "gallery_2",
+    "gallery_3",
+    "gallery_4",
+    "gallery_5",
+    "gallery_6",
+    "gallery_7",
+    "gallery_8",
+    "gallery_9",
+    "addon_10",
+    "addon_11",
+    "info_tab_12",
+    "info_tab_13",
+    "info_tab_14",
+    "feature_15",
+    "feature_16",
+    "feature_17",
+    "feature_18",
+    "feature_19",
+    "feature_20",
+    "ugc_21",
+    "ugc_22",
+    "ugc_23",
+    "ugc_24",
+    "ugc_25",
+    "ugc_26",
+    "faq_27",
+    "faq_28",
+    "faq_29",
+    "faq_30",
+    "faq_31",
+    "faq_32",
+    "faq_33",
+    "faq_34",
+    "review_35",
+    "review_36",
+    "review_37",
+    "review_38",
+    "review_39",
+    "review_40",
+    "review_41"
+   ],
+   "settings": {
+    "product": "dog-dock-isofix-car-bed",
+    "video1_poster": "shopify://shop_images/blkdd-video-warehouse.png",
+    "video1_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3Ip6NsM1c35IwLmveol0uSQHE0I/hf_20261125_160142_6875e995-0ed8-40e5-be24-d3a74a12ae5b.mp4",
+    "video2_poster": "shopify://shop_images/blkdd-video-boot.png",
+    "video2_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3Ip6NsM1c35IwLmveol0uSQHE0I/hf_20261125_160140_cdf5800b-8a01-4054-936f-2076b25e327a.mp4",
+    "video3_poster": "shopify://shop_images/blkdd-video-redsuv.png",
+    "video3_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3Ip6NsM1c35IwLmveol0uSQHE0I/hf_20261125_160141_796388c9-897a-4672-a50f-29a1a865d9c4.mp4",
+    "why_text": "The Dog Dock is a secure travel bed that gives your dog its own space in the car. ISOFIX anchoring, safety straps and a harness clip keep it firmly in place, so your dog travels calmly.",
+    "gives_text": "A share of every BLK Majesty sale is donated to local animal shelters to care for abandoned and vulnerable dogs and cats.",
+    "gives_image": "shopify://shop_images/blkdd-gives-back.png",
+    "who_text": "<p>We are a small, founder-led dog brand. Our mission is simple: <strong>protect dogs, give back, and make every journey calmer</strong>.</p>",
+    "summary": "Reviewers value the secure ISOFIX anchoring that calms travel anxiety. Some mention snug sizing. Many say restless dogs now sleep during car rides.",
+    "description": "<p>The Dog Dock anchors to your seat with ISOFIX clips and two reinforced straps. Raised sides, a washable plush liner and a built-in safety clip keep your dog calm and secure on every trip.</p>"
+   }
+  }
+ },
+ "order": [
+  "main"
+ ]
+}

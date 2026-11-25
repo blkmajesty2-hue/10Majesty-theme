@@ -1,0 +1,19 @@
+{%- comment -%} Renders a sky band with one video. Params: poster (image), url (mp4), band, wave, caption {%- endcomment -%}
+{%- if poster != blank -%}
+<section class="band {{ band }}">
+  {%- if wave != blank -%}
+    <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" style="--wave:var(--{{ wave }})" aria-hidden="true"><path d="M0 0h1440v28C1200 0 980 0 720 22S240 52 0 30z"/></svg>
+  {%- endif -%}
+  <div class="wrap band-inner">
+    <div class="video">
+      {%- if url != blank -%}
+        <video src="{{ url }}" poster="{{ poster | image_url: width: 1400 }}" playsinline loop preload="none"></video>
+      {%- else -%}
+        {{ poster | image_url: width: 1400 | image_tag: loading: 'lazy' }}
+      {%- endif -%}
+      {%- if caption != blank -%}<span class="cap">{{ caption | escape }}</span>{%- endif -%}
+      <button type="button" class="playbtn" aria-label="Play video"></button>
+    </div>
+  </div>
+</section>
+{%- endif -%}

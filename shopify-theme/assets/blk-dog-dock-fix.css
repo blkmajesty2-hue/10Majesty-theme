@@ -1,0 +1,4 @@
+.blk-page .hl img { height: auto !important; width: 150px; aspect-ratio: 1; object-fit: cover; }
+.blk-page .give img { height: auto; }
+.blk-page .rv-photo img, .blk-page .rc-card .ph img { height: 100%; }
+.blk-page .ugc .tile img { height: 100%; }

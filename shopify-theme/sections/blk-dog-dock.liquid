@@ -1,0 +1,362 @@
+{%- liquid
+  assign p = product
+  if p == blank and section.settings.product != blank
+    assign p = section.settings.product
+  endif
+  assign has_product = false
+  if p != blank and p.available
+    assign has_product = true
+  endif
+  assign first_img = section.blocks | where: 'type', 'gallery' | first
+-%}
+
+<div class="blk-page">
+  <div class="marquee" aria-label="{{ 'Store promises' | escape }}">
+    <div class="marquee-track">
+      {%- for n in (1..2) -%}
+        <div class="marquee-group"{% if n == 2 %} aria-hidden="true"{% endif %}>
+          {%- assign items = section.settings.marquee | split: ',' -%}
+          {%- for item in items -%}
+            <span><i><svg><use href="#blk-check"/></svg></i>{{ item | strip | escape }}</span>
+          {%- endfor -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <section class="product" aria-labelledby="ptitle-{{ section.id }}">
+    <div class="wrap">
+      <div class="gallery">
+        <div class="thumbs">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'gallery' and block.settings.image != blank -%}
+              <button type="button" class="thumb" aria-current="{% if forloop.first %}true{% else %}false{% endif %}" data-img="{{ block.settings.image | image_url: width: 1200 }}" data-colour="{{ block.settings.colour | escape }}" aria-label="{{ block.settings.image.alt | default: block.settings.colour | escape }}" {{ block.shopify_attributes }}>
+                {{ block.settings.image | image_url: width: 200 | image_tag: loading: 'lazy', alt: '' }}
+              </button>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        <div class="stage">
+          {%- if section.settings.badge_top != blank -%}
+            <div class="burst" aria-hidden="true">
+              <svg viewBox="0 0 66 66"><use href="#blk-scallop" fill="#000"/></svg>
+              <span>{{ section.settings.badge_top | escape }}<b>{{ section.settings.badge_big | escape }}</b></span>
+            </div>
+          {%- endif -%}
+          {%- if section.settings.proof_title != blank -%}
+            <div class="proof">
+              <strong>{{ section.settings.proof_title | escape }}</strong>
+              <div class="stars" aria-hidden="true"><i>★</i><i>★</i><i>★</i><i>★</i><i>★</i></div>
+              <small>{{ section.settings.proof_text | escape }}</small>
+            </div>
+          {%- endif -%}
+          {%- if first_img != blank and first_img.settings.image != blank -%}
+            {{ first_img.settings.image | image_url: width: 1200 | image_tag: class: 'main', id: 'blk-main-img', alt: first_img.settings.image.alt, fetchpriority: 'high' }}
+          {%- endif -%}
+        </div>
+      </div>
+
+      <div class="info">
+        <h1 id="ptitle-{{ section.id }}">{% if has_product %}{{ p.title | escape }}{% else %}{{ section.settings.title | escape }}{% endif %}</h1>
+        <p class="price">
+          <span id="blk-price">{% if has_product %}{{ p.selected_or_first_available_variant.price | money }}{% else %}{{ section.settings.price_text | escape }}{% endif %}</span>
+          <s id="blk-compare">{% if has_product %}{{ p.selected_or_first_available_variant.compare_at_price | money }}{% else %}{{ section.settings.compare_text | escape }}{% endif %}</s>
+        </p>
+        {%- if section.settings.promo != blank -%}<p class="promo">{{ section.settings.promo | escape }}</p>{%- endif -%}
+
+        <div class="sizes" role="group" aria-label="Size">
+          {%- assign sizes = section.settings.sizes | split: ',' -%}
+          {%- for s in sizes -%}
+            <button type="button" class="size" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}" data-size="{{ s | strip | escape }}">{{ s | strip | escape }}</button>
+          {%- endfor -%}
+        </div>
+        <div class="swatches" role="group" aria-label="Colour">
+          {%- assign cols = section.settings.colours | split: ',' -%}
+          {%- for c in cols -%}
+            {%- assign pair = c | split: ':' -%}
+            <button type="button" class="swatch" style="--c:{{ pair[1] | strip }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}" data-colour="{{ pair[0] | strip | escape }}" aria-label="{{ pair[0] | strip | escape }}"></button>
+          {%- endfor -%}
+        </div>
+        <span class="stock"><i><svg><use href="#blk-check"/></svg></i>{{ section.settings.stock_text | escape }}</span>
+
+        {%- assign addons = section.blocks | where: 'type', 'addon' -%}
+        {%- if addons.size > 0 -%}
+          <div class="bundle">
+            <span class="bundle-tag">{{ section.settings.bundle_tag | escape }}</span>
+            {%- for block in addons -%}
+              <div class="addon" {{ block.shopify_attributes }}>
+                <div class="pic">{% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}{% endif %}</div>
+                <span class="name">{{ block.settings.name | escape }}</span>
+                <span class="p">{{ block.settings.price | escape }}<s>{{ block.settings.compare | escape }}</s></span>
+              </div>
+            {%- endfor -%}
+            <label class="bundle-check"><input type="checkbox" id="blk-bundle" checked> {{ section.settings.bundle_text | escape }}</label>
+          </div>
+        {%- endif -%}
+
+        {%- if has_product -%}
+          {%- form 'product', p, id: 'blk-form', class: 'blk-form' -%}
+            <input type="hidden" name="id" id="blk-variant" value="{{ p.selected_or_first_available_variant.id }}">
+            <button type="submit" class="cta" id="blk-claim">{{ section.settings.cta_text | escape }}</button>
+          {%- endform -%}
+        {%- else -%}
+          <button type="button" class="cta" id="blk-claim">{{ section.settings.cta_text | escape }}</button>
+        {%- endif -%}
+        <p class="applied"><i><svg><use href="#blk-check"/></svg></i>{{ section.settings.applied_text | escape }}</p>
+        {%- if section.settings.second_offer != blank -%}<p class="second">{{ section.settings.second_offer | escape }}</p>{%- endif -%}
+
+        <div>
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'info_tab' -%}
+              <div class="acc" {{ block.shopify_attributes }}>
+                <button type="button" class="acc-q" aria-expanded="false">{{ block.settings.title | escape }}<span class="chev"></span></button>
+                <div class="acc-a" hidden>{{ block.settings.text }}</div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        {%- if section.settings.description != blank -%}<div class="desc">{{ section.settings.description }}</div>{%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  {%- render 'blk-video', poster: section.settings.video1_poster, url: section.settings.video1_url, band: 'sky', wave: 'white', caption: '' -%}
+
+  <section class="band ocean">
+    <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" style="--wave:var(--sky)" aria-hidden="true"><path d="M0 0h1440v34C1200 0 960 0 720 18S240 60 0 40z"/></svg>
+    <div class="wrap band-inner">
+      <div class="rc" aria-label="Customer photo reviews">
+        <button type="button" class="rc-nav prev" id="rc-prev" aria-label="Previous reviews">‹</button>
+        <div class="rc-track" id="rc-track">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'review' and block.settings.image != blank -%}
+              <article class="rc-card" {{ block.shopify_attributes }}>
+                <div class="ph">{{ block.settings.image | image_url: width: 600 | image_tag: loading: 'lazy', alt: block.settings.image.alt }}<span class="pill" aria-label="{{ block.settings.rating }} out of 5">{% for i in (1..block.settings.rating) %}★{% endfor %}</span></div>
+                <div class="bd"><div class="nm">{{ block.settings.name | escape }}<svg viewBox="0 0 16 16" aria-label="Verified"><circle cx="8" cy="8" r="8" fill="#111"/><path d="M4.5 8.3l2.2 2.2 4.8-4.8" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>{{ block.settings.text | escape }}</p></div>
+              </article>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        <button type="button" class="rc-nav next" id="rc-next" aria-label="Next reviews">›</button>
+      </div>
+    </div>
+    <div class="wrap band-inner">
+      <h2 class="center-title">{{ section.settings.addons_heading | escape }}</h2>
+      <div class="sale-cards">
+        {%- for block in addons -%}
+          <a class="sale-card" href="{{ block.settings.link | default: '#' }}">
+            <div class="media">{% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 500 | image_tag: loading: 'lazy', alt: block.settings.name }}{% endif %}<span class="scallop"><svg><use href="#blk-scallop" fill="#fff"/></svg><b>On Sale</b></span></div>
+            <span class="t">{{ block.settings.name | escape }}</span><span class="p"><s>{{ block.settings.compare | escape }}</s>{{ block.settings.price | escape }}</span>
+          </a>
+        {%- endfor -%}
+      </div>
+    </div>
+    <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" style="--wave:var(--sky)" aria-hidden="true"><path d="M0 60V40C300 64 520 20 760 14S1240 10 1440 30v30z"/></svg>
+  </section>
+
+  {%- render 'blk-video', poster: section.settings.video2_poster, url: section.settings.video2_url, band: 'sky', wave: '', caption: section.settings.video2_caption -%}
+
+  <section class="band ocean" aria-label="Customer videos">
+    <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" style="--wave:var(--sky)" aria-hidden="true"><path d="M0 0h1440v34C1200 0 960 0 720 18S240 60 0 40z"/></svg>
+    <div class="wrap band-inner">
+      <div class="ugc">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'ugc' and block.settings.image != blank -%}
+            <div class="tile" {{ block.shopify_attributes }}>{{ block.settings.image | image_url: width: 600 | image_tag: loading: 'lazy', alt: '' }}<p>{{ block.settings.caption | escape }}</p></div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      {%- if section.settings.video3_poster != blank -%}
+        <div style="margin-top:40px" class="video">
+          {%- if section.settings.video3_url != blank -%}<video src="{{ section.settings.video3_url }}" poster="{{ section.settings.video3_poster | image_url: width: 1400 }}" playsinline loop preload="none"></video>{%- else -%}{{ section.settings.video3_poster | image_url: width: 1400 | image_tag: loading: 'lazy' }}{%- endif -%}
+          <button type="button" class="playbtn" aria-label="Play video"></button>
+        </div>
+      {%- endif -%}
+    </div>
+    <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" style="--wave:var(--sky)" aria-hidden="true"><path d="M0 60V40C300 64 520 20 760 14S1240 10 1440 30v30z"/></svg>
+  </section>
+
+  <section class="band sky">
+    <div class="wrap">
+      <div class="rich">
+        <h2 class="center-title">{{ section.settings.why_heading | escape }}</h2>
+        <p>{{ section.settings.why_text | escape }}</p>
+      </div>
+      <div class="highlights">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'feature' -%}
+            <div class="hl" {{ block.shopify_attributes }}>
+              {%- if block.settings.image != blank -%}{{ block.settings.image | image_url: width: 400 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}
+              <h3>{{ block.settings.title | escape }}</h3><p>{{ block.settings.text | escape }}</p>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      <div class="icon-row">
+        {%- assign trust = section.settings.trust | split: ',' -%}
+        {%- for t in trust -%}<div><i><svg><use href="#blk-check-big"/></svg></i>{{ t | strip | escape }}</div>{%- endfor -%}
+      </div>
+      <div class="give">
+        <div><h2>{{ section.settings.gives_heading | escape }}</h2><p>{{ section.settings.gives_text | escape }}</p></div>
+        {%- if section.settings.gives_image != blank -%}{{ section.settings.gives_image | image_url: width: 900 | image_tag: loading: 'lazy' }}{%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  <section class="band ocean">
+    <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" style="--wave:var(--sky)" aria-hidden="true"><path d="M0 0h1440v34C1200 0 960 0 720 18S240 60 0 40z"/></svg>
+    <div class="wrap">
+      <div class="rich" style="padding-block:30px 50px">
+        <h2 class="center-title">{{ section.settings.who_heading | escape }}</h2>
+        <div>{{ section.settings.who_text }}</div>
+      </div>
+    </div>
+    <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" style="--wave:var(--white)" aria-hidden="true"><path d="M0 60V40C300 64 520 20 760 14S1240 10 1440 30v30z"/></svg>
+  </section>
+
+  <section class="band white">
+    <div class="wrap" style="padding-top:30px">
+      <h2 class="center-title">{{ section.settings.faq_heading | escape }}</h2>
+      <div class="faq-grid">
+        {%- assign faqs = section.blocks | where: 'type', 'faq' -%}
+        {%- assign half = faqs.size | plus: 1 | divided_by: 2 -%}
+        <div class="faq-col">
+          {%- for block in faqs limit: half -%}
+            <div class="fq" {{ block.shopify_attributes }}><button type="button" aria-expanded="false">{{ block.settings.question | escape }}<span class="chev"></span></button><div class="ans" hidden>{{ block.settings.answer }}</div></div>
+          {%- endfor -%}
+        </div>
+        <div class="faq-col">
+          {%- for block in faqs offset: half -%}
+            <div class="fq" {{ block.shopify_attributes }}><button type="button" aria-expanded="false">{{ block.settings.question | escape }}<span class="chev"></span></button><div class="ans" hidden>{{ block.settings.answer }}</div></div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band white" id="reviews">
+    <div class="wrap">
+      <div class="rv-head">
+        <div class="rv-count"><span class="rv-stars big" aria-hidden="true">★★★★★</span><span class="rv-toggle">{{ section.settings.reviews_count | escape }}</span></div>
+      </div>
+      {%- if section.settings.summary != blank -%}
+        <div class="rv-summary"><h3>Review summary</h3><p>{{ section.settings.summary | escape }}</p></div>
+      {%- endif -%}
+      <div class="rv-grid" style="margin-top:20px">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'review' -%}
+            <article class="rv-card" {{ block.shopify_attributes }}>
+              {%- if block.settings.image != blank -%}<div class="rv-photo">{{ block.settings.image | image_url: width: 600 | image_tag: loading: 'lazy', alt: block.settings.image.alt }}</div>{%- endif -%}
+              <div class="rv-body">
+                <div class="rv-who"><span class="av">{{ block.settings.name | slice: 0 }}</span>{{ block.settings.name | escape }}<span class="rv-ver">Verified</span></div>
+                <span class="rv-stars" aria-label="{{ block.settings.rating }} out of 5">{% for i in (1..block.settings.rating) %}★{% endfor %}</span>
+                <p>{{ block.settings.text | escape }}</p>
+                <div class="rv-meta"><span>{{ block.settings.date | escape }}</span></div>
+              </div>
+            </article>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+</div>
+
+{%- if has_product -%}
+  <script type="application/json" id="blk-variants">{{ p.variants | json }}</script>
+{%- endif -%}
+
+<script>
+  (function () {
+    var $ = function (s) { return document.querySelector(s); };
+    var $$ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)); };
+    var state = { size: (document.querySelector('.size') || {}).dataset ? document.querySelector('.size').dataset.size : '', colour: (document.querySelector('.swatch') || {}).dataset ? document.querySelector('.swatch').dataset.colour : '' };
+    var variants = []; try { variants = JSON.parse(($('#blk-variants') || {}).textContent || '[]'); } catch (e) {}
+    var thumbs = $$('.thumb');
+    function showImage(src) { var m = $('#blk-main-img'); if (m && src) { m.src = src; m.removeAttribute('srcset'); } thumbs.forEach(function (t) { t.setAttribute('aria-current', t.dataset.img === src); }); }
+    function money(c) { return (window.Shopify && Shopify.formatMoney) ? Shopify.formatMoney(c) : '$' + (c / 100).toFixed(2); }
+    function render() {
+      $$('.swatch').forEach(function (s) { s.setAttribute('aria-pressed', s.dataset.colour === state.colour); });
+      $$('.size').forEach(function (s) { s.setAttribute('aria-pressed', s.dataset.size === state.size); });
+      var t = thumbs.filter(function (x) { return x.dataset.colour === state.colour; })[0];
+      if (t) showImage(t.dataset.img);
+      var v = variants.filter(function (x) { return x.options.indexOf(state.size) > -1 && x.options.indexOf(state.colour) > -1; })[0];
+      if (v) { $('#blk-variant').value = v.id; $('#blk-price').textContent = money(v.price); $('#blk-compare').textContent = v.compare_at_price ? money(v.compare_at_price) : ''; }
+    }
+    $$('.swatch').forEach(function (s) { s.addEventListener('click', function () { state.colour = s.dataset.colour; render(); }); });
+    $$('.size').forEach(function (s) { s.addEventListener('click', function () { state.size = s.dataset.size; render(); }); });
+    thumbs.forEach(function (t) { t.addEventListener('click', function () { showImage(t.dataset.img); }); });
+    $$('.acc-q, .fq button').forEach(function (q) { q.addEventListener('click', function () { var o = q.getAttribute('aria-expanded') === 'true'; q.setAttribute('aria-expanded', !o); q.nextElementSibling.hidden = o; }); });
+    $$('.video').forEach(function (box) {
+      var v = box.querySelector('video'), b = box.querySelector('.playbtn'); if (!v || !b) return;
+      b.addEventListener('click', function () { $$('.video video').forEach(function (o) { if (o !== v) o.pause(); }); v.play(); });
+      v.addEventListener('click', function () { v.paused ? v.play() : v.pause(); });
+      v.addEventListener('play', function () { box.classList.add('playing'); }); v.addEventListener('pause', function () { box.classList.remove('playing'); });
+    });
+    var tr = $('#rc-track');
+    if (tr) {
+      var step = function () { var c = tr.querySelector('.rc-card'); return c ? c.offsetWidth + 18 : 300; };
+      var upd = function () { $('#rc-prev').disabled = tr.scrollLeft < 5; $('#rc-next').disabled = tr.scrollLeft + tr.clientWidth >= tr.scrollWidth - 5; };
+      $('#rc-prev').addEventListener('click', function () { tr.scrollBy({ left: -step(), behavior: 'smooth' }); });
+      $('#rc-next').addEventListener('click', function () { tr.scrollBy({ left: step(), behavior: 'smooth' }); });
+      tr.addEventListener('scroll', upd, { passive: true }); upd();
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "BLK Dog Dock page",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Product (used when not on a product page)" },
+    { "type": "text", "id": "marquee", "label": "Scrolling bar items (comma separated)", "default": "Free express shipping, Free returns, Lifetime warranty, Vegan leather, Free portable dog bowl" },
+    { "type": "text", "id": "badge_top", "label": "Badge small text", "default": "EARLY BLACK FRIDAY SALE" },
+    { "type": "text", "id": "badge_big", "label": "Badge big text", "default": "50% OFF" },
+    { "type": "text", "id": "proof_title", "label": "Reviews badge title", "default": "1,318 Reviews" },
+    { "type": "text", "id": "proof_text", "label": "Reviews badge text", "default": "Rated “Excellent”" },
+    { "type": "text", "id": "title", "label": "Title (when product is not active)", "default": "BLK Majesty Dog Dock V2 ISOFIX Car Bed" },
+    { "type": "text", "id": "price_text", "label": "Price (when product is not active)", "default": "$150.00" },
+    { "type": "text", "id": "compare_text", "label": "Compare price (when product is not active)", "default": "$300.00" },
+    { "type": "text", "id": "promo", "label": "Promo box", "default": "🎁 Early Black Friday: order today for 50% off" },
+    { "type": "text", "id": "sizes", "label": "Sizes (comma separated, must match product)", "default": "Medium, Extra Large" },
+    { "type": "text", "id": "colours", "label": "Colours as Name:#hex (comma separated)", "default": "Navy:#1a237e, Black:#111111, Green:#5f7258, Grey:#8c8c8c, Burgundy:#6e1a22" },
+    { "type": "text", "id": "stock_text", "label": "Stock label", "default": "In stock" },
+    { "type": "text", "id": "bundle_tag", "label": "Bundle label", "default": "BUNDLE & SAVE 55%" },
+    { "type": "text", "id": "bundle_text", "label": "Bundle checkbox text", "default": "Add both for $65.00 (save $45.00)" },
+    { "type": "text", "id": "cta_text", "label": "Buy button text", "default": "Claim 50% off – Add to cart" },
+    { "type": "text", "id": "applied_text", "label": "Text under buy button", "default": "Discount automatically applied" },
+    { "type": "text", "id": "second_offer", "label": "Second offer", "default": "Extra 20% off 2nd Dog Dock in the same order!" },
+    { "type": "richtext", "id": "description", "label": "Short description" },
+    { "type": "header", "content": "Videos" },
+    { "type": "image_picker", "id": "video1_poster", "label": "Video 1 cover" },
+    { "type": "text", "id": "video1_url", "label": "Video 1 MP4 link" },
+    { "type": "image_picker", "id": "video2_poster", "label": "Video 2 cover" },
+    { "type": "text", "id": "video2_url", "label": "Video 2 MP4 link" },
+    { "type": "text", "id": "video2_caption", "label": "Video 2 caption", "default": "Got my two dogs" },
+    { "type": "image_picker", "id": "video3_poster", "label": "Video 3 cover" },
+    { "type": "text", "id": "video3_url", "label": "Video 3 MP4 link" },
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "addons_heading", "label": "Add-ons heading", "default": "Leads & Harness" },
+    { "type": "text", "id": "why_heading", "label": "Why heading", "default": "Why BLK Majesty Beds" },
+    { "type": "textarea", "id": "why_text", "label": "Why text" },
+    { "type": "text", "id": "trust", "label": "Trust icons (comma separated)", "default": "Free shipping, Free returns, Trusted by thousands, Lifetime warranty" },
+    { "type": "text", "id": "gives_heading", "label": "Gives back heading", "default": "BLK Majesty Gives Back!" },
+    { "type": "textarea", "id": "gives_text", "label": "Gives back text" },
+    { "type": "image_picker", "id": "gives_image", "label": "Gives back image" },
+    { "type": "text", "id": "who_heading", "label": "About heading", "default": "Who is BLK Majesty?" },
+    { "type": "richtext", "id": "who_text", "label": "About text" },
+    { "type": "text", "id": "faq_heading", "label": "FAQ heading", "default": "Bark & we answer!" },
+    { "type": "text", "id": "reviews_count", "label": "Reviews count", "default": "1,352 Reviews" },
+    { "type": "textarea", "id": "summary", "label": "Review summary" }
+  ],
+  "blocks": [
+    { "type": "gallery", "name": "Gallery photo", "settings": [ { "type": "image_picker", "id": "image", "label": "Image" }, { "type": "text", "id": "colour", "label": "Colour this photo shows (optional)" } ] },
+    { "type": "addon", "name": "Add-on product", "settings": [ { "type": "image_picker", "id": "image", "label": "Image" }, { "type": "text", "id": "name", "label": "Name" }, { "type": "text", "id": "price", "label": "Price" }, { "type": "text", "id": "compare", "label": "Was price" }, { "type": "url", "id": "link", "label": "Link" } ] },
+    { "type": "info_tab", "name": "Info tab", "settings": [ { "type": "text", "id": "title", "label": "Title" }, { "type": "richtext", "id": "text", "label": "Text" } ] },
+    { "type": "feature", "name": "Feature", "settings": [ { "type": "image_picker", "id": "image", "label": "Image" }, { "type": "text", "id": "title", "label": "Title" }, { "type": "textarea", "id": "text", "label": "Text" } ] },
+    { "type": "ugc", "name": "Customer photo", "settings": [ { "type": "image_picker", "id": "image", "label": "Image" }, { "type": "text", "id": "caption", "label": "Caption" } ] },
+    { "type": "faq", "name": "FAQ", "settings": [ { "type": "text", "id": "question", "label": "Question" }, { "type": "richtext", "id": "answer", "label": "Answer" } ] },
+    { "type": "review", "name": "Review", "settings": [ { "type": "image_picker", "id": "image", "label": "Photo (optional)" }, { "type": "text", "id": "name", "label": "Name" }, { "type": "range", "id": "rating", "label": "Stars", "min": 1, "max": 5, "step": 1, "default": 5 }, { "type": "text", "id": "date", "label": "Date" }, { "type": "textarea", "id": "text", "label": "Review" } ] }
+  ],
+  "presets": [ { "name": "BLK Dog Dock page" } ]
+}
+{% endschema %}
