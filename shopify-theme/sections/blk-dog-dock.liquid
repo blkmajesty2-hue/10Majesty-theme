@@ -328,6 +328,14 @@
   <script>window.BLKCompare = window.BLKCompare || {};{% for v in p.variants %}{% if v.compare_at_price > v.price %}BLKCompare[{{ v.id }}] = {{ v.compare_at_price }};{% endif %}{% endfor %}</script>
 {%- endif -%}
 
+<div class="sbar" id="blk-sbar" aria-hidden="true">
+  <div class="sbar-in">
+    <div class="sbar-img">{%- if first_img != blank and first_img.settings.image != blank -%}{{ first_img.settings.image | image_url: width: 120 | image_tag: alt: '', id: 'blk-sbar-img', loading: 'lazy' }}{%- endif -%}</div>
+    <div class="sbar-t"><b>{% if has_product %}{{ p.title | escape }}{% else %}{{ section.settings.title | escape }}{% endif %}</b><span><span id="blk-sbar-price"></span> <s id="blk-sbar-was"></s></span></div>
+    <button type="button" class="sbar-go" id="blk-sbar-go" tabindex="-1">Add to cart</button>
+  </div>
+</div>
+
 <script>
   (function () {
     var $ = function (s) { return document.querySelector(s); };
@@ -425,6 +433,23 @@
     }
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { addons.forEach(updateAddon); updateTotals(); });
     else { addons.forEach(updateAddon); updateTotals(); }
+    (function () {
+      var bar = $('#blk-sbar'), btn = $('#blk-claim'); if (!bar || !btn) return;
+      document.body.appendChild(bar);
+      $('#blk-sbar-go').addEventListener('click', function () { btn.click(); });
+      var sync = function () {
+        var cp = $('#blk-cta-price'), cw = $('#blk-cta-was'), mi = $('#blk-main-img'), si = $('#blk-sbar-img');
+        $('#blk-sbar-price').textContent = cp ? cp.textContent : '';
+        $('#blk-sbar-was').textContent = cw ? cw.textContent : '';
+        if (mi && si) si.src = mi.currentSrc || mi.src;
+      };
+      var show = function (on) { bar.classList.toggle('show', on); bar.setAttribute('aria-hidden', on ? 'false' : 'true'); $('#blk-sbar-go').tabIndex = on ? 0 : -1; document.body.classList.toggle('has-sbar', on); if (on) sync(); };
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (es) { var e = es[0]; show(!e.isIntersecting && e.boundingClientRect.top < 0); }).observe(btn);
+      }
+      document.addEventListener('click', function () { setTimeout(sync, 50); });
+      document.addEventListener('change', function () { setTimeout(sync, 50); });
+    })();
     var tr = $('#rc-track');
     if (tr) {
       var step = function () { var c = tr.querySelector('.rc-card'); return c ? c.offsetWidth + 18 : 300; };
