@@ -1,0 +1,598 @@
+<title>PawVoyage Dog Dock</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap">
+<style>
+  /* Layout: Shapes-style product page. White product block, then alternating
+     sky-blue and ocean-blue bands joined by wave dividers. One deliberate light look. */
+  :root {
+    color-scheme: light;
+    --white: #ffffff;
+    --navy: #1c3b4b;
+    --ink: #000000;
+    --sky: #d2e6f2;
+    --ocean: #276d91;
+    --deep: #163f59;
+    --sale: #c8102e;
+    --promo: #fff6c9;
+    --promo-line: #d9b53c;
+    --ok: #16a34a;
+    --head: "Poppins", "Helvetica Neue", Arial, sans-serif;
+    --body: "Inter", "Helvetica Neue", Arial, sans-serif;
+    --max: 1400px;
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  body { background: var(--white); color: var(--navy); font-family: var(--body); font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; }
+  button, select { font: inherit; color: inherit; }
+  button { cursor: pointer; }
+  h1, h2, h3 { font-family: var(--head); font-weight: 800; letter-spacing: -0.04em; line-height: 1.1; margin: 0; text-wrap: balance; }
+  p { margin: 0; }
+  :focus-visible { outline: 2px solid var(--ocean); outline-offset: 2px; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  @media (min-width: 990px) { .wrap { padding-left: max(40px, env(safe-area-inset-left, 0px)); padding-right: max(40px, env(safe-area-inset-right, 0px)); } }
+
+  /* Header */
+  .header { background: var(--white); }
+  .header .wrap { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding-block: 10px; }
+  .logo { font-family: var(--head); font-weight: 800; font-size: 28px; letter-spacing: -0.05em; text-decoration: none; color: var(--navy); }
+  .icon-btn { background: none; border: 0; padding: 6px; display: grid; place-items: center; position: relative; color: var(--navy); }
+  .icon-btn svg { width: 26px; height: 26px; }
+  .icons { justify-self: end; display: flex; gap: 8px; }
+  .bubble { position: absolute; top: -2px; right: -4px; background: var(--navy); color: #fff; font-size: 10px; border-radius: 99px; min-width: 18px; height: 18px; display: grid; place-items: center; }
+  .bubble:empty { display: none; }
+  @media (max-width: 749px) { .logo { font-size: 22px; } .acct { display: none; } }
+  .drawer { position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 60; }
+  .drawer nav { background: var(--white); width: min(86vw, 360px); height: 100%; padding: calc(28px + env(safe-area-inset-top, 0px)) 24px 24px max(24px, env(safe-area-inset-left, 0px)); display: grid; align-content: start; gap: 16px; font-family: var(--head); font-weight: 700; font-size: 20px; }
+  .drawer a { text-decoration: none; }
+
+  /* Marquee */
+  .marquee { background: var(--ink); color: #fff; overflow: hidden; }
+  .marquee-track { display: flex; width: max-content; animation: scroll 32s linear infinite; }
+  .marquee-group { display: flex; gap: 70px; padding: 9px 35px; }
+  .marquee span { display: flex; align-items: center; gap: 10px; font-size: 14px; letter-spacing: .02em; white-space: nowrap; text-transform: uppercase; }
+  .marquee i { width: 28px; height: 28px; border: 1.5px solid #fff; border-radius: 50%; display: grid; place-items: center; }
+  .marquee i svg { width: 14px; height: 14px; }
+  @keyframes scroll { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } }
+
+  /* Product main */
+  .product { padding-block: 40px 30px; }
+  .product .wrap { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: 40px; align-items: start; }
+  @media (max-width: 989px) { .product .wrap { grid-template-columns: minmax(0, 1fr); gap: 24px; } .product { padding-top: 16px; } }
+  .gallery { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 18px; position: sticky; top: 16px; }
+  @media (max-width: 989px) { .gallery { grid-template-columns: minmax(0, 1fr); position: static; } .thumbs { order: 2; flex-direction: row; overflow-x: auto; } }
+  .thumbs { display: flex; flex-direction: column; gap: 10px; }
+  .thumb { flex: none; width: 96px; aspect-ratio: 1; border-radius: 6px; border: 2px solid transparent; background: #fff; padding: 0; overflow: hidden; position: relative; }
+  @media (max-width: 989px) { .thumb { width: 72px; } }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .thumb[aria-current="true"] { border-color: var(--navy); }
+  @media (max-width: 989px) { .gallery .thumbs { order: 2; flex-direction: row; overflow-x: auto; scrollbar-width: none; } }
+  .band, .product { overflow-x: clip; }
+  .thumb .play { position: absolute; right: 4px; top: 4px; width: 20px; height: 20px; border-radius: 3px; background: #fff; display: grid; place-items: center; }
+  .thumb .play::before { content: ""; border-left: 7px solid var(--navy); border-top: 4.5px solid transparent; border-bottom: 4.5px solid transparent; margin-left: 2px; }
+  .stage { position: relative; aspect-ratio: 1; background: #fff; overflow: hidden; }
+  .stage img.main { width: 100%; height: 100%; object-fit: contain; transition: opacity .2s; }
+  .burst { position: absolute; left: 3%; top: 2%; width: 120px; height: 120px; display: grid; place-items: center; text-align: center; color: #fff; font-family: var(--head); font-weight: 800; line-height: 1; z-index: 1; }
+  .burst svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .burst span { position: relative; font-size: 10px; letter-spacing: .02em; max-width: 80px; }
+  .burst b { display: block; font-size: 22px; margin-top: 4px; letter-spacing: -0.02em; }
+  .proof { position: absolute; right: 3%; top: 3%; text-align: center; color: var(--ink); font-family: var(--head); background: rgba(255,255,255,.85); border-radius: 10px; padding: 6px 10px; z-index: 1; }
+  .proof strong { display: block; font-size: clamp(18px, 2vw, 26px); font-weight: 600; letter-spacing: -0.02em; }
+  .proof .stars { display: flex; gap: 3px; justify-content: center; margin-top: 4px; }
+  .proof .stars i { width: 26px; height: 26px; background: var(--ocean); display: grid; place-items: center; color: #fff; font-style: normal; font-size: 16px; }
+  .proof small { display: block; font-family: var(--body); font-weight: 600; font-size: 13px; margin-top: 4px; }
+  @media (max-width: 560px) { .burst { width: 96px; height: 96px; } .burst b { font-size: 15px; } .burst span { font-size: 7px; max-width: 64px; } .proof .stars i { width: 18px; height: 18px; font-size: 11px; } .proof strong { font-size: 15px; } .proof small { font-size: 10px; } }
+
+  .info { display: grid; gap: 16px; }
+  .info h1 { font-size: clamp(28px, 2.7vw, 38px); text-align: center; }
+  .price { text-align: center; font-size: 24px; }
+  .price s { color: var(--sale); font-size: 17px; margin-left: 8px; }
+  .promo { background: var(--promo); border: 1.5px dashed var(--promo-line); border-radius: 4px; padding: 8px 14px; text-align: center; font-weight: 600; font-size: 14px; color: var(--ink); }
+  .sizes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .size { background: var(--ink); color: #fff; border: 0; border-radius: 99px; padding: 9px 10px; font-family: var(--head); font-weight: 700; font-size: 15px; letter-spacing: -0.02em; }
+  .size[aria-pressed="true"] { box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--ink); }
+  .size[aria-pressed="true"]::before { content: "✓ "; }
+  .swatches { display: flex; gap: 10px; flex-wrap: wrap; }
+  .swatch { width: 34px; height: 34px; border-radius: 50%; border: 0; padding: 0; background: var(--c); }
+  .swatch[aria-pressed="true"] { box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--navy); }
+  .stock { display: inline-flex; align-items: center; gap: 8px; background: #eef1f3; border-radius: 99px; padding: 3px 12px 3px 6px; font-size: 13px; font-weight: 600; color: var(--ink); justify-self: start; }
+  .stock i { width: 18px; height: 18px; border-radius: 50%; background: var(--ok); display: grid; place-items: center; }
+  .stock i svg { width: 11px; height: 11px; }
+
+  .bundle { border: 2px solid var(--ocean); border-radius: 10px; padding: 16px; display: grid; gap: 14px; }
+  .bundle-tag { justify-self: start; background: var(--sky); color: var(--ocean); font-weight: 700; padding: 0 6px; letter-spacing: .02em; }
+  .addon { display: grid; grid-template-columns: 56px minmax(0, 1fr) auto; gap: 4px 14px; align-items: start; }
+  .addon .pic { grid-row: span 2; width: 56px; height: 56px; border-radius: 6px; overflow: hidden; align-self: center; }
+  .addon .pic img { width: 100%; height: 100%; object-fit: cover; }
+  .addon .name { font-size: 15px; color: var(--ink); }
+  .addon .p { font-size: 15px; color: var(--ink); white-space: nowrap; }
+  .addon .p s { color: #8a8a8a; margin-left: 4px; }
+  .selects { grid-column: 2 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .selects label { display: grid; gap: 2px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #6b7a83; }
+  .selects select { border: 2px solid var(--navy); border-radius: 4px; padding: 5px 8px; background: #fff; color: var(--ink); font-size: 14px; }
+  .bundle-check { display: flex; gap: 12px; align-items: center; border-top: 1px solid #d8e3ea; padding-top: 12px; font-weight: 600; color: var(--ink); }
+  .bundle-check input { width: 22px; height: 22px; accent-color: var(--navy); flex: none; }
+
+  .cta { width: 100%; border: 2px solid var(--navy); background: #fff; border-radius: 99px; padding: 12px; font-family: var(--head); font-weight: 700; font-size: 16px; letter-spacing: -0.02em; transition: background .2s, color .2s; }
+  .cta:hover { background: var(--navy); color: #fff; }
+  .cta s { opacity: .6; font-weight: 600; }
+  .applied { display: flex; justify-content: center; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--ink); }
+  .applied i { width: 16px; height: 16px; border-radius: 50%; background: var(--navy); display: grid; place-items: center; }
+  .applied i svg { width: 10px; height: 10px; }
+  .buy { width: 100%; border: 0; border-radius: 99px; background: #5a31f4; color: #fff; padding: 14px; font-weight: 600; font-size: 16px; }
+  .buy:hover { background: #4524c4; }
+  .more-pay { text-align: center; font-size: 14px; text-decoration: underline; }
+  .second { background: var(--deep); color: #fff; border-radius: 4px; padding: 8px 14px; font-family: var(--head); font-weight: 700; font-size: 17px; letter-spacing: -0.02em; justify-self: start; }
+  .acc { border-bottom: 2px solid var(--navy); }
+  .acc-q { width: 100%; display: flex; align-items: center; gap: 12px; background: none; border: 0; padding: 12px 4px; text-align: left; font-size: 15px; }
+  .acc-q svg.ic { width: 22px; height: 22px; flex: none; }
+  .acc-q .chev { margin-left: auto; width: 12px; height: 12px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg) translateY(-4px); transition: transform .2s; flex: none; }
+  .acc-q[aria-expanded="true"] .chev { transform: rotate(-135deg); }
+  .acc-a { padding: 0 4px 14px 38px; font-size: 14px; }
+  .desc p { font-size: 15px; }
+  .desc button { background: none; border: 0; padding: 0; margin-top: 6px; font-size: 15px; }
+
+  /* Bands and waves */
+  .band { position: relative; }
+  .band.sky { background: var(--sky); }
+  .band.ocean { background: var(--ocean); color: #fff; }
+  .band.white { background: var(--white); }
+  .wave { display: block; width: 100%; height: 60px; }
+  .wave path { fill: var(--wave); }
+  .band-inner { padding-block: 40px; }
+
+  .video { position: relative; border-radius: 4px; overflow: hidden; aspect-ratio: 16 / 10; display: grid; place-items: center; background: #24323a; }
+  .video img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .video .cap { position: absolute; left: 50%; bottom: 14%; transform: translateX(-50%); font-family: var(--head); font-weight: 800; font-size: clamp(18px, 3vw, 40px); text-transform: uppercase; letter-spacing: -0.01em; white-space: nowrap; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,.6); }
+  .video .cap b { background: #111; padding: 0 8px; border-radius: 6px; }
+  .playbtn { position: relative; width: 64px; height: 64px; border-radius: 50%; background: var(--deep); border: 0; display: grid; place-items: center; }
+  .band.ocean .playbtn { background: #fff; }
+  .playbtn::before { content: ""; border-left: 18px solid #fff; border-top: 11px solid transparent; border-bottom: 11px solid transparent; margin-left: 5px; }
+  .band.ocean .playbtn::before { border-left-color: var(--ocean); }
+  .video .playbtn { margin-top: 30%; }
+  @media (max-width: 749px) { .video { aspect-ratio: 9 / 14; } }
+
+  .center-title { text-align: center; font-size: clamp(28px, 3vw, 40px); }
+  .sale-cards { display: flex; gap: 28px; margin-top: 30px; flex-wrap: wrap; }
+  .sale-card { width: 230px; max-width: calc(50% - 14px); text-align: center; text-decoration: none; display: grid; gap: 10px; }
+  .sale-card .media { position: relative; background: #fff; border-radius: 28px; aspect-ratio: 1; }
+  .sale-card .media img { width: 100%; height: 100%; object-fit: cover; border-radius: 28px; }
+  .sale-card .media .scallop { position: absolute; right: -14px; top: -8px; width: 66px; height: 66px; display: grid; place-items: center; }
+  .sale-card .media .scallop svg { position: absolute; inset: 0; width: 100%; }
+  .sale-card .media .scallop b { position: relative; font-family: var(--head); font-size: 12px; color: var(--navy); letter-spacing: -0.02em; }
+  .sale-card .t { font-size: 15px; }
+  .sale-card .p s { opacity: .8; margin-right: 4px; }
+
+  .ugc { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .ugc .tile { aspect-ratio: 9 / 13; border-radius: 4px; position: relative; overflow: hidden; display: grid; place-items: center; text-align: center; padding: 16px; }
+  .ugc .tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .ugc .tile p { position: relative; font-family: var(--head); font-weight: 600; font-size: clamp(13px, 1.6vw, 22px); color: #fff; text-shadow: 0 1px 8px rgba(0,0,0,.7); letter-spacing: -0.02em; }
+  @media (max-width: 749px) { .ugc { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+  .rich { text-align: center; display: grid; gap: 14px; justify-items: center; padding-block: 50px; }
+  .rich p { max-width: 70ch; font-size: 15px; }
+
+  .highlights { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; padding-block: 20px 40px; }
+  @media (max-width: 749px) { .highlights { grid-template-columns: minmax(0, 1fr); } }
+  .hl { border: 2px solid var(--navy); border-radius: 28px; background: #fff; padding: 24px; text-align: center; display: grid; gap: 8px; justify-items: center; align-content: start; }
+  .hl:nth-child(even) { margin-top: 12px; }
+  @media (max-width: 749px) { .hl:nth-child(even) { margin-top: 0; } }
+  .hl img { width: 150px; aspect-ratio: 1; object-fit: cover; border: 2px solid var(--navy); margin-bottom: 4px; }
+  .hl h3 { font-size: 18px; font-weight: 700; }
+  .hl p { font-size: 14px; }
+
+  .icon-row { display: flex; justify-content: center; gap: 36px; flex-wrap: wrap; padding-block: 20px 40px; }
+  .icon-row div { width: 100px; text-align: center; font-size: 13px; text-transform: uppercase; display: grid; justify-items: center; gap: 8px; }
+  .icon-row i { width: 64px; height: 64px; border-radius: 50%; border: 2px solid var(--navy); background: #fff; display: grid; place-items: center; }
+  .icon-row i svg { width: 32px; height: 32px; }
+
+  .give { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; padding-block: 20px 60px; }
+  .give h2 { font-size: clamp(28px, 3vw, 40px); }
+  .give p { margin-top: 18px; font-size: 15px; max-width: 52ch; }
+  .give img { width: 100%; max-width: 520px; justify-self: center; mix-blend-mode: multiply; }
+  @media (max-width: 749px) { .give { grid-template-columns: 1fr; } .give img { order: -1; } }
+
+  .faq-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; align-items: start; margin-top: 30px; padding-bottom: 60px; }
+  @media (max-width: 749px) { .faq-grid { grid-template-columns: minmax(0, 1fr); gap: 14px; } }
+  .faq-col { display: grid; gap: 22px; }
+  @media (max-width: 749px) { .faq-col { gap: 14px; } }
+  .fq { border: 2px solid var(--navy); border-radius: 24px; overflow: hidden; }
+  .fq button { width: 100%; background: none; border: 0; display: flex; justify-content: space-between; align-items: center; gap: 14px; padding: 8px 12px; text-align: left; font-family: var(--head); font-weight: 700; font-size: 17px; letter-spacing: -0.03em; }
+  .fq .chev { width: 11px; height: 11px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg) translateY(-3px); flex: none; transition: transform .2s; }
+  .fq button[aria-expanded="true"] .chev { transform: rotate(-135deg); }
+  .fq .ans { padding: 0 14px 14px; font-size: 14px; }
+
+  .reviews-head { display: flex; justify-content: space-between; align-items: end; gap: 20px; flex-wrap: wrap; }
+  .reviews-head h2 { font-size: clamp(26px, 2.6vw, 34px); }
+  .overall { font-size: 15px; }
+  .overall b { font-family: var(--head); font-size: 22px; }
+  .review-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 24px; padding-bottom: 60px; }
+  @media (max-width: 989px) { .review-list { grid-template-columns: minmax(0, 1fr); } }
+  .review { border: 2px solid var(--navy); border-radius: 20px; padding: 18px; display: grid; gap: 8px; align-content: start; font-size: 14px; }
+  .review .stars { color: var(--ocean); letter-spacing: 2px; }
+  .review .meta { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; font-size: 13px; color: #4e6573; }
+  .review .verified { color: var(--ok); font-weight: 600; }
+
+  .footer { background: var(--ocean); color: #fff; }
+  .footer .wrap { padding-block: 40px 0; display: grid; gap: 30px; }
+  .foot-top { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; font-size: 14px; }
+  .foot-mid { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; align-items: center; font-size: 13px; }
+  .pays { display: flex; flex-wrap: wrap; gap: 6px; }
+  .pays span { background: #fff; color: var(--navy); border-radius: 3px; font-size: 10px; font-weight: 700; padding: 3px 6px; }
+  .giant { text-align: center; font-family: var(--head); font-weight: 800; letter-spacing: -0.05em; font-size: clamp(48px, 10vw, 140px); line-height: .9; padding-bottom: 10px; overflow: hidden; }
+
+  /* Sticky add to cart */
+  .sticky { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: #fff; box-shadow: 0 -4px 20px rgba(0,0,0,.08); transform: translateY(110%); transition: transform .3s; padding-bottom: env(safe-area-inset-bottom, 0px); }
+  .sticky.show { transform: none; }
+  .sticky .wrap { display: flex; align-items: center; gap: 14px; padding-block: 10px; }
+  .sticky .mini { width: 48px; height: 48px; border-radius: 4px; overflow: hidden; flex: none; }
+  .sticky .mini img { width: 100%; height: 100%; object-fit: cover; }
+  .sticky .nm { min-width: 0; flex: 1; font-size: 14px; font-weight: 600; color: var(--ink); }
+  .sticky .nm small { display: block; font-weight: 400; }
+  .sticky .nm small s { color: #8a8a8a; margin-left: 4px; }
+  .sticky select { border: 2px solid var(--ink); border-radius: 4px; padding: 8px; background: #fff; color: var(--ink); font-size: 14px; max-width: 40%; }
+  .sticky .go { background: var(--ink); color: #fff; border: 0; border-radius: 4px; padding: 6px 18px; font-weight: 600; font-size: 15px; line-height: 1.25; }
+  .sticky .go small { display: block; font-size: 11px; font-weight: 400; }
+  @media (max-width: 749px) { .sticky .nm, .sticky .mini { display: none; } .sticky .go { flex: 1; font-size: 14px; white-space: nowrap; padding: 6px 10px; } .sticky .go small { font-size: 10px; } .sticky select { max-width: 42%; font-size: 13px; } }
+  .sale-card .media .scallop { right: -8px; }
+  .toast { position: fixed; left: 50%; top: calc(16px + env(safe-area-inset-top, 0px)); transform: translateX(-50%); background: var(--navy); color: #fff; padding: 10px 18px; border-radius: 99px; font-weight: 600; font-size: 14px; z-index: 70; }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="check" viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="truck" viewBox="0 0 32 32"><path d="M3 9h16v13H3zM19 13h6l4 5v4H19z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="9" cy="24" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="24" cy="24" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+    <symbol id="return" viewBox="0 0 32 32"><path d="M7 16a9 9 0 1 0 2.6-6.4M8 5v5h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="heart" viewBox="0 0 32 32"><path d="M16 27S4 19.5 4 11.5A6 6 0 0 1 16 9a6 6 0 0 1 12 2.5C28 19.5 16 27 16 27z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="thumb" viewBox="0 0 32 32"><path d="M10 14l5-9c2 0 3 1.5 3 3.5V12h7a2 2 0 0 1 2 2.3l-1.6 9A2 2 0 0 1 23.4 25H10zM4 14h6v11H4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="lock" viewBox="0 0 32 32"><rect x="7" y="14" width="18" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M11 14v-4a5 5 0 0 1 10 0v4" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+    <symbol id="leaf" viewBox="0 0 32 32"><path d="M6 26C6 14 14 6 27 5c0 13-8 21-20 21zM6 26l12-12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="bowl" viewBox="0 0 32 32"><path d="M4 15h24c0 6-5 11-12 11S4 21 4 15zM10 15c1-4 3-6 6-6s5 2 6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="box" viewBox="0 0 32 32"><path d="M16 4l11 5v14l-11 5-11-5V9zM5 9l11 5 11-5M16 14v14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="warn" viewBox="0 0 32 32"><path d="M4 22h18l3-5h3v5M8 22v3M22 22v3M4 22l3-9h12l3 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="scallop" viewBox="0 0 66 66"><path d="M33 2l5 4 6-2 3 5 6 1 1 6 5 3-2 6 4 5-4 5 2 6-5 3-1 6-6 1-3 5-6-2-5 4-5-4-6 2-3-5-6-1-1-6-5-3 2-6-4-5 4-5-2-6 5-3 1-6 6-1 3-5 6 2z"/></symbol>
+  </defs>
+</svg>
+
+<header class="header">
+  <div class="wrap">
+    <button class="icon-btn" id="menu-open" aria-label="Open menu" style="justify-self:start"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    <a href="#" class="logo">PawVoyage</a>
+    <div class="icons">
+      <button class="icon-btn acct" aria-label="Account"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M4 21c1-4.5 4.4-6.5 8-6.5s7 2 8 6.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+      <button class="icon-btn" aria-label="Cart"><svg viewBox="0 0 24 24"><path d="M2 3h3l2.4 12h11.2L21 7H6.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="9" cy="19.5" r="1.5" fill="currentColor"/><circle cx="17" cy="19.5" r="1.5" fill="currentColor"/></svg><span class="bubble" id="cart-count"></span></button>
+    </div>
+  </div>
+</header>
+<div class="drawer" id="drawer" hidden>
+  <nav aria-label="Main">
+    <a href="#">Shop</a><a href="#">Dog Dock</a><a href="#">Harness &amp; Leads</a><a href="#reviews">Reviews</a><a href="#">Laws on Dogs in Cars</a><a href="#">Lifetime Warranty</a><a href="#">Shipping &amp; Returns</a><a href="#">Contact</a><a href="#">Track Your Order</a>
+  </nav>
+</div>
+
+<div class="marquee" aria-label="Store promises">
+  <div class="marquee-track">
+    <div class="marquee-group">
+      <span><i><svg><use href="#truck"/></svg></i>Free express shipping</span>
+      <span><i><svg><use href="#return"/></svg></i>Free returns</span>
+      <span><i><svg><use href="#lock"/></svg></i>Lifetime warranty</span>
+      <span><i><svg><use href="#leaf"/></svg></i>Vegan leather</span>
+      <span><i><svg><use href="#bowl"/></svg></i>Free portable dog bowl</span>
+    </div>
+    <div class="marquee-group" aria-hidden="true">
+      <span><i><svg><use href="#truck"/></svg></i>Free express shipping</span>
+      <span><i><svg><use href="#return"/></svg></i>Free returns</span>
+      <span><i><svg><use href="#lock"/></svg></i>Lifetime warranty</span>
+      <span><i><svg><use href="#leaf"/></svg></i>Vegan leather</span>
+      <span><i><svg><use href="#bowl"/></svg></i>Free portable dog bowl</span>
+    </div>
+  </div>
+</div>
+
+<main>
+  <section class="product" aria-labelledby="ptitle">
+    <div class="wrap">
+      <div class="gallery">
+        <div class="thumbs">
+          <button class="thumb" aria-current="true" data-img="img/bed-navy.jpg" data-colour="Navy" aria-label="Show navy"><img src="img/bed-navy.jpg" alt=""></button>
+          <button class="thumb" aria-current="false" data-img="img/bed-black.jpg" data-colour="Black" aria-label="Show black"><img src="img/bed-black.jpg" alt=""></button>
+          <button class="thumb" aria-current="false" data-img="img/bed-sage.jpg" data-colour="Green" aria-label="Show green"><img src="img/bed-sage.jpg" alt=""></button>
+          <button class="thumb" aria-current="false" data-img="img/bed-grey.jpg" data-colour="Grey" aria-label="Show grey"><img src="img/bed-grey.jpg" alt=""></button>
+          <button class="thumb" aria-current="false" data-img="img/bed-burgundy.jpg" data-colour="Burgundy" aria-label="Show burgundy"><img src="img/bed-burgundy.jpg" alt=""></button>
+          <button class="thumb" aria-current="false" data-img="img/lifestyle-car.jpg" aria-label="Show the Dog Dock in a car"><img src="img/lifestyle-car.jpg" alt=""></button>
+          <button class="thumb" aria-current="false" data-img="img/feat-pocket.jpg" aria-label="Show the side pocket"><img src="img/feat-pocket.jpg" alt=""></button>
+          <button class="thumb" aria-current="false" data-img="img/video-warehouse.jpg" aria-label="Show video cover"><img src="img/video-warehouse.jpg" alt=""><span class="play"></span></button>
+        </div>
+        <div class="stage">
+          <div class="burst" aria-hidden="true">
+            <svg viewBox="0 0 66 66"><use href="#scallop" fill="#000"/></svg>
+            <span>EARLY BLACK FRIDAY SALE<b>50% OFF</b></span>
+          </div>
+          <div class="proof">
+            <strong>1,318 Reviews</strong>
+            <div class="stars" aria-hidden="true"><i>★</i><i>★</i><i>★</i><i>★</i><i>★</i></div>
+            <small>Rated “Excellent”</small>
+          </div>
+          <img class="main" id="main-img" src="img/bed-navy.jpg" alt="Dog Dock V2 in navy">
+        </div>
+      </div>
+
+      <div class="info">
+        <h1 id="ptitle">Dog Dock V2 New &amp; Improved ISO Fix</h1>
+        <p class="price"><span>£150.00</span><s>£300.00</s></p>
+        <p class="promo">🎁 Early Black Friday: order today, <span id="today"></span>, for 50% off</p>
+
+        <div class="sizes" role="group" aria-label="Size">
+          <button class="size" aria-pressed="true" data-size="Medium">Medium</button>
+          <button class="size" aria-pressed="false" data-size="Extra Large">Extra Large</button>
+        </div>
+        <div class="swatches" role="group" aria-label="Colour">
+          <button class="swatch" style="--c:#1a237e" aria-pressed="true" data-colour="Navy" aria-label="Navy"></button>
+          <button class="swatch" style="--c:#111111" aria-pressed="false" data-colour="Black" aria-label="Black"></button>
+          <button class="swatch" style="--c:#1e8f3e" aria-pressed="false" data-colour="Green" aria-label="Green"></button>
+          <button class="swatch" style="--c:#8c8c8c" aria-pressed="false" data-colour="Grey" aria-label="Grey"></button>
+          <button class="swatch" style="--c:#6e1a22" aria-pressed="false" data-colour="Burgundy" aria-label="Burgundy"></button>
+        </div>
+        <span class="stock"><i><svg><use href="#check"/></svg></i>In stock</span>
+
+        <div class="bundle">
+          <span class="bundle-tag">BUNDLE &amp; SAVE 55%</span>
+          <div class="addon">
+            <div class="pic"><img src="img/harness.jpg" alt=""></div>
+            <span class="name">PawVoyage Adjustable Harness</span>
+            <span class="p">£40.00<s>£70.00</s></span>
+            <div class="selects">
+              <label>Size<select id="h-size"><option>S/M</option><option>L/XL</option></select></label>
+              <label>Colour<select id="h-colour"><option>Blue</option><option>Black</option><option>Green</option><option>Grey</option></select></label>
+            </div>
+          </div>
+          <div class="addon">
+            <div class="pic"><img src="img/lead.jpg" alt=""></div>
+            <span class="name">PawVoyage Lead</span>
+            <span class="p">£25.00<s>£40.00</s></span>
+            <div class="selects">
+              <label>Colour<select id="l-colour"><option>Blue</option><option>Black</option><option>Green</option><option>Grey</option></select></label>
+            </div>
+          </div>
+          <label class="bundle-check"><input type="checkbox" id="bundle" checked> Add both for £40.00 (save £25.00)</label>
+        </div>
+
+        <button class="cta" id="claim">Claim 50% off – <span id="cta-price">£190.00</span> <s id="cta-was">£410.00</s></button>
+        <p class="applied"><i><svg><use href="#check"/></svg></i>Discount automatically applied</p>
+        <button class="buy">Buy it now</button>
+        <a class="more-pay" href="#">More payment options</a>
+        <p class="second">Extra 20% off 2nd Dog Dock in the same order!</p>
+
+        <div>
+          <div class="acc">
+            <button class="acc-q" aria-expanded="false"><svg class="ic"><use href="#box"/></svg>Sizes &amp; dog sizes<span class="chev"></span></button>
+            <div class="acc-a" hidden><p><b>Medium:</b> 53 cm (L) × 47 cm (W) × 44 cm (H). Ideal for smaller breeds such as Dachshunds, Border Terriers, Cockapoos and Cocker Spaniels.</p><p style="margin-top:8px"><b>Extra Large:</b> 100 cm (L) × 52 cm (W) × 44 cm (H). Made for larger breeds, or two small dogs side by side.</p></div>
+          </div>
+          <div class="acc">
+            <button class="acc-q" aria-expanded="false"><svg class="ic"><use href="#thumb"/></svg>Lifetime Warranty<span class="chev"></span></button>
+            <div class="acc-a" hidden>If a strap, clip or seam fails under normal use, we replace your Dog Dock for free, for life. Just send us a photo.</div>
+          </div>
+          <div class="acc">
+            <button class="acc-q" aria-expanded="false"><svg class="ic"><use href="#warn"/></svg>Highway Code Rule 57 ⚠️<span class="chev"></span></button>
+            <div class="acc-a" hidden>Rule 57 says dogs in vehicles must be suitably restrained so they cannot distract the driver or injure anyone if you stop quickly. The built-in safety clip and ISOFIX anchoring help you travel within that guidance.</div>
+          </div>
+        </div>
+        <div class="desc">
+          <p id="desc-text">The Dog Dock anchors directly to your seat using ISOFIX clips (2 on Medium, 4 on XL), along with two reinforced straps that wrap around…</p>
+          <button id="read-more" aria-expanded="false">Read more</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band sky">
+    <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" style="--wave:var(--white)" aria-hidden="true"><path d="M0 0h1440v28C1200 0 980 0 720 22S240 52 0 30z"/></svg>
+    <div class="wrap band-inner">
+      <div class="video"><img src="img/video-warehouse.jpg" alt="Founder in the warehouse with Dog Docks in every colour"><button class="playbtn" aria-label="Play video: inside our warehouse"></button></div>
+    </div>
+  </section>
+
+  <section class="band ocean">
+    <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" style="--wave:var(--sky)" aria-hidden="true"><path d="M0 0h1440v34C1200 0 960 0 720 18S240 60 0 40z"/></svg>
+    <div class="wrap band-inner">
+      <h2 class="center-title">Leads &amp; Harness</h2>
+      <div class="sale-cards">
+        <a class="sale-card" href="#"><div class="media"><img src="img/harness.jpg" alt="Australian Shepherd wearing the PawVoyage Adjustable Harness"><span class="scallop"><svg><use href="#scallop" fill="#fff"/></svg><b>On Sale</b></span></div><span class="t">PawVoyage Adjustable Harness</span><span class="p"><s>£70.00</s>£40.00</span></a>
+        <a class="sale-card" href="#"><div class="media"><img src="img/lead.jpg" alt="PawVoyage rope lead"><span class="scallop"><svg><use href="#scallop" fill="#fff"/></svg><b>On Sale</b></span></div><span class="t">PawVoyage Lead</span><span class="p"><s>£40.00</s>£25.00</span></a>
+      </div>
+    </div>
+    <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" style="--wave:var(--sky)" aria-hidden="true"><path d="M0 60V40C300 64 520 20 760 14S1240 10 1440 30v30z"/></svg>
+  </section>
+
+  <section class="band sky">
+    <div class="wrap band-inner">
+      <div class="video"><img src="img/video-boot.jpg" alt="Founder with three dogs in the car boot"><span class="cap"><b>Got</b> my two dogs</span><button class="playbtn" aria-label="Play video: travelling with two dogs"></button></div>
+    </div>
+  </section>
+
+  <section class="band ocean" aria-label="Customer videos">
+    <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" style="--wave:var(--sky)" aria-hidden="true"><path d="M0 0h1440v34C1200 0 960 0 720 18S240 60 0 40z"/></svg>
+    <div class="wrap band-inner">
+      <div class="ugc">
+        <div class="tile"><img src="img/ugc-box.jpg" alt=""><p>It's here!</p></div>
+        <div class="tile"><img src="img/ugc-grey.jpg" alt=""><p>Set up in two minutes</p></div>
+        <div class="tile"><img src="img/ugc-sage.jpg" alt=""><p>The Dog Dock V2</p></div>
+        <div class="tile"><img src="img/ugc-dog.jpg" alt=""><p>Doody's got a parcel!</p></div>
+        <div class="tile"><img src="img/ugc-unbox.jpg" alt=""><p>Trying out our new car seat, perfect for an anxious girly</p></div>
+        <div class="tile"><img src="img/ugc-puppy.jpg" alt=""><p>Already her favourite spot</p></div>
+      </div>
+      <div style="margin-top:40px" class="video"><img src="img/video-red-suv.jpg" alt="Founder by a red SUV with a labrador in a Dog Dock"><button class="playbtn" aria-label="Play video: the Dog Dock in the boot"></button></div>
+    </div>
+    <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" style="--wave:var(--sky)" aria-hidden="true"><path d="M0 60V40C300 64 520 20 760 14S1240 10 1440 30v30z"/></svg>
+  </section>
+
+  <section class="band sky">
+    <div class="wrap">
+      <div class="rich">
+        <h2 class="center-title">Why PawVoyage Beds</h2>
+        <p>The Dog Dock is a secure travel bed designed to create a defined space for your dog during car journeys. With ISOFIX anchoring, reinforced safety straps, and a built-in harness clip, it stays firmly positioned on the seat, helping reduce movement, distraction, and unsettled behaviour while travelling.</p>
+      </div>
+      <div class="highlights">
+        <div class="hl"><img src="img/feat-pocket.jpg" alt=""><h3>Convenient Side-Pocket Storage</h3><p>Keep essentials close at hand, from leads and treats to travel toys. The secure pocket means you won't have to juggle multiple bags while travelling with your dog.</p></div>
+        <div class="hl"><img src="img/feat-straps.jpg" alt=""><h3>Adjustable Car Seat Belts</h3><p>Secure the bed to any car seat with adjustable straps. Designed for stability, they keep it anchored, protecting your pet during sudden stops or turns.</p></div>
+        <div class="hl"><img src="img/feat-base.jpg" alt=""><h3>Non-Slip Safety Base</h3><p>The sturdy, anti-slip bottom keeps the bed secure on car seats or smooth floors, preventing sliding during travel and giving your pet a steady place to relax.</p></div>
+        <div class="hl"><img src="img/feat-isofix.jpg" alt=""><h3>Metal ISO Fix Clasps</h3><p>Metal ISOFIX clasps lock directly into your car's ISOFIX anchors, keeping the Dog Dock firmly secured and reducing unwanted movement while driving.</p></div>
+        <div class="hl"><img src="img/feat-liner.jpg" alt=""><h3>Removable, Plush Inner Liner</h3><p>Soft, removable liner that is easy to wash and replace, so your dog always has a clean resting space at home or on the go. Waterproof on one side too.</p></div>
+        <div class="hl"><img src="img/feat-clip.jpg" alt=""><h3>Built in Safety Clip</h3><p>Attach your dog's harness to the integrated safety clip for peace of mind on every trip. Prevents jumping out or sudden movement.</p></div>
+      </div>
+      <div class="icon-row">
+        <div><i><svg><use href="#truck"/></svg></i>Free shipping</div>
+        <div><i><svg><use href="#return"/></svg></i>Free returns</div>
+        <div><i><svg><use href="#heart"/></svg></i>Trusted by thousands</div>
+        <div><i><svg><use href="#thumb"/></svg></i>Lifetime warranty</div>
+      </div>
+      <div class="give">
+        <div>
+          <h2>PawVoyage Gives Back!</h2>
+          <p>A percentage of every PawVoyage sale is donated to local animal shelters to help care for abandoned, injured and vulnerable dogs and cats. Every purchase supports their work.</p>
+        </div>
+        <img src="img/gives-back.jpg" alt="Illustration of a dog and a cat together">
+      </div>
+    </div>
+  </section>
+
+  <section class="band ocean">
+    <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" style="--wave:var(--sky)" aria-hidden="true"><path d="M0 0h1440v34C1200 0 960 0 720 18S240 60 0 40z"/></svg>
+    <div class="wrap">
+      <div class="rich" style="padding-block:30px 50px">
+        <h2 class="center-title">Who is PawVoyage?</h2>
+        <p>We are a small, founder-led dog brand. Built on passion, not profit. Our mission is simple: <b>protect dogs, give back, and make a real difference</b>.</p>
+        <p>PawVoyage isn't just a brand, it's a pledge to give back to the dogs who need it most.</p>
+      </div>
+    </div>
+    <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" style="--wave:var(--white)" aria-hidden="true"><path d="M0 60V40C300 64 520 20 760 14S1240 10 1440 30v30z"/></svg>
+  </section>
+
+  <section class="band white">
+    <div class="wrap" style="padding-top:30px">
+      <h2 class="center-title">Bark &amp; we answer!</h2>
+      <div class="faq-grid">
+        <div class="faq-col">
+          <div class="fq"><button aria-expanded="false">How Will I Track My Delivery?<span class="chev"></span></button><div class="ans" hidden>Once your order has been dispatched, we'll email you a tracking link so you can follow your delivery in real time.</div></div>
+          <div class="fq"><button aria-expanded="false">Are The Beds Suitable For All Dog Breeds?<span class="chev"></span></button><div class="ans" hidden>Medium fits small and medium breeds up to about 15 kg. Extra Large fits larger breeds or two small dogs together.</div></div>
+          <div class="fq"><button aria-expanded="false">Do You Ship Internationally?<span class="chev"></span></button><div class="ans" hidden>Yes, we ship to the UK, Europe and the US with free express shipping.</div></div>
+          <div class="fq"><button aria-expanded="false">Do Your Beds Come With a Warranty?<span class="chev"></span></button><div class="ans" hidden>Every Dog Dock comes with a lifetime warranty on straps, clips and seams.</div></div>
+        </div>
+        <div class="faq-col">
+          <div class="fq"><button aria-expanded="false">What Makes PawVoyage Beds Different?<span class="chev"></span></button><div class="ans" hidden>ISOFIX clips plus two securing straps, premium vegan leather, raised supportive sides and a built-in safety clip. And a share of every sale goes to animal shelters.</div></div>
+          <div class="fq"><button aria-expanded="false">Are The Beds Machine Washable?<span class="chev"></span></button><div class="ans" hidden>The inner liner is removable and machine washable at 30°C. Wipe the outer shell clean with a damp cloth.</div></div>
+          <div class="fq"><button aria-expanded="false">What If My Dog Doesn't Like the Bed?<span class="chev"></span></button><div class="ans" hidden>Returns are free within 30 days. Most dogs settle in after a few days of using it at home first.</div></div>
+          <div class="fq"><button aria-expanded="false">How Can I Contact Customer Support?<span class="chev"></span></button><div class="ans" hidden>Email hello@pawvoyage.example and we'll reply within one business day.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band white" id="reviews">
+    <div class="wrap">
+      <div class="reviews-head">
+        <h2>Customer Reviews</h2>
+        <p class="overall"><b>4.7</b> / 5 from 1,351 reviews</p>
+      </div>
+      <div class="review-list">
+        <article class="review"><span class="stars" aria-label="5 out of 5">★★★★★</span><p>Bought as a present for my son's dog and she loves it.</p><div class="meta"><span>Mark D. · <span class="verified">Verified</span></span><span>24 Nov 2026</span></div></article>
+        <article class="review"><span class="stars" aria-label="5 out of 5">★★★★★</span><p>Really smart piece of equipment. Great quality and easy to fit with the ISOFIX clips.</p><div class="meta"><span>Sara S. · <span class="verified">Verified</span></span><span>24 Nov 2026</span></div></article>
+        <article class="review"><span class="stars" aria-label="5 out of 5">★★★★★</span><p>Our pup used to whine every car trip. Now he falls asleep before we leave the street.</p><div class="meta"><span>Cora O. · <span class="verified">Verified</span></span><span>23 Nov 2026</span></div></article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" style="--wave:var(--white)" aria-hidden="true"><path d="M0 0h1440v34C1200 0 960 0 720 18S240 60 0 40z"/></svg>
+  <div class="wrap">
+    <div class="foot-top"><span>PawVoyage Ltd · Company number 00000000</span><span><b>Address</b> · Unit 1, Example Business Park, United Kingdom</span></div>
+    <div class="foot-mid"><span>© 2026 PawVoyage</span><div class="pays" aria-label="Accepted payments"><span>AMEX</span><span>Apple Pay</span><span>Google Pay</span><span>Klarna</span><span>Maestro</span><span>Mastercard</span><span>PayPal</span><span>Shop Pay</span><span>VISA</span></div></div>
+    <div class="giant" aria-hidden="true">PawVoyage</div>
+  </div>
+</footer>
+
+<div class="sticky" id="sticky" aria-label="Quick add to cart">
+  <div class="wrap">
+    <div class="mini"><img src="img/bed-navy.jpg" id="sticky-img" alt=""></div>
+    <div class="nm">Dog Dock V2 New &amp; Improved ISO Fix<small>£150.00<s>£300.00</s></small></div>
+    <select id="sticky-variant" aria-label="Size and colour"></select>
+    <button class="go" id="sticky-go">Claim 50% off – <span id="sticky-price">£190.00</span><small>Discount automatically applied</small></button>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+  (function () {
+    var $ = function (s) { return document.querySelector(s); };
+    var $$ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)); };
+    var imgs = { Navy: 'img/bed-navy.jpg', Black: 'img/bed-black.jpg', Green: 'img/bed-sage.jpg', Grey: 'img/bed-grey.jpg', Burgundy: 'img/bed-burgundy.jpg' };
+    var state = { size: 'Medium', colour: 'Navy' };
+
+    $('#today').textContent = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' });
+
+    var drawer = $('#drawer');
+    $('#menu-open').addEventListener('click', function () { drawer.hidden = false; });
+    drawer.addEventListener('click', function (e) { if (e.target === drawer || e.target.tagName === 'A') drawer.hidden = true; });
+
+    // Variant select for sticky bar
+    var sel = $('#sticky-variant');
+    ['Medium', 'Extra Large'].forEach(function (s) { Object.keys(imgs).forEach(function (c) { var o = document.createElement('option'); o.value = s + '|' + c; o.textContent = s + ' / ' + c; sel.appendChild(o); }); });
+
+    function showImage(src, alt) { var m = $('#main-img'); m.src = src; m.alt = alt; $$('.thumb').forEach(function (t) { t.setAttribute('aria-current', t.dataset.img === src); }); }
+    function render() {
+      showImage(imgs[state.colour], 'Dog Dock V2 in ' + state.colour.toLowerCase());
+      $('#sticky-img').src = imgs[state.colour];
+      $$('.swatch').forEach(function (s) { s.setAttribute('aria-pressed', s.dataset.colour === state.colour); });
+      $$('.size').forEach(function (s) { s.setAttribute('aria-pressed', s.dataset.size === state.size); });
+      sel.value = state.size + '|' + state.colour;
+    }
+    $$('.swatch').forEach(function (s) { s.addEventListener('click', function () { state.colour = s.dataset.colour; render(); }); });
+    $$('.size').forEach(function (s) { s.addEventListener('click', function () { state.size = s.dataset.size; render(); }); });
+    $$('.thumb').forEach(function (t) { t.addEventListener('click', function () { if (t.dataset.colour) { state.colour = t.dataset.colour; render(); } else { showImage(t.dataset.img, t.getAttribute('aria-label').replace('Show ', '')); } }); });
+    sel.addEventListener('change', function () { var v = sel.value.split('|'); state.size = v[0]; state.colour = v[1]; render(); });
+    render();
+
+    function updateCta() {
+      var on = $('#bundle').checked;
+      $('#cta-price').textContent = on ? '£190.00' : '£150.00';
+      $('#cta-was').textContent = on ? '£410.00' : '£300.00';
+      $('#sticky-price').textContent = on ? '£190.00' : '£150.00';
+    }
+    $('#bundle').addEventListener('change', updateCta); updateCta();
+
+    $$('.acc-q, .fq button').forEach(function (q) {
+      q.addEventListener('click', function () {
+        var open = q.getAttribute('aria-expanded') === 'true';
+        q.setAttribute('aria-expanded', !open);
+        q.nextElementSibling.hidden = open;
+      });
+    });
+
+    var short = $('#desc-text').textContent;
+    var full = 'The Dog Dock anchors directly to your seat using ISOFIX clips (2 on Medium, 4 on XL), along with two reinforced straps that wrap around the headrest and the base of the seat. Raised padded sides give your dog something to lean on, the plush liner lifts out for washing, and the built-in safety clip attaches to your dog’s harness so they stay in place for the whole journey.';
+    $('#read-more').addEventListener('click', function () {
+      var open = this.getAttribute('aria-expanded') === 'true';
+      $('#desc-text').textContent = open ? short : full;
+      this.textContent = open ? 'Read more' : 'Read less';
+      this.setAttribute('aria-expanded', !open);
+    });
+
+    var count = 0, timer;
+    function added() {
+      $('#cart-count').textContent = ++count;
+      var t = $('#toast'); t.textContent = 'Added ' + state.size + ' / ' + state.colour + ' to cart (preview only)'; t.hidden = false;
+      clearTimeout(timer); timer = setTimeout(function () { t.hidden = true; }, 2200);
+    }
+    ['#claim', '#sticky-go', '.buy'].forEach(function (s) { $(s).addEventListener('click', added); });
+
+    var sticky = $('#sticky');
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (e) { sticky.classList.toggle('show', !e[0].isIntersecting && e[0].boundingClientRect.top < 0); }).observe($('#claim'));
+    }
+  })();
+</script>
