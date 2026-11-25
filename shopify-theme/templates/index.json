@@ -123,91 +123,91 @@
     "feature_15": {
      "type": "feature",
      "settings": {
-      "image": "shopify://shop_images/blkdd2-pocket.png",
-      "title": "Front Storage Pocket",
-      "text": "Keep leads, poo bags and treats close at hand in the long front pocket."
+      "image": "shopify://shop_images/blkdd-feat-pocket.png",
+      "title": "Convenient Side-Pocket Storage",
+      "text": "Keep essentials close at hand, from leads and treats to travel toys."
      }
     },
     "feature_16": {
      "type": "feature",
      "settings": {
-      "image": "shopify://shop_images/blkdd2-headrest.png",
-      "title": "Adjustable Headrest Strap",
-      "text": "Loops around the headrest so the bed stays put on any back seat."
+      "image": "shopify://shop_images/blkdd-feat-straps.png",
+      "title": "Adjustable Car Seat Belts",
+      "text": "Secure the bed to any car seat with adjustable straps that keep it anchored during sudden stops."
      }
     },
     "feature_17": {
      "type": "feature",
      "settings": {
-      "image": "shopify://shop_images/blkdd2-buckle.png",
-      "title": "Detachable Shoulder Strap",
-      "text": "Clip on the strap and carry it like a weekend bag."
+      "image": "shopify://shop_images/blkdd-feat-base.png",
+      "title": "Non-Slip Safety Base",
+      "text": "The anti-slip bottom keeps the bed steady on car seats and smooth floors."
      }
     },
     "feature_18": {
      "type": "feature",
      "settings": {
-      "image": "shopify://shop_images/blkdd2-home-navy.png",
-      "title": "Car Seat & Home Bed",
-      "text": "Use it in the car, then bring it inside as a cosy bed."
+      "image": "shopify://shop_images/blkdd-feat-isofix.png",
+      "title": "Metal ISO Fix Clasps",
+      "text": "Metal ISOFIX clasps lock into your car's anchors, like a child seat."
      }
     },
     "feature_19": {
      "type": "feature",
      "settings": {
-      "image": "shopify://shop_images/blkdd2-top.png",
-      "title": "Removable Fleece Cushion",
-      "text": "Soft fleece cushion that lifts out for easy washing."
+      "image": "shopify://shop_images/blkdd-feat-liner.png",
+      "title": "Removable, Plush Inner Liner",
+      "text": "Soft, removable and washable, with a waterproof side."
      }
     },
     "feature_20": {
      "type": "feature",
      "settings": {
-      "image": "shopify://shop_images/blkdd2-ugc-suv.png",
-      "title": "Built-in Safety Leash",
-      "text": "Clip it to your dog's harness so they can't jump out or into the front."
+      "image": "shopify://shop_images/blkdd-feat-clip.png",
+      "title": "Built in Safety Clip",
+      "text": "Attach your dog's harness so they can't jump out or into the front."
      }
     },
     "ugc_21": {
      "type": "ugc",
      "settings": {
-      "image": "shopify://shop_images/blkdd2-car-navy.png",
-      "caption": "Already his favourite spot"
+      "image": "shopify://shop_images/blkdd-ugc-puppy.png",
+      "caption": "Already her favourite spot"
      }
     },
     "ugc_22": {
      "type": "ugc",
      "settings": {
-      "image": "shopify://shop_images/blkdd2-car-pink.png",
+      "image": "shopify://shop_images/blkdd-ugc-grey.png",
       "caption": "Set up in two minutes"
      }
     },
     "ugc_23": {
      "type": "ugc",
      "settings": {
-      "image": "shopify://shop_images/blkdd2-car-lavender.png",
+      "image": "shopify://shop_images/blkdd-ugc-dachshund.png",
       "caption": "Asleep before we left the street"
      }
     },
     "ugc_24": {
      "type": "ugc",
      "settings": {
-      "image": "shopify://shop_images/blkdd2-car-green.png",
-      "caption": "Road-trip ready"
+      "image": "shopify://shop_images/blkdd-rv-terrier.png",
+      "caption": "Living-room bed on weekdays"
      }
     },
     "ugc_25": {
      "type": "ugc",
      "settings": {
-      "image": "shopify://shop_images/blkdd2-home-pink.png",
-      "caption": "Living-room bed on weekdays"
+      "image": "shopify://shop_images/blkdd-rv-springer.png",
+      "caption": "Big lad, perfect fit"
      }
     },
     "ugc_26": {
      "type": "ugc",
      "settings": {
-      "image": "shopify://shop_images/blkdd2-ugc-suv.png",
-      "caption": "Clipped in and happy"
+      "image": "shopify://shop_images/blkdd-rv-chihuahua.png",
+      "caption": "Tiny dog, big view"
      }
     },
     "faq_27": {
@@ -269,17 +269,17 @@
     "review_35": {
      "type": "review",
      "settings": {
-      "image": "shopify://shop_images/blkdd2-home-navy.png",
+      "image": "shopify://shop_images/blkdd-rv-terrier.png",
       "name": "Mrs J.",
       "rating": 5,
-      "text": "This is really well made and very comfortable for my dachshund. Now it lives in the living room between trips!",
+      "text": "This is really well made and very comfortable for my border terrier. Now it lives in the living room between trips!",
       "date": "Nov 25, 2026"
      }
     },
     "review_36": {
      "type": "review",
      "settings": {
-      "image": "shopify://shop_images/blkdd2-car-pink.png",
+      "image": "shopify://shop_images/blkdd-rv-puppy.png",
       "name": "Mr D.",
       "rating": 5,
       "text": "Bought as a present for my son's dog and she loves it.",
@@ -289,40 +289,40 @@
     "review_37": {
      "type": "review",
      "settings": {
-      "image": "shopify://shop_images/blkdd2-car-navy.png",
+      "image": "shopify://shop_images/blkdd-rv-springer.png",
       "name": "Sarah S.",
       "rating": 5,
-      "text": "Fits our golden retriever puppy really well. Super strong and comfortable.",
+      "text": "Fits our springer spaniel really well. Super strong and comfortable.",
       "date": "Nov 24, 2026"
      }
     },
     "review_38": {
      "type": "review",
      "settings": {
-      "image": "shopify://shop_images/blkdd2-car-lavender.png",
+      "image": "shopify://shop_images/blkdd-rv-foxterrier.png",
       "name": "Mark D.",
       "rating": 5,
-      "text": "We bought the XL for our French bulldog. He settled in straight away.",
+      "text": "We bought the XL for our fox terrier in our camper van. He settled in straight away.",
       "date": "Nov 24, 2026"
      }
     },
     "review_39": {
      "type": "review",
      "settings": {
-      "image": "shopify://shop_images/blkdd2-ugc-suv.png",
+      "image": "shopify://shop_images/blkdd-rv-cockapoo.png",
       "name": "Rachel A.",
       "rating": 5,
-      "text": "Our terrier used to pace the back seat. With the clip on his harness he just lies down.",
+      "text": "Our cockapoo used to pace the back seat. With the clip on her harness she just lies down.",
       "date": "Nov 22, 2026"
      }
     },
     "review_40": {
      "type": "review",
      "settings": {
-      "image": "shopify://shop_images/blkdd2-home-pink.png",
+      "image": "shopify://shop_images/blkdd-rv-chihuahua.png",
       "name": "Megan C.",
       "rating": 5,
-      "text": "Our chihuahua finally has her own spot, in the car and at home.",
+      "text": "Our chihuahua finally stays put in the car and can still see out.",
       "date": "Nov 21, 2026"
      }
     },

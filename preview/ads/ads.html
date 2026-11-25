@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>BLK Majesty Ads</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap">
+<style>
+  :root { --navy:#1c3b4b; --sky:#d2e6f2; --ocean:#276d91; --cream:#f6f1e8; --gold:#b07a3c; --red:#c8102e; --ok:#16a34a; }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: #888; font-family: Inter, Arial, sans-serif; color: var(--navy); padding: 40px; display: flex; flex-wrap: wrap; gap: 40px; }
+  .ad { position: relative; overflow: hidden; background: #fff; flex: none; }
+  .feed { width: 1080px; height: 1350px; }
+  .story { width: 1080px; height: 1920px; }
+  h1, h2, .h { font-family: Poppins, Arial, sans-serif; font-weight: 800; letter-spacing: -0.04em; line-height: 1.02; }
+  img.cover { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .logo { display: flex; align-items: center; gap: 14px; font-family: Poppins, sans-serif; color: var(--navy); }
+  .logo svg { width: 64px; height: auto; }
+  .logo b { display: block; font-size: 32px; font-weight: 800; letter-spacing: .08em; line-height: .9; }
+  .logo span { display: block; font-size: 15px; font-weight: 700; letter-spacing: .34em; }
+  .logo.light { color: #fff; }
+  .burst { position: absolute; width: 230px; height: 230px; display: grid; place-items: center; text-align: center; color: #fff; font-family: Poppins, sans-serif; }
+  .burst svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .burst div { position: relative; font-weight: 800; line-height: 1; }
+  .burst small { display: block; font-size: 22px; letter-spacing: .02em; }
+  .burst strong { display: block; font-size: 64px; letter-spacing: -0.04em; }
+  .cta { display: inline-flex; align-items: center; gap: 14px; background: var(--navy); color: #fff; border-radius: 99px; padding: 26px 48px; font-family: Poppins, sans-serif; font-weight: 700; font-size: 36px; letter-spacing: -0.02em; }
+  .cta.light { background: #fff; color: var(--navy); }
+  .price { font-family: Poppins, sans-serif; font-weight: 800; letter-spacing: -0.03em; }
+  .price s { color: var(--red); font-weight: 600; font-size: .6em; margin-left: 12px; }
+  .chip { display: inline-flex; align-items: center; gap: 12px; background: #fff; border-radius: 99px; padding: 14px 26px; font-weight: 700; font-size: 28px; box-shadow: 0 10px 30px rgba(0,0,0,.12); }
+  .tick { width: 40px; height: 40px; border-radius: 50%; background: var(--ok); display: grid; place-items: center; flex: none; }
+  .tick svg { width: 22px; height: 22px; }
+
+  /* 1. Hook */
+  .a1 .shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,25,35,.78) 0%, rgba(10,25,35,0) 38%, rgba(10,25,35,0) 62%, rgba(10,25,35,.85) 100%); }
+  .a1 .top { position: absolute; left: 70px; right: 70px; top: 70px; color: #fff; }
+  .a1 h1 { font-size: 104px; }
+  .a1 .top p { font-size: 38px; margin-top: 22px; font-weight: 500; opacity: .95; }
+  .a1 .bot { position: absolute; left: 70px; right: 70px; bottom: 70px; display: flex; justify-content: space-between; align-items: flex-end; }
+  .a1 .burst { right: 50px; top: 470px; }
+
+  /* 2. Callouts */
+  .a2 { background: #eceae6; }
+  .a2 .head { position: absolute; top: 70px; left: 0; right: 0; text-align: center; }
+  .a2 h1 { font-size: 88px; }
+  .a2 .head p { font-size: 34px; margin-top: 14px; color: #4a5d68; }
+  .a2 .prod { position: absolute; left: 190px; top: 300px; width: 700px; height: 700px; object-fit: cover; border-radius: 40px; }
+  .a2 .call { position: absolute; display: flex; align-items: center; gap: 14px; background: #fff; border-radius: 22px; padding: 18px 24px; font-weight: 700; font-size: 28px; box-shadow: 0 12px 32px rgba(0,0,0,.12); max-width: 360px; line-height: 1.15; }
+  .a2 .foot { position: absolute; bottom: 70px; left: 70px; right: 70px; display: flex; justify-content: space-between; align-items: center; }
+
+  /* 3. Colours */
+  .a3 { background: var(--sky); }
+  .a3 .head { padding: 80px 70px 0; text-align: center; }
+  .a3 h1 { font-size: 96px; }
+  .a3 .head p { font-size: 36px; margin-top: 14px; }
+  .a3 .grid { position: absolute; top: 330px; left: 70px; right: 70px; display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+  .a3 .grid figure { background: #fff; border-radius: 30px; overflow: hidden; position: relative; aspect-ratio: 1.18; }
+  .a3 .grid img { width: 100%; height: 100%; object-fit: cover; }
+  .a3 .grid figcaption { position: absolute; left: 18px; bottom: 16px; background: #fff; border-radius: 99px; padding: 8px 20px; font-weight: 700; font-size: 26px; display: flex; gap: 10px; align-items: center; }
+  .a3 .grid i { width: 24px; height: 24px; border-radius: 50%; display: block; }
+  .a3 .foot { position: absolute; bottom: 70px; left: 70px; right: 70px; display: flex; justify-content: space-between; align-items: center; }
+  .a3 .price { font-size: 64px; }
+
+  /* 4. Car + home */
+  .a4 .half { position: absolute; left: 0; right: 0; height: 50%; overflow: hidden; }
+  .a4 .half img { width: 100%; height: 100%; object-fit: cover; }
+  .a4 .h1 { top: 0; } .a4 .h2 { bottom: 0; }
+  .a4 .label { position: absolute; left: 50px; background: var(--navy); color: #fff; font-family: Poppins, sans-serif; font-weight: 800; font-size: 52px; letter-spacing: -0.03em; padding: 14px 30px; border-radius: 18px; }
+  .a4 .h1 .label { bottom: 40px; } .a4 .h2 .label { top: 40px; background: #fff; color: var(--navy); }
+  .a4 .mid { position: absolute; top: 50%; left: 84%; transform: translate(-50%, -50%); background: var(--gold); color: #fff; width: 150px; height: 150px; border-radius: 50%; display: grid; place-items: center; font-family: Poppins, sans-serif; font-weight: 800; font-size: 34px; text-align: center; line-height: 1; border: 8px solid #fff; z-index: 2; }
+  .a4 .logo { position: absolute; top: 40px; right: 50px; background: #fff; padding: 14px 22px; border-radius: 18px; }
+
+  /* 5. Offer */
+  .a5 { background: #000; color: #fff; }
+  .a5 .img { position: absolute; left: 0; right: 0; top: 0; height: 830px; }
+  .a5 .img img { width: 100%; height: 100%; object-fit: cover; }
+  .a5 .burst { right: 50px; top: 50px; }
+  .a5 .panel { position: absolute; left: 0; right: 0; bottom: 0; height: 520px; padding: 56px 70px; display: grid; align-content: space-between; }
+  .a5 h1 { font-size: 86px; }
+  .a5 .clock { display: flex; gap: 22px; align-items: flex-start; margin-top: 20px; }
+  .a5 .clock div { text-align: center; }
+  .a5 .clock b { display: block; font-family: Poppins, sans-serif; font-size: 80px; line-height: 1; }
+  .a5 .clock span { font-size: 22px; opacity: .8; }
+  .a5 .clock em { font-style: normal; font-size: 60px; line-height: 1.1; opacity: .6; }
+  .a5 .row { display: flex; justify-content: space-between; align-items: center; }
+  .a5 .price { font-size: 60px; }
+  .a5 .price s { color: #ff8a8a; }
+
+  /* 6. Comparison */
+  .a6 { background: var(--cream); }
+  .a6 .head { padding: 70px 70px 0; }
+  .a6 h1 { font-size: 84px; }
+  .a6 table { position: absolute; left: 70px; right: 70px; top: 330px; border-collapse: separate; border-spacing: 0; width: calc(100% - 140px); font-size: 32px; }
+  .a6 th { font-family: Poppins, sans-serif; font-size: 30px; padding: 20px 10px; }
+  .a6 th.us { background: var(--navy); color: #fff; border-radius: 26px 26px 0 0; }
+  .a6 td { padding: 26px 18px; border-bottom: 2px solid #e2dccf; font-weight: 600; }
+  .a6 td.c { text-align: center; width: 210px; }
+  .a6 td.us { background: #fff; }
+  .a6 .y, .a6 .n { display: inline-grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; font-weight: 800; font-size: 30px; }
+  .a6 .y { background: var(--ok); color: #fff; } .a6 .n { background: #e9d3d3; color: var(--red); }
+  .a6 .prod { position: absolute; right: 70px; bottom: 60px; width: 330px; border-radius: 30px; }
+  .a6 .foot { position: absolute; left: 70px; bottom: 80px; display: grid; gap: 26px; }
+
+  /* Stories */
+  .s1 .shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,25,35,.75) 0%, rgba(10,25,35,0) 30%, rgba(10,25,35,0) 60%, rgba(10,25,35,.9) 100%); }
+  .s1 .top { position: absolute; top: 240px; left: 80px; right: 80px; color: #fff; text-align: center; }
+  .s1 h1 { font-size: 110px; }
+  .s1 .top p { font-size: 42px; margin-top: 24px; }
+  .s1 .bot { position: absolute; bottom: 300px; left: 80px; right: 80px; text-align: center; color: #fff; display: grid; gap: 34px; justify-items: center; }
+  .s1 .price { font-size: 72px; }
+  .s1 .price s { color: #ff9a9a; }
+  .s2 { background: var(--sky); }
+  .s2 .head { position: absolute; top: 230px; left: 80px; right: 80px; text-align: center; }
+  .s2 h1 { font-size: 100px; }
+  .s2 .steps { position: absolute; top: 470px; left: 80px; right: 80px; display: grid; gap: 30px; }
+  .s2 .step { display: grid; grid-template-columns: 300px 1fr; gap: 34px; align-items: center; background: #fff; border-radius: 34px; padding: 22px; }
+  .s2 .step img { width: 300px; height: 260px; object-fit: cover; border-radius: 22px; }
+  .s2 .step b { font-family: Poppins, sans-serif; font-size: 46px; display: block; letter-spacing: -0.03em; }
+  .s2 .step span { font-size: 32px; color: #4a5d68; }
+  .s2 .step em { font-style: normal; display: inline-grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: var(--navy); color: #fff; font-family: Poppins, sans-serif; font-weight: 800; font-size: 34px; margin-bottom: 12px; }
+  .s2 .bot { position: absolute; bottom: 170px; left: 0; right: 0; text-align: center; }
+  .s3 { background: #000; color: #fff; }
+  .s3 .grid { position: absolute; top: 0; left: 0; right: 0; height: 1180px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .s3 .grid img { width: 100%; height: 100%; object-fit: cover; }
+  .s3 .panel { position: absolute; bottom: 200px; left: 80px; right: 80px; text-align: center; display: grid; gap: 30px; justify-items: center; }
+  .s3 h1 { font-size: 96px; }
+  .s3 .burst { right: 50px; top: 60px; width: 230px; height: 230px; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="scal" viewBox="0 0 66 66"><path d="M33 2l5 4 6-2 3 5 6 1 1 6 5 3-2 6 4 5-4 5 2 6-5 3-1 6-6 1-3 5-6-2-5 4-5-4-6 2-3-5-6-1-1-6-5-3 2-6-4-5 4-5-2-6 5-3 1-6 6-1 3-5 6 2z"/></symbol>
+    <symbol id="tk" viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="hound" viewBox="170 20 680 840"><g fill="#b07a3c"><path d="M383 112C427 162 479 137 497 56C518 127 565 155 613 105L594 165C535 142 467 143 412 174Z"/><circle cx="379" cy="105" r="18"/><circle cx="498" cy="42" r="21"/><circle cx="624" cy="92" r="18"/></g><g fill="none" stroke="currentColor" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"><path d="M450 241C418 267 437 333 465 398C492 459 494 514 457 549C432 574 410 565 379 539C347 511 320 496 286 483C252 470 231 451 233 421C235 384 273 347 315 303L380 231C417 194 463 183 508 184C563 184 606 201 637 232C656 251 682 251 718 251L787 252C816 252 835 256 836 269C838 283 826 294 827 310C839 361 826 412 795 430C776 441 749 436 725 437C682 437 650 456 635 489C615 532 624 581 653 617C679 651 717 672 743 710C771 749 783 791 783 836H182C192 792 228 765 274 738L453 650C525 614 562 583 588 533C614 482 640 450 687 438"/><path d="M305 499C289 570 240 647 256 728"/></g><g fill="currentColor"><path d="M526 264C554 243 591 241 616 252L632 275C590 275 560 260 526 264Z"/><path d="M774 255L815 256Q837 257 835 271L826 301C799 300 781 286 774 270Z"/></g></symbol>
+  </defs>
+</svg>
+
+<!-- 1. Hook -->
+<div class="ad feed a1" id="ad1">
+  <img class="cover" src="../img2/car-navy.png" alt="">
+  <div class="shade"></div>
+  <div class="top"><h1>No more back-seat chaos.</h1><p>Their own safe, cosy seat on every drive.</p></div>
+  <div class="burst"><svg><use href="#scal" fill="#000"/></svg><div><small>BLACK FRIDAY</small><strong>50%</strong><small>OFF</small></div></div>
+  <div class="bot">
+    <div class="logo light"><svg style="color:#fff"><use href="#hound"/></svg><div><b>BLK</b><span>MAJESTY</span></div></div>
+    <span class="cta light">Shop now →</span>
+  </div>
+</div>
+
+<!-- 2. Callouts -->
+<div class="ad feed a2" id="ad2">
+  <div class="head"><h1>Built for calm car rides</h1><p>Everything your dog needs, in one seat.</p></div>
+  <img class="prod" src="../img2/navy.png" alt="">
+  <div class="call" style="left:40px;top:340px"><span class="tick"><svg><use href="#tk"/></svg></span>Headrest strap keeps it in place</div>
+  <div class="call" style="right:40px;top:400px"><span class="tick"><svg><use href="#tk"/></svg></span>Built-in safety leash</div>
+  <div class="call" style="left:40px;top:780px"><span class="tick"><svg><use href="#tk"/></svg></span>Washable fleece cushion</div>
+  <div class="call" style="right:40px;top:860px"><span class="tick"><svg><use href="#tk"/></svg></span>Zip pocket + carry strap</div>
+  <div class="foot">
+    <div class="logo"><svg><use href="#hound"/></svg><div><b>BLK</b><span>MAJESTY</span></div></div>
+    <span class="cta">Get 50% off →</span>
+  </div>
+</div>
+
+<!-- 3. Colours -->
+<div class="ad feed a3" id="ad3">
+  <div class="head"><h1>Pick their colour</h1><p>4 colours · Medium &amp; Extra Large</p></div>
+  <div class="grid">
+    <figure><img src="../img2/navy.png" alt=""><figcaption><i style="background:#22305a"></i>Navy</figcaption></figure>
+    <figure><img src="../img2/pink.png" alt=""><figcaption><i style="background:#e7949f"></i>Pink</figcaption></figure>
+    <figure><img src="../img2/lavender.png" alt=""><figcaption><i style="background:#b8b3d4"></i>Lavender</figcaption></figure>
+    <figure><img src="../img2/green.png" alt=""><figcaption><i style="background:#5c6b35"></i>Olive Green</figcaption></figure>
+  </div>
+  <div class="foot">
+    <div class="price">From $150<s>$300</s></div>
+    <span class="cta">Shop now →</span>
+  </div>
+</div>
+
+<!-- 4. Car + home -->
+<div class="ad feed a4" id="ad4">
+  <div class="half h1"><img src="../img2/car-green.png" alt=""><span class="label">Car seat by day</span></div>
+  <div class="half h2"><img src="../img2/home-navy.png" alt=""><span class="label">Dog bed by night</span></div>
+  <div class="mid">2 in 1</div>
+  <div class="logo"><svg><use href="#hound"/></svg><div><b>BLK</b><span>MAJESTY</span></div></div>
+</div>
+
+<!-- 5. Offer -->
+<div class="ad feed a5" id="ad5">
+  <div class="img"><img src="../img2/car-pink.png" alt=""></div>
+  <div class="burst"><svg><use href="#scal" fill="#000"/></svg><div><small>UP TO</small><strong>50%</strong><small>OFF</small></div></div>
+  <div class="panel">
+    <div>
+      <h1>Black Friday ends Saturday</h1>
+      <p style="font-size:44px;margin-top:22px;font-weight:600;opacity:.9">Ends Saturday 28 November · While stock lasts</p>
+    </div>
+    <div class="row"><div class="price">$150<s>$300</s></div><span class="cta light">Claim 50% off →</span></div>
+  </div>
+</div>
+
+<!-- 6. Comparison -->
+<div class="ad feed a6" id="ad6">
+  <div class="head"><h1>Loose on the seat<br>vs. the Dog Dock</h1></div>
+  <table>
+    <tr><th></th><th>Loose</th><th class="us">Dog Dock</th></tr>
+    <tr><td>Stays in one place</td><td class="c"><span class="n">✕</span></td><td class="c us"><span class="y">✓</span></td></tr>
+    <tr><td>Can't jump into the front</td><td class="c"><span class="n">✕</span></td><td class="c us"><span class="y">✓</span></td></tr>
+    <tr><td>Hair-free back seat</td><td class="c"><span class="n">✕</span></td><td class="c us"><span class="y">✓</span></td></tr>
+    <tr><td>Soft, washable cushion</td><td class="c"><span class="n">✕</span></td><td class="c us"><span class="y">✓</span></td></tr>
+    <tr><td>Doubles as a bed at home</td><td class="c"><span class="n">✕</span></td><td class="c us" style="border-radius:0 0 26px 26px"><span class="y">✓</span></td></tr>
+  </table>
+  <img class="prod" src="../img2/lavender.png" alt="">
+  <div class="foot">
+    <div class="logo"><svg><use href="#hound"/></svg><div><b>BLK</b><span>MAJESTY</span></div></div>
+    <span class="cta">Shop 50% off →</span>
+  </div>
+</div>
+
+<!-- Story 1 -->
+<div class="ad story s1" id="st1">
+  <img class="cover" src="../img2/ugc-suv.png" alt="">
+  <div class="shade"></div>
+  <div class="top"><h1>Your dog's new favourite seat</h1><p>Strap it in. Clip them in. Drive calm.</p></div>
+  <div class="bot">
+    <div class="price">$150<s>$300</s></div>
+    <span class="cta light">Shop Black Friday →</span>
+  </div>
+</div>
+
+<!-- Story 2 -->
+<div class="ad story s2" id="st2">
+  <div class="head"><h1>Set up in 3 steps</h1></div>
+  <div class="steps">
+    <div class="step"><img src="../img2/headrest.png" alt=""><div><em>1</em><b>Loop the strap</b><span>around the headrest</span></div></div>
+    <div class="step"><img src="../img2/top.png" alt=""><div><em>2</em><b>Clip the leash</b><span>to your dog's harness</span></div></div>
+    <div class="step"><img src="../img2/car-lavender.png" alt=""><div><em>3</em><b>Drive calm</b><span>no sliding, no jumping</span></div></div>
+  </div>
+  <div class="bot"><span class="cta">Get 50% off →</span></div>
+</div>
+
+<!-- Story 3 -->
+<div class="ad story s3" id="st3">
+  <div class="grid">
+    <img src="../img2/car-navy.png" alt=""><img src="../img2/car-pink.png" alt="">
+    <img src="../img2/car-lavender.png" alt=""><img src="../img2/car-green.png" alt="">
+  </div>
+  <div class="burst"><svg><use href="#scal" fill="#fff"/></svg><div style="color:#000"><small>BLACK FRIDAY</small><strong>50%</strong><small>OFF</small></div></div>
+  <div class="panel">
+    <h1>Every dog deserves a window seat</h1>
+    <div class="logo light"><svg style="color:#fff"><use href="#hound"/></svg><div><b>BLK</b><span>MAJESTY</span></div></div>
+    <span class="cta light">Shop now →</span>
+  </div>
+</div>
+</body>
+</html>
