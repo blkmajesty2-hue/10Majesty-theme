@@ -34,3 +34,9 @@
   .blk-page .marquee span { font-size: 11.5px; }
   .blk-page .marquee i { width: 20px; height: 20px; }
 }
+/* Sold-out variants */
+.blk-page .swatch.is-sold { position: relative; opacity: .55; }
+.blk-page .swatch.is-sold::after { content: ""; position: absolute; left: 50%; top: -3px; bottom: -3px; width: 2px; background: #c8102e; transform: translateX(-50%) rotate(45deg); }
+.blk-page .cta.is-sold, .blk-page .cta:disabled { background: #e7ecef; color: #7a8a93; border-color: #c9d3d9; cursor: not-allowed; }
+.blk-page .stock.is-sold { visibility: hidden; }
+.sbar-go:disabled { background: #9aa8b0; cursor: not-allowed; }

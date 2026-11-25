@@ -17,7 +17,6 @@
     <p><i><svg><use href="#blk-check"/></svg></i> You've unlocked <b>FREE express shipping</b></p>
     <div class="cd-bar" aria-hidden="true"><span></span></div>
   </div>
-  <p class="cd-preview" data-blk-cd-preview hidden>Preview cart: this product is still a draft, so checkout is off until it's set to Active.</p>
   <div class="cd-body">
     <ul class="cd-items" data-blk-cd-items></ul>
     <div class="cd-badges" data-blk-cd-badges>{%- render 'blk-cart-trust' -%}</div>
@@ -93,7 +92,6 @@
       q('[data-blk-cd-empty]').hidden = items.length > 0;
       q('[data-blk-cd-foot]').hidden = items.length === 0;
       q('[data-blk-cd-badges]').hidden = items.length === 0;
-      q('[data-blk-cd-preview]').hidden = !preview;
       q('[data-blk-cd-checkout]').disabled = !!preview;
       document.querySelectorAll('[data-blk-count]').forEach(function (b) { b.textContent = count; b.hidden = count === 0; });
     }

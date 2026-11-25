@@ -388,6 +388,22 @@
       if (t) showImage(t.dataset.img);
       var v = variants.filter(function (x) { return x.options.indexOf(state.size) > -1 && x.options.indexOf(state.colour) > -1; })[0];
       if (v) { $('#blk-variant').value = v.id; $('#blk-price').textContent = money(v.price); $('#blk-compare').textContent = v.compare_at_price ? money(v.compare_at_price) : ''; }
+      if (variants.length) {
+        $$('.swatch').forEach(function (sw) {
+          var c = sw.dataset.colour, any = variants.some(function (x) { return x.options.indexOf(c) > -1 && x.available; });
+          sw.classList.toggle('is-sold', !any);
+          sw.setAttribute('aria-label', c + (any ? '' : ' (sold out)'));
+        });
+        var btn = $('#blk-claim'), sold = !v || !v.available;
+        if (btn) {
+          if (!btn.dataset.html) btn.dataset.html = btn.innerHTML;
+          btn.disabled = sold;
+          btn.classList.toggle('is-sold', sold);
+          if (sold) btn.textContent = 'Sold out'; else if (btn.innerHTML !== btn.dataset.html && btn.textContent === 'Sold out') btn.innerHTML = btn.dataset.html;
+        }
+        var sb = $('#blk-sbar-go'); if (sb) { sb.disabled = sold; sb.textContent = sold ? 'Sold out' : 'Add to cart'; }
+        var st = $('.stock'); if (st) st.classList.toggle('is-sold', sold);
+      }
       else if (!variants.length) { var sp = sizePrices[state.size]; if (sp) { $('#blk-price').textContent = sp[0]; $('#blk-compare').textContent = sp[1] || ''; } }
       updateTotals();
     }
@@ -431,8 +447,8 @@
       claim.addEventListener('click', previewAdd);
       if ($('#blk-shop')) $('#blk-shop').addEventListener('click', previewAdd);
     }
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { addons.forEach(updateAddon); updateTotals(); });
-    else { addons.forEach(updateAddon); updateTotals(); }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { addons.forEach(updateAddon); render(); });
+    else { addons.forEach(updateAddon); render(); }
     (function () {
       var bar = $('#blk-sbar'), btn = $('#blk-claim'); if (!bar || !btn) return;
       document.body.appendChild(bar);
