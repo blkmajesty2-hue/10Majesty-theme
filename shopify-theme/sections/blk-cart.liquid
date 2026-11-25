@@ -29,7 +29,8 @@
           <div class="cd-row cd-total"><span>Subtotal</span><span>{{ cart.total_price | money }}</span></div>
           <p style="font-size:13px;color:#5b6b74">Taxes and discount codes calculated at checkout.</p>
           <button type="submit" name="checkout" class="cd-checkout">Secure checkout</button>
-          <ul class="cd-trust"><li><i><svg><use href="#blk-check"/></svg></i>30-day free returns</li><li><i><svg><use href="#blk-check"/></svg></i>Lifetime warranty</li></ul>
+          <p class="ct-seal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5z" fill="currentColor"/><path d="M8.5 12l2.5 2.5 4.5-5" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Guaranteed safe &amp; secure checkout</p>
+          {%- render 'blk-cart-trust' -%}
           <div class="pays cd-pays">{%- for type in shop.enabled_payment_types -%}{{ type | payment_type_svg_tag: class: 'pay-icon' }}{%- endfor -%}</div>
         </div>
       </form>

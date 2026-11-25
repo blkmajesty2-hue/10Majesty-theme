@@ -137,6 +137,36 @@
         <p class="applied"><i><svg><use href="#blk-check"/></svg></i>{{ section.settings.applied_text | escape }}</p>
         {%- if section.settings.second_offer != blank -%}<p class="second">{{ section.settings.second_offer | escape }}</p>{%- endif -%}
 
+        {%- assign trust = section.blocks | where: 'type', 'trust' -%}
+        {%- if trust.size > 0 or section.settings.trust_title != blank -%}
+          <div class="trust">
+            {%- if section.settings.trust_title != blank -%}
+              <p class="trust-head"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5z" fill="currentColor"/><path d="M8.5 12l2.5 2.5 4.5-5" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>{{ section.settings.trust_title | escape }}</p>
+              <div class="pays trust-pays" aria-label="Accepted payments">{%- for type in shop.enabled_payment_types -%}{{ type | payment_type_svg_tag: class: 'pay-icon' }}{%- endfor -%}</div>
+            {%- endif -%}
+            {%- if trust.size > 0 -%}
+              <ul class="trust-grid">
+                {%- for block in trust -%}
+                  <li {{ block.shopify_attributes }}>
+                    <span class="trust-ic" aria-hidden="true">
+                      {%- case block.settings.icon -%}
+                        {%- when 'truck' -%}<svg viewBox="0 0 24 24"><path d="M2 6h11v9H2zM13 9h4l3 3v3h-7z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="6" cy="17.5" r="1.8" fill="#fff" stroke="currentColor" stroke-width="1.8"/><circle cx="16.5" cy="17.5" r="1.8" fill="#fff" stroke="currentColor" stroke-width="1.8"/></svg>
+                        {%- when 'return' -%}<svg viewBox="0 0 24 24"><path d="M4 9h11a5 5 0 010 10H8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M8 5L4 9l4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        {%- when 'warranty' -%}<svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8.5 14l-1.5 7 5-2.5 5 2.5-1.5-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9.5 9l1.8 1.8L14.8 7.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        {%- when 'lock' -%}<svg viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 10.5V8a4 4 0 018 0v2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="15.5" r="1.5" fill="currentColor"/></svg>
+                        {%- when 'heart' -%}<svg viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0112 7.3 4.3 4.3 0 0119.5 10c0 5.4-7.5 10-7.5 10z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+                        {%- when 'paw' -%}<svg viewBox="0 0 24 24"><ellipse cx="12" cy="16" rx="4.5" ry="3.8" fill="currentColor"/><circle cx="6" cy="10.5" r="2" fill="currentColor"/><circle cx="9.5" cy="6.5" r="2" fill="currentColor"/><circle cx="14.5" cy="6.5" r="2" fill="currentColor"/><circle cx="18" cy="10.5" r="2" fill="currentColor"/></svg>
+                        {%- else -%}<svg viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8.5 12l2.5 2.5 4.5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      {%- endcase -%}
+                    </span>
+                    <span class="trust-t"><b>{{ block.settings.title | escape }}</b>{%- if block.settings.text != blank -%}<small>{{ block.settings.text | escape }}</small>{%- endif -%}</span>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
         <div>
           {%- for block in section.blocks -%}
             {%- if block.type == 'info_tab' -%}
@@ -448,12 +478,14 @@
     { "type": "image_picker", "id": "gives_image", "label": "Gives back image" },
     { "type": "text", "id": "who_heading", "label": "About heading", "default": "Who is BLK Majesty?" },
     { "type": "richtext", "id": "who_text", "label": "About text" },
+    { "type": "text", "id": "trust_title", "label": "Secure checkout seal text", "default": "Guaranteed safe & secure checkout" },
     { "type": "text", "id": "faq_heading", "label": "FAQ heading", "default": "Bark & we answer!" },
     { "type": "text", "id": "reviews_count", "label": "Reviews count", "default": "1,352 Reviews" },
     { "type": "textarea", "id": "summary", "label": "Review summary" }
   ],
   "blocks": [
     { "type": "gallery", "name": "Gallery photo", "settings": [ { "type": "image_picker", "id": "image", "label": "Image" }, { "type": "text", "id": "colour", "label": "Colour this photo shows (optional)" } ] },
+    { "type": "trust", "name": "Trust badge", "settings": [ { "type": "select", "id": "icon", "label": "Icon", "default": "shield", "options": [ { "value": "shield", "label": "Shield" }, { "value": "truck", "label": "Truck" }, { "value": "return", "label": "Return" }, { "value": "warranty", "label": "Warranty seal" }, { "value": "lock", "label": "Lock" }, { "value": "heart", "label": "Heart" }, { "value": "paw", "label": "Paw" } ] }, { "type": "text", "id": "title", "label": "Title" }, { "type": "text", "id": "text", "label": "Small text" } ] },
     { "type": "addon", "name": "Add-on product", "settings": [ { "type": "product", "id": "product", "label": "Product (added to cart with the bundle)" }, { "type": "text", "id": "options", "label": "Dropdowns when product is not active", "info": "Example: Size: S/M, L/XL | Colour: Blue, Black" }, { "type": "text", "id": "prices", "label": "Price per option when product is not active", "info": "Example: L/XL=$48.00/$80.00" }, { "type": "image_picker", "id": "image", "label": "Image" }, { "type": "text", "id": "name", "label": "Name" }, { "type": "text", "id": "price", "label": "Price" }, { "type": "text", "id": "compare", "label": "Was price" }, { "type": "url", "id": "link", "label": "Link" } ] },
     { "type": "info_tab", "name": "Info tab", "settings": [ { "type": "text", "id": "title", "label": "Title" }, { "type": "richtext", "id": "text", "label": "Text" } ] },
     { "type": "feature", "name": "Feature", "settings": [ { "type": "image_picker", "id": "image", "label": "Image" }, { "type": "text", "id": "title", "label": "Title" }, { "type": "textarea", "id": "text", "label": "Text" } ] },

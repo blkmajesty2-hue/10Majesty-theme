@@ -20,6 +20,7 @@
   <p class="cd-preview" data-blk-cd-preview hidden>Preview cart: this product is still a draft, so checkout is off until it's set to Active.</p>
   <div class="cd-body">
     <ul class="cd-items" data-blk-cd-items></ul>
+    <div class="cd-badges" data-blk-cd-badges>{%- render 'blk-cart-trust' -%}</div>
     <div class="cd-empty" data-blk-cd-empty hidden>
       <p>Your cart is empty.</p>
       <a href="/products/dog-dock-isofix-car-bed" class="cta">Shop the Dog Dock</a>
@@ -35,10 +36,7 @@
         Secure checkout
       </button>
     </form>
-    <ul class="cd-trust">
-      <li><i><svg><use href="#blk-check"/></svg></i>30-day free returns</li>
-      <li><i><svg><use href="#blk-check"/></svg></i>Lifetime warranty</li>
-    </ul>
+    <p class="ct-seal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5z" fill="currentColor"/><path d="M8.5 12l2.5 2.5 4.5-5" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Guaranteed safe &amp; secure checkout</p>
     <div class="pays cd-pays" aria-label="Accepted payments">{%- for type in shop.enabled_payment_types -%}{{ type | payment_type_svg_tag: class: 'pay-icon' }}{%- endfor -%}</div>
   </div>
 </aside>
@@ -94,6 +92,7 @@
       q('[data-blk-cd-save-row]').hidden = save <= 0;
       q('[data-blk-cd-empty]').hidden = items.length > 0;
       q('[data-blk-cd-foot]').hidden = items.length === 0;
+      q('[data-blk-cd-badges]').hidden = items.length === 0;
       q('[data-blk-cd-preview]').hidden = !preview;
       q('[data-blk-cd-checkout]').disabled = !!preview;
       document.querySelectorAll('[data-blk-count]').forEach(function (b) { b.textContent = count; b.hidden = count === 0; });

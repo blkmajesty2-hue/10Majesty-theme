@@ -334,6 +334,38 @@
       "text": "Solid bed and looks great. Took a minute to work out the straps, but once in it didn't move.",
       "date": "Nov 22, 2026"
      }
+    },
+    "trust_0": {
+     "type": "trust",
+     "settings": {
+      "icon": "truck",
+      "title": "Free Express Shipping",
+      "text": "Tracked to your door"
+     }
+    },
+    "trust_1": {
+     "type": "trust",
+     "settings": {
+      "icon": "return",
+      "title": "30-Day Free Returns",
+      "text": "Not happy? Send it back"
+     }
+    },
+    "trust_2": {
+     "type": "trust",
+     "settings": {
+      "icon": "warranty",
+      "title": "Lifetime Warranty",
+      "text": "We replace faulty beds"
+     }
+    },
+    "trust_3": {
+     "type": "trust",
+     "settings": {
+      "icon": "lock",
+      "title": "100% Secure Payments",
+      "text": "SSL encrypted checkout"
+     }
     }
    },
    "block_order": [
@@ -378,7 +410,11 @@
     "review_38",
     "review_39",
     "review_40",
-    "review_41"
+    "review_41",
+    "trust_0",
+    "trust_1",
+    "trust_2",
+    "trust_3"
    ],
    "settings": {
     "product": "dog-dock-isofix-car-bed",
