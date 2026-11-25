@@ -1,0 +1,5 @@
+{
+  "layout": "blk",
+  "sections": { "main": { "type": "blk-cart", "settings": { "heading": "Your cart" } } },
+  "order": ["main"]
+}

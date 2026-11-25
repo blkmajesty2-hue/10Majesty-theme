@@ -1,0 +1,73 @@
+{%- comment -%} Full store footer: newsletter, shop / help / policies columns, contact, payments, giant logo.
+  The Policies column reads the "footer" menu (Online Store > Navigation) so it stays editable in admin;
+  if that menu is empty it lists every policy set in Settings > Policies. {%- endcomment -%}
+{%- assign policy_menu = linklists.footer -%}
+<footer class="footer">
+  <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" style="--wave:var(--white)" aria-hidden="true"><path d="M0 0h1440v34C1200 0 960 0 720 18S240 60 0 40z"/></svg>
+  <div class="wrap">
+    <div class="foot-news">
+      <div>
+        <h2>Join the pack</h2>
+        <p>Road-trip tips, new colours and members-only offers. No spam, unsubscribe any time.</p>
+      </div>
+      {%- form 'customer', class: 'news-form', id: 'blk-news' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        {%- if form.posted_successfully? -%}
+          <p class="news-ok" role="status">Thanks for joining the pack!</p>
+        {%- else -%}
+          <label class="visually-hidden" for="blk-news-email">Email</label>
+          <input id="blk-news-email" type="email" name="contact[email]" placeholder="Your email" autocomplete="email" required>
+          <button type="submit">Subscribe</button>
+          {%- if form.errors -%}<p class="news-err" role="alert">{{ form.errors | default_errors }}</p>{%- endif -%}
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+
+    <nav class="foot-cols" aria-label="Footer">
+      <div class="foot-col">
+        <h3>Shop</h3>
+        <ul>
+          <li><a href="/products/dog-dock-isofix-car-bed">Dog Dock V2 ISOFIX Car Bed</a></li>
+          <li><a href="/products/adjustable-dog-harness">Adjustable Dog Harness</a></li>
+          <li><a href="/products/dog-lead">Dog Lead</a></li>
+          <li><a href="{{ routes.all_products_collection_url }}">Shop all</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h3>Help</h3>
+        <ul>
+          <li><a href="/pages/contact">Contact us</a></li>
+          <li><a href="https://blkmajesty.com/apps/track123">Track your order</a></li>
+          <li><a href="{{ routes.root_url }}#faq">FAQ</a></li>
+          <li><a href="{{ routes.root_url }}#reviews">Reviews</a></li>
+          {%- if shop.customer_accounts_enabled -%}<li><a href="{{ routes.account_url }}">My account</a></li>{%- endif -%}
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h3>Policies</h3>
+        <ul>
+          {%- if policy_menu.links.size > 0 -%}
+            {%- for link in policy_menu.links -%}
+              <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+            {%- endfor -%}
+          {%- else -%}
+            {%- for policy in shop.policies -%}
+              <li><a href="{{ policy.url }}">{{ policy.title | escape }}</a></li>
+            {%- endfor -%}
+          {%- endif -%}
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h3>BLK Majesty</h3>
+        <p>Safe, calm car rides for dogs of every size. A share of every sale goes to local animal shelters.</p>
+        {%- if shop.email != blank -%}<p><a href="mailto:{{ shop.email }}">{{ shop.email }}</a></p>{%- endif -%}
+      </div>
+    </nav>
+
+    <div class="foot-mid">
+      <span>&copy; {{ 'now' | date: '%Y' }} BLK Majesty. All rights reserved.</span>
+      <div class="pays" aria-label="Accepted payments">{%- for type in shop.enabled_payment_types -%}{{ type | payment_type_svg_tag: class: 'pay-icon' }}{%- endfor -%}</div>
+    </div>
+    <div class="giant" aria-hidden="true">{%- render 'blk-logo' -%}<span>BLK MAJESTY</span></div>
+  </div>
+</footer>

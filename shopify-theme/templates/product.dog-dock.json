@@ -81,7 +81,10 @@
       "name": "BLK Majesty Adjustable Harness",
       "price": "$40.00",
       "compare": "$70.00",
-      "link": "/products/adjustable-dog-harness"
+      "link": "/products/adjustable-dog-harness",
+      "product": "adjustable-dog-harness",
+      "options": "Size: S/M, L/XL | Colour: Blue, Black, Green, Grey",
+      "prices": "L/XL=$48.00/$80.00"
      }
     },
     "addon_11": {
@@ -91,7 +94,9 @@
       "name": "BLK Majesty Lead",
       "price": "$25.00",
       "compare": "$40.00",
-      "link": "/products/dog-lead"
+      "link": "/products/dog-lead",
+      "product": "dog-lead",
+      "options": "Colour: Blue, Black, Green, Grey"
      }
     },
     "info_tab_12": {

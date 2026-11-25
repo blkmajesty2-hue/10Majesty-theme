@@ -10,7 +10,7 @@
   assign first_img = section.blocks | where: 'type', 'gallery' | first
 -%}
 
-<div class="blk-page">
+<div class="blk-page" data-product-url="{% if p != blank %}{{ p.url }}{% else %}/products/dog-dock-isofix-car-bed{% endif %}">
   <div class="marquee" aria-label="{{ 'Store promises' | escape }}">
     <div class="marquee-track">
       {%- for n in (1..2) -%}
@@ -84,23 +84,55 @@
           <div class="bundle">
             <span class="bundle-tag">{{ section.settings.bundle_tag | escape }}</span>
             {%- for block in addons -%}
-              <div class="addon" {{ block.shopify_attributes }}>
-                <div class="pic">{% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}{% endif %}</div>
-                <span class="name">{{ block.settings.name | escape }}</span>
-                <span class="p">{{ block.settings.price | escape }}<s>{{ block.settings.compare | escape }}</s></span>
+              {%- assign ap = block.settings.product -%}
+              {%- assign ap_live = false -%}
+              {%- if ap != blank and ap.available -%}{%- assign ap_live = true -%}{%- endif -%}
+              <div class="addon" data-addon {{ block.shopify_attributes }}
+                data-url="{% if ap != blank %}{{ ap.url }}{% else %}{{ block.settings.link }}{% endif %}"
+                data-prices="{{ block.settings.prices | escape }}"
+                data-base="{{ block.settings.price | escape }}" data-base-was="{{ block.settings.compare | escape }}"
+                {% if ap_live %}data-variant="{{ ap.selected_or_first_available_variant.id }}"{% endif %}>
+                <div class="pic">{% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 200 | image_tag: loading: 'lazy', alt: '' }}{% elsif ap_live and ap.featured_image %}{{ ap.featured_image | image_url: width: 200 | image_tag: loading: 'lazy', alt: '' }}{% endif %}</div>
+                <span class="name">{% if block.settings.name != blank %}{{ block.settings.name | escape }}{% else %}{{ ap.title | escape }}{% endif %}</span>
+                <span class="p"><span class="ap-now">{% if ap_live %}{{ ap.selected_or_first_available_variant.price | money }}{% else %}{{ block.settings.price | escape }}{% endif %}</span><s class="ap-was">{% if ap_live %}{{ ap.selected_or_first_available_variant.compare_at_price | money }}{% else %}{{ block.settings.compare | escape }}{% endif %}</s></span>
+                {%- if ap_live -%}
+                  {%- unless ap.has_only_default_variant -%}
+                    <div class="selects">
+                      {%- for opt in ap.options_with_values -%}
+                        <label>{{ opt.name | escape }}<select data-opt>{%- for v in opt.values -%}<option{% if v == opt.selected_value %} selected{% endif %}>{{ v | escape }}</option>{%- endfor -%}</select></label>
+                      {%- endfor -%}
+                    </div>
+                  {%- endunless -%}
+                  <script type="application/json" data-addon-variants>{{ ap.variants | json }}</script>
+                {%- elsif block.settings.options != blank -%}
+                  <div class="selects">
+                    {%- assign groups = block.settings.options | split: '|' -%}
+                    {%- for g in groups -%}
+                      {%- assign kv = g | split: ':' -%}
+                      {%- assign vals = kv[1] | split: ',' -%}
+                      <label>{{ kv[0] | strip | escape }}<select data-opt>{%- for v in vals -%}<option>{{ v | strip | escape }}</option>{%- endfor -%}</select></label>
+                    {%- endfor -%}
+                  </div>
+                {%- endif -%}
               </div>
             {%- endfor -%}
-            <label class="bundle-check"><input type="checkbox" id="blk-bundle" checked> {{ section.settings.bundle_text | escape }}</label>
+            <label class="bundle-check"><input type="checkbox" id="blk-bundle" checked> <span id="blk-bundle-text">{{ section.settings.bundle_text | escape }}</span></label>
           </div>
         {%- endif -%}
 
+        {%- assign cta_label = section.settings.cta_text | split: ' – ' | first -%}
+        {%- capture cta_inner -%}{{ cta_label | escape }} – <span id="blk-cta-price">{% if has_product %}{{ p.selected_or_first_available_variant.price | money }}{% else %}{{ section.settings.price_text | escape }}{% endif %}</span> <s id="blk-cta-was"></s>{%- endcapture -%}
         {%- if has_product -%}
           {%- form 'product', p, id: 'blk-form', class: 'blk-form' -%}
             <input type="hidden" name="id" id="blk-variant" value="{{ p.selected_or_first_available_variant.id }}">
-            <button type="submit" class="cta" id="blk-claim">{{ section.settings.cta_text | escape }}</button>
+            <div class="pay-terms">{{ form | payment_terms }}</div>
+            <button type="submit" class="cta" id="blk-claim">{{ cta_inner }}</button>
+            <div class="dyn-checkout">{{ form | payment_button }}</div>
           {%- endform -%}
         {%- else -%}
-          <button type="button" class="cta" id="blk-claim">{{ section.settings.cta_text | escape }}</button>
+          <p class="pay-terms pay-terms--fb"><span class="zi"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 2h6l6 6-6 6-6-6z" fill="currentColor"/><circle cx="5.5" cy="5.5" r="1.3" fill="#fff"/></svg>Zero interest</span> 4 payments of <b id="blk-terms">$0.00</b> with <b class="shopw">shop</b></p>
+          <button type="button" class="cta" id="blk-claim">{{ cta_inner }}</button>
+          <button type="button" class="shop-btn" id="blk-shop">Buy with <b>shop</b></button>
         {%- endif -%}
         <p class="applied"><i><svg><use href="#blk-check"/></svg></i>{{ section.settings.applied_text | escape }}</p>
         {%- if section.settings.second_offer != blank -%}<p class="second">{{ section.settings.second_offer | escape }}</p>{%- endif -%}
@@ -214,7 +246,7 @@
     <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" style="--wave:var(--white)" aria-hidden="true"><path d="M0 60V40C300 64 520 20 760 14S1240 10 1440 30v30z"/></svg>
   </section>
 
-  <section class="band white">
+  <section class="band white" id="faq">
     <div class="wrap" style="padding-top:30px">
       <h2 class="center-title">{{ section.settings.faq_heading | escape }}</h2>
       <div class="faq-grid">
@@ -263,6 +295,7 @@
 
 {%- if has_product -%}
   <script type="application/json" id="blk-variants">{{ p.variants | json }}</script>
+  <script>window.BLKCompare = window.BLKCompare || {};{% for v in p.variants %}{% if v.compare_at_price > v.price %}BLKCompare[{{ v.id }}] = {{ v.compare_at_price }};{% endif %}{% endfor %}</script>
 {%- endif -%}
 
 <script>
@@ -272,8 +305,44 @@
     var state = { size: (document.querySelector('.size') || {}).dataset ? document.querySelector('.size').dataset.size : '', colour: (document.querySelector('.swatch') || {}).dataset ? document.querySelector('.swatch').dataset.colour : '' };
     var variants = []; try { variants = JSON.parse(($('#blk-variants') || {}).textContent || '[]'); } catch (e) {}
     var thumbs = $$('.thumb');
+    var sizePrices = {};
+    ({{ section.settings.size_prices | json }} || '').split(',').forEach(function (rule) { var kv = rule.split('='); if (kv.length > 1) { var pw = kv[1].split('/'); sizePrices[kv[0].trim()] = [pw[0].trim(), (pw[1] || '').trim()]; } });
     function showImage(src) { var m = $('#blk-main-img'); if (m && src) { m.src = src; m.removeAttribute('srcset'); } thumbs.forEach(function (t) { t.setAttribute('aria-current', t.dataset.img === src); }); }
-    function money(c) { return (window.Shopify && Shopify.formatMoney) ? Shopify.formatMoney(c) : '$' + (c / 100).toFixed(2); }
+    function money(c) { return window.BLKCart ? BLKCart.money(c) : '$' + (c / 100).toFixed(2); }
+    function parseMoney(t) { var n = parseFloat(String(t || '').replace(/[^0-9.,]/g, '').replace(/,(?=\d{3})/g, '').replace(',', '.')); return isNaN(n) ? 0 : Math.round(n * 100); }
+    function bundleOn() { var c = $('#blk-bundle'); return c ? c.checked : false; }
+    var addons = $$('[data-addon]');
+    function addonSel(a) { return Array.prototype.map.call(a.querySelectorAll('select[data-opt]'), function (x) { return x.value; }); }
+    function updateAddon(a) {
+      var sel = addonSel(a), now = a.querySelector('.ap-now'), was = a.querySelector('.ap-was');
+      var vj = a.querySelector('[data-addon-variants]');
+      if (vj) {
+        var vs = []; try { vs = JSON.parse(vj.textContent); } catch (e) {}
+        var v = vs.filter(function (x) { return sel.every(function (s, i) { return x.options[i] === s; }); })[0];
+        if (v) { a.dataset.variant = v.id; now.textContent = money(v.price); was.textContent = v.compare_at_price > v.price ? money(v.compare_at_price) : ''; if (v.compare_at_price > v.price) (window.BLKCompare = window.BLKCompare || {})[v.id] = v.compare_at_price; }
+      } else {
+        var n = a.dataset.base, w = a.dataset.baseWas;
+        (a.dataset.prices || '').split(',').forEach(function (rule) {
+          var kv = rule.split('='); if (kv.length < 2) return;
+          if (sel.indexOf(kv[0].trim()) > -1) { var pw = kv[1].split('/'); n = pw[0].trim(); if (pw[1]) w = pw[1].trim(); }
+        });
+        now.textContent = n; was.textContent = w;
+      }
+      updateTotals();
+    }
+    function updateTotals() {
+      var main = parseMoney(($('#blk-price') || {}).textContent), mainWas = parseMoney(($('#blk-compare') || {}).textContent) || main;
+      var aNow = 0, aWas = 0;
+      addons.forEach(function (a) { var n = parseMoney(a.querySelector('.ap-now').textContent); aNow += n; aWas += parseMoney(a.querySelector('.ap-was').textContent) || n; });
+      var bt = $('#blk-bundle-text'); if (bt && addons.length) bt.textContent = 'Add ' + (addons.length === 2 ? 'both' : 'all') + ' for ' + money(aNow) + (aWas > aNow ? ' (save ' + money(aWas - aNow) + ')' : '');
+      var tot = main + (bundleOn() ? aNow : 0), totWas = mainWas + (bundleOn() ? aWas : 0);
+      var cp = $('#blk-cta-price'), cw = $('#blk-cta-was'), tm = $('#blk-terms');
+      if (cp) cp.textContent = money(tot);
+      if (cw) cw.textContent = totWas > tot ? money(totWas) : '';
+      if (tm) tm.textContent = money(Math.round(tot / 4));
+    }
+    addons.forEach(function (a) { a.querySelectorAll('select[data-opt]').forEach(function (x) { x.addEventListener('change', function () { updateAddon(a); }); }); });
+    if ($('#blk-bundle')) $('#blk-bundle').addEventListener('change', updateTotals);
     function render() {
       $$('.swatch').forEach(function (s) { s.setAttribute('aria-pressed', s.dataset.colour === state.colour); });
       $$('.size').forEach(function (s) { s.setAttribute('aria-pressed', s.dataset.size === state.size); });
@@ -281,6 +350,8 @@
       if (t) showImage(t.dataset.img);
       var v = variants.filter(function (x) { return x.options.indexOf(state.size) > -1 && x.options.indexOf(state.colour) > -1; })[0];
       if (v) { $('#blk-variant').value = v.id; $('#blk-price').textContent = money(v.price); $('#blk-compare').textContent = v.compare_at_price ? money(v.compare_at_price) : ''; }
+      else if (!variants.length) { var sp = sizePrices[state.size]; if (sp) { $('#blk-price').textContent = sp[0]; $('#blk-compare').textContent = sp[1] || ''; } }
+      updateTotals();
     }
     $$('.swatch').forEach(function (s) { s.addEventListener('click', function () { state.colour = s.dataset.colour; render(); }); });
     $$('.size').forEach(function (s) { s.addEventListener('click', function () { state.size = s.dataset.size; render(); }); });
@@ -292,6 +363,38 @@
       v.addEventListener('click', function () { v.paused ? v.play() : v.pause(); });
       v.addEventListener('play', function () { box.classList.add('playing'); }); v.addEventListener('pause', function () { box.classList.remove('playing'); });
     });
+    function addonItems() {
+      return bundleOn() ? addons.map(function (a, i) {
+        var n = parseMoney(a.querySelector('.ap-now').textContent), w = parseMoney(a.querySelector('.ap-was').textContent), im = a.querySelector('img');
+        return { key: 'addon-' + i + '-' + addonSel(a).join('-'), variant: a.dataset.variant, product_title: (a.querySelector('.name') || {}).textContent, url: a.dataset.url || '#', image: im ? (im.currentSrc || im.src) : '', quantity: 1, final_price: n, final_line_price: n, compare_at_price: w,
+          options_with_values: addonSel(a).map(function (v) { return { value: v }; }) };
+      }) : [];
+    }
+    var form = $('#blk-form'), claim = $('#blk-claim');
+    if (form) {
+      form.addEventListener('submit', function (e) {
+        if (!window.BLKCart) return;
+        e.preventDefault();
+        var items = [{ id: +$('#blk-variant').value, quantity: 1 }];
+        addonItems().forEach(function (a) { if (a.variant) items.push({ id: +a.variant, quantity: 1 }); });
+        claim.disabled = true;
+        BLKCart.add(items).catch(function (err) { alert(err.message); }).then(function () { claim.disabled = false; });
+      });
+    } else if (claim) {
+      // Product not sold online yet (draft): open the cart in preview mode so the design can be checked.
+      var previewAdd = function () {
+        if (!window.BLKCart) return;
+        var price = parseMoney(($('#blk-price') || {}).textContent), was = parseMoney(($('#blk-compare') || {}).textContent);
+        var mi = $('#blk-main-img');
+        var items = [{ key: 'main-' + state.size + '-' + state.colour, product_title: ($('.info h1') || {}).textContent, url: document.querySelector('.blk-page').dataset.productUrl, image: mi ? (mi.currentSrc || mi.src) : '', quantity: 1, final_price: price, final_line_price: price, compare_at_price: was,
+          options_with_values: [{ value: state.size }, { value: state.colour }].filter(function (o) { return o.value; }) }].concat(addonItems());
+        BLKCart.preview(items);
+      };
+      claim.addEventListener('click', previewAdd);
+      if ($('#blk-shop')) $('#blk-shop').addEventListener('click', previewAdd);
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { addons.forEach(updateAddon); updateTotals(); });
+    else { addons.forEach(updateAddon); updateTotals(); }
     var tr = $('#rc-track');
     if (tr) {
       var step = function () { var c = tr.querySelector('.rc-card'); return c ? c.offsetWidth + 18 : 300; };
@@ -318,11 +421,12 @@
     { "type": "text", "id": "compare_text", "label": "Compare price (when product is not active)", "default": "$300.00" },
     { "type": "text", "id": "promo", "label": "Promo box", "default": "🎁 Early Black Friday: order today for 50% off" },
     { "type": "text", "id": "sizes", "label": "Sizes (comma separated, must match product)", "default": "Medium, Extra Large" },
+    { "type": "text", "id": "size_prices", "label": "Price per size when product is not active", "default": "Medium=$150.00/$300.00, Extra Large=$190.00/$380.00" },
     { "type": "text", "id": "colours", "label": "Colours as Name:#hex (comma separated)", "default": "Navy:#1a237e, Black:#111111, Green:#5f7258, Grey:#8c8c8c, Burgundy:#6e1a22" },
     { "type": "text", "id": "stock_text", "label": "Stock label", "default": "In stock" },
     { "type": "text", "id": "bundle_tag", "label": "Bundle label", "default": "BUNDLE & SAVE 55%" },
     { "type": "text", "id": "bundle_text", "label": "Bundle checkbox text", "default": "Add both for $65.00 (save $45.00)" },
-    { "type": "text", "id": "cta_text", "label": "Buy button text", "default": "Claim 50% off – Add to cart" },
+    { "type": "text", "id": "cta_text", "label": "Buy button text", "default": "Claim 50% off" },
     { "type": "text", "id": "applied_text", "label": "Text under buy button", "default": "Discount automatically applied" },
     { "type": "text", "id": "second_offer", "label": "Second offer", "default": "Extra 20% off 2nd Dog Dock in the same order!" },
     { "type": "richtext", "id": "description", "label": "Short description" },
@@ -350,7 +454,7 @@
   ],
   "blocks": [
     { "type": "gallery", "name": "Gallery photo", "settings": [ { "type": "image_picker", "id": "image", "label": "Image" }, { "type": "text", "id": "colour", "label": "Colour this photo shows (optional)" } ] },
-    { "type": "addon", "name": "Add-on product", "settings": [ { "type": "image_picker", "id": "image", "label": "Image" }, { "type": "text", "id": "name", "label": "Name" }, { "type": "text", "id": "price", "label": "Price" }, { "type": "text", "id": "compare", "label": "Was price" }, { "type": "url", "id": "link", "label": "Link" } ] },
+    { "type": "addon", "name": "Add-on product", "settings": [ { "type": "product", "id": "product", "label": "Product (added to cart with the bundle)" }, { "type": "text", "id": "options", "label": "Dropdowns when product is not active", "info": "Example: Size: S/M, L/XL | Colour: Blue, Black" }, { "type": "text", "id": "prices", "label": "Price per option when product is not active", "info": "Example: L/XL=$48.00/$80.00" }, { "type": "image_picker", "id": "image", "label": "Image" }, { "type": "text", "id": "name", "label": "Name" }, { "type": "text", "id": "price", "label": "Price" }, { "type": "text", "id": "compare", "label": "Was price" }, { "type": "url", "id": "link", "label": "Link" } ] },
     { "type": "info_tab", "name": "Info tab", "settings": [ { "type": "text", "id": "title", "label": "Title" }, { "type": "richtext", "id": "text", "label": "Text" } ] },
     { "type": "feature", "name": "Feature", "settings": [ { "type": "image_picker", "id": "image", "label": "Image" }, { "type": "text", "id": "title", "label": "Title" }, { "type": "textarea", "id": "text", "label": "Text" } ] },
     { "type": "ugc", "name": "Customer photo", "settings": [ { "type": "image_picker", "id": "image", "label": "Image" }, { "type": "text", "id": "caption", "label": "Caption" } ] },

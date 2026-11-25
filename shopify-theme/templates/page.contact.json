@@ -1,0 +1,5 @@
+{
+  "layout": "blk",
+  "sections": { "main": { "type": "blk-page", "settings": { "show_contact": true, "reply_time": "Within 24 hours, Mon–Fri" } } },
+  "order": ["main"]
+}

@@ -1,0 +1,35 @@
+<section class="blk-content">
+  <div class="wrap">
+    <h1>{{ page.title | escape }}</h1>
+    <div class="rte">{{ page.content }}</div>
+
+    {%- if section.settings.show_contact -%}
+      <div class="contact-cards">
+        <div><b>Email</b><span>{{ shop.email }}</span></div>
+        <div><b>Reply time</b><span>{{ section.settings.reply_time | escape }}</span></div>
+        <div><b>Orders</b><a href="https://blkmajesty.com/apps/track123">Track your order</a></div>
+      </div>
+      {%- form 'contact', class: 'contact-form' -%}
+        {%- if form.posted_successfully? -%}<p class="form-ok" role="status">Thanks! We'll get back to you soon.</p>{%- endif -%}
+        {%- if form.errors -%}<div class="form-err" role="alert">{{ form.errors | default_errors }}</div>{%- endif -%}
+        <div class="two">
+          <label>Name<input type="text" name="contact[name]" autocomplete="name" value="{{ form.name }}"></label>
+          <label>Email<input type="email" name="contact[email]" autocomplete="email" required value="{{ form.email }}"></label>
+        </div>
+        <label>Order number (optional)<input type="text" name="contact[order]"></label>
+        <label>Message<textarea name="contact[body]" required>{{ form.body }}</textarea></label>
+        <button type="submit" class="cta">Send message</button>
+      {%- endform -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "BLK page",
+  "settings": [
+    { "type": "checkbox", "id": "show_contact", "label": "Show contact form", "default": false },
+    { "type": "text", "id": "reply_time", "label": "Reply time", "default": "Within 24 hours, Mon–Fri" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,5 @@
+{
+  "layout": "blk",
+  "sections": { "main": { "type": "blk-page", "settings": { "show_contact": false } } },
+  "order": ["main"]
+}

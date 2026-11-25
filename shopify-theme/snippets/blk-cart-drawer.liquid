@@ -1,0 +1,162 @@
+{%- comment -%}
+  Slide-out cart. Opens after "Add to cart" and from the header cart icon.
+  Live mode: uses Shopify's /cart/*.js endpoints.
+  Preview mode: when a product is not yet sold online (draft), the product page calls
+  BLKCart.preview(items) so the drawer can still be seen; checkout is disabled there.
+{%- endcomment -%}
+{%- assign free_ship_cents = 0 -%}
+<div class="cd-overlay" data-blk-cart-close hidden></div>
+<aside class="cd" id="blk-cart" role="dialog" aria-modal="true" aria-labelledby="blk-cart-title" aria-hidden="true">
+  <div class="cd-head">
+    <h2 id="blk-cart-title">Your cart <span data-blk-cd-count>({{ cart.item_count }})</span></h2>
+    <button type="button" class="cd-x" data-blk-cart-close aria-label="Close cart">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="cd-ship">
+    <p><i><svg><use href="#blk-check"/></svg></i> You've unlocked <b>FREE express shipping</b></p>
+    <div class="cd-bar" aria-hidden="true"><span></span></div>
+  </div>
+  <p class="cd-preview" data-blk-cd-preview hidden>Preview cart: this product is still a draft, so checkout is off until it's set to Active.</p>
+  <div class="cd-body">
+    <ul class="cd-items" data-blk-cd-items></ul>
+    <div class="cd-empty" data-blk-cd-empty hidden>
+      <p>Your cart is empty.</p>
+      <a href="/products/dog-dock-isofix-car-bed" class="cta">Shop the Dog Dock</a>
+    </div>
+  </div>
+  <div class="cd-foot" data-blk-cd-foot>
+    <div class="cd-row cd-save" data-blk-cd-save-row hidden><span>You save</span><span data-blk-cd-save></span></div>
+    <div class="cd-row"><span>Shipping</span><span class="free">FREE</span></div>
+    <div class="cd-row cd-total"><span>Subtotal</span><span data-blk-cd-total>{{ cart.total_price | money }}</span></div>
+    <form action="{{ routes.cart_url }}" method="post" class="cd-form">
+      <button type="submit" name="checkout" class="cd-checkout" data-blk-cd-checkout>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 11V8a4 4 0 018 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+        Secure checkout
+      </button>
+    </form>
+    <ul class="cd-trust">
+      <li><i><svg><use href="#blk-check"/></svg></i>30-day free returns</li>
+      <li><i><svg><use href="#blk-check"/></svg></i>Lifetime warranty</li>
+    </ul>
+    <div class="pays cd-pays" aria-label="Accepted payments">{%- for type in shop.enabled_payment_types -%}{{ type | payment_type_svg_tag: class: 'pay-icon' }}{%- endfor -%}</div>
+  </div>
+</aside>
+<script type="application/json" id="blk-cart-data">{{ cart | json }}</script>
+<script>
+  (function () {
+    var fmt = {{ shop.money_format | json }};
+    var root = {{ routes.root_url | json }}.replace(/\/$/, '');
+    var drawer = document.getElementById('blk-cart');
+    var overlay = document.querySelector('.cd-overlay');
+    var q = function (s) { return drawer.querySelector(s); };
+    var previewItems = null;
+    var compare = window.BLKCompare = window.BLKCompare || {};
+    {%- for item in cart.items -%}{%- if item.variant.compare_at_price > item.variant.price %}
+    compare[{{ item.variant_id }}] = {{ item.variant.compare_at_price }};{%- endif -%}{%- endfor %}
+    var lastFocus = null;
+
+    function money(cents) {
+      var n = (cents || 0) / 100;
+      var two = n.toFixed(2), none = Math.round(n).toString();
+      var comma = function (s, sep, dec) { var p = s.split('.'); p[0] = p[0].replace(/\B(?=(\d{3})+(?!\d))/g, sep); return p.join(dec); };
+      return fmt.replace(/\{\{\s*(\w+)\s*\}\}/, function (_, k) {
+        if (k === 'amount_no_decimals') return comma(none, ',', '.');
+        if (k === 'amount_with_comma_separator') return comma(two, '.', ',');
+        if (k === 'amount_no_decimals_with_comma_separator') return comma(none, '.', ',');
+        return comma(two, ',', '.');
+      });
+    }
+    function esc(s) { var d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML; }
+
+    function render(cart, preview) {
+      var items = cart.items || [];
+      var list = q('[data-blk-cd-items]');
+      var save = 0;
+      list.innerHTML = items.map(function (it, i) {
+        var cmp = it.compare_at_price || compare[it.variant_id] || 0;
+        var was = cmp > it.final_price ? cmp : 0;
+        if (was) save += (was - it.final_price) * it.quantity;
+        var opts = (it.options_with_values || []).filter(function (o) { return o.value !== 'Default Title'; }).map(function (o) { return esc(o.value); }).join(' / ');
+        return '<li class="cd-item" data-key="' + esc(it.key) + '" data-i="' + i + '">' +
+          '<a class="cd-img" href="' + esc(it.url || '#') + '">' + (it.image ? '<img src="' + esc(it.image) + '" alt="" width="88" height="88" loading="lazy">' : '') + '</a>' +
+          '<div class="cd-info"><a class="cd-name" href="' + esc(it.url || '#') + '">' + esc(it.product_title) + '</a>' +
+          (opts ? '<span class="cd-opt">' + opts + '</span>' : '') +
+          '<div class="cd-qty" role="group" aria-label="Quantity"><button type="button" data-d="-1" aria-label="Decrease quantity">−</button><span>' + it.quantity + '</span><button type="button" data-d="1" aria-label="Increase quantity">+</button></div></div>' +
+          '<div class="cd-price"><b>' + money(it.final_line_price) + '</b>' + (was ? '<s>' + money(was * it.quantity) + '</s>' : '') +
+          '<button type="button" class="cd-rm" data-d="0">Remove</button></div></li>';
+      }).join('');
+      var count = items.reduce(function (a, it) { return a + it.quantity; }, 0);
+      var total = items.reduce(function (a, it) { return a + it.final_line_price; }, 0);
+      q('[data-blk-cd-count]').textContent = '(' + count + ')';
+      q('[data-blk-cd-total]').textContent = money(preview ? total : cart.total_price);
+      q('[data-blk-cd-save]').textContent = money(save);
+      q('[data-blk-cd-save-row]').hidden = save <= 0;
+      q('[data-blk-cd-empty]').hidden = items.length > 0;
+      q('[data-blk-cd-foot]').hidden = items.length === 0;
+      q('[data-blk-cd-preview]').hidden = !preview;
+      q('[data-blk-cd-checkout]').disabled = !!preview;
+      document.querySelectorAll('[data-blk-count]').forEach(function (b) { b.textContent = count; b.hidden = count === 0; });
+    }
+
+    function open() {
+      lastFocus = document.activeElement;
+      overlay.hidden = false;
+      drawer.setAttribute('aria-hidden', 'false');
+      requestAnimationFrame(function () { drawer.classList.add('open'); overlay.classList.add('open'); });
+      document.documentElement.style.overflow = 'hidden';
+      setTimeout(function () { var x = q('.cd-x'); if (x) x.focus(); }, 50);
+    }
+    function close() {
+      drawer.classList.remove('open'); overlay.classList.remove('open');
+      drawer.setAttribute('aria-hidden', 'true');
+      document.documentElement.style.overflow = '';
+      setTimeout(function () { overlay.hidden = true; }, 300);
+      if (lastFocus) lastFocus.focus();
+    }
+    function refresh() { return fetch(root + '/cart.js', { headers: { Accept: 'application/json' } }).then(function (r) { return r.json(); }).then(function (c) { previewItems = null; render(c, false); return c; }); }
+
+    function previewCart() { return { items: previewItems }; }
+
+    drawer.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-d]'); if (!b) return;
+      var li = b.closest('.cd-item'); var d = +b.dataset.d;
+      if (previewItems) {
+        var it = previewItems[+li.dataset.i];
+        it.quantity = d === 0 ? 0 : Math.max(0, it.quantity + d);
+        it.final_line_price = it.final_price * it.quantity;
+        previewItems = previewItems.filter(function (x) { return x.quantity > 0; });
+        render(previewCart(), true); return;
+      }
+      var cur = +li.querySelector('.cd-qty span').textContent;
+      fetch(root + '/cart/change.js', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ id: li.dataset.key, quantity: d === 0 ? 0 : Math.max(0, cur + d) }) })
+        .then(function (r) { return r.json(); }).then(function (c) { render(c, false); });
+    });
+    document.addEventListener('click', function (e) {
+      if (e.target.closest('[data-blk-cart-close]')) { e.preventDefault(); close(); }
+      else if (e.target.closest('[data-blk-cart-open]')) { e.preventDefault(); if (!previewItems) refresh(); open(); }
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && drawer.classList.contains('open')) close(); });
+
+    window.BLKCart = {
+      money: money,
+      open: open,
+      close: close,
+      refresh: refresh,
+      add: function (items) {
+        return fetch(root + '/cart/add.js', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ items: items }) })
+          .then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error(j.description || j.message || 'Could not add to cart'); return j; }); })
+          .then(refresh).then(open);
+      },
+      preview: function (items) {
+        previewItems = (previewItems || []).slice();
+        items.forEach(function (n) {
+          var ex = previewItems.filter(function (x) { return x.key === n.key; })[0];
+          if (ex) { ex.quantity += n.quantity; ex.final_line_price = ex.final_price * ex.quantity; } else previewItems.push(n);
+        });
+        render(previewCart(), true); open();
+      }
+    };
+    try { render(JSON.parse(document.getElementById('blk-cart-data').textContent), false); } catch (e) {}
+  })();
+</script>

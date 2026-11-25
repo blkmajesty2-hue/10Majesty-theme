@@ -1,0 +1,50 @@
+<section class="cart-page">
+  <div class="wrap">
+    <h1>{{ section.settings.heading | escape }}</h1>
+    {%- if cart.item_count > 0 -%}
+      <form action="{{ routes.cart_url }}" method="post" class="cart-grid" id="blk-cart-form">
+        <ul class="cart-table">
+          {%- for item in cart.items -%}
+            <li class="cd-item">
+              <a class="cd-img" href="{{ item.url }}">{%- if item.image -%}{{ item.image | image_url: width: 240 | image_tag: loading: 'lazy', alt: item.product.title }}{%- endif -%}</a>
+              <div class="cd-info">
+                <a class="cd-name" href="{{ item.url }}">{{ item.product.title | escape }}</a>
+                {%- unless item.product.has_only_default_variant -%}<span class="cd-opt">{{ item.variant.title | escape }}</span>{%- endunless -%}
+                <label class="visually-hidden" for="qty-{{ forloop.index }}">Quantity</label>
+                <div class="cd-qty"><input id="qty-{{ forloop.index }}" type="number" name="updates[]" value="{{ item.quantity }}" min="0" style="width:56px;border:0;text-align:center;font:inherit;padding:6px 0;background:none;color:inherit" onchange="this.form.submit()"></div>
+              </div>
+              <div class="cd-price">
+                <b>{{ item.final_line_price | money }}</b>
+                {%- if item.variant.compare_at_price > item.variant.price -%}<s>{{ item.variant.compare_at_price | times: item.quantity | money }}</s>{%- endif -%}
+                <a class="cd-rm" href="{{ item.url_to_remove }}">Remove</a>
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
+        <div class="cart-sum">
+          {%- assign saved = 0 -%}
+          {%- for item in cart.items -%}{%- if item.variant.compare_at_price > item.variant.price -%}{%- assign d = item.variant.compare_at_price | minus: item.variant.price | times: item.quantity -%}{%- assign saved = saved | plus: d -%}{%- endif -%}{%- endfor -%}
+          {%- if saved > 0 -%}<div class="cd-row cd-save"><span>You save</span><span>{{ saved | money }}</span></div>{%- endif -%}
+          <div class="cd-row"><span>Shipping</span><span class="free">FREE</span></div>
+          <div class="cd-row cd-total"><span>Subtotal</span><span>{{ cart.total_price | money }}</span></div>
+          <p style="font-size:13px;color:#5b6b74">Taxes and discount codes calculated at checkout.</p>
+          <button type="submit" name="checkout" class="cd-checkout">Secure checkout</button>
+          <ul class="cd-trust"><li><i><svg><use href="#blk-check"/></svg></i>30-day free returns</li><li><i><svg><use href="#blk-check"/></svg></i>Lifetime warranty</li></ul>
+          <div class="pays cd-pays">{%- for type in shop.enabled_payment_types -%}{{ type | payment_type_svg_tag: class: 'pay-icon' }}{%- endfor -%}</div>
+        </div>
+      </form>
+    {%- else -%}
+      <div class="cart-empty">
+        <p>Your cart is empty.</p>
+        <a class="cta" href="/products/dog-dock-isofix-car-bed">Shop the Dog Dock</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "BLK cart",
+  "settings": [ { "type": "text", "id": "heading", "label": "Heading", "default": "Your cart" } ]
+}
+{% endschema %}
