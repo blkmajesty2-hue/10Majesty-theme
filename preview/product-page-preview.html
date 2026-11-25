@@ -133,6 +133,10 @@
   .acc-q .chev { margin-left: auto; width: 12px; height: 12px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg) translateY(-4px); transition: transform .2s; flex: none; }
   .acc-q[aria-expanded="true"] .chev { transform: rotate(-135deg); }
   .acc-a { padding: 0 4px 14px 38px; font-size: 14px; }
+  .size-chart { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+  .size-chart figure { margin: 0; border: 1.5px solid #d8e3ea; border-radius: 8px; overflow: hidden; }
+  .size-chart img { width: 100%; aspect-ratio: 1; object-fit: cover; }
+  .size-chart figcaption { display: grid; text-align: center; padding: 6px; font-size: 13px; }
   .desc p { font-size: 15px; }
   .desc button { background: none; border: 0; padding: 0; margin-top: 6px; font-size: 15px; }
 
@@ -303,8 +307,10 @@
           <button class="thumb" aria-current="false" data-img="img/bed-sage.jpg" data-colour="Green" aria-label="Show green"><img src="img/bed-sage.jpg" alt=""></button>
           <button class="thumb" aria-current="false" data-img="img/bed-grey.jpg" data-colour="Grey" aria-label="Show grey"><img src="img/bed-grey.jpg" alt=""></button>
           <button class="thumb" aria-current="false" data-img="img/bed-burgundy.jpg" data-colour="Burgundy" aria-label="Show burgundy"><img src="img/bed-burgundy.jpg" alt=""></button>
+          <button class="thumb" aria-current="false" data-img="img/bed-xl.jpg" aria-label="Show the Extra Large size"><img src="img/bed-xl.jpg" alt=""></button>
+          <button class="thumb" aria-current="false" data-img="img/bed-front.jpg" aria-label="Show the Dog Dock closed"><img src="img/bed-front.jpg" alt=""></button>
+          <button class="thumb" aria-current="false" data-img="img/bed-carry.jpg" aria-label="Show the Dog Dock carried as a bag"><img src="img/bed-carry.jpg" alt=""></button>
           <button class="thumb" aria-current="false" data-img="img/lifestyle-car.jpg" aria-label="Show the Dog Dock in a car"><img src="img/lifestyle-car.jpg" alt=""></button>
-          <button class="thumb" aria-current="false" data-img="img/feat-pocket.jpg" aria-label="Show the side pocket"><img src="img/feat-pocket.jpg" alt=""></button>
           <button class="thumb" aria-current="false" data-img="img/video-warehouse.jpg" aria-label="Show video cover"><img src="img/video-warehouse.jpg" alt=""><span class="play"></span></button>
         </div>
         <div class="stage">
@@ -370,7 +376,12 @@
         <div>
           <div class="acc">
             <button class="acc-q" aria-expanded="false"><svg class="ic"><use href="#box"/></svg>Sizes &amp; dog sizes<span class="chev"></span></button>
-            <div class="acc-a" hidden><p><b>Medium:</b> 53 cm (L) × 47 cm (W) × 44 cm (H). Ideal for smaller breeds such as Dachshunds, Border Terriers, Cockapoos and Cocker Spaniels.</p><p style="margin-top:8px"><b>Extra Large:</b> 100 cm (L) × 52 cm (W) × 44 cm (H). Made for larger breeds, or two small dogs side by side.</p></div>
+            <div class="acc-a" hidden>
+              <div class="size-chart">
+                <figure><img src="img/bed-navy.jpg" alt="Medium Dog Dock"><figcaption><b>Medium</b><span>53 × 47 × 44 cm</span></figcaption></figure>
+                <figure><img src="img/bed-xl.jpg" alt="Extra Large Dog Dock"><figcaption><b>Extra Large</b><span>100 × 52 × 44 cm</span></figcaption></figure>
+              </div>
+              <p><b>Medium:</b> 53 cm (L) × 47 cm (W) × 44 cm (H). Ideal for smaller breeds such as Dachshunds, Border Terriers, Cockapoos and Cocker Spaniels.</p><p style="margin-top:8px"><b>Extra Large:</b> 100 cm (L) × 52 cm (W) × 44 cm (H). Made for larger breeds, or two small dogs side by side.</p></div>
           </div>
           <div class="acc">
             <button class="acc-q" aria-expanded="false"><svg class="ic"><use href="#thumb"/></svg>Lifetime Warranty<span class="chev"></span></button>
@@ -420,7 +431,7 @@
       <div class="ugc">
         <div class="tile"><img src="img/ugc-box.jpg" alt=""><p>It's here!</p></div>
         <div class="tile"><img src="img/ugc-grey.jpg" alt=""><p>Set up in two minutes</p></div>
-        <div class="tile"><img src="img/ugc-sage.jpg" alt=""><p>The Dog Dock V2</p></div>
+        <div class="tile"><img src="img/ugc-sage.jpg" alt=""><p>Asleep before we left the street</p></div>
         <div class="tile"><img src="img/ugc-dog.jpg" alt=""><p>Doody's got a parcel!</p></div>
         <div class="tile"><img src="img/ugc-unbox.jpg" alt=""><p>Trying out our new car seat, perfect for an anxious girly</p></div>
         <div class="tile"><img src="img/ugc-puppy.jpg" alt=""><p>Already her favourite spot</p></div>
@@ -545,7 +556,8 @@
 
     function showImage(src, alt) { var m = $('#main-img'); m.src = src; m.alt = alt; $$('.thumb').forEach(function (t) { t.setAttribute('aria-current', t.dataset.img === src); }); }
     function render() {
-      showImage(imgs[state.colour], 'Dog Dock V2 in ' + state.colour.toLowerCase());
+      var src = (state.size === 'Extra Large' && state.colour === 'Navy') ? 'img/bed-xl.jpg' : imgs[state.colour];
+      showImage(src, 'Dog Dock V2 ' + state.size + ' in ' + state.colour.toLowerCase());
       $('#sticky-img').src = imgs[state.colour];
       $$('.swatch').forEach(function (s) { s.setAttribute('aria-pressed', s.dataset.colour === state.colour); });
       $$('.size').forEach(function (s) { s.setAttribute('aria-pressed', s.dataset.size === state.size); });
