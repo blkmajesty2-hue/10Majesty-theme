@@ -78,6 +78,9 @@
           {%- endfor -%}
         </div>
         <span class="stock"><i><svg><use href="#blk-check"/></svg></i>{{ section.settings.stock_text | escape }}</span>
+        {%- comment -%} Urgency: only true facts. Real "only X left" when stock is tracked; otherwise sold-out colours + the real Black Friday deadline. {%- endcomment -%}
+        <p class="urgency" id="blk-urg" hidden><span class="u-dot" aria-hidden="true"></span><span id="blk-urg-t"></span></p>
+        {%- if has_product -%}<script type="application/json" id="blk-inv">{ {%- for v in p.variants -%}"{{ v.id }}":{% if v.inventory_management == 'shopify' and v.inventory_policy == 'deny' %}{{ v.inventory_quantity }}{% else %}null{% endif %}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%} }</script>{%- endif -%}
 
         {%- assign addons = section.blocks | where: 'type', 'addon' -%}
         {%- if addons.size > 0 -%}
@@ -403,10 +406,32 @@
         }
         var sb = $('#blk-sbar-go'); if (sb) { sb.disabled = sold; sb.textContent = sold ? 'Sold out' : 'Add to cart'; }
         var st = $('.stock'); if (st) st.classList.toggle('is-sold', sold);
+        urgency(v, sold);
       }
       else if (!variants.length) { var sp = sizePrices[state.size]; if (sp) { $('#blk-price').textContent = sp[0]; $('#blk-compare').textContent = sp[1] || ''; } }
       updateTotals();
     }
+    var inv = {}; try { inv = JSON.parse(($('#blk-inv') || {}).textContent || '{}'); } catch (e) {}
+    var DE = {{ request.locale.iso_code | json }} === 'de', urgV = null, urgSold = false, urgOn = false;
+    var L = DE ? { left: 'Nur noch {n} Stück in dieser Größe & Farbe – schnell sein!', sold: '{n} von {t} Farben bereits ausverkauft', ends: 'Black-Friday-Preis endet in {d} T. {h} Std.', endsH: 'Black-Friday-Preis endet in {h} Std. {m} Min.' }
+               : { left: 'Only {n} left in this size & colour – order soon!', sold: '{n} of {t} colours already sold out', ends: 'Black Friday price ends in {d}d {h}h', endsH: 'Black Friday price ends in {h}h {m}m' };
+    function fill(t, o) { return t.replace(/\{(\w)\}/g, function (_, k) { return o[k]; }); }
+    function urgency(v, sold) {
+      urgV = v; urgSold = sold; urgOn = true;
+      var box = $('#blk-urg'), txt = $('#blk-urg-t'); if (!box) return;
+      var parts = [], q = v ? inv[v.id] : null, low = false;
+      if (!sold && q != null && q > 0 && q <= 10) { parts.push(fill(L.left, { n: q })); low = true; }
+      else {
+        var sw = $$('.swatch'), n = sw.filter(function (x) { return x.classList.contains('is-sold'); }).length;
+        if (n > 0) parts.push(fill(L.sold, { n: n, t: sw.length }));
+      }
+      var cd = document.getElementById('blk-cdown'), end = cd ? Date.parse(cd.dataset.end) : NaN, ms = end - Date.now();
+      if (ms > 0) { var d = Math.floor(ms / 864e5), h = Math.floor(ms % 864e5 / 36e5), m = Math.floor(ms % 36e5 / 6e4); parts.push(d > 0 ? fill(L.ends, { d: d, h: h }) : fill(L.endsH, { h: h, m: m })); }
+      txt.textContent = parts.join(' · ');
+      box.classList.toggle('is-low', low);
+      box.hidden = sold || !parts.length;
+    }
+    setInterval(function () { if (urgOn) urgency(urgV, urgSold); }, 30000);
     $$('.swatch').forEach(function (s) { s.addEventListener('click', function () { state.colour = s.dataset.colour; render(); }); });
     $$('.size').forEach(function (s) { s.addEventListener('click', function () { state.size = s.dataset.size; render(); }); });
     thumbs.forEach(function (t) { t.addEventListener('click', function () { showImage(t.dataset.img); }); });

@@ -53,3 +53,13 @@
 .cd-timer { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; background: #111; color: #fff; padding: 9px 16px; font-size: 14px; }
 .cd-timer svg { width: 18px; height: 18px; flex: none; }
 .cd-timer b { font-family: var(--head); font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: .01em; }
+
+/* Low-stock / urgency line under the stock pill (only true facts, see blk-dog-dock.liquid) */
+.blk-body .blk-page .urgency { display: flex; align-items: center; gap: 9px; margin: -2px 0 0; font-size: 14px; font-weight: 600; line-height: 1.35; color: #b4380f; }
+.blk-body .blk-page .urgency[hidden] { display: none; }
+.blk-body .blk-page .urgency .u-dot { flex: none; width: 10px; height: 10px; border-radius: 50%; background: #e0461a; box-shadow: 0 0 0 0 rgba(224,70,26,.55); animation: blk-pulse 1.8s ease-out infinite; }
+.blk-body .blk-page .urgency.is-low { color: #b3141c; }
+.blk-body .blk-page .urgency.is-low .u-dot { background: #d61f27; }
+@keyframes blk-pulse { 0% { box-shadow: 0 0 0 0 rgba(224,70,26,.55); } 70% { box-shadow: 0 0 0 9px rgba(224,70,26,0); } 100% { box-shadow: 0 0 0 0 rgba(224,70,26,0); } }
+@media (prefers-reduced-motion: reduce) { .blk-body .blk-page .urgency .u-dot { animation: none; } }
+@media (max-width: 749px) { .blk-body .blk-page .urgency { font-size: 13px; } }
