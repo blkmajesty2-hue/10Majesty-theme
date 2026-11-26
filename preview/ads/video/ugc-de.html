@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>BLK Majesty Reel DE</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Instrument+Serif:ital@0;1&family=Poppins:wght@700;800&display=swap">
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+  #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+  .scene { position: absolute; inset: 0; opacity: 0; }
+  .scene img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .scene .blur { filter: blur(40px) brightness(.7); transform: scale(1.2); }
+  .scene .fit { object-fit: contain; }
+  .vig { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.25) 0%, rgba(0,0,0,0) 25%, rgba(0,0,0,0) 45%, rgba(0,0,0,.55) 100%); }
+  #cap { position: absolute; left: 60px; right: 60px; top: 1080px; text-align: center; color: #fff; text-shadow: 0 4px 24px rgba(0,0,0,.55), 0 2px 4px rgba(0,0,0,.4); }
+  #cap .ln { display: block; line-height: 1.02; }
+  #cap .w { display: inline-block; margin: 0 .12em; font-family: Inter, sans-serif; font-weight: 700; font-size: 74px; letter-spacing: -0.04em; opacity: 0; transform: translateY(18px) scale(.94); }
+  #cap .w.it { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; font-size: 118px; letter-spacing: -0.02em; }
+  #pill { position: absolute; top: 230px; left: 50%; transform: translateX(-50%); background: #fff; color: #111; font-family: Inter, sans-serif; font-weight: 600; font-size: 46px; line-height: 1.2; text-align: center; padding: 22px 34px; border-radius: 26px; width: 820px; box-shadow: 0 10px 30px rgba(0,0,0,.2); }
+  #end { position: absolute; inset: 0; background: #fbfaf7; display: grid; place-items: center; opacity: 0; }
+  #end .in { display: grid; justify-items: center; gap: 34px; text-align: center; }
+  #end svg { width: 300px; height: auto; color: #1c3b4b; }
+  #end .lw { font-family: Poppins, sans-serif; color: #1c3b4b; line-height: .9; }
+  #end .lw b { display: block; font-size: 120px; font-weight: 800; letter-spacing: .08em; }
+  #end .lw span { display: block; font-size: 46px; font-weight: 700; letter-spacing: .4em; margin-top: 10px; }
+  #end .cta { margin-top: 30px; background: #1c3b4b; color: #fff; font-family: Poppins, sans-serif; font-weight: 700; font-size: 50px; padding: 30px 64px; border-radius: 99px; }
+  #end .sub { font-family: Inter, sans-serif; font-size: 38px; color: #4a5d68; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs>
+  <symbol id="hound" viewBox="170 20 680 840"><g fill="#b07a3c"><path d="M383 112C427 162 479 137 497 56C518 127 565 155 613 105L594 165C535 142 467 143 412 174Z"/><circle cx="379" cy="105" r="18"/><circle cx="498" cy="42" r="21"/><circle cx="624" cy="92" r="18"/></g><g fill="none" stroke="currentColor" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"><path d="M450 241C418 267 437 333 465 398C492 459 494 514 457 549C432 574 410 565 379 539C347 511 320 496 286 483C252 470 231 451 233 421C235 384 273 347 315 303L380 231C417 194 463 183 508 184C563 184 606 201 637 232C656 251 682 251 718 251L787 252C816 252 835 256 836 269C838 283 826 294 827 310C839 361 826 412 795 430C776 441 749 436 725 437C682 437 650 456 635 489C615 532 624 581 653 617C679 651 717 672 743 710C771 749 783 791 783 836H182C192 792 228 765 274 738L453 650C525 614 562 583 588 533C614 482 640 450 687 438"/><path d="M305 499C289 570 240 647 256 728"/></g><g fill="currentColor"><path d="M526 264C554 243 591 241 616 252L632 275C590 275 560 260 526 264Z"/><path d="M774 255L815 256Q837 257 835 271L826 301C799 300 781 286 774 270Z"/></g></symbol>
+</defs></svg>
+<div id="stage">
+  <div id="scenes"></div>
+  <div class="vig"></div>
+  <div id="pill">Fahr nie wieder ohne das<br>mit deinem Hund</div>
+  <div id="cap"></div>
+  <div id="end"><div class="in"><svg><use href="#hound"/></svg><div class="lw"><b>BLK</b><span>MAJESTY</span></div><div class="cta">Jetzt 50 % sichern →</div><div class="sub">blkmajesty.shop</div></div></div>
+</div>
+<script>
+// Scenes: image, start, end, captions (*word* = italic serif). Words appear one by one across the scene.
+const S = [
+  { img: 'car-navy',     a: 0,    b: 3.6,  pan: [1.0, 1.10, 0, -40], lines: ['Weißt du, was mit', 'deinem *Hund* passiert,'] },
+  { img: 'car-green',    a: 3.6,  b: 7.0,  pan: [1.12, 1.0, 0, 30],  lines: ['wenn du *scharf*', '*bremst?*'] },
+  { img: 'car-lavender', a: 7.0,  b: 10.6, pan: [1.0, 1.12, 30, 0],  lines: ['Ein *ungesicherter* Hund', 'rutscht durchs Auto –'] },
+  { img: 'ugc-suv',      a: 10.6, b: 13.8, pan: [1.1, 1.0, 0, 0],    lines: ['oder springt', '*nach vorne.*'] },
+  { img: 'navy',         a: 13.8, b: 17.0, pan: [1.0, 1.08, 0, 0],   lines: ['Deshalb gibt es den', '*Dog Dock.*'], fit: true },
+  { img: 'headrest',     a: 17.0, b: 20.2, pan: [1.0, 1.1, 0, 20],   lines: ['Gurt um die', '*Kopfstütze,*'] },
+  { img: 'top',          a: 20.2, b: 23.4, pan: [1.1, 1.0, 0, 0],    lines: ['*Leine* ans Geschirr –', 'fertig.'] },
+  { img: 'home-navy',    a: 23.4, b: 26.4, pan: [1.0, 1.1, -20, 0],  lines: ['Im Auto ein *Sitz,*', 'zu Hause ein *Bett.*'] },
+  { img: 'car-pink',     a: 26.4, b: 30.4, pan: [1.0, 1.08, 0, 0],   lines: ['*50 %* Rabatt,', 'kostenloser *Versand,*', '*lebenslange* Garantie.'] },
+];
+const END_A = 30.4, DUR = 33.5;
+const IMG = n => '../../img2/' + n + '.png';
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const ease = x => { x = clamp(x); return 1 - Math.pow(1 - x, 3); };
+const sc = document.getElementById('scenes');
+S.forEach((s, i) => {
+  const d = document.createElement('div'); d.className = 'scene'; d.id = 's' + i;
+  d.innerHTML = s.fit ? `<img class="blur" src="${IMG(s.img)}"><img class="fit" src="${IMG(s.img)}">` : `<img src="${IMG(s.img)}">`;
+  sc.appendChild(d);
+});
+const cap = document.getElementById('cap');
+function buildCap(s) {
+  cap.innerHTML = s.lines.map(l => '<span class="ln">' + l.split(' ').map(w => {
+    const it = /^\*.*\*$/.test(w) || /^\*/.test(w) || /\*$/.test(w);
+    return `<span class="w${it ? ' it' : ''}">${w.replace(/\*/g, '')}</span>`;
+  }).join(' ') + '</span>').join('');
+}
+let cur = -1;
+window.DUR = DUR;
+window.renderAt = function (t) {
+  S.forEach((s, i) => {
+    const el = document.getElementById('s' + i);
+    const fadeIn = i === 0 ? 1 : ease((t - s.a) / .25);
+    const vis = t >= s.a && t < s.b + .25 ? fadeIn : 0;
+    el.style.opacity = vis;
+    const p = clamp((t - s.a) / (s.b - s.a));
+    const z = s.pan[0] + (s.pan[1] - s.pan[0]) * p;
+    el.querySelectorAll('img:not(.blur)').forEach(im => im.style.transform = `scale(${z}) translate(${s.pan[2] * p}px, ${s.pan[3] * p}px)`);
+  });
+  const i = S.findIndex(s => t >= s.a && t < s.b);
+  if (i !== cur) { cur = i; if (i >= 0) buildCap(S[i]); else cap.innerHTML = ''; }
+  if (i >= 0) {
+    const s = S[i], ws = cap.querySelectorAll('.w'), span = (s.b - s.a) * .7;
+    ws.forEach((w, k) => { const st = s.a + .1 + span * k / ws.length; const q = ease((t - st) / .18); w.style.opacity = q; w.style.transform = `translateY(${18 * (1 - q)}px) scale(${.94 + .06 * q})`; });
+  }
+  document.getElementById('pill').style.opacity = t < 3.4 ? ease(t / .3) : 1 - ease((t - 3.4) / .3);
+  const e = ease((t - END_A) / .5);
+  const end = document.getElementById('end'); end.style.opacity = e;
+  end.querySelectorAll('.in > *').forEach((c, k) => { const q = ease((t - END_A - .2 - k * .15) / .45); c.style.opacity = q; c.style.transform = `translateY(${30 * (1 - q)}px)`; });
+};
+window.renderAt(0);
+</script>
+</body>
+</html>

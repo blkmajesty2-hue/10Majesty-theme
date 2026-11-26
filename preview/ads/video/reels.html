@@ -1,0 +1,77 @@
+<title>BLK Majesty German Ads</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@700;800&display=swap">
+<style>
+  /* Layout: one hero row for the 9:16 reel, then a wrapping grid of the six 4:5 feed videos. */
+  :root {
+    --bg: #f4f6f7; --surface: #ffffff; --ink: #1c3b4b; --muted: #5b6b74; --line: #d8e1e6; --gold: #b07a3c;
+    --head: "Poppins", "Helvetica Neue", Arial, sans-serif;
+    --body: "Inter", "Helvetica Neue", Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #0f1a20; --surface: #16252d; --ink: #e6eef2; --muted: #9db0ba; --line: #26414d; --gold: #d29a58; color-scheme: dark; } }
+  :root[data-theme="dark"] { --bg: #0f1a20; --surface: #16252d; --ink: #e6eef2; --muted: #9db0ba; --line: #26414d; --gold: #d29a58; color-scheme: dark; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.5; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding-block: 40px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 40px; }
+  header { display: grid; gap: 8px; }
+  .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+  h1, h2 { font-family: var(--head); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin: 0; text-wrap: balance; }
+  h1 { font-size: clamp(30px, 5vw, 46px); }
+  h2 { font-size: 22px; }
+  p { margin: 0; color: var(--muted); max-width: 65ch; }
+  .reel { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: 32px; align-items: start; }
+  .reel video { width: 100%; aspect-ratio: 9 / 16; border-radius: 18px; background: #000; display: block; }
+  .reel .txt { display: grid; gap: 14px; min-width: 0; }
+  .script { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  .script li { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+  .script b { font-variant-numeric: tabular-nums; color: var(--muted); font-weight: 600; font-size: 14px; }
+  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+  figure { margin: 0; display: grid; gap: 10px; min-width: 0; }
+  figure video { width: 100%; aspect-ratio: 4 / 5; border-radius: 14px; background: #000; display: block; }
+  figcaption { font-weight: 600; font-size: 15px; }
+  figcaption span { display: block; font-weight: 400; color: var(--muted); font-size: 14px; }
+  .note { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; color: var(--muted); font-size: 14px; }
+  @media (max-width: 760px) { .reel { grid-template-columns: minmax(0, 1fr); } .reel video { max-width: 360px; } .grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+  @media (max-width: 460px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Black Friday · Deutschland</span>
+    <h1>BLK Majesty Dog Dock: German video ads</h1>
+    <p>Tap play on any video. Each one is an MP4 you can upload straight to Meta Ads Manager (the files are in the repo under preview/ads/video).</p>
+  </header>
+
+  <section class="reel" aria-labelledby="reel-h">
+    <video src="reel-dog-dock-de.mp4" controls playsinline preload="metadata"></video>
+    <div class="txt">
+      <h2 id="reel-h">Reel · 9:16 · 33 s</h2>
+      <p>Stories and Reels. Captions appear word by word over your product photos and end on the BLK Majesty logo.</p>
+      <ul class="script">
+        <li><b>0:00</b><span>Fahr nie wieder ohne das mit deinem Hund. Weißt du, was mit deinem Hund passiert,</span></li>
+        <li><b>0:04</b><span>wenn du scharf bremst?</span></li>
+        <li><b>0:07</b><span>Ein ungesicherter Hund rutscht durchs Auto –</span></li>
+        <li><b>0:11</b><span>oder springt nach vorne.</span></li>
+        <li><b>0:14</b><span>Deshalb gibt es den Dog Dock.</span></li>
+        <li><b>0:17</b><span>Gurt um die Kopfstütze,</span></li>
+        <li><b>0:20</b><span>Leine ans Geschirr – fertig.</span></li>
+        <li><b>0:23</b><span>Im Auto ein Sitz, zu Hause ein Bett.</span></li>
+        <li><b>0:26</b><span>50 % Rabatt, kostenloser Versand, lebenslange Garantie.</span></li>
+        <li><b>0:30</b><span>Jetzt 50 % sichern → blkmajesty.shop</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section aria-labelledby="feed-h" style="display:grid;gap:20px">
+    <h2 id="feed-h">Feed videos · 4:5 · 8–10 s</h2>
+    <div class="grid">
+      <figure><video src="video-1-hook-de.mp4" controls playsinline preload="metadata"></video><figcaption>1 · Hook<span>Schluss mit dem Chaos auf der Rückbank.</span></figcaption></figure>
+      <figure><video src="video-2-features-de.mp4" controls playsinline preload="metadata"></video><figcaption>2 · Features<span>Für entspannte Autofahrten</span></figcaption></figure>
+      <figure><video src="video-3-colours-de.mp4" controls playsinline preload="metadata"></video><figcaption>3 · Farben<span>Wähle ihre Farbe</span></figcaption></figure>
+      <figure><video src="video-4-car-and-home-de.mp4" controls playsinline preload="metadata"></video><figcaption>4 · 2 in 1<span>Tagsüber Autositz, nachts Hundebett</span></figcaption></figure>
+      <figure><video src="video-5-black-friday-de.mp4" controls playsinline preload="metadata"></video><figcaption>5 · Black Friday<span>Nur bis Samstag, 28. November</span></figcaption></figure>
+      <figure><video src="video-6-comparison-de.mp4" controls playsinline preload="metadata"></video><figcaption>6 · Vergleich<span>Lose auf dem Sitz vs. Dog Dock</span></figcaption></figure>
+    </div>
+  </section>
+
+  <p class="note">The videos are silent. Add music or a German voiceover in Meta Ads Manager or CapCut. Prices are in €, so set up a Germany market in Shopify (€150 / €190) before running them.</p>
+</div>
