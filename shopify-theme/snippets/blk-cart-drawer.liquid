@@ -17,6 +17,11 @@
     <p><i><svg><use href="#blk-check"/></svg></i> You've unlocked <b>FREE express shipping</b></p>
     <div class="cd-bar" aria-hidden="true"><span></span></div>
   </div>
+  <div class="cd-timer" data-blk-cd-timer hidden>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 9v4l2.5 2M9 2h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    <span>Black Friday prices end in</span>
+    <b><span data-blk-cd-dd></span> <span class="cd-dlabel">days</span> <span data-blk-cd-hms></span></b>
+  </div>
   <div class="cd-body">
     <ul class="cd-items" data-blk-cd-items></ul>
     <div class="cd-badges" data-blk-cd-badges>{%- render 'blk-cart-trust' -%}</div>
@@ -135,6 +140,19 @@
     });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && drawer.classList.contains('open')) close(); });
 
+    (function () {
+      var box = q('[data-blk-cd-timer]'), bar = document.getElementById('blk-cdown');
+      var end = bar ? Date.parse(bar.dataset.end) : NaN; if (!box || isNaN(end)) return;
+      var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+      function tick() {
+        var t = Math.floor((end - Date.now()) / 1000);
+        if (t <= 0) { box.hidden = true; return; }
+        box.hidden = false;
+        q('[data-blk-cd-dd]').textContent = Math.floor(t / 86400);
+        q('[data-blk-cd-hms]').textContent = pad(Math.floor(t % 86400 / 3600)) + ':' + pad(Math.floor(t % 3600 / 60)) + ':' + pad(t % 60);
+      }
+      tick(); setInterval(tick, 1000);
+    })();
     window.BLKCart = {
       money: money,
       open: open,

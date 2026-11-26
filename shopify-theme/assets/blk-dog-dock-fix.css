@@ -49,3 +49,7 @@
 .blk-page .atc-btn:disabled { background: #e7ecef; color: #7a8a93; border-color: #c9d3d9; cursor: not-allowed; }
 .blk-page .info > .atc-btn { margin-top: 12px; }
 @media (max-width: 749px) { .blk-page .atc-btn { font-size: 16px; padding: 13px 10px; } }
+/* Cart Black Friday timer */
+.cd-timer { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; background: #111; color: #fff; padding: 9px 16px; font-size: 14px; }
+.cd-timer svg { width: 18px; height: 18px; flex: none; }
+.cd-timer b { font-family: var(--head); font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: .01em; }
