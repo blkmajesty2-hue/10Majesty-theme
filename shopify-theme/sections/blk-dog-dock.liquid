@@ -127,12 +127,12 @@
             <input type="hidden" name="id" id="blk-variant" value="{{ p.selected_or_first_available_variant.id }}">
             <div class="pay-terms">{{ form | payment_terms }}</div>
             <button type="submit" class="cta" id="blk-claim">{{ cta_inner }}</button>
-            <div class="dyn-checkout">{{ form | payment_button }}</div>
+            <button type="submit" class="atc-btn" id="blk-atc">Add to cart</button>
           {%- endform -%}
         {%- else -%}
           <p class="pay-terms pay-terms--fb"><span class="zi"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 2h6l6 6-6 6-6-6z" fill="currentColor"/><circle cx="5.5" cy="5.5" r="1.3" fill="#fff"/></svg>Zero interest</span> 4 payments of <b id="blk-terms">$0.00</b> with <b class="shopw">shop</b></p>
           <button type="button" class="cta" id="blk-claim">{{ cta_inner }}</button>
-          <button type="button" class="shop-btn" id="blk-shop">Buy with <b>shop</b></button>
+          <button type="button" class="atc-btn" id="blk-atc">Add to cart</button>
         {%- endif -%}
         <p class="applied"><i><svg><use href="#blk-check"/></svg></i>{{ section.settings.applied_text | escape }}</p>
         {%- if section.settings.second_offer != blank -%}<p class="second">{{ section.settings.second_offer | escape }}</p>{%- endif -%}
@@ -397,7 +397,7 @@
         var btn = $('#blk-claim'), sold = !v || !v.available;
         if (btn) {
           if (!btn.dataset.html) btn.dataset.html = btn.innerHTML;
-          btn.disabled = sold;
+          btn.disabled = sold; var atc = $('#blk-atc'); if (atc) { atc.disabled = sold; atc.textContent = sold ? 'Sold out' : 'Add to cart'; }
           btn.classList.toggle('is-sold', sold);
           if (sold) btn.textContent = 'Sold out'; else if (btn.innerHTML !== btn.dataset.html && btn.textContent === 'Sold out') btn.innerHTML = btn.dataset.html;
         }
@@ -445,7 +445,7 @@
         BLKCart.preview(items);
       };
       claim.addEventListener('click', previewAdd);
-      if ($('#blk-shop')) $('#blk-shop').addEventListener('click', previewAdd);
+      if ($('#blk-atc')) $('#blk-atc').addEventListener('click', previewAdd);
     }
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { addons.forEach(updateAddon); render(); });
     else { addons.forEach(updateAddon); render(); }

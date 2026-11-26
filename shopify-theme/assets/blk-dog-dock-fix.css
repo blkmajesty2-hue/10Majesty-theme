@@ -43,3 +43,9 @@
 /* Smaller product title */
 .blk-body .blk-page .info h1 { font-size: clamp(22px, 1.8vw, 26px); line-height: 1.2; letter-spacing: -0.02em; }
 @media (max-width: 749px) { .blk-body .blk-page .info h1 { font-size: 21px; } }
+/* Add to cart button (replaces Shop Pay) */
+.blk-page .atc-btn { width: 100%; border: 2px solid var(--navy); border-radius: 99px; background: var(--navy); color: #fff; padding: 14px; font-family: var(--head); font-weight: 700; font-size: 18px; letter-spacing: -0.02em; cursor: pointer; transition: background .2s, border-color .2s; }
+.blk-page .atc-btn:hover { background: var(--ocean); border-color: var(--ocean); }
+.blk-page .atc-btn:disabled { background: #e7ecef; color: #7a8a93; border-color: #c9d3d9; cursor: not-allowed; }
+.blk-page .info > .atc-btn { margin-top: 12px; }
+@media (max-width: 749px) { .blk-page .atc-btn { font-size: 16px; padding: 13px 10px; } }
