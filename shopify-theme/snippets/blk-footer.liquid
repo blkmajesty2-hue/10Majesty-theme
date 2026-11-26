@@ -71,3 +71,41 @@
     <div class="giant" aria-hidden="true">{%- render 'blk-logo' -%}<span>BLK MAJESTY</span></div>
   </div>
 </footer>
+<!-- blk-wave-anim -->
+<script>
+  /* Animated section dividers: every svg.wave gets a gently moving water line.
+     Same colour/side as before; only runs while visible; still for reduced-motion users. */
+  (function () {
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var W = 1440, H = 60, N = 48, live = [];
+    function setup(svg, i) {
+      var path = svg.querySelector('path'); if (!path) return;
+      var d = path.getAttribute('d') || '';
+      var top = /^M\s*0[\s,]+0\s*h/i.test(d);          /* colour fills the area above the line */
+      var w = { svg: svg, path: path, top: top, on: false,
+                ph: i * 1.7, sp: 0.55 + (i % 3) * 0.08, base: top ? 28 : 32 };
+      live.push(w);
+      if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { w.on = es[0].isIntersecting; }, { rootMargin: '80px' }).observe(svg);
+      else w.on = true;
+      draw(w, 0);
+    }
+    function y(w, x, t) {
+      var u = x / W * Math.PI * 2;
+      return w.base + 11 * Math.sin(u * 1.0 + t * w.sp + w.ph) + 6 * Math.sin(u * 2.3 - t * w.sp * 1.4 + w.ph * 0.6) + 2.5 * Math.sin(u * 4.1 + t * 0.9);
+    }
+    function draw(w, t) {
+      var pts = [];
+      for (var k = 0; k <= N; k++) { var x = W * k / N; pts.push(x.toFixed(1) + ' ' + Math.max(2, Math.min(H - 2, y(w, x, t))).toFixed(1)); }
+      var d = w.top ? 'M0 0H' + W + 'V' + pts[N].split(' ')[1] + 'L' + pts.slice().reverse().join('L') + 'Z'
+                    : 'M0 ' + H + 'V' + pts[0].split(' ')[1] + 'L' + pts.join('L') + 'V' + H + 'Z';
+      w.path.setAttribute('d', d);
+    }
+    function loop(ms) {
+      var t = ms / 1000;
+      for (var i = 0; i < live.length; i++) if (live[i].on) draw(live[i], t);
+      requestAnimationFrame(loop);
+    }
+    function init() { document.querySelectorAll('svg.wave').forEach(setup); if (live.length) requestAnimationFrame(loop); }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+  })();
+</script>
