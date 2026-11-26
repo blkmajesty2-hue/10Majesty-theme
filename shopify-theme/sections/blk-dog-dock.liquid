@@ -316,20 +316,24 @@
 
   <section class="band white" id="reviews">
     <div class="wrap">
-      <div class="rv-head">
-        <div class="rv-count"><span class="rv-stars big" aria-hidden="true">★★★★★</span><span class="rv-toggle">{{ section.settings.reviews_count | escape }}</span></div>
+      <div class="rv-head2">
+        <h2 class="rv-title">{% if request.locale.iso_code == 'de' %}Kundenbewertungen{% else %}Customer reviews{% endif %}</h2>
+        <div class="rv-line"><span class="stars5" style="--pct:100%" role="img" aria-label="5/5"></span><span class="rv-num">{{ section.settings.reviews_count | escape }}</span></div>
       </div>
       {%- if section.settings.summary != blank -%}
-        <div class="rv-summary"><h3>Review summary</h3><p>{{ section.settings.summary | escape }}</p></div>
+        <div class="rv-summary2">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9z" fill="currentColor"/><path d="M19 15l.8 1.9 1.9.8-1.9.8L19 20.4l-.8-1.9-1.9-.8 1.9-.8z" fill="currentColor"/></svg>
+          <div><h3>Review summary</h3><p>{{ section.settings.summary | escape }}</p></div>
+        </div>
       {%- endif -%}
-      <div class="rv-grid" style="margin-top:20px">
+      <div class="rv-grid rv-grid2">
         {%- for block in section.blocks -%}
           {%- if block.type == 'review' -%}
             <article class="rv-card" {{ block.shopify_attributes }}>
               {%- if block.settings.image != blank -%}<div class="rv-photo">{{ block.settings.image | image_url: width: 600 | image_tag: loading: 'lazy', alt: block.settings.image.alt }}</div>{%- endif -%}
               <div class="rv-body">
                 <div class="rv-who"><span class="av">{{ block.settings.name | slice: 0 }}</span>{{ block.settings.name | escape }}<span class="rv-ver">Verified</span></div>
-                <span class="rv-stars" aria-label="{{ block.settings.rating }} out of 5">{% for i in (1..block.settings.rating) %}★{% endfor %}</span>
+                <span class="stars5 sm" style="--pct:{{ block.settings.rating | times: 20 }}%" role="img" aria-label="{{ block.settings.rating }}/5"></span>
                 <p>{{ block.settings.text | escape }}</p>
                 <div class="rv-meta"><span>{{ block.settings.date | escape }}</span></div>
               </div>

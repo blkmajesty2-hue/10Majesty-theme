@@ -78,3 +78,33 @@
   .blk-body .blk-page .price-box .p-was { font-size: 18px; }
   .blk-body .blk-page .price-box .p-save { font-size: 13px; padding: 5px 9px; }
 }
+
+/* Reviews section: compact header, crisp SVG stars, light summary, 2-up cards on phones */
+.blk-body .stars5 { --s: 18px; --g: 3px; display: inline-block; flex: none; width: calc(var(--s) * 5 + var(--g) * 4); height: var(--s); background: linear-gradient(90deg, #12a150 var(--pct, 100%), #d6dde1 0); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 24'%3E%3Cpath d='M12 1.5l3.1 6.6 7.2.8-5.4 4.9 1.5 7.1L12 17.3l-6.4 3.6 1.5-7.1L1.7 8.9l7.2-.8z'/%3E%3C/svg%3E") 0 0 / calc(var(--s) + var(--g)) var(--s) repeat-x; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 24'%3E%3Cpath d='M12 1.5l3.1 6.6 7.2.8-5.4 4.9 1.5 7.1L12 17.3l-6.4 3.6 1.5-7.1L1.7 8.9l7.2-.8z'/%3E%3C/svg%3E") 0 0 / calc(var(--s) + var(--g)) var(--s) repeat-x; }
+.blk-body .stars5.sm { --s: 14px; --g: 2px; }
+.blk-body .blk-page .rv-head2 { display: grid; justify-items: center; gap: 8px; text-align: center; }
+.blk-body .blk-page .rv-title { margin: 0; font-size: 30px; }
+.blk-body .blk-page .rv-line { display: flex; align-items: center; gap: 10px; font-size: 15px; color: #4a5a63; }
+.blk-body .blk-page .rv-num { font-weight: 600; color: var(--ink, #1c3b4b); }
+.blk-body .blk-page .rv-summary2 { display: flex; gap: 12px; align-items: flex-start; max-width: 760px; margin: 22px auto 0; padding: 16px 18px; background: #f4f8fa; border: 1px solid #e2eaee; border-radius: 14px; }
+.blk-body .blk-page .rv-summary2 > svg { flex: none; width: 22px; height: 22px; color: #2a6b8f; margin-top: 1px; }
+.blk-body .blk-page .rv-summary2 h3 { margin: 0 0 4px; font-family: inherit; font-size: 14px; font-weight: 700; letter-spacing: .02em; text-transform: uppercase; color: #2a6b8f; }
+.blk-body .blk-page .rv-summary2 p { margin: 0; font-size: 15px; line-height: 1.55; color: #33444d; }
+.blk-body .blk-page .rv-grid2 { margin-top: 26px; columns: 4 220px; column-gap: 16px; }
+.blk-body .blk-page .rv-grid2 .rv-card { margin-bottom: 16px; border-radius: 14px; }
+.blk-body .blk-page .rv-grid2 .rv-body { gap: 6px; padding: 12px 14px 14px; }
+.blk-body .blk-page .rv-grid2 .rv-who { font-size: 14px; flex-wrap: wrap; row-gap: 2px; }
+.blk-body .blk-page .rv-grid2 .rv-body p { margin: 0; font-size: 14px; line-height: 1.5; }
+@media (max-width: 749px) {
+  .blk-body .blk-page .rv-title { font-size: 24px; }
+  .blk-body .blk-page .rv-line { font-size: 14px; }
+  .blk-body .blk-page .rv-summary2 { margin-top: 16px; padding: 14px; }
+  .blk-body .blk-page .rv-summary2 p { font-size: 14px; }
+  .blk-body .blk-page .rv-grid2 { columns: 2; column-gap: 10px; margin-top: 18px; }
+  .blk-body .blk-page .rv-grid2 .rv-card { margin-bottom: 10px; border-radius: 12px; }
+  .blk-body .blk-page .rv-grid2 .rv-body { padding: 10px 10px 12px; }
+  .blk-body .blk-page .rv-grid2 .rv-who { font-size: 13px; }
+  .blk-body .blk-page .rv-grid2 .rv-who .av { width: 24px; height: 24px; font-size: 11px; }
+  .blk-body .blk-page .rv-grid2 .rv-body p { font-size: 13px; }
+  .blk-body .blk-page .rv-grid2 .rv-meta { font-size: 11px; }
+}
