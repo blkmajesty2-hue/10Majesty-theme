@@ -1,6 +1,6 @@
 # BLK Majesty Dog Dock: German Reel (script + shot list)
 
-Finished version from product images: `reel-dog-dock-de.mp4` (9:16, 33 s, captions only).
+Finished version from product images: `reel-dog-dock-de.mp4` (9:16, 33 s, German voiceover + captions).
 Use this script to film your own version with a phone (9:16, 4K or 1080p, daylight).
 
 | # | Time | Shot to film | German voiceover / caption | English meaning |
@@ -10,7 +10,7 @@ Use this script to film your own version with a phone (9:16, 4K or 1080p, daylig
 | 3 | 7–10.5 s | Dog shifting on the seat / sliding paw (staged, parked). | Ein ungesicherter Hund rutscht durchs Auto – | An unsecured dog slides around the car… |
 | 4 | 10.5–14 s | Dog's head poking between the front seats. | …oder springt nach vorne. | …or jumps into the front. |
 | 5 | 14–17 s | Product hero: the Dog Dock on the back seat, slow push-in. | Deshalb gibt es den Dog Dock. | That's why there's the Dog Dock. |
-| 6 | 17–20 s | Close-up: hands looping the strap round the headrest and clicking the buckle. | Gurt um die Kopfstütze, | Strap round the headrest, |
+| 6 | 17–20 s | Close-up: hands looping the strap round the headrest and clicking the buckle. | Einfach den Gurt um die Kopfstütze, | Strap round the headrest, |
 | 7 | 20–23.5 s | Close-up: clipping the safety leash to the dog's harness. | Leine ans Geschirr – fertig. | Leash to the harness – done. |
 | 8 | 23.5–26.5 s | Carrying it inside by the shoulder strap, dog lying in it on the sofa/floor. | Im Auto ein Sitz, zu Hause ein Bett. | A seat in the car, a bed at home. |
 | 9 | 26.5–30.5 s | You back at the car boot, talking to camera. | 50 % Rabatt, kostenloser Versand, lebenslange Garantie. | 50% off, free shipping, lifetime guarantee. |
@@ -29,7 +29,7 @@ Use this script to film your own version with a phone (9:16, 4K or 1080p, daylig
 **Description:** Kostenloser Versand · 30 Tage Rückgabe
 
 ## Notes
-- Captions-only works on Reels. For a voiceover, record the German lines above (or a native speaker), then add music in CapCut / Meta.
+- The finished reel has a computer-generated German voiceover (no music). For a more natural sound, record a native speaker reading the lines above, then add music in CapCut / Meta.
 - Don't claim crash protection: the bed is not crash-tested. Talk about comfort, staying in place and not jumping into the front.
 - Film scene 2–4 with the car **parked**. Never stage braking with a real dog.
 - Prices in the ad are in € – set up a Germany market (€150 / €190) in Shopify Markets before running it.
