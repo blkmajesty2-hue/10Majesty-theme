@@ -58,10 +58,25 @@
 
       <div class="info">
         <h1 id="ptitle-{{ section.id }}">{% if has_product %}{{ p.title | escape }}{% else %}{{ section.settings.title | escape }}{% endif %}</h1>
-        <p class="price">
-          <span id="blk-price">{% if has_product %}{{ p.selected_or_first_available_variant.price | money }}{% else %}{{ section.settings.price_text | escape }}{% endif %}</span>
-          <s id="blk-compare">{% if has_product %}{{ p.selected_or_first_available_variant.compare_at_price | money }}{% else %}{{ section.settings.compare_text | escape }}{% endif %}</s>
-        </p>
+        {%- liquid
+          assign pv = p.selected_or_first_available_variant
+          assign is_de = false
+          if request.locale.iso_code == 'de'
+            assign is_de = true
+          endif
+          assign save_pct = 0
+          if has_product and pv.compare_at_price > pv.price
+            assign save_pct = pv.compare_at_price | minus: pv.price | times: 100 | divided_by: pv.compare_at_price
+          endif
+        -%}
+        <div class="price-box">
+          <p class="price">
+            <span id="blk-price" class="p-now">{% if has_product %}{{ pv.price | money_without_trailing_zeros }}{% else %}{{ section.settings.price_text | escape }}{% endif %}</span>
+            <s id="blk-compare" class="p-was">{% if has_product and pv.compare_at_price > pv.price %}{{ pv.compare_at_price | money_without_trailing_zeros }}{% elsif has_product == false %}{{ section.settings.compare_text | escape }}{% endif %}</s>
+            <span id="blk-save" class="p-save" data-de="{{ is_de }}"{% if save_pct == 0 %} hidden{% endif %}>{% if is_de %}Spare {{ save_pct }} %{% else %}Save {{ save_pct }}%{% endif %}</span>
+          </p>
+          <p class="p-tax">{% if is_de %}{% if cart.taxes_included %}inkl. MwSt.{% else %}zzgl. MwSt.{% endif %} · kostenloser Versand{% else %}{% if cart.taxes_included %}Tax included{% else %}Taxes calculated at checkout{% endif %} · Free shipping{% endif %}</p>
+        </div>
         {%- if section.settings.promo != blank -%}<p class="promo">{{ section.settings.promo | escape }}</p>{%- endif -%}
 
         <div class="sizes" role="group" aria-label="Size">
@@ -349,7 +364,7 @@
     var sizePrices = {};
     ({{ section.settings.size_prices | json }} || '').split(',').forEach(function (rule) { var kv = rule.split('='); if (kv.length > 1) { var pw = kv[1].split('/'); sizePrices[kv[0].trim()] = [pw[0].trim(), (pw[1] || '').trim()]; } });
     function showImage(src) { var m = $('#blk-main-img'); if (m && src) { m.src = src; m.removeAttribute('srcset'); } thumbs.forEach(function (t) { t.setAttribute('aria-current', t.dataset.img === src); }); }
-    function money(c) { return window.BLKCart ? BLKCart.money(c) : '$' + (c / 100).toFixed(2); }
+    function money(c) { var t = window.BLKCart ? BLKCart.money(c) : '$' + (c / 100).toFixed(2); return t.replace(/[.,]00(?!\d)/, ''); }
     function parseMoney(t) { var n = parseFloat(String(t || '').replace(/[^0-9.,]/g, '').replace(/,(?=\d{3})/g, '').replace(',', '.')); return isNaN(n) ? 0 : Math.round(n * 100); }
     function bundleOn() { var c = $('#blk-bundle'); return c ? c.checked : false; }
     var addons = $$('[data-addon]');
@@ -390,7 +405,13 @@
       var t = thumbs.filter(function (x) { return x.dataset.colour === state.colour; })[0];
       if (t) showImage(t.dataset.img);
       var v = variants.filter(function (x) { return x.options.indexOf(state.size) > -1 && x.options.indexOf(state.colour) > -1; })[0];
-      if (v) { $('#blk-variant').value = v.id; $('#blk-price').textContent = money(v.price); $('#blk-compare').textContent = v.compare_at_price ? money(v.compare_at_price) : ''; }
+      if (v) {
+        $('#blk-variant').value = v.id; $('#blk-price').textContent = money(v.price);
+        var onSale = v.compare_at_price > v.price;
+        $('#blk-compare').textContent = onSale ? money(v.compare_at_price) : '';
+        var sv = $('#blk-save');
+        if (sv) { var pct = onSale ? Math.floor((v.compare_at_price - v.price) * 100 / v.compare_at_price) : 0; sv.hidden = !pct; sv.textContent = sv.dataset.de === 'true' ? 'Spare ' + pct + ' %' : 'Save ' + pct + '%'; }
+      }
       if (variants.length) {
         $$('.swatch').forEach(function (sw) {
           var c = sw.dataset.colour, any = variants.some(function (x) { return x.options.indexOf(c) > -1 && x.available; });
