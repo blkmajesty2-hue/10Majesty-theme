@@ -42,7 +42,7 @@
 <script type="application/json" id="blk-cart-data">{{ cart | json }}</script>
 <script>
   (function () {
-    var fmt = {{ shop.money_format | json }};
+    var fmt = {% if cart.currency.iso_code == 'EUR' %}"{% raw %}{{amount_with_comma_separator}} €{% endraw %}"{% else %}{{ shop.money_format | json }}{% endif %};
     var root = {{ routes.root_url | json }}.replace(/\/$/, '');
     var drawer = document.getElementById('blk-cart');
     var overlay = document.querySelector('.cd-overlay');

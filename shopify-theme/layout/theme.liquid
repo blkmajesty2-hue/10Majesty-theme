@@ -11,10 +11,13 @@
   {{ content_for_header }}
 </head>
 <body class="blk-body">
+  {%- capture blk_body -%}
   {%- render 'blk-header' -%}
   <main id="MainContent">{{ content_for_layout }}</main>
   {%- render 'blk-footer' -%}
   {%- render 'blk-cart-drawer' -%}
+  {%- endcapture -%}
+  {%- if request.locale.iso_code == 'de' -%}{%- render 'blk-de', html: blk_body -%}{%- else -%}{{ blk_body }}{%- endif -%}
 </body>
 </html>
 {%- else -%}
