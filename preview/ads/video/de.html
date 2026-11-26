@@ -19,6 +19,7 @@
   .tick svg { width: 24px; height: 24px; }
   .cta { display: inline-flex; align-items: center; background: var(--navy); color: #fff; border-radius: 99px; padding: 28px 54px; font-family: Poppins, sans-serif; font-weight: 700; font-size: 40px; letter-spacing: -0.02em; }
   .cta.light { background: #fff; color: var(--navy); }
+  #bt { width: 250px; height: 250px; }
   .burst { position: absolute; width: 250px; height: 250px; display: grid; place-items: center; text-align: center; color: #fff; font-family: Poppins, sans-serif; }
   .burst svg { position: absolute; inset: 0; width: 100%; height: 100%; }
   .burst div { position: relative; font-weight: 800; line-height: 1; }
@@ -120,8 +121,10 @@ const V = {
 };
 const v = V[+(new URLSearchParams(location.search).get('v') || 1)];
 $('#stage').innerHTML = v.html;
-window.DUR = v.dur;
-window.renderAt = t => v.render(t);
+// Optional time stretch so a voiceover fits: ?k=<factor>&d=<seconds>
+const Q = new URLSearchParams(location.search), K = +(Q.get('k') || 1);
+window.DUR = +(Q.get('d') || v.dur * K);
+window.renderAt = t => v.render(t / K);
 v.render(0);
 </script>
 </body>
