@@ -1,6 +1,6 @@
 # BLK Majesty Dog Dock: German Reel (script + shot list)
 
-Finished version from product images: `reel-dog-dock-de.mp4` (9:16, 33 s, German voiceover + captions).
+Finished version from product images: `reel-dog-dock-de.mp4` (9:16, 24 s, German voiceover + soft background music + captions).
 Use this script to film your own version with a phone (9:16, 4K or 1080p, daylight).
 
 | # | Time | Shot to film | German voiceover / caption | English meaning |
@@ -29,7 +29,7 @@ Use this script to film your own version with a phone (9:16, 4K or 1080p, daylig
 **Description:** Kostenloser Versand · 30 Tage Rückgabe
 
 ## Notes
-- The finished reel has a computer-generated German voiceover (no music). For a more natural sound, record a native speaker reading the lines above, then add music in CapCut / Meta.
+- The finished reel has a computer-generated German voiceover and a quiet background track (made for this ad, no licensing needed). For a more natural sound, record a native speaker reading the lines above, then add music in CapCut / Meta.
 - Don't claim crash protection: the bed is not crash-tested. Talk about comfort, staying in place and not jumping into the front.
 - Film scene 2–4 with the car **parked**. Never stage braking with a real dog.
 - Prices in the ad are in € – set up a Germany market (€150 / €190) in Shopify Markets before running it.

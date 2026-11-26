@@ -42,17 +42,17 @@
 <script>
 // Scenes: image, start, end, captions (*word* = italic serif). Words appear one by one across the scene.
 const S = [
-  { img: 'car-navy',     a: 0,    b: 3.6,  pan: [1.0, 1.10, 0, -40], lines: ['Weißt du, was mit', 'deinem *Hund* passiert,'] },
-  { img: 'car-green',    a: 3.6,  b: 7.0,  pan: [1.12, 1.0, 0, 30],  lines: ['wenn du *scharf*', '*bremst?*'] },
-  { img: 'car-lavender', a: 7.0,  b: 10.6, pan: [1.0, 1.12, 30, 0],  lines: ['Ein *ungesicherter* Hund', 'rutscht durchs Auto –'] },
-  { img: 'ugc-suv',      a: 10.6, b: 13.8, pan: [1.1, 1.0, 0, 0],    lines: ['oder springt', '*nach vorne.*'] },
-  { img: 'navy',         a: 13.8, b: 17.0, pan: [1.0, 1.08, 0, 0],   lines: ['Deshalb gibt es den', '*Dog Dock.*'], fit: true },
-  { img: 'headrest',     a: 17.0, b: 20.2, pan: [1.0, 1.1, 0, 20],   lines: ['Gurt um die', '*Kopfstütze,*'] },
-  { img: 'top',          a: 20.2, b: 23.4, pan: [1.1, 1.0, 0, 0],    lines: ['*Leine* ans Geschirr –', 'fertig.'] },
-  { img: 'home-navy',    a: 23.4, b: 26.4, pan: [1.0, 1.1, -20, 0],  lines: ['Im Auto ein *Sitz,*', 'zu Hause ein *Bett.*'] },
-  { img: 'car-pink',     a: 26.4, b: 30.4, pan: [1.0, 1.08, 0, 0],   lines: ['*50 %* Rabatt,', 'kostenloser *Versand,*', '*lebenslange* Garantie.'] },
+  { img: 'car-navy', a: 0.0, b: 3.93, cs: 2.22, ce: 3.85, pan: [1.0, 1.1, 0, -40], lines: ["Weißt du, was mit", "deinem *Hund* passiert,"] },
+  { img: 'car-green', a: 3.93, b: 5.63, cs: 3.93, ce: 4.96, pan: [1.12, 1.0, 0, 30], lines: ["wenn du *scharf*", "*bremst?*"] },
+  { img: 'car-lavender', a: 5.63, b: 7.7, cs: 5.63, ce: 7.6, pan: [1.0, 1.12, 30, 0], lines: ["Ein *ungesicherter* Hund", "rutscht durchs Auto –"] },
+  { img: 'ugc-suv', a: 7.7, b: 9.4, cs: 7.7, ce: 8.72, pan: [1.1, 1.0, 0, 0], lines: ["oder springt", "*nach vorne.*"] },
+  { img: 'navy', a: 9.4, b: 11.1, cs: 9.4, ce: 10.67, pan: [1.0, 1.08, 0, 0], lines: ["Deshalb gibt es den", "*Dog Dock.*"], fit: true },
+  { img: 'headrest', a: 11.1, b: 12.8, cs: 11.1, ce: 12.6, pan: [1.0, 1.1, 0, 20], lines: ["Einfach den Gurt um die", "*Kopfstütze,*"] },
+  { img: 'top', a: 12.8, b: 14.76, cs: 12.8, ce: 14.41, pan: [1.1, 1.0, 0, 0], lines: ["*Leine* ans Geschirr –", "fertig."] },
+  { img: 'home-navy', a: 14.76, b: 17.16, cs: 14.76, ce: 16.81, pan: [1.0, 1.1, -20, 0], lines: ["Im Auto ein *Sitz,*", "zu Hause ein *Bett.*"] },
+  { img: 'car-pink', a: 17.16, b: 21.2, cs: 17.16, ce: 20.9, pan: [1.0, 1.08, 0, 0], lines: ["*50 %* Rabatt,", "kostenloser *Versand,*", "*lebenslange* Garantie."] },
 ];
-const END_A = 30.4, DUR = 33.5;
+const END_A = 21.2, DUR = 24.04, PILL_END = 1.97;
 const IMG = n => '../../img2/' + n + '.png';
 const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
 const ease = x => { x = clamp(x); return 1 - Math.pow(1 - x, 3); };
@@ -84,10 +84,10 @@ window.renderAt = function (t) {
   const i = S.findIndex(s => t >= s.a && t < s.b);
   if (i !== cur) { cur = i; if (i >= 0) buildCap(S[i]); else cap.innerHTML = ''; }
   if (i >= 0) {
-    const s = S[i], ws = cap.querySelectorAll('.w'), span = (s.b - s.a) * .7;
-    ws.forEach((w, k) => { const st = s.a + .1 + span * k / ws.length; const q = ease((t - st) / .18); w.style.opacity = q; w.style.transform = `translateY(${18 * (1 - q)}px) scale(${.94 + .06 * q})`; });
+    const s = S[i], ws = cap.querySelectorAll('.w'), c0 = s.cs != null ? s.cs : s.a + .1, span = s.ce != null ? (s.ce - c0) * .85 : (s.b - s.a) * .7;
+    ws.forEach((w, k) => { const st = c0 + span * k / ws.length; const q = ease((t - st) / .18); w.style.opacity = q; w.style.transform = `translateY(${18 * (1 - q)}px) scale(${.94 + .06 * q})`; });
   }
-  document.getElementById('pill').style.opacity = t < 3.4 ? ease(t / .3) : 1 - ease((t - 3.4) / .3);
+  document.getElementById('pill').style.opacity = t < PILL_END ? ease(t / .3) : 1 - ease((t - PILL_END) / .3);
   const e = ease((t - END_A) / .5);
   const end = document.getElementById('end'); end.style.opacity = e;
   end.querySelectorAll('.in > *').forEach((c, k) => { const q = ease((t - END_A - .2 - k * .15) / .45); c.style.opacity = q; c.style.transform = `translateY(${30 * (1 - q)}px)`; });
